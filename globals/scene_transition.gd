@@ -12,6 +12,7 @@ var _preview: TextureRect
 var _black: ColorRect
 var _confirmation_sound: AudioStreamPlayer
 var _active: bool = false
+var _ui_feedback_armed: bool = false
 
 func _ready() -> void:
 	layer = 100
@@ -39,6 +40,16 @@ func _ready() -> void:
 	_confirmation_sound.stream = _create_confirmation_beep()
 	_confirmation_sound.volume_db = -10.0
 	add_child(_confirmation_sound)
+
+func _input(event: InputEvent) -> void:
+	if _ui_feedback_armed:
+		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		_ui_feedback_armed = true
+	elif event is InputEventJoypadButton and event.pressed:
+		_ui_feedback_armed = true
+	elif event is InputEventJoypadMotion and absf(event.axis_value) >= 0.5:
+		_ui_feedback_armed = true
 
 func is_active() -> bool:
 	return _active
@@ -140,6 +151,8 @@ func quit_game() -> void:
 	get_tree().quit()
 
 func play_selection_beep() -> void:
+	if not _ui_feedback_armed:
+		return
 	_confirmation_sound.stop()
 	_confirmation_sound.play()
 

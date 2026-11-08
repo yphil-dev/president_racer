@@ -86,7 +86,6 @@ func _ready() -> void:
 		selectable_buttons[index].focus_entered.connect(_select_button.bind(index))
 		selectable_buttons[index].mouse_entered.connect(_hover_button.bind(index))
 		selectable_buttons[index].resized.connect(_update_button_pivot.bind(index))
-		selectable_buttons[index].mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
 	resized.connect(_layout_menu)
 	_initialize_selection.call_deferred()
@@ -212,6 +211,7 @@ func _capture_preview(
 		return
 
 	var track := packed_scene.instantiate()
+	track.set_meta(&"menu_preview", true)
 	track.process_mode = Node.PROCESS_MODE_DISABLED
 
 	var track_ui := track.get_node_or_null("UI") as CanvasLayer

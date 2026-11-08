@@ -1,8 +1,10 @@
 extends TextureButton
 
-@export var url: String = "https://yphil.gitlab.io/"
+@export var url: String = "https://yphil.gitlab.io/projects/"
 
 func _ready() -> void:
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+
 	# Center the pivot point so it grows perfectly from the middle
 	pivot_offset = size * 0.5
 

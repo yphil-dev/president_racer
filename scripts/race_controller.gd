@@ -11,6 +11,7 @@ signal race_finished(standings: Array)
 @export_range(0.1, 2.0, 0.1) var blink_interval: float = 0.5
 @export_range(1.0, 60.0, 1.0) var classification_window: float = 15.0
 @export_range(0.05, 1.0, 0.05) var standings_update_interval: float = 0.1
+@export_range(1.0, 2.0, 0.1) var post_finish_coast_distance: float = 1.5
 @export_node_path("RaceTrafficLight") var traffic_light_path: NodePath
 
 
@@ -55,6 +56,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		SceneTransition.transition_to_menu()
 
 func _ready() -> void:
+	if race_track.get_meta(&"menu_preview", false):
+		return
+
 	race_track.connect("lap_completed", _on_track_lap_completed)
 	race_track.connect("car_finished", _on_track_car_finished)
 
@@ -161,7 +165,7 @@ func _on_track_car_finished(car: VehicleSphere, lap_number: int) -> void:
 
 	state.record_finish(race_elapsed)
 	_update_state_progress(state)
-	state.vehicle.set_driving_enabled(false)
+	state.vehicle.begin_finish_coast(post_finish_coast_distance)
 	_finish_audio.play()
 	car.race_completed(lap_number, race_elapsed)
 	car_finished.emit(state)

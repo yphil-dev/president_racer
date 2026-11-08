@@ -56,6 +56,10 @@ var car_color: Color = Color.WHITE
 @onready var skidmark_emitter: Node = $SkidmarkEmitter
 var rear_lamp_material: StandardMaterial3D
 var _rear_lamp_hold_remaining: float = 0.0
+var _finish_coast_distance: float = 0.0
+var _finish_coast_start: Vector3
+var _finish_coast_speed: float = 0.0
+var _race_finished: bool = false
 const REAR_LAMP_HOLD_DURATION: float = 0.4
 
 # Sounds
@@ -92,10 +96,24 @@ func get_vehicle_position() -> Vector3: return vehicle_model.global_position
 
 func set_driving_enabled(enabled: bool) -> void:
 	driving_enabled = enabled
-	if not driving_enabled:
+	if driving_enabled:
+		_race_finished = false
+		_finish_coast_distance = 0.0
+	elif not driving_enabled:
 		input = Vector3.ZERO
 		linear_speed = 0.0
 		angular_speed = 0.0
+
+func begin_finish_coast(distance: float) -> void:
+	_race_finished = true
+	_finish_coast_distance = maxf(distance, 0.0)
+	_finish_coast_start = sphere.global_position
+	_finish_coast_speed = maxf(linear_speed, 0.25)
+	_rear_lamp_hold_remaining = 0.0
+	effect_brake_lights(false)
+	driving_enabled = _finish_coast_distance > 0.0
+	if not driving_enabled:
+		set_driving_enabled(false)
 
 # Functions
 
@@ -156,6 +174,13 @@ func _ready() -> void:
 
 func _physics_process(delta):
 
+	if _finish_coast_distance > 0.0:
+		var finish_offset := sphere.global_position - _finish_coast_start
+		finish_offset.y = 0.0
+		if finish_offset.length() >= _finish_coast_distance:
+			_finish_coast_distance = 0.0
+			set_driving_enabled(false)
+
 	handle_input(delta)
 
 	var direction = sign(linear_speed)
@@ -186,8 +211,12 @@ func _physics_process(delta):
 	colliding = raycast.is_colliding()
 
 	var target_speed = input.z * (max_forward_speed if input.z >= 0.0 else max_reverse_speed)
-	var rear_lamps_on := input.z <= 0.1 or (linear_speed > 0.05 and target_speed < linear_speed - 0.05)
-	if rear_lamps_on:
+	var rear_lamps_on := not _race_finished and (
+		input.z <= 0.1 or (linear_speed > 0.05 and target_speed < linear_speed - 0.05)
+	)
+	if _race_finished:
+		_rear_lamp_hold_remaining = 0.0
+	elif rear_lamps_on:
 		_rear_lamp_hold_remaining = REAR_LAMP_HOLD_DURATION
 	else:
 		_rear_lamp_hold_remaining = maxf(0.0, _rear_lamp_hold_remaining - delta)
@@ -225,6 +254,17 @@ func get_control_input() -> Vector2:
 
 # Apply controls when the vehicle is colliding with the ground.
 func handle_input(delta):
+
+	if _finish_coast_distance > 0.0:
+		input.x = 0.0
+		input.z = clampf(_finish_coast_speed / maxf(max_forward_speed, 0.001), 0.1, 1.0)
+		if raycast.is_colliding():
+			sphere.angular_velocity += vehicle_model.get_global_transform().basis.x * (
+				linear_speed * drive_torque
+			) * delta
+		else:
+			input = input.lerp(Vector3.ZERO, delta * air_input_decay)
+		return
 
 	if not driving_enabled:
 		input = Vector3.ZERO

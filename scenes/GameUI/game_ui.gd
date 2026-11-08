@@ -63,7 +63,6 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 	if not resized.is_connected(_layout_race_again):
 		resized.connect(_layout_race_again)
 
-	race_again.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	_apply_initial_standings(initial_standings)
 
 func _process(_delta: float) -> void:

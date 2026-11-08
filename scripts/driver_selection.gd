@@ -79,13 +79,11 @@ func _ready() -> void:
 		driver_buttons[index].focus_entered.connect(_focus_driver.bind(index))
 		driver_buttons[index].mouse_entered.connect(_hover_driver.bind(index))
 		driver_buttons[index].resized.connect(_update_button_pivot.bind(index))
-		driver_buttons[index].mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 
 	for index in lap_buttons.size():
 		lap_buttons[index].pressed.connect(_select_laps.bind(index + 1))
 		lap_buttons[index].focus_entered.connect(_focus_lap.bind(index))
 		lap_buttons[index].mouse_entered.connect(_hover_lap.bind(index))
-		lap_buttons[index].mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	var selected_lap_button := lap_buttons[RaceSelection.selected_laps - 1]
 	for color_name in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
 		selected_lap_button.add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
@@ -93,7 +91,6 @@ func _ready() -> void:
 		time_buttons[index].pressed.connect(_select_time_of_day.bind(index == 1))
 		time_buttons[index].focus_entered.connect(_focus_time)
 		time_buttons[index].mouse_entered.connect(_hover_time.bind(index))
-		time_buttons[index].mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	var selected_time := 1 if RaceSelection.night_enabled else 0
 	time_badge_icon.texture = NIGHT_ICON if RaceSelection.night_enabled else DAY_ICON
 	for color_name in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
