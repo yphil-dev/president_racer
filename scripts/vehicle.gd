@@ -53,6 +53,7 @@ var car_color: Color = Color.WHITE
 
 @onready var trail_left = get_node_or_null("Container/TrailLeft")
 @onready var trail_right = get_node_or_null("Container/TrailRight")
+@onready var headlights: Node3D = $Container/Lights/HeadLights
 @onready var skidmark_emitter: Node = $SkidmarkEmitter
 var rear_lamp_material: StandardMaterial3D
 var _rear_lamp_hold_remaining: float = 0.0
@@ -136,6 +137,8 @@ func _enter_tree() -> void:
 	add_to_group("race_vehicles")
 
 func _ready() -> void:
+	headlights.visible = RaceSelection.night_enabled
+
 	var profile := DriverRoster.get_profile(driver_id)
 	if not profile.is_empty():
 		driver_name = profile["display_name"]
