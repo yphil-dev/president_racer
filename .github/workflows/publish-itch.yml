@@ -1,4 +1,4 @@
-name: Publish Web build to itch.io
+name: Publish builds to itch.io
 
 on:
   push:
@@ -11,11 +11,11 @@ permissions:
 
 env:
   GODOT_VERSION: 4.7.2
-  ITCH_TARGET: yphil/france-2017-racer:html5
+  ITCH_TARGET: yphil/france-2017-racer
 
 jobs:
-  publish-web:
-    name: Export and publish Web build
+  publish:
+    name: Export and publish all platforms
     runs-on: ubuntu-24.04
     container:
       image: barichello/godot-ci:4.7.2
@@ -35,9 +35,28 @@ jobs:
           mkdir -p export/web
           godot --headless --verbose --export-release "Web" export/web/index.html
 
+      - name: Export Linux build
+        run: |
+          mkdir -p export/linux
+          godot --headless --verbose --export-release "Linux/X11" export/linux/France2027Racer.x86_64
+
+      - name: Export Windows build
+        run: |
+          mkdir -p export/windows
+          godot --headless --verbose --export-release "Windows Desktop" export/windows/France2027Racer.exe
+
+      - name: Export macOS build
+        run: |
+          mkdir -p export/macos
+          godot --headless --verbose --export-release "macOS" export/macos/France2027Racer.zip
+
       - name: Publish to itch.io
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+          RELEASE_VERSION: ${{ github.ref_name }}
         run: |
           test -n "$BUTLER_API_KEY"
-          butler push export/web "$ITCH_TARGET"
+          butler push export/web "$ITCH_TARGET:html5" --userversion "$RELEASE_VERSION"
+          butler push export/linux "$ITCH_TARGET:linux" --userversion "$RELEASE_VERSION"
+          butler push export/windows "$ITCH_TARGET:windows" --userversion "$RELEASE_VERSION"
+          butler push export/macos "$ITCH_TARGET:osx" --userversion "$RELEASE_VERSION"
