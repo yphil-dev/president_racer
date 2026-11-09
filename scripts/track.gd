@@ -12,6 +12,7 @@ var _finished_cars: Dictionary = {}
 func _ready() -> void:
 	if OS.has_feature("web"):
 		_adjust_web_exposure()
+	_set_city_lights_enabled(RaceSelection.night_enabled)
 	if RaceSelection.night_enabled:
 		_apply_night_lighting()
 	target_laps = RaceSelection.selected_laps
@@ -25,6 +26,14 @@ func _adjust_web_exposure() -> void:
 		var local_environment := world_environment.environment.duplicate() as Environment
 		local_environment.tonemap_exposure *= 2.0 / 3.0
 		world_environment.environment = local_environment
+
+func _set_city_lights_enabled(enabled: bool) -> void:
+	var city_lights := get_node_or_null("CITY/LIGHTS") as Node3D
+	if city_lights == null:
+		return
+
+	for node in city_lights.find_children("*", "Light3D", true, false):
+		(node as Light3D).visible = enabled
 
 func _apply_night_lighting() -> void:
 	for node in find_children("*", "WorldEnvironment", true, false):
@@ -73,6 +82,6 @@ func _on_finish_body_entered(body: Node3D) -> void:
 	print("Lap completed by %s! Total laps: %d" % [car.car_name, laps_completed])
 	lap_completed.emit(car, laps_completed)
 
-	if laps_completed >= target_laps:
+	if laps_completed == target_laps:
 		_finished_cars[car] = true
 		car_finished.emit(car, laps_completed)

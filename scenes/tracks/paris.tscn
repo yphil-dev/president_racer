@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c5e64mpylh1ge" path="res://models/vehicle-truck-purple.glb" id="10_p3c1o"]
 [ext_resource type="PackedScene" uid="uid://b34e2pvbemfac" path="res://models/vehicle-truck-red.glb" id="11_wocnk"]
 [ext_resource type="PackedScene" uid="uid://b3q38jkp02je8" path="res://scenes/block_02.tscn" id="11_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://bv6dwewym6qj2" path="res://scenes/CITY/streetlight_editable.tscn" id="12_wtwip"]
 [ext_resource type="PackedScene" uid="uid://dn24yd7sv8g0w" path="res://scenes/traffic_light.tscn" id="16_ws3xf"]
 [ext_resource type="PackedScene" uid="uid://ca040wyv8weav" path="res://models/city/dumpster.gltf" id="16_yfyak"]
 [ext_resource type="PackedScene" uid="uid://c4ydxor8xjubi" path="res://models/city/firehydrant.gltf" id="17_cbdrs"]
@@ -51,7 +52,7 @@ size = Vector3(2.0318604, 1, 1)
 albedo_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
-size = Vector3(6.6290283, 0.55810547, 0.35205078)
+size = Vector3(10, 3, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_hkep1"]
 closed = true
@@ -530,6 +531,36 @@ transform = Transform3D(-0.07878145, 0, 0.99689215, 0, 1, 0, -0.99689215, 0, -0.
 transform = Transform3D(-0.07878145, 0, 0.99689215, 0, 1, 0, -0.99689215, 0, -0.07878145, -26.891464, -0.03953135, -4.02703)
 
 [node name="LIGHTS" type="Node3D" parent="CITY" unique_id=541528193]
+
+[node name="streetlight2" parent="CITY/LIGHTS" unique_id=549394370 instance=ExtResource("12_wtwip")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 15.559244, 0, -15.140633)
+
+[node name="streetlight3" parent="CITY/LIGHTS" unique_id=1357991031 instance=ExtResource("12_wtwip")]
+transform = Transform3D(0.86602545, 0, -0.49999997, 0, 1, 0, 0.49999997, 0, 0.86602545, -15.596782, 0, -15.140633)
+
+[node name="streetlight4" parent="CITY/LIGHTS" unique_id=1511063010 instance=ExtResource("12_wtwip")]
+transform = Transform3D(0.8660254, 0, 0.5000001, 0, 1, 0, -0.5000001, 0, 0.8660254, -15.596782, 0, -7.1550984)
+
+[node name="streetlight5" parent="CITY/LIGHTS" unique_id=762704359 instance=ExtResource("12_wtwip")]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, -9.894766, 0, -4.5635624)
+
+[node name="streetlight6" parent="CITY/LIGHTS" unique_id=645361867 instance=ExtResource("12_wtwip")]
+transform = Transform3D(-0.7071068, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.7071068, -14.357681, 0, -0.4037521)
+
+[node name="streetlight7" parent="CITY/LIGHTS" unique_id=1911057845 instance=ExtResource("12_wtwip")]
+transform = Transform3D(-0.5, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.5, -11.323292, 0, 20.6715)
+
+[node name="streetlight8" parent="CITY/LIGHTS" unique_id=1711394676 instance=ExtResource("12_wtwip")]
+transform = Transform3D(0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071068, -7.8015, 0, 15.410114)
+
+[node name="streetlight9" parent="CITY/LIGHTS" unique_id=2033236888 instance=ExtResource("12_wtwip")]
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, 8.043034, 0, 15.410114)
+
+[node name="streetlight10" parent="CITY/LIGHTS" unique_id=601508385 instance=ExtResource("12_wtwip")]
+transform = Transform3D(0.99999994, 0, -5.9604645e-08, 0, 1, 0, 5.9604645e-08, 0, 0.99999994, 14.397938, 0, 15.410114)
+
+[node name="streetlight11" parent="CITY/LIGHTS" unique_id=1601426249 instance=ExtResource("12_wtwip")]
+transform = Transform3D(0.7071066, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, 0.7071066, 11.759974, 0, 20.18378)
 
 [node name="dumpster2" parent="CITY" unique_id=1159890860 instance=ExtResource("16_yfyak")]
 transform = Transform3D(0.17175567, 0, 2.1996372, 0, 2.2063327, 0, -2.1996372, 0, 0.17175567, 22.972807, -0.072034836, -2.3997068)

@@ -16,7 +16,8 @@ const PROFILES: Dictionary = {
 		"car_number": 1,
 		"portrait": preload("res://sprites/Lepen.jpg"),
 		"selection_portrait": preload("res://sprites/Lepen-no-glasses.jpg"),
-		"car_color": Color(0.04, 0.12, 0.48, 1), # Dark Royal Blue
+		"car_color": Color(0.082, 0.212, 0.761, 1), # Royal Ultramarine
+
 	},
 	"glux": {
 		"display_name": "R. Glucksman",

@@ -168,6 +168,13 @@ func _on_track_car_finished(car: VehicleSphere, lap_number: int) -> void:
 	var state := _states_by_car[car] as CarRaceState
 	if state.finished:
 		return
+	if lap_number != state.target_laps:
+		push_error("Rejected finish for %s: lap %d does not match target %d." % [
+			state.vehicle.driver_name,
+			lap_number,
+			state.target_laps,
+		])
+		return
 
 	state.record_finish(race_elapsed)
 	_update_state_progress(state)

@@ -11,8 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c5e64mpylh1ge" path="res://models/vehicle-truck-purple.glb" id="10_p3c1o"]
 [ext_resource type="PackedScene" uid="uid://b34e2pvbemfac" path="res://models/vehicle-truck-red.glb" id="11_wocnk"]
 [ext_resource type="PackedScene" uid="uid://b3q38jkp02je8" path="res://scenes/block_02.tscn" id="13_11uo2"]
-[ext_resource type="PackedScene" uid="uid://dkh30i5jluoih" path="res://scenes/CITY/street_lights_row.tscn" id="15_kqwhv"]
-[ext_resource type="PackedScene" uid="uid://th7fc4elxylt" path="res://scenes/CITY/street_lights_single_row.tscn" id="16_c1jag"]
+[ext_resource type="PackedScene" uid="uid://bv6dwewym6qj2" path="res://scenes/CITY/streetlight_editable.tscn" id="14_g6usw"]
 [ext_resource type="PackedScene" uid="uid://dn24yd7sv8g0w" path="res://scenes/traffic_light.tscn" id="16_ws3xf"]
 [ext_resource type="PackedScene" uid="uid://ca6fwu6qha84s" path="res://scenes/GameUI/game_ui.tscn" id="18_qycdi"]
 [ext_resource type="PackedScene" path="res://scenes/track_crossing.tscn" id="19_crossing"]
@@ -46,7 +45,7 @@ roughness = 0.9
 data = PackedVector3Array(-3.7196999, 0.5414, 0.0477, 3.7196999, 0.5414, 0.0477, -3.7196999, -0.5414, 0.0477, 3.7196999, 0.5414, 0.0477, 3.7196999, -0.5414, 0.0477, -3.7196999, -0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, -3.7196999, 0.5414, -0.0477, 3.7196999, -0.5414, -0.0477, -3.7196999, 0.5414, -0.0477, -3.7196999, -0.5414, -0.0477, 3.7196999, -0.5414, -0.0477, 3.7196999, 0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, 3.7196999, -0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, 3.7196999, -0.5414, -0.0477, 3.7196999, -0.5414, 0.0477, -3.7196999, 0.5414, -0.0477, -3.7196999, 0.5414, 0.0477, -3.7196999, -0.5414, -0.0477, -3.7196999, 0.5414, 0.0477, -3.7196999, -0.5414, 0.0477, -3.7196999, -0.5414, -0.0477, 3.7196999, 0.5414, 0.0477, -3.7196999, 0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, -3.7196999, 0.5414, 0.0477, -3.7196999, 0.5414, -0.0477, 3.7196999, 0.5414, -0.0477, -3.7196999, -0.5414, 0.0477, 3.7196999, -0.5414, 0.0477, -3.7196999, -0.5414, -0.0477, 3.7196999, -0.5414, 0.0477, 3.7196999, -0.5414, -0.0477, -3.7196999, -0.5414, -0.0477)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
-size = Vector3(6.6290283, 0.55810547, 0.35205078)
+size = Vector3(10, 3, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_6j2ur"]
 closed = true
@@ -306,13 +305,29 @@ transform = Transform3D(16.360645, 0, 1.223774, 0, 2.063692, 0, -1.223774, 0, 16
 
 [node name="LIGHTS" type="Node3D" parent="CITY" unique_id=683837672]
 
-[node name="StreetLights-row" parent="CITY/LIGHTS" unique_id=1599734660 instance=ExtResource("15_kqwhv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4575815, 0, 44.874687)
+[node name="streetlight2" parent="CITY/LIGHTS" unique_id=549394370 instance=ExtResource("14_g6usw")]
+transform = Transform3D(-0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, -0.70710677, 6.95305, 0, 14.390064)
 
-[node name="StreetLights-row2" parent="CITY/LIGHTS" unique_id=1371059638 instance=ExtResource("16_c1jag")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 40.313816, 2.6302967, 13.892794)
+[node name="streetlight3" parent="CITY/LIGHTS" unique_id=260017029 instance=ExtResource("14_g6usw")]
+transform = Transform3D(0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071068, -7.0039496, 0, 14.390064)
 
-[node name="StreetLights-row3" parent="CITY/LIGHTS" unique_id=545814107 instance=ExtResource("15_kqwhv")]
+[node name="streetlight4" parent="CITY/LIGHTS" unique_id=1021476590 instance=ExtResource("14_g6usw")]
+transform = Transform3D(0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071068, -14.5476265, 0, 6.9887257)
+
+[node name="streetlight5" parent="CITY/LIGHTS" unique_id=1081348385 instance=ExtResource("14_g6usw")]
+transform = Transform3D(0.7071068, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071068, -14.5476265, 0, -0.11152363)
+
+[node name="streetlight7" parent="CITY/LIGHTS" unique_id=340686129 instance=ExtResource("14_g6usw")]
+transform = Transform3D(-0.99999994, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -0.99999994, -21.712587, 0, -14.9972925)
+
+[node name="streetlight8" parent="CITY/LIGHTS" unique_id=1112468735 instance=ExtResource("14_g6usw")]
+transform = Transform3D(0.9999999, 0, 2.7818121e-08, 0, 1, 0, -2.7818121e-08, 0, 0.9999999, -15.309758, 0, -14.9972925)
+
+[node name="streetlight10" parent="CITY/LIGHTS" unique_id=1538148396 instance=ExtResource("14_g6usw")]
+transform = Transform3D(-0.70710677, 0, 0.7071066, 0, 1, 0, -0.7071066, 0, -0.70710677, -6.9643145, 0, -7.268178)
+
+[node name="streetlight11" parent="CITY/LIGHTS" unique_id=1178185740 instance=ExtResource("14_g6usw")]
+transform = Transform3D(-0.8660253, 0, -0.5000001, 0, 1, 0, 0.5000001, 0, -0.8660253, 8.057742, 0, -7.793148)
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="CITY" unique_id=1609927409]
 

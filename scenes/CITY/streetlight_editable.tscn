@@ -4,8 +4,11 @@
 
 [node name="streetlight2" unique_id=549394370 instance=ExtResource("1_cq2xe")]
 
+[node name="streetlight" parent="." index="0" unique_id=2925152]
+transform = Transform3D(2.7732906, 0, 0, 0, 2.7732906, 0, 0, 0, 2.7732906, 0.18048489, -0.80926263, 0.0016929386)
+
 [node name="SpotLight3D16" type="SpotLight3D" parent="." index="1" unique_id=73039388]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.20355928, 0.91272426, -0.0019093752)
+transform = Transform3D(2.7732906, 0, 0, 0, -1.2122439e-07, 2.7732906, 0, -2.7732906, -1.2122439e-07, -0.38404417, 1.7219869, -0.0036023138)
 light_color = Color(1, 1, 0.8156863, 1)
 light_energy = 2.426
 spot_range = 2.995

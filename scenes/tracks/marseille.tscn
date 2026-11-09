@@ -50,7 +50,7 @@ size = Vector3(0.9194336, 1, 1)
 albedo_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
-size = Vector3(6.6290283, 0.55810547, 0.35205078)
+size = Vector3(10, 3, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_mp5su"]
 closed = true
