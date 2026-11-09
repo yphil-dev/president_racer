@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ca6fwu6qha84s"]
+[gd_scene format=3 uid="uid://ca6fwu6qha84s"]
 
 [ext_resource type="PackedScene" uid="uid://d2jtmsipqxjfw" path="res://scenes/CarUI/car_ui.tscn" id="1_card"]
-[ext_resource type="Script" path="res://scenes/GameUI/game_ui.gd" id="2_script"]
-[ext_resource type="Texture2D" path="res://splash-screen.png" id="3_background"]
-[ext_resource type="Texture2D" path="res://sprites/arrow-left.svg" id="4_arrow"]
+[ext_resource type="Script" uid="uid://b30dxfdc8mqso" path="res://scenes/GameUI/game_ui.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="3_background"]
+[ext_resource type="Texture2D" uid="uid://dedl7wmrll5l3" path="res://sprites/arrow-left.svg" id="4_arrow"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_countdown_background"]
 bg_color = Color(0.025, 0.03, 0.045, 0.82)
@@ -19,7 +19,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="GameUI" type="Control"]
+[node name="GameUI" type="Control" unique_id=533114360]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_script")
 
-[node name="ResultBackground" type="TextureRect" parent="."]
+[node name="ResultBackground" type="TextureRect" parent="." unique_id=281676033]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -43,7 +43,7 @@ texture = ExtResource("3_background")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="ResultShade" type="ColorRect" parent="."]
+[node name="ResultShade" type="ColorRect" parent="." unique_id=926739123]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -55,7 +55,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.3)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1776372845]
 layout_mode = 0
 offset_right = 161.0
 offset_bottom = 400.0
@@ -65,40 +65,39 @@ theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=759033292]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CarUI" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+[node name="CarUI" parent="MarginContainer/VBoxContainer" unique_id=590584 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
 
-[node name="CarUI2" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+[node name="CarUI2" parent="MarginContainer/VBoxContainer" unique_id=96235023 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
 
-[node name="CarUI3" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+[node name="CarUI3" parent="MarginContainer/VBoxContainer" unique_id=710486514 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
 
-[node name="CarUI4" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+[node name="CarUI4" parent="MarginContainer/VBoxContainer" unique_id=1609130544 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
 
-[node name="ClassificationCountdown" type="Control" parent="."]
+[node name="ClassificationCountdown" type="Control" parent="." unique_id=7164351]
 visible = false
-layout_mode = 0
+anchors_preset = 0
 offset_left = 4.0
 offset_top = 396.0
 offset_right = 157.0
 offset_bottom = 462.0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="ClassificationCountdown"]
+[node name="Label" type="Label" parent="ClassificationCountdown" unique_id=1193679202]
 layout_mode = 0
 offset_right = 153.0
 offset_bottom = 44.0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
@@ -107,7 +106,7 @@ text = "15"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="ProgressBar" parent="ClassificationCountdown"]
+[node name="Timer" type="ProgressBar" parent="ClassificationCountdown" unique_id=55047216]
 layout_mode = 0
 offset_left = 38.5
 offset_top = 49.0
@@ -119,16 +118,15 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_countdown_fill")
 value = 100.0
 show_percentage = false
 
-[node name="RaceAgain" type="Button" parent="."]
+[node name="RaceAgain" type="Button" parent="." unique_id=1358150464]
 visible = false
 clip_contents = true
 layout_mode = 0
 offset_right = 180.0
 offset_bottom = 56.0
-focus_mode = 2
 flat = true
 
-[node name="Shade" type="ColorRect" parent="RaceAgain"]
+[node name="Shade" type="ColorRect" parent="RaceAgain" unique_id=661387778]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,7 +136,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.55)
 
-[node name="Icon" type="TextureRect" parent="RaceAgain"]
+[node name="Icon" type="TextureRect" parent="RaceAgain" unique_id=1244150793]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

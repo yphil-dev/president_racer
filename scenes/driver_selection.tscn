@@ -7,8 +7,28 @@
 [ext_resource type="Texture2D" path="res://sprites/day-sun.svg" id="5_sun"]
 [ext_resource type="Texture2D" path="res://sprites/night-moon.svg" id="6_moon"]
 [ext_resource type="Texture2D" path="res://sprites/day-sun-neutral.svg" id="7_sun_neutral"]
+[ext_resource type="Texture2D" path="res://sprites/results-finish-flag.png" id="8_finish"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBox_lap_bar"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_title_badge"]
+bg_color = Color(0, 0, 0, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_race_button"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.82, 0.84, 0.9, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_button_left"]
 bg_color = Color(0.24, 0.24, 0.24, 1)
@@ -69,21 +89,21 @@ color = Color(0, 0, 0, 0.3)
 
 [node name="DriverBadge" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 32.0
+offset_bottom = 32.0
 mouse_filter = 2
 z_index = 5
-theme_type_variation = &"IconBadge"
+theme_override_styles/panel = SubResource("StyleBox_title_badge")
 
 [node name="Icon" type="TextureRect" parent="DriverBadge"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = 9.0
-offset_right = -9.0
-offset_bottom = -9.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -180,21 +200,21 @@ icon_alignment = 1
 
 [node name="LapBadge" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 32.0
+offset_bottom = 32.0
 mouse_filter = 2
 z_index = 5
-theme_type_variation = &"IconBadge"
+theme_override_styles/panel = SubResource("StyleBox_title_badge")
 
 [node name="Icon" type="TextureRect" parent="LapBadge"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = 9.0
-offset_right = -9.0
-offset_bottom = -9.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -204,25 +224,61 @@ stretch_mode = 5
 
 [node name="TimeBadge" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 32.0
+offset_bottom = 32.0
 mouse_filter = 2
 z_index = 5
-theme_type_variation = &"IconBadge"
+theme_override_styles/panel = SubResource("StyleBox_title_badge")
 
 [node name="Icon" type="TextureRect" parent="TimeBadge"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = 9.0
-offset_right = -9.0
-offset_bottom = -9.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_sun")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Race" type="Button" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 56.0
+flat = false
+theme_override_styles/normal = SubResource("StyleBox_race_button")
+theme_override_styles/hover = SubResource("StyleBox_race_button")
+theme_override_styles/focus = SubResource("StyleBox_race_button")
+theme_override_styles/pressed = SubResource("StyleBox_race_button")
+
+[node name="Shade" type="ColorRect" parent="Race"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.12)
+
+[node name="Icon" type="TextureRect" parent="Race"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 6.0
+offset_right = 148.0
+offset_bottom = 50.0
+mouse_filter = 2
+texture = ExtResource("8_finish")
 expand_mode = 1
 stretch_mode = 5
 
@@ -270,7 +326,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -72.0
+offset_top = -100.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -280,6 +337,17 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Soral"]
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
 
 [node name="LePen" type="Button" parent="DriverGrid"]
 clip_contents = true
@@ -325,7 +393,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -72.0
+offset_top = -100.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -335,6 +404,17 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/LePen"]
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
 
 [node name="Glucksman" type="Button" parent="DriverGrid"]
 clip_contents = true
@@ -381,7 +461,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -72.0
+offset_top = -100.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -391,6 +472,17 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Glucksman"]
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
 
 [node name="Melenchon" type="Button" parent="DriverGrid"]
 clip_contents = true
@@ -437,7 +529,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -72.0
+offset_top = -100.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -447,3 +540,14 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Melenchon"]
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
