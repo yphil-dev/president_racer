@@ -64,8 +64,14 @@ func _ready() -> void:
 
 	await get_tree().process_frame
 	cars = RaceGridSpawner.spawn(race_track, RaceSelection.selected_driver_id)
-	var player_car := cars.get_node("PlayerCar") as PlayerCar
-	get_node("../View").set("target", player_car)
+	var camera_target := cars.get_node_or_null("PlayerCar") as Vehicle
+	if camera_target == null:
+		for child in cars.get_children():
+			var vehicle := child as Vehicle
+			if vehicle != null and vehicle.driver_id == RaceSelection.selected_driver_id:
+				camera_target = vehicle
+				break
+	get_node("../View").set("target", camera_target)
 
 	_setup_race_states()
 	game_ui.setup(self, standings)

@@ -8,30 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="6_wheel"]
 [ext_resource type="Texture2D" path="res://sprites/day-sun.svg" id="7_day"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_nav_button"]
-bg_color = Color(0, 0, 0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.239216, 0.239216, 0.239216, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_nav_button_active"]
-bg_color = Color(0, 0, 0, 0.9)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.901961, 0.901961, 0.901961, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [node name="MainMenu" type="Control" unique_id=459776246]
 layout_mode = 3
 anchors_preset = 15
@@ -320,11 +296,7 @@ offset_right = 240.0
 offset_bottom = 56.0
 focus_neighbor_left = NodePath("../TrackGrid/Limoges")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
-flat = false
-theme_override_styles/normal = SubResource("StyleBox_nav_button")
-theme_override_styles/hover = SubResource("StyleBox_nav_button_active")
-theme_override_styles/focus = SubResource("StyleBox_nav_button_active")
-theme_override_styles/pressed = SubResource("StyleBox_nav_button_active")
+theme_type_variation = &"NavButton"
 
 [node name="Shade" type="ColorRect" parent="Options" unique_id=1233481440]
 layout_mode = 1

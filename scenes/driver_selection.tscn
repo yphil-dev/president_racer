@@ -44,30 +44,6 @@ bg_color = Color(0.35, 0.31, 0.12, 1)
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_race_button"]
-bg_color = Color(0, 0, 0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.239216, 0.239216, 0.239216, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_race_button_active"]
-bg_color = Color(0, 0, 0, 0.9)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.901961, 0.901961, 0.901961, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [node name="DriverSelection" type="Control" unique_id=121834990]
 layout_mode = 3
 anchors_preset = 15
@@ -535,10 +511,7 @@ layout_mode = 0
 offset_left = 89.0
 offset_right = 150.0
 offset_bottom = 56.0
-theme_override_styles/normal = SubResource("StyleBox_race_button")
-theme_override_styles/pressed = SubResource("StyleBox_race_button_active")
-theme_override_styles/hover = SubResource("StyleBox_race_button_active")
-theme_override_styles/focus = SubResource("StyleBox_race_button_active")
+theme_type_variation = &"NavButton"
 
 [node name="Shade" type="ColorRect" parent="Race" unique_id=764245682]
 layout_mode = 1

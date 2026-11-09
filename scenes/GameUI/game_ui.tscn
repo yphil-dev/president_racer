@@ -19,30 +19,6 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_nav_button"]
-bg_color = Color(0, 0, 0, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.239216, 0.239216, 0.239216, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_nav_button_active"]
-bg_color = Color(0, 0, 0, 0.9)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.901961, 0.901961, 0.901961, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [node name="GameUI" type="Control" unique_id=533114360]
 layout_mode = 3
 anchors_preset = 15
@@ -149,10 +125,7 @@ layout_mode = 0
 offset_left = 59.0
 offset_right = 121.0
 offset_bottom = 56.0
-theme_override_styles/normal = SubResource("StyleBox_nav_button")
-theme_override_styles/pressed = SubResource("StyleBox_nav_button_active")
-theme_override_styles/hover = SubResource("StyleBox_nav_button_active")
-theme_override_styles/focus = SubResource("StyleBox_nav_button_active")
+theme_type_variation = &"NavButton"
 
 [node name="Shade" type="ColorRect" parent="RaceAgain" unique_id=661387778]
 layout_mode = 1
@@ -166,7 +139,7 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.55)
+color = Color(0, 0, 0, 0)
 
 [node name="Icon" type="TextureRect" parent="RaceAgain" unique_id=1246725102]
 layout_mode = 1

@@ -12,6 +12,35 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_nav_active"]
+bg_color = Color(0.28, 0.28, 0.28, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_nav_normal"]
+bg_color = Color(0.12, 0.12, 0.12, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.65, 0.65, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [resource]
 IconBadge/base_type = &"Panel"
 IconBadge/styles/panel = SubResource("StyleBox_result_badge")
+NavButton/base_type = &"Button"
+NavButton/styles/focus = SubResource("StyleBox_nav_active")
+NavButton/styles/hover = SubResource("StyleBox_nav_active")
+NavButton/styles/normal = SubResource("StyleBox_nav_normal")
+NavButton/styles/pressed = SubResource("StyleBox_nav_active")

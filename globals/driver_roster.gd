@@ -19,7 +19,7 @@ const PROFILES: Dictionary = {
 		"car_color": Color(0.04, 0.12, 0.48, 1), # Dark Royal Blue
 	},
 	"glux": {
-		"display_name": "A. Glucksman",
+		"display_name": "R. Glucksman",
 		"car_number": 2,
 		"portrait": preload("res://sprites/Glux.jpg"),
 		"selection_portrait": preload("res://sprites/Glux-no-glasses.jpg"),

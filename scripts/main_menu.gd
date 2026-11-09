@@ -84,7 +84,8 @@ func _ready() -> void:
 	options_button.pressed.connect(_open_options)
 	for index in selectable_buttons.size():
 		selectable_buttons[index].focus_entered.connect(_select_button.bind(index))
-		selectable_buttons[index].mouse_entered.connect(_hover_button.bind(index))
+		if index < track_buttons.size():
+			selectable_buttons[index].mouse_entered.connect(_hover_button.bind(index))
 		selectable_buttons[index].resized.connect(_update_button_pivot.bind(index))
 
 	resized.connect(_layout_menu)
@@ -290,11 +291,5 @@ func _open_options() -> void:
 	if previous_tween != null and previous_tween.is_valid():
 		previous_tween.kill()
 
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_QUART)
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(options_button, "scale", Vector2(0.97, 0.97), 0.08)
-	tween.tween_property(options_button, "scale", Vector2.ONE, 0.14)
-	_button_tweens[index] = tween
-	await tween.finished
+	await NavButtonAnimation.play(options_button)
 	SceneTransition.transition_to_scene(DRIVER_SELECTION_SCENE)

@@ -39,7 +39,6 @@ const SCHEME_ORDER: Array[String] = [
 @onready var lap_selector: VBoxContainer = $LapSelector
 @onready var time_selector: HBoxContainer = $TimeSelector
 @onready var race_button: Button = $Race
-@onready var race_button_icon: TextureRect = $Race/Icon
 @onready var time_buttons: Array[Button] = [$TimeSelector/Day, $TimeSelector/Night]
 @onready var lap_buttons: Array[Button] = [
 	$LapSelector/Bar/Buttons/One,
@@ -88,7 +87,6 @@ var _scheme_buttons: Dictionary = {}
 var _selected_index: int = 0
 var _startup_hover_locked: bool = true
 var _returning: bool = false
-var _race_button_tween: Tween
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and not _returning and not SceneTransition.is_active():
@@ -120,7 +118,6 @@ func _ready() -> void:
 
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
-	race_button.mouse_entered.connect(race_button.grab_focus)
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 
 	_apply_lap_selection()
@@ -509,13 +506,8 @@ func _apply_time_selection() -> void:
 				time_buttons[index].remove_theme_color_override(color_name)
 
 func _focus_race_button() -> void:
-	if _returning:
-		return
-	SceneTransition.play_selection_beep()
-	if _race_button_tween != null and _race_button_tween.is_valid():
-		_race_button_tween.kill()
-	_race_button_tween = create_tween()
-	_race_button_tween.tween_property(race_button_icon, "modulate", SELECTED_LABEL_COLOR, 0.14)
+	if not _returning:
+		SceneTransition.play_selection_beep()
 
 func _return_to_menu() -> void:
 	if _returning:
@@ -523,6 +515,7 @@ func _return_to_menu() -> void:
 	_returning = true
 	SceneTransition.play_selection_beep()
 	_disable_buttons()
+	await NavButtonAnimation.play(race_button)
 	SceneTransition.transition_to_menu()
 
 func _disable_buttons() -> void:

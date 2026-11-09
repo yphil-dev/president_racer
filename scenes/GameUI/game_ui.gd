@@ -10,19 +10,15 @@ class_name GameUI
 @onready var classification_label: Label = $ClassificationCountdown/Label
 @onready var classification_timer: ProgressBar = $ClassificationCountdown/Timer
 @onready var race_again: Button = $RaceAgain
-@onready var race_again_shade: ColorRect = $RaceAgain/Shade
-@onready var race_again_label: TextureRect = $RaceAgain/Icon
 
 const RESULT_TWEEN_DURATION: float = 1.1
 const BACKGROUND_FADE_DURATION: float = 0.8
-const ACTION_SIZE := Vector2(180, 56)
+const ACTION_SIZE := Vector2(56, 56)
 const ACTION_MARGIN := Vector2(32, 28)
-const ACTION_COLOR := Color(1, 0.88, 0.2, 1)
 const REORDER_DURATION: float = 0.22
 const COUNTDOWN_CARD_GAP: float = 8.0
 
 var _cards_by_vehicle: Dictionary = {}
-var _action_tween: Tween
 var _pending_standings: Array = []
 var _reorder_running: bool = false
 var _results_active: bool = false
@@ -56,10 +52,6 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 		controller.race_finished.connect(_on_race_finished)
 	if not race_again.pressed.is_connected(_restart_race):
 		race_again.pressed.connect(_restart_race)
-	if not race_again.focus_entered.is_connected(_highlight_race_again):
-		race_again.focus_entered.connect(_highlight_race_again)
-	if not race_again.mouse_entered.is_connected(_focus_race_again):
-		race_again.mouse_entered.connect(_focus_race_again)
 	if not resized.is_connected(_layout_race_again):
 		resized.connect(_layout_race_again)
 
@@ -233,7 +225,6 @@ func _show_race_again() -> void:
 	race_again.modulate = Color(1, 1, 1, 0)
 	race_again.show()
 	race_again.grab_focus()
-	_highlight_race_again()
 
 	var intro_tween := create_tween()
 	intro_tween.tween_interval(0.6)
@@ -249,21 +240,6 @@ func _layout_race_again() -> void:
 	race_again.size = ACTION_SIZE
 	race_again.pivot_offset = ACTION_SIZE * 0.5
 
-func _focus_race_again() -> void:
-	race_again.grab_focus()
-
-func _highlight_race_again() -> void:
-	if _action_tween != null and _action_tween.is_valid():
-		_action_tween.kill()
-
-	_action_tween = create_tween()
-	_action_tween.set_parallel(true)
-	race_again.scale = Vector2.ONE
-	_action_tween.set_trans(Tween.TRANS_QUART)
-	_action_tween.set_ease(Tween.EASE_OUT)
-	_action_tween.tween_property(race_again_shade, "color", Color(0, 0, 0, 0.1), 0.14)
-	_action_tween.tween_property(race_again_label, "modulate", ACTION_COLOR, 0.14)
-
 func _restart_race() -> void:
 	if _restarting:
 		return
@@ -271,15 +247,5 @@ func _restart_race() -> void:
 	_restarting = true
 	SceneTransition.play_selection_beep()
 	race_again.disabled = true
-
-	if _action_tween != null and _action_tween.is_valid():
-		_action_tween.kill()
-
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_QUART)
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(race_again_shade, "color", Color(1, 0.65, 0.1, 0.4), 0.08)
-	tween.tween_property(race_again_shade, "color", Color(0, 0, 0, 0.1), 0.14)
-	await tween.finished
-
+	await NavButtonAnimation.play(race_again)
 	SceneTransition.transition_to_menu()

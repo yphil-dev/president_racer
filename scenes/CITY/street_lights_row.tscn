@@ -22,9 +22,6 @@ transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.245
 [node name="streetlight12" parent="." unique_id=34312926 instance=ExtResource("1_skuyu")]
 transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.2455587, -0.07203579, -0.12455559)
 
-[node name="streetlight14" parent="." unique_id=1050635060 instance=ExtResource("1_skuyu")]
-transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.2455587, -0.07203579, 10.468887)
-
 [node name="streetlight16" parent="." unique_id=471927679 instance=ExtResource("1_skuyu")]
 transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.2455587, -0.07203579, 6.9488564)
 
@@ -56,6 +53,13 @@ spot_angle = 17.11
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 6.935317)
 spot_angle = 17.11
 
-[node name="SpotLight3D16" type="SpotLight3D" parent="." unique_id=1257564690]
+[node name="SingleStreetLight" type="Node3D" parent="." unique_id=422820992]
+
+[node name="SpotLight3D16" type="SpotLight3D" parent="SingleStreetLight" unique_id=1257564690]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 10.442486)
+light_energy = 2.426
+spot_range = 9.663
 spot_angle = 17.11
+
+[node name="streetlight14" parent="SingleStreetLight" unique_id=1050635060 instance=ExtResource("1_skuyu")]
+transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.2455587, -0.07203579, 10.468887)

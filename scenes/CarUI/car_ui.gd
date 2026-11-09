@@ -57,9 +57,9 @@ func update_state(state: CarRaceState) -> void:
 		status_label.text = "%d / %d" % [state.laps_completed, state.target_laps]
 
 	best_label.text = (
-		"Best: %s" % format_time(state.best_lap_time)
+		"%s" % format_time(state.best_lap_time)
 		if state.best_lap_time >= 0.0
-		else "Best: --"
+		else ""
 	)
 
 func show_final_result() -> void:
