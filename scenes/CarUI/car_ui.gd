@@ -3,7 +3,7 @@ extends PanelContainer
 class_name CarUI
 
 const WINNER_ICON: Texture2D = preload("res://sprites/results-trophy.png")
-const FINISHED_ICON: Texture2D = preload("res://sprites/results-finish-flag.png")
+const FINISHED_ICON: Texture2D = preload("res://sprites/results-finish-flag.svg")
 const DNF_ICON: Texture2D = preload("res://sprites/results-dnf.png")
 const RACING_ICON: Texture2D = preload("res://sprites/steering-wheel.png")
 

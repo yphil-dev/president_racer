@@ -5,10 +5,10 @@
     <rect x="43" y="42" width="34" height="34" rx="5"/>
     <rect x="82" y="42" width="34" height="34" rx="5"/>
   </g>
-  <g fill="#f2f4f7" font-family="sans-serif" font-size="23" font-weight="700" text-anchor="middle">
-    <text x="60" y="27">↑</text>
-    <text x="21" y="67">←</text>
-    <text x="60" y="67">↓</text>
-    <text x="99" y="67">→</text>
+  <g fill="#f2f4f7">
+    <path d="M60 8 49 21h7v9h8v-9h7z"/>
+    <path d="m10 59 13-11v7h9v8h-9v7z"/>
+    <path d="m60 71 11-13h-7v-9h-8v9h-7z"/>
+    <path d="m110 59-13-11v7h-9v8h9v7z"/>
   </g>
 </svg>

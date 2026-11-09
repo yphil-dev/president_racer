@@ -42,6 +42,17 @@ func _ready() -> void:
 	add_child(_confirmation_sound)
 
 func _input(event: InputEvent) -> void:
+	if (
+		event is InputEventKey
+		and event.pressed
+		and not event.echo
+		and event.ctrl_pressed
+		and event.physical_keycode == KEY_F
+	):
+		_toggle_fullscreen()
+		get_viewport().set_input_as_handled()
+		return
+
 	if _ui_feedback_armed:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -53,6 +64,18 @@ func _input(event: InputEvent) -> void:
 
 func is_active() -> bool:
 	return _active
+
+func _toggle_fullscreen() -> void:
+	var current_mode := DisplayServer.window_get_mode()
+	var is_fullscreen := current_mode in [
+		DisplayServer.WINDOW_MODE_FULLSCREEN,
+		DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,
+	]
+	DisplayServer.window_set_mode(
+		DisplayServer.WINDOW_MODE_WINDOWED
+		if is_fullscreen
+		else DisplayServer.WINDOW_MODE_FULLSCREEN
+	)
 
 func transition_to_track(
 	scene_path: String,

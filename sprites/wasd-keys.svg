@@ -5,10 +5,10 @@
     <rect x="43" y="42" width="34" height="34" rx="5"/>
     <rect x="82" y="42" width="34" height="34" rx="5"/>
   </g>
-  <g fill="#f2f4f7" font-family="sans-serif" font-size="18" font-weight="700" text-anchor="middle">
-    <text x="60" y="25">W</text>
-    <text x="21" y="66">A</text>
-    <text x="60" y="66">S</text>
-    <text x="99" y="66">D</text>
+  <g fill="#f2f4f7">
+    <path d="M48 10h5l3 12 4-9 4 9 3-12h5l-5 20h-5l-2-7-2 7h-5z"/>
+    <path fill-rule="evenodd" d="m11 69 7-20h6l7 20h-5l-2-6h-7l-2 6zm8-10h4l-2-6z"/>
+    <path d="M69 52c-3-2-6-3-9-3-6 0-10 3-10 8 0 4 3 6 8 7 4 1 6 1 6 3 0 1-2 2-4 2-3 0-6-1-9-3v5c3 2 6 3 10 3 6 0 10-3 10-8 0-4-3-6-9-7-3-1-5-1-5-3 0-1 1-2 4-2 2 0 5 1 8 3z"/>
+    <path fill-rule="evenodd" d="M89 49h9c8 0 13 4 13 12s-5 12-13 12h-9zm6 5v14h3c4 0 7-2 7-7s-3-7-7-7z"/>
   </g>
 </svg>

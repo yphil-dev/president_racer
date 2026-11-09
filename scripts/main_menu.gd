@@ -173,12 +173,13 @@ func _animate_button(index: int, selected: bool) -> void:
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(button, "scale", target_scale, 0.14)
-	tween.tween_property(
-		selection_shades[index],
-		"color",
-		SELECTED_SHADE if selected else NORMAL_SHADE,
-		0.14
-	)
+	if index < track_buttons.size():
+		tween.tween_property(
+			selection_shades[index],
+			"color",
+			SELECTED_SHADE if selected else NORMAL_SHADE,
+			0.14
+		)
 	tween.tween_property(
 		selection_labels[index],
 		"modulate",
@@ -292,8 +293,8 @@ func _open_options() -> void:
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(selection_shades[index], "color", Color(1, 0.65, 0.1, 0.4), 0.08)
-	tween.tween_property(selection_shades[index], "color", Color(0, 0, 0, 0.1), 0.14)
+	tween.tween_property(options_button, "scale", Vector2(0.97, 0.97), 0.08)
+	tween.tween_property(options_button, "scale", Vector2.ONE, 0.14)
 	_button_tweens[index] = tween
 	await tween.finished
 	SceneTransition.transition_to_scene(DRIVER_SELECTION_SCENE)

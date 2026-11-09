@@ -39,7 +39,6 @@ const SCHEME_ORDER: Array[String] = [
 @onready var lap_selector: VBoxContainer = $LapSelector
 @onready var time_selector: HBoxContainer = $TimeSelector
 @onready var race_button: Button = $Race
-@onready var race_button_shade: ColorRect = $Race/Shade
 @onready var race_button_icon: TextureRect = $Race/Icon
 @onready var time_buttons: Array[Button] = [$TimeSelector/Day, $TimeSelector/Night]
 @onready var lap_buttons: Array[Button] = [
@@ -156,7 +155,7 @@ func _layout_cards() -> void:
 		return
 
 	var available_size := Vector2(size.x, maxf(size.y - 250.0, 0.0))
-	var card_size := QuadrantLayout.get_card_size(available_size) * 1.3
+	var card_size := QuadrantLayout.get_card_size(available_size) * 1.56
 	var grid_size := Vector2(
 		card_size.x * 2.0 + QuadrantLayout.HORIZONTAL_GAP,
 		card_size.y * 2.0 + QuadrantLayout.VERTICAL_GAP
@@ -194,9 +193,9 @@ func _create_scheme_buttons(driver_index: int) -> void:
 	for scheme in SCHEME_ORDER:
 		var button := Button.new()
 		button.name = scheme.to_pascal_case()
-		button.custom_minimum_size = Vector2(0.0, 40.0)
+		button.custom_minimum_size = Vector2(0.0, 56.0)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.size_flags_stretch_ratio = 1.55 if scheme == RaceSelection.CONTROL_COMBO else 1.0
+		button.size_flags_stretch_ratio = 1.7 if scheme == RaceSelection.CONTROL_COMBO else 1.0
 		button.focus_mode = Control.FOCUS_ALL
 		button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		button.pressed.connect(_select_control_scheme.bind(driver_id, scheme))
@@ -249,7 +248,7 @@ func _add_scheme_visual(button: Button, scheme: String) -> void:
 
 func _add_texture_icon(parent: HBoxContainer, texture: Texture2D) -> TextureRect:
 	var icon := TextureRect.new()
-	icon.custom_minimum_size = Vector2(28.0, 28.0)
+	icon.custom_minimum_size = Vector2(36.0, 36.0)
 	icon.texture = texture
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -259,7 +258,7 @@ func _add_texture_icon(parent: HBoxContainer, texture: Texture2D) -> TextureRect
 
 func _add_controller_icon(parent: HBoxContainer, number: int) -> TextureRect:
 	var holder := Control.new()
-	holder.custom_minimum_size = Vector2(28.0, 30.0)
+	holder.custom_minimum_size = Vector2(36.0, 38.0)
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(holder)
 
@@ -276,7 +275,7 @@ func _add_controller_icon(parent: HBoxContainer, number: int) -> TextureRect:
 	label.text = str(number)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 12)
+	label.add_theme_font_size_override("font_size", 14)
 	label.add_theme_color_override("font_color", Color.WHITE)
 	label.add_theme_color_override("font_outline_color", Color.BLACK)
 	label.add_theme_constant_override("outline_size", 3)
@@ -316,7 +315,7 @@ func _refresh_scheme_buttons() -> void:
 
 func _style_scheme_button(
 	button: Button,
-	scheme: String,
+	_scheme: String,
 	selected: bool,
 	_available: bool
 ) -> void:
@@ -326,8 +325,7 @@ func _style_scheme_button(
 		if selected
 		else Color(0.08, 0.08, 0.09, 0.88)
 	)
-	style.border_width_right = 0 if scheme == RaceSelection.CONTROL_CPU else 1
-	style.border_color = Color(0, 0, 0, 0.5)
+	style.border_width_right = 0
 
 	var selection_bar := button.get_meta(&"selection_bar") as ColorRect
 	selection_bar.visible = selected
@@ -517,8 +515,6 @@ func _focus_race_button() -> void:
 	if _race_button_tween != null and _race_button_tween.is_valid():
 		_race_button_tween.kill()
 	_race_button_tween = create_tween()
-	_race_button_tween.set_parallel(true)
-	_race_button_tween.tween_property(race_button_shade, "color", Color(1, 0.65, 0.1, 0.25), 0.14)
 	_race_button_tween.tween_property(race_button_icon, "modulate", SELECTED_LABEL_COLOR, 0.14)
 
 func _return_to_menu() -> void:

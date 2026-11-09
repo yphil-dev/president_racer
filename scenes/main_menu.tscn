@@ -9,24 +9,24 @@
 [ext_resource type="Texture2D" path="res://sprites/day-sun.svg" id="7_day"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_nav_button"]
-bg_color = Color(0, 0, 0, 0.55)
+bg_color = Color(0, 0, 0, 0.5)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.3)
+border_color = Color(0.239216, 0.239216, 0.239216, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_nav_button_active"]
-bg_color = Color(0, 0, 0, 0.55)
+bg_color = Color(0, 0, 0, 0.9)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.6)
+border_color = Color(0.901961, 0.901961, 0.901961, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -338,7 +338,7 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.55)
+color = Color(0, 0, 0, 0)
 
 [node name="WheelIcon" type="TextureRect" parent="Options" unique_id=1414649629]
 layout_mode = 0

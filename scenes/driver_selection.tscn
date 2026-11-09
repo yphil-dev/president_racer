@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" path="res://sprites/day-sun.svg" id="5_sun"]
 [ext_resource type="Texture2D" path="res://sprites/night-moon.svg" id="6_moon"]
 [ext_resource type="Texture2D" path="res://sprites/day-sun-neutral.svg" id="7_sun_neutral"]
-[ext_resource type="Texture2D" path="res://sprites/results-finish-flag.png" id="8_finish"]
+[ext_resource type="Texture2D" path="res://sprites/results-finish-flag.svg" id="8_finish"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBox_lap_bar"]
 
@@ -19,24 +19,24 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_race_button"]
-bg_color = Color(0, 0, 0, 0.55)
+bg_color = Color(0, 0, 0, 0.5)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.3)
+border_color = Color(0.239216, 0.239216, 0.239216, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_race_button_active"]
-bg_color = Color(0, 0, 0, 0.55)
+bg_color = Color(0, 0, 0, 0.9)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.6)
+border_color = Color(0.901961, 0.901961, 0.901961, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -281,7 +281,7 @@ offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.12)
+color = Color(0, 0, 0, 0)
 
 [node name="Icon" type="TextureRect" parent="Race"]
 layout_mode = 0
@@ -338,8 +338,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -100.0
-offset_bottom = -42.0
+offset_top = -124.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -355,7 +355,7 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -42.0
+offset_top = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
@@ -405,8 +405,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -100.0
-offset_bottom = -42.0
+offset_top = -124.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -422,7 +422,7 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -42.0
+offset_top = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
@@ -473,8 +473,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -100.0
-offset_bottom = -42.0
+offset_top = -124.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -490,7 +490,7 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -42.0
+offset_top = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
@@ -541,8 +541,8 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -100.0
-offset_bottom = -42.0
+offset_top = -124.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -558,7 +558,7 @@ layout_mode = 1
 anchors_preset = 12
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -42.0
+offset_top = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
