@@ -14,11 +14,23 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.82, 0.84, 0.9, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+border_color = Color(0, 0, 0, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_nav_button_active"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="MainMenu" type="Control" unique_id=459776246]
 layout_mode = 3
@@ -310,9 +322,9 @@ focus_neighbor_left = NodePath("../TrackGrid/Limoges")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
 flat = false
 theme_override_styles/normal = SubResource("StyleBox_nav_button")
-theme_override_styles/hover = SubResource("StyleBox_nav_button")
-theme_override_styles/focus = SubResource("StyleBox_nav_button")
-theme_override_styles/pressed = SubResource("StyleBox_nav_button")
+theme_override_styles/hover = SubResource("StyleBox_nav_button_active")
+theme_override_styles/focus = SubResource("StyleBox_nav_button_active")
+theme_override_styles/pressed = SubResource("StyleBox_nav_button_active")
 
 [node name="Shade" type="ColorRect" parent="Options" unique_id=1233481440]
 layout_mode = 1

@@ -24,11 +24,23 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.82, 0.84, 0.9, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+border_color = Color(0, 0, 0, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_race_button_active"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_button_left"]
 bg_color = Color(0.24, 0.24, 0.24, 1)
@@ -253,9 +265,9 @@ offset_right = 240.0
 offset_bottom = 56.0
 flat = false
 theme_override_styles/normal = SubResource("StyleBox_race_button")
-theme_override_styles/hover = SubResource("StyleBox_race_button")
-theme_override_styles/focus = SubResource("StyleBox_race_button")
-theme_override_styles/pressed = SubResource("StyleBox_race_button")
+theme_override_styles/hover = SubResource("StyleBox_race_button_active")
+theme_override_styles/focus = SubResource("StyleBox_race_button_active")
+theme_override_styles/pressed = SubResource("StyleBox_race_button_active")
 
 [node name="Shade" type="ColorRect" parent="Race"]
 layout_mode = 1

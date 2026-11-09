@@ -238,6 +238,15 @@ func _add_scheme_visual(button: Button, scheme: String) -> void:
 
 	button.set_meta(&"controller_icons", controller_icons)
 
+	var selection_bar := ColorRect.new()
+	selection_bar.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	selection_bar.offset_bottom = 3.0
+	selection_bar.color = SELECTED_LABEL_COLOR
+	selection_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	selection_bar.hide()
+	button.add_child(selection_bar)
+	button.set_meta(&"selection_bar", selection_bar)
+
 func _add_texture_icon(parent: HBoxContainer, texture: Texture2D) -> TextureRect:
 	var icon := TextureRect.new()
 	icon.custom_minimum_size = Vector2(28.0, 28.0)
@@ -309,20 +318,19 @@ func _style_scheme_button(
 	button: Button,
 	scheme: String,
 	selected: bool,
-	available: bool
+	_available: bool
 ) -> void:
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.08, 0.08, 0.09, 0.88)
-	style.border_width_top = 3 if selected else 1
+	style.bg_color = (
+		Color(0.25, 0.2, 0.035, 0.96)
+		if selected
+		else Color(0.08, 0.08, 0.09, 0.88)
+	)
 	style.border_width_right = 0 if scheme == RaceSelection.CONTROL_CPU else 1
-	if not available:
-		style.bg_color = Color(0.18, 0.02, 0.02, 0.9)
-		style.border_color = Color(0.6, 0.08, 0.06, 1)
-	elif selected:
-		style.bg_color = Color(0.25, 0.2, 0.035, 0.96)
-		style.border_color = SELECTED_LABEL_COLOR
-	else:
-		style.border_color = Color(0.48, 0.5, 0.55, 0.9)
+	style.border_color = Color(0, 0, 0, 0.5)
+
+	var selection_bar := button.get_meta(&"selection_bar") as ColorRect
+	selection_bar.visible = selected
 
 	button.add_theme_stylebox_override("normal", style)
 	button.add_theme_stylebox_override("disabled", style)
