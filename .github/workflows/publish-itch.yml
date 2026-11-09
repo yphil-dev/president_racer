@@ -11,7 +11,7 @@ permissions:
 
 env:
   GODOT_VERSION: 4.7.2
-  ITCH_TARGET: yphil/president-racer
+  ITCH_TARGET: yphil/president_gp
 
 jobs:
   publish:
@@ -38,17 +38,17 @@ jobs:
       - name: Export Linux build
         run: |
           mkdir -p export/linux
-          godot --headless --verbose --export-release "Linux/X11" export/linux/president-racer.x86_64
+          godot --headless --verbose --export-release "Linux/X11" export/linux/president_gp.x86_64
 
       - name: Export Windows build
         run: |
           mkdir -p export/windows
-          godot --headless --verbose --export-release "Windows Desktop" export/windows/president-racer.exe
+          godot --headless --verbose --export-release "Windows Desktop" export/windows/president_gp.exe
 
       - name: Export macOS build
         run: |
           mkdir -p export/macos
-          godot --headless --verbose --export-release "macOS" export/macos/president-racer.zip
+          godot --headless --verbose --export-release "macOS" export/macos/president_gp.zip
 
       - name: Publish to itch.io
         env:

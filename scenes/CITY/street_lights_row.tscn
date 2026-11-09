@@ -51,3 +51,67 @@ transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.245
 
 [node name="streetlight17" parent="." unique_id=1309552467 instance=ExtResource("1_skuyu")]
 transform = Transform3D(2.5520601, 0, 0, 0, 2.5520601, 0, 0, 0, 2.5520601, 7.2455587, -0.07203579, 5.1132097)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=2094287907]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, 3.3969727)
+spot_angle = 17.11
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1322580539]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, 1.5576572)
+spot_angle = 17.11
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=43780619]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, -0.15695858)
+spot_angle = 17.11
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=1378545162]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, -1.9806871)
+spot_angle = 17.11
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="." unique_id=1514469706]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, 5.096001)
+spot_angle = 17.11
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="." unique_id=302266687]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, 6.935317)
+spot_angle = 17.11
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="." unique_id=1317983748]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, 8.618758)
+spot_angle = 17.11
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="." unique_id=2060986303]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 15.6875, 2.2976685, 10.442486)
+spot_angle = 17.11
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="." unique_id=1009075460]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 3.3969727)
+spot_angle = 17.11
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="." unique_id=2112417022]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 1.5576572)
+spot_angle = 17.11
+
+[node name="SpotLight3D11" type="SpotLight3D" parent="." unique_id=189091077]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, -0.15695858)
+spot_angle = 17.11
+
+[node name="SpotLight3D12" type="SpotLight3D" parent="." unique_id=624779483]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, -1.9806871)
+spot_angle = 17.11
+
+[node name="SpotLight3D13" type="SpotLight3D" parent="." unique_id=646532226]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 5.096001)
+spot_angle = 17.11
+
+[node name="SpotLight3D14" type="SpotLight3D" parent="." unique_id=805828498]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 6.935317)
+spot_angle = 17.11
+
+[node name="SpotLight3D15" type="SpotLight3D" parent="." unique_id=1913143738]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 8.618758)
+spot_angle = 17.11
+
+[node name="SpotLight3D16" type="SpotLight3D" parent="." unique_id=1257564690]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.7605457, 2.2976685, 10.442486)
+spot_angle = 17.11
