@@ -80,7 +80,7 @@ point_count = 14
 script = ExtResource("1_eb6dy")
 
 [node name="TrafficLight" parent="." unique_id=536095388 instance=ExtResource("16_ws3xf")]
-transform = Transform3D(4.2459884, 0, 0, 0, 4.2459884, 0, 0, 0, 4.2459884, 14.475473, 0, 4.113555)
+transform = Transform3D(-1.8559803e-07, 0, 4.245988, 0, 4.245988, 0, -4.245988, 0, -1.8559803e-07, 8.157349, 0, 1.8844151)
 
 [node name="RaceController" parent="." unique_id=1837278698 instance=ExtResource("2_trceg")]
 traffic_light_path = NodePath("../TrafficLight")

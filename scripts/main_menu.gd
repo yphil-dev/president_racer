@@ -3,6 +3,7 @@ extends Control
 const DRIVER_SELECTION_SCENE := "res://scenes/driver_selection.tscn"
 const DAY_ICON: Texture2D = preload("res://sprites/day-sun.svg")
 const NIGHT_ICON: Texture2D = preload("res://sprites/night-moon.svg")
+const CPU_ICON: Texture2D = preload("res://sprites/cpu.svg")
 
 const TRACK_SCENES: Array[String] = [
 	"res://scenes/tracks/paris.tscn",
@@ -99,8 +100,11 @@ func _initialize_selection() -> void:
 		selectable_buttons[index].modulate = Color(1, 1, 1, 0)
 		_update_button_pivot(index)
 
-	var selected_profile := DriverRoster.get_profile(RaceSelection.selected_driver_id)
-	selected_driver_portrait.texture = selected_profile["portrait"]
+	if _all_drivers_cpu():
+		selected_driver_portrait.texture = CPU_ICON
+	else:
+		var selected_profile := DriverRoster.get_profile(RaceSelection.selected_driver_id)
+		selected_driver_portrait.texture = selected_profile["portrait"]
 	selection_labels[4].text = str(RaceSelection.selected_laps)
 	selected_time_icon.texture = NIGHT_ICON if RaceSelection.night_enabled else DAY_ICON
 
@@ -109,6 +113,12 @@ func _initialize_selection() -> void:
 	AudioPlayer.fade_in(2.5)
 	_play_intro()
 	_unlock_startup_hover.call_deferred()
+
+func _all_drivers_cpu() -> bool:
+	for driver_id in DriverRoster.DRIVER_IDS:
+		if RaceSelection.get_control_scheme(driver_id) != RaceSelection.CONTROL_CPU:
+			return false
+	return true
 
 func _layout_menu() -> void:
 	if not is_node_ready():
