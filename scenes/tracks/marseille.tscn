@@ -232,9 +232,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.3
 [node name="StreetLights-row5" parent="CITY" unique_id=1729513744 instance=ExtResource("16_tbvl8")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.736248, 0, -19.509644)
 
-[node name="StreetLights-row6" parent="CITY" unique_id=210313521 instance=ExtResource("16_tbvl8")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -12.736248, 0, -4.5322266)
-
 [node name="StreetLights-row7" parent="CITY" unique_id=1641155447 instance=ExtResource("16_tbvl8")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.114673615, 0, 18.228394)
 
@@ -245,10 +242,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.11
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -4.062786, 0, 7.598999)
 
 [node name="StreetLights-row10" parent="CITY" unique_id=525974967 instance=ExtResource("16_tbvl8")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4.659687, 0, 7.598999)
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 6.3754787, 0, 7.598999)
 
 [node name="StreetLights-row11" parent="CITY" unique_id=1200478254 instance=ExtResource("16_tbvl8")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 13.043171, 0, 7.598999)
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 17.104856, 0, 7.598999)
 
 [node name="vehicle-truck-purple" parent="CITY" unique_id=1373203257 instance=ExtResource("10_p3c1o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.75767, -0.143123, -12.70261)

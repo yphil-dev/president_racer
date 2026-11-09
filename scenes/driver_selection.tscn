@@ -1,15 +1,13 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://xqrsn52l8lvl"]
 
-[ext_resource type="Script" path="res://scripts/driver_selection.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://splash-screen.png" id="2_background"]
-[ext_resource type="Texture2D" path="res://sprites/laps-loop.svg" id="3_laps"]
-[ext_resource type="Texture2D" path="res://sprites/steering-wheel.png" id="4_wheel"]
-[ext_resource type="Texture2D" path="res://sprites/day-sun.svg" id="5_sun"]
-[ext_resource type="Texture2D" path="res://sprites/night-moon.svg" id="6_moon"]
-[ext_resource type="Texture2D" path="res://sprites/day-sun-neutral.svg" id="7_sun_neutral"]
-[ext_resource type="Texture2D" path="res://sprites/results-finish-flag.svg" id="8_finish"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBox_lap_bar"]
+[ext_resource type="Script" uid="uid://dvaqw8rt4ilqt" path="res://scripts/driver_selection.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="2_background"]
+[ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="3_laps"]
+[ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="4_wheel"]
+[ext_resource type="Texture2D" uid="uid://b1ebtd7gnxtd1" path="res://sprites/day-sun.svg" id="5_sun"]
+[ext_resource type="Texture2D" uid="uid://bnetos1wy0c77" path="res://sprites/night-moon.svg" id="6_moon"]
+[ext_resource type="Texture2D" uid="uid://bfeq4ee746ffd" path="res://sprites/day-sun-neutral.svg" id="7_sun_neutral"]
+[ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="8_finish"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_title_badge"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -17,6 +15,34 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBox_lap_bar"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_left"]
+bg_color = Color(0.24, 0.24, 0.24, 1)
+corner_radius_top_left = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_focus_left"]
+bg_color = Color(0.35, 0.31, 0.12, 1)
+corner_radius_top_left = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_middle"]
+bg_color = Color(0.24, 0.24, 0.24, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_focus_middle"]
+bg_color = Color(0.35, 0.31, 0.12, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_button_right"]
+bg_color = Color(0.24, 0.24, 0.24, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_focus_right"]
+bg_color = Color(0.35, 0.31, 0.12, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_race_button"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -42,33 +68,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_button_left"]
-bg_color = Color(0.24, 0.24, 0.24, 1)
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_button_middle"]
-bg_color = Color(0.24, 0.24, 0.24, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_button_right"]
-bg_color = Color(0.24, 0.24, 0.24, 1)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_focus_left"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_focus_middle"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_focus_right"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-
-[node name="DriverSelection" type="Control"]
+[node name="DriverSelection" type="Control" unique_id=121834990]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,7 +77,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=398939647]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,7 +89,7 @@ texture = ExtResource("2_background")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="BackgroundShade" type="ColorRect" parent="."]
+[node name="BackgroundShade" type="ColorRect" parent="." unique_id=1292711778]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,15 +99,16 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.3)
 
-[node name="DriverBadge" type="Panel" parent="."]
+[node name="DriverBadge" type="Panel" parent="." unique_id=1843135828]
+visible = false
+z_index = 5
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 mouse_filter = 2
-z_index = 5
 theme_override_styles/panel = SubResource("StyleBox_title_badge")
 
-[node name="Icon" type="TextureRect" parent="DriverBadge"]
+[node name="Icon" type="TextureRect" parent="DriverBadge" unique_id=2078231944]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -123,7 +124,7 @@ texture = ExtResource("4_wheel")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="DriverGrid" type="GridContainer" parent="."]
+[node name="DriverGrid" type="GridContainer" parent="." unique_id=188854883]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
@@ -131,94 +132,364 @@ theme_override_constants/h_separation = 32
 theme_override_constants/v_separation = 24
 columns = 2
 
-[node name="LapSelector" type="VBoxContainer" parent="."]
+[node name="Soral" type="Button" parent="DriverGrid" unique_id=1143044812]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_neighbor_right = NodePath("../LePen")
+focus_neighbor_bottom = NodePath("../Melenchon")
+flat = true
+
+[node name="Portrait" type="TextureRect" parent="DriverGrid/Soral" unique_id=667819085]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="DriverGrid/Soral" unique_id=1940718724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.28)
+
+[node name="ColorAccent" type="ColorRect" parent="DriverGrid/Soral" unique_id=51636231]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="DriverGrid/Soral" unique_id=511629434]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -124.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Soral" unique_id=560169495]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="LePen" type="Button" parent="DriverGrid" unique_id=362051121]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_neighbor_left = NodePath("../Soral")
+focus_neighbor_bottom = NodePath("../Glucksman")
+flat = true
+
+[node name="Portrait" type="TextureRect" parent="DriverGrid/LePen" unique_id=1294847336]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="DriverGrid/LePen" unique_id=787513342]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.28)
+
+[node name="ColorAccent" type="ColorRect" parent="DriverGrid/LePen" unique_id=1259353413]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="DriverGrid/LePen" unique_id=1605862305]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -124.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/LePen" unique_id=1663717617]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Glucksman" type="Button" parent="DriverGrid" unique_id=1739639960]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_neighbor_left = NodePath("../Melenchon")
+focus_neighbor_top = NodePath("../LePen")
+focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/Three")
+flat = true
+
+[node name="Portrait" type="TextureRect" parent="DriverGrid/Glucksman" unique_id=2077714719]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="DriverGrid/Glucksman" unique_id=608033030]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.28)
+
+[node name="ColorAccent" type="ColorRect" parent="DriverGrid/Glucksman" unique_id=480716919]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="DriverGrid/Glucksman" unique_id=1298520898]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -124.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Glucksman" unique_id=709569939]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Melenchon" type="Button" parent="DriverGrid" unique_id=1704054427]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_neighbor_top = NodePath("../Soral")
+focus_neighbor_right = NodePath("../Glucksman")
+focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/One")
+flat = true
+
+[node name="Portrait" type="TextureRect" parent="DriverGrid/Melenchon" unique_id=10640569]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="DriverGrid/Melenchon" unique_id=1617248515]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.28)
+
+[node name="ColorAccent" type="ColorRect" parent="DriverGrid/Melenchon" unique_id=1398500916]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="DriverGrid/Melenchon" unique_id=2011118736]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -124.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Melenchon" unique_id=1911616316]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="LapSelector" type="VBoxContainer" parent="." unique_id=1572988971]
 layout_mode = 0
 theme_override_constants/separation = 6
 
-[node name="Bar" type="PanelContainer" parent="LapSelector"]
+[node name="Bar" type="PanelContainer" parent="LapSelector" unique_id=507171210]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_lap_bar")
 
-[node name="Buttons" type="HBoxContainer" parent="LapSelector/Bar"]
+[node name="Buttons" type="HBoxContainer" parent="LapSelector/Bar" unique_id=2044203681]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="One" type="Button" parent="LapSelector/Bar/Buttons"]
+[node name="One" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1831656569]
 custom_minimum_size = Vector2(64, 36)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
-focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
 focus_neighbor_right = NodePath("../Two")
-theme_override_styles/focus = SubResource("StyleBox_focus_left")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
 theme_override_styles/normal = SubResource("StyleBox_button_left")
-theme_override_styles/hover = SubResource("StyleBox_focus_left")
 theme_override_styles/pressed = SubResource("StyleBox_focus_left")
+theme_override_styles/hover = SubResource("StyleBox_focus_left")
+theme_override_styles/focus = SubResource("StyleBox_focus_left")
 text = "1"
 
-[node name="Two" type="Button" parent="LapSelector/Bar/Buttons"]
+[node name="Two" type="Button" parent="LapSelector/Bar/Buttons" unique_id=661744785]
 custom_minimum_size = Vector2(64, 36)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
-focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
-theme_override_styles/focus = SubResource("StyleBox_focus_middle")
-theme_override_styles/normal = SubResource("StyleBox_button_middle")
-theme_override_styles/hover = SubResource("StyleBox_focus_middle")
-theme_override_styles/pressed = SubResource("StyleBox_focus_middle")
 focus_neighbor_left = NodePath("../One")
+focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
 focus_neighbor_right = NodePath("../Three")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
+theme_override_styles/normal = SubResource("StyleBox_button_middle")
+theme_override_styles/pressed = SubResource("StyleBox_focus_middle")
+theme_override_styles/hover = SubResource("StyleBox_focus_middle")
+theme_override_styles/focus = SubResource("StyleBox_focus_middle")
 text = "2"
 
-[node name="Three" type="Button" parent="LapSelector/Bar/Buttons"]
+[node name="Three" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1042194513]
 custom_minimum_size = Vector2(64, 36)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Two")
 focus_neighbor_top = NodePath("../../../../DriverGrid/Glucksman")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Night")
-theme_override_styles/focus = SubResource("StyleBox_focus_right")
 theme_override_styles/normal = SubResource("StyleBox_button_right")
-theme_override_styles/hover = SubResource("StyleBox_focus_right")
 theme_override_styles/pressed = SubResource("StyleBox_focus_right")
-focus_neighbor_left = NodePath("../Two")
+theme_override_styles/hover = SubResource("StyleBox_focus_right")
+theme_override_styles/focus = SubResource("StyleBox_focus_right")
 text = "3"
 
-[node name="TimeSelector" type="HBoxContainer" parent="."]
+[node name="TimeSelector" type="HBoxContainer" parent="." unique_id=1970189216]
 layout_mode = 0
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Day" type="Button" parent="TimeSelector"]
+[node name="Day" type="Button" parent="TimeSelector" unique_id=568552443]
 custom_minimum_size = Vector2(96, 40)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_right = NodePath("../Night")
-theme_override_styles/focus = SubResource("StyleBox_focus_left")
 theme_override_styles/normal = SubResource("StyleBox_button_left")
-theme_override_styles/hover = SubResource("StyleBox_focus_left")
 theme_override_styles/pressed = SubResource("StyleBox_focus_left")
+theme_override_styles/hover = SubResource("StyleBox_focus_left")
+theme_override_styles/focus = SubResource("StyleBox_focus_left")
 icon = ExtResource("7_sun_neutral")
 icon_alignment = 1
 
-[node name="Night" type="Button" parent="TimeSelector"]
+[node name="Night" type="Button" parent="TimeSelector" unique_id=1543998521]
 custom_minimum_size = Vector2(96, 40)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
 focus_neighbor_left = NodePath("../Day")
-theme_override_styles/focus = SubResource("StyleBox_focus_right")
+focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
 theme_override_styles/normal = SubResource("StyleBox_button_right")
-theme_override_styles/hover = SubResource("StyleBox_focus_right")
 theme_override_styles/pressed = SubResource("StyleBox_focus_right")
+theme_override_styles/hover = SubResource("StyleBox_focus_right")
+theme_override_styles/focus = SubResource("StyleBox_focus_right")
 icon = ExtResource("6_moon")
 icon_alignment = 1
 
-[node name="LapBadge" type="Panel" parent="."]
+[node name="LapBadge" type="Panel" parent="." unique_id=2080201623]
+z_index = 5
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 mouse_filter = 2
-z_index = 5
 theme_override_styles/panel = SubResource("StyleBox_title_badge")
 
-[node name="Icon" type="TextureRect" parent="LapBadge"]
+[node name="Icon" type="TextureRect" parent="LapBadge" unique_id=139789112]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,15 +505,15 @@ texture = ExtResource("3_laps")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TimeBadge" type="Panel" parent="."]
+[node name="TimeBadge" type="Panel" parent="." unique_id=957859159]
+z_index = 5
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 mouse_filter = 2
-z_index = 5
 theme_override_styles/panel = SubResource("StyleBox_title_badge")
 
-[node name="Icon" type="TextureRect" parent="TimeBadge"]
+[node name="Icon" type="TextureRect" parent="TimeBadge" unique_id=607695702]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -258,18 +529,18 @@ texture = ExtResource("5_sun")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Race" type="Button" parent="."]
+[node name="Race" type="Button" parent="." unique_id=2003988242]
 clip_contents = true
 layout_mode = 0
-offset_right = 240.0
+offset_left = 89.0
+offset_right = 150.0
 offset_bottom = 56.0
-flat = false
 theme_override_styles/normal = SubResource("StyleBox_race_button")
+theme_override_styles/pressed = SubResource("StyleBox_race_button_active")
 theme_override_styles/hover = SubResource("StyleBox_race_button_active")
 theme_override_styles/focus = SubResource("StyleBox_race_button_active")
-theme_override_styles/pressed = SubResource("StyleBox_race_button_active")
 
-[node name="Shade" type="ColorRect" parent="Race"]
+[node name="Shade" type="ColorRect" parent="Race" unique_id=764245682]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -283,283 +554,20 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Icon" type="TextureRect" parent="Race"]
-layout_mode = 0
-offset_left = 92.0
-offset_top = 6.0
-offset_right = 148.0
-offset_bottom = 50.0
+[node name="Icon" type="TextureRect" parent="Race" unique_id=2118937625]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -22.0
+offset_right = 28.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("8_finish")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="Soral" type="Button" parent="DriverGrid"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_neighbor_right = NodePath("../LePen")
-focus_neighbor_bottom = NodePath("../Melenchon")
-focus_mode = 2
-flat = true
-
-[node name="Portrait" type="TextureRect" parent="DriverGrid/Soral"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Shade" type="ColorRect" parent="DriverGrid/Soral"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.28)
-
-[node name="ColorAccent" type="ColorRect" parent="DriverGrid/Soral"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 10.0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="NameLabel" type="Label" parent="DriverGrid/Soral"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -124.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Soral"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="LePen" type="Button" parent="DriverGrid"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_neighbor_left = NodePath("../Soral")
-focus_neighbor_bottom = NodePath("../Glucksman")
-focus_mode = 2
-flat = true
-
-[node name="Portrait" type="TextureRect" parent="DriverGrid/LePen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Shade" type="ColorRect" parent="DriverGrid/LePen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.28)
-
-[node name="ColorAccent" type="ColorRect" parent="DriverGrid/LePen"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 10.0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="NameLabel" type="Label" parent="DriverGrid/LePen"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -124.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/LePen"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="Glucksman" type="Button" parent="DriverGrid"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_neighbor_left = NodePath("../Melenchon")
-focus_neighbor_top = NodePath("../LePen")
-focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/Three")
-focus_mode = 2
-flat = true
-
-[node name="Portrait" type="TextureRect" parent="DriverGrid/Glucksman"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Shade" type="ColorRect" parent="DriverGrid/Glucksman"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.28)
-
-[node name="ColorAccent" type="ColorRect" parent="DriverGrid/Glucksman"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 10.0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="NameLabel" type="Label" parent="DriverGrid/Glucksman"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -124.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Glucksman"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="Melenchon" type="Button" parent="DriverGrid"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_neighbor_top = NodePath("../Soral")
-focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/One")
-focus_neighbor_right = NodePath("../Glucksman")
-focus_mode = 2
-flat = true
-
-[node name="Portrait" type="TextureRect" parent="DriverGrid/Melenchon"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Shade" type="ColorRect" parent="DriverGrid/Melenchon"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.28)
-
-[node name="ColorAccent" type="ColorRect" parent="DriverGrid/Melenchon"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 10.0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="NameLabel" type="Label" parent="DriverGrid/Melenchon"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -124.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ControlSchemes" type="HBoxContainer" parent="DriverGrid/Melenchon"]
-layout_mode = 1
-anchors_preset = 12
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 0
-alignment = 1

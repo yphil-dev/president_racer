@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2jtmsipqxjfw"]
+[gd_scene format=3 uid="uid://d2jtmsipqxjfw"]
 
-[ext_resource type="Script" path="res://scenes/CarUI/car_ui.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://c4d42dklvnuhb" path="res://scenes/CarUI/car_ui.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.025, 0.03, 0.045, 0.7)
@@ -15,80 +15,80 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_live_badge"]
-bg_color = Color(0.94, 0.93, 0.88, 1)
+bg_color = Color(0.2520276, 0.25202766, 0.25202763, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="CarUI" type="PanelContainer"]
+[node name="CarUI" type="PanelContainer" unique_id=130035257]
 custom_minimum_size = Vector2(153, 88)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 script = ExtResource("1_script")
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="." unique_id=793824021]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 4
 
-[node name="HBox" type="HBoxContainer" parent="Margin"]
+[node name="HBox" type="HBoxContainer" parent="Margin" unique_id=1375329511]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Accent" type="ColorRect" parent="Margin/HBox"]
+[node name="Accent" type="ColorRect" parent="Margin/HBox" unique_id=1691845348]
 custom_minimum_size = Vector2(6, 0)
 layout_mode = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 1)
 
-[node name="Portrait" type="TextureRect" parent="Margin/HBox"]
+[node name="Portrait" type="TextureRect" parent="Margin/HBox" unique_id=916920201]
 custom_minimum_size = Vector2(42, 72)
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Info" type="VBoxContainer" parent="Margin/HBox"]
+[node name="Info" type="VBoxContainer" parent="Margin/HBox" unique_id=1538798242]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Header" type="HBoxContainer" parent="Margin/HBox/Info"]
+[node name="Header" type="HBoxContainer" parent="Margin/HBox/Info" unique_id=168976189]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="RankLabel" type="Label" parent="Margin/HBox/Info/Header"]
+[node name="RankLabel" type="Label" parent="Margin/HBox/Info/Header" unique_id=1238170641]
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "1."
 
-[node name="NameLabel" type="Label" parent="Margin/HBox/Info/Header"]
+[node name="NameLabel" type="Label" parent="Margin/HBox/Info/Header" unique_id=1760411691]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 13
 text = "Soral"
 clip_text = true
 
-[node name="TimeLabel" type="Label" parent="Margin/HBox/Info"]
+[node name="TimeLabel" type="Label" parent="Margin/HBox/Info" unique_id=1650886009]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.25, 1)
 theme_override_font_sizes/font_size = 16
 text = "00:00.00"
 
-[node name="StatusRow" type="HBoxContainer" parent="Margin/HBox/Info"]
+[node name="StatusRow" type="HBoxContainer" parent="Margin/HBox/Info" unique_id=288541908]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="StatusBadge" type="Panel" parent="Margin/HBox/Info/StatusRow"]
+[node name="StatusBadge" type="Panel" parent="Margin/HBox/Info/StatusRow" unique_id=193858276]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_live_badge")
 
-[node name="StatusIcon" type="TextureRect" parent="Margin/HBox/Info/StatusRow/StatusBadge"]
+[node name="StatusIcon" type="TextureRect" parent="Margin/HBox/Info/StatusRow/StatusBadge" unique_id=257971466]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,24 +103,32 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="StatusLabel" type="Label" parent="Margin/HBox/Info/StatusRow"]
+[node name="StatusLabel" type="Label" parent="Margin/HBox/Info/StatusRow" unique_id=1042652889]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.85, 0.92, 1)
 theme_override_font_sizes/font_size = 10
 text = "Lap 0"
 clip_text = true
 
-[node name="ResultBadge" type="Panel" parent="."]
+[node name="BestLabel" type="Label" parent="Margin/HBox/Info" unique_id=1228088385]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.67, 0.76, 1)
+theme_override_font_sizes/font_size = 10
+text = "Best: --"
+clip_text = true
+
+[node name="ResultBadge" type="Panel" parent="." unique_id=377752260]
 visible = false
+self_modulate = Color(0.22670749, 0.22670749, 0.22670746, 1)
+show_behind_parent = true
 top_level = true
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
-mouse_filter = 2
 z_index = 10
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
 theme_type_variation = &"IconBadge"
 
-[node name="ResultIcon" type="TextureRect" parent="ResultBadge"]
+[node name="ResultIcon" type="TextureRect" parent="ResultBadge" unique_id=220576120]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -134,10 +142,3 @@ grow_vertical = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-
-[node name="BestLabel" type="Label" parent="Margin/HBox/Info"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.62, 0.67, 0.76, 1)
-theme_override_font_sizes/font_size = 10
-text = "Best: --"
-clip_text = true

@@ -10,7 +10,7 @@ const CONTROLLER_AVAILABLE_COLOR := Color(0.3, 1.0, 0.4, 1)
 const CONTROLLER_UNAVAILABLE_COLOR := Color(1.0, 0.22, 0.18, 1)
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
-const RACE_BUTTON_SIZE := Vector2(240, 56)
+const RACE_BUTTON_SIZE := Vector2(56, 56)
 const RACE_BUTTON_MARGIN := Vector2(32, 28)
 
 const DAY_ICON: Texture2D = preload("res://sprites/day-sun.svg")

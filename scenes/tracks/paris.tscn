@@ -546,19 +546,7 @@ transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -3.2
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 5.4084206, 1.4305115e-05, 7.5356445)
 
 [node name="StreetLights-row5" parent="CITY/LIGHTS" unique_id=2081529873 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 13.745823, 1.4305115e-05, 7.5356445)
-
-[node name="StreetLights-row17" parent="CITY/LIGHTS" unique_id=1083388318 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 16.486973, 1.4305115e-05, 11.36673)
-
-[node name="StreetLights-row18" parent="CITY/LIGHTS" unique_id=931827549 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 16.486973, 1.4305115e-05, 15.080444)
-
-[node name="StreetLights-row19" parent="CITY/LIGHTS" unique_id=1002930759 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4.026829, 1.4305115e-05, 15.080444)
-
-[node name="StreetLights-row20" parent="CITY/LIGHTS" unique_id=1950472025 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4.026829, 1.4305115e-05, 11.24408)
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 15.910715, 1.4305115e-05, 7.5356445)
 
 [node name="StreetLights-row6" parent="CITY/LIGHTS" unique_id=580782236 instance=ExtResource("19_cbdrs")]
 transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 3.297886, 1.4305115e-05, 7.5356445)
@@ -566,17 +554,11 @@ transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 3.29
 [node name="StreetLights-row13" parent="CITY/LIGHTS" unique_id=63015409 instance=ExtResource("19_cbdrs")]
 transform = Transform3D(-2.1855695e-07, 0, 1, 0, 1, 0, -1, 0, -2.1855695e-07, 6.306431, 1.4305115e-05, -7.4733315)
 
-[node name="StreetLights-row16" parent="CITY/LIGHTS" unique_id=49746102 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(3.059797e-07, 0, -1, 0, 1, 0, 1, 0, 3.059797e-07, 26.195469, 1.4305115e-05, -22.299149)
-
 [node name="StreetLights-row14" parent="CITY/LIGHTS" unique_id=787730807 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(-2.1855695e-07, 0, 1, 0, 1, 0, -1, 0, -2.1855695e-07, -2.3870506, 1.4305115e-05, -7.4733315)
+transform = Transform3D(-2.1855695e-07, 0, 1, 0, 1, 0, -1, 0, -2.1855695e-07, -6.609247, 1.4305115e-05, -7.4733315)
 
 [node name="StreetLights-row15" parent="CITY/LIGHTS" unique_id=1766754451 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(-2.1855695e-07, 0, 1, 0, 1, 0, -1, 0, -2.1855695e-07, -11.127895, 1.4305115e-05, -7.4733315)
-
-[node name="StreetLights-row7" parent="CITY/LIGHTS" unique_id=856440879 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 39.703556, 1.4305115e-05, 19.952759)
+transform = Transform3D(-2.1855695e-07, 0, 1, 0, 1, 0, -1, 0, -2.1855695e-07, -19.641142, 1.4305115e-05, -7.4733315)
 
 [node name="StreetLights-row8" parent="CITY/LIGHTS" unique_id=655049132 instance=ExtResource("19_cbdrs")]
 transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 39.49793, 1.4305115e-05, -6.487549)
@@ -586,12 +568,6 @@ transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 36
 
 [node name="StreetLights-row11" parent="CITY/LIGHTS" unique_id=878440052 instance=ExtResource("19_cbdrs")]
 transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 39.49793, 1.4305115e-05, -15.074341)
-
-[node name="StreetLights-row9" parent="CITY/LIGHTS" unique_id=1084451106 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 43.78406, 1.4305115e-05, -6.487549)
-
-[node name="StreetLights-row10" parent="CITY/LIGHTS" unique_id=1485858042 instance=ExtResource("19_cbdrs")]
-transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 43.78406, 1.4305115e-05, -16.345581)
 
 [node name="StreetLights-row21" parent="CITY/LIGHTS" unique_id=1599734660 instance=ExtResource("13_yfyak")]
 
