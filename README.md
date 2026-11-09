@@ -1,2 +1,3 @@
-# France-2027-Racer
-A 3D racing game
+# President Racer
+
+No left or right, just a finish line ; May the fastest win.
