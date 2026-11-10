@@ -329,56 +329,17 @@ transform = Transform3D(-0.913034, 0, 0.407884, 0, 1, 0, -0.407884, 0, -0.913034
 [node name="vehicle-truck-red3" parent="CITY/CARS" unique_id=1080361697 instance=ExtResource("11_wocnk")]
 transform = Transform3D(-0.028708935, 0, -0.9995881, 0, 1, 0, 0.9995881, 0, -0.028708935, 16.351398, -0.43336385, 6.8727946)
 
-[node name="vehicle-truck-purple8" parent="CITY/CARS" unique_id=143239015 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(0.9984803, 0, 0.055109218, 0, 1, 0, -0.055109218, 0, 0.9984803, 5.7785482, -0.4914537, 33.081295)
-
-[node name="vehicle-truck-purple11" parent="CITY/CARS" unique_id=1753505521 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(0.9984803, 0, 0.055109218, 0, 1, 0, -0.055109218, 0, 0.9984803, 7.2360377, -0.4914537, 31.177357)
-
-[node name="vehicle-truck-purple12" parent="CITY/CARS" unique_id=2061413839 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(0.9984803, 0, 0.055109218, 0, 1, 0, -0.055109218, 0, 0.9984803, 8.509073, -0.4914537, 31.163374)
-
-[node name="vehicle-truck-red8" parent="CITY/CARS" unique_id=186751476 instance=ExtResource("11_wocnk")]
-transform = Transform3D(0.999843, 0, -0.017731756, 0, 1, 0, 0.017731756, 0, 0.999843, 6.9636536, -0.039310098, 32.939674)
-
-[node name="vehicle-truck-red9" parent="CITY/CARS" unique_id=49661946 instance=ExtResource("11_wocnk")]
-transform = Transform3D(0.999843, 0, -0.017731756, 0, 1, 0, 0.017731756, 0, 0.999843, 8.209385, -0.039310098, 32.926)
-
-[node name="vehicle-truck-red10" parent="CITY/CARS" unique_id=1146437394 instance=ExtResource("11_wocnk")]
-transform = Transform3D(0.999843, 0, -0.017731756, 0, 1, 0, 0.017731756, 0, 0.999843, 6.0286636, -0.039310098, 31.112835)
-
-[node name="vehicle-truck-purple13" parent="CITY/CARS" unique_id=911753007 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(0.9984803, 0, 0.055109218, 0, 1, 0, -0.055109218, 0, 0.9984803, -6.571866, -0.4914537, 33.081295)
-
-[node name="vehicle-truck-purple14" parent="CITY/CARS" unique_id=1119862337 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(0.9984803, 0, 0.055109218, 0, 1, 0, -0.055109218, 0, 0.9984803, -5.1143765, -0.4914537, 31.177357)
-
 [node name="vehicle-truck-purple15" parent="CITY/CARS" unique_id=1958119856 instance=ExtResource("10_p3c1o")]
 transform = Transform3D(0.9984803, 0, 0.055109218, 0, 1, 0, -0.055109218, 0, 0.9984803, -3.841341, -0.4914537, 31.163374)
 
 [node name="vehicle-truck-red11" parent="CITY/CARS" unique_id=1633979186 instance=ExtResource("11_wocnk")]
 transform = Transform3D(0.999843, 0, -0.017731756, 0, 1, 0, 0.017731756, 0, 0.999843, -5.3867607, -0.039310098, 32.939674)
 
-[node name="vehicle-truck-red12" parent="CITY/CARS" unique_id=1785814279 instance=ExtResource("11_wocnk")]
-transform = Transform3D(0.999843, 0, -0.017731756, 0, 1, 0, 0.017731756, 0, 0.999843, -4.1410294, -0.039310098, 32.926)
-
-[node name="vehicle-truck-red13" parent="CITY/CARS" unique_id=2126167352 instance=ExtResource("11_wocnk")]
-transform = Transform3D(0.999843, 0, -0.017731756, 0, 1, 0, 0.017731756, 0, 0.999843, -6.3217506, -0.039310098, 31.112835)
-
-[node name="vehicle-truck-purple16" parent="CITY/CARS" unique_id=2053099886 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(-0.077818, 0, 0.9969676, 0, 1, 0, -0.9969676, 0, -0.077818, -8.795067, -0.4914537, 27.227282)
-
 [node name="vehicle-truck-purple17" parent="CITY/CARS" unique_id=2055427032 instance=ExtResource("10_p3c1o")]
 transform = Transform3D(-0.077818, 0, 0.9969676, 0, 1, 0, -0.9969676, 0, -0.077818, -10.731681, -0.4914537, 25.8135)
 
-[node name="vehicle-truck-purple18" parent="CITY/CARS" unique_id=257165880 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(-0.077818, 0, 0.9969676, 0, 1, 0, -0.9969676, 0, -0.077818, -10.7746315, -0.4914537, 24.541111)
-
-[node name="vehicle-truck-red14" parent="CITY/CARS" unique_id=1758391005 instance=ExtResource("11_wocnk")]
-transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -0.0050268974, -8.963621, -0.039310098, 26.045706)
-
 [node name="vehicle-truck-red15" parent="CITY/CARS" unique_id=792736995 instance=ExtResource("11_wocnk")]
-transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -0.0050268974, -9.005643, -0.039310098, 24.80061)
+transform = Transform3D(-0.9992167, 0, 0.03957726, 0, 1, 0, -0.03957726, 0, -0.9992167, -10.246261, -0.039310098, 23.35803)
 
 [node name="vehicle-truck-red16" parent="CITY/CARS" unique_id=414136480 instance=ExtResource("11_wocnk")]
 transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -0.0050268974, -10.768709, -0.039310098, 27.022028)
@@ -411,10 +372,10 @@ transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -
 transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -0.0050268974, 22.984028, -0.039310098, 2.2144527)
 
 [node name="vehicle-truck-purple39" parent="CITY/CARS" unique_id=1084414185 instance=ExtResource("10_p3c1o")]
-transform = Transform3D(-0.077818, 0, 0.9969676, 0, 1, 0, -0.9969676, 0, -0.077818, 4.2015324, -0.4914537, 26.349092)
+transform = Transform3D(-0.99984837, 0, 0.01741372, 0, 1, 0, -0.01741372, 0, -0.99984837, 4.844656, -0.4914537, 23.479769)
 
 [node name="vehicle-truck-red38" parent="CITY/CARS" unique_id=827568626 instance=ExtResource("11_wocnk")]
-transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -0.0050268974, 2.22789, -0.50822043, 26.143839)
+transform = Transform3D(-0.0050268974, 0, 0.99998754, 0, 1, 0, -0.99998754, 0, -0.0050268974, 1.9063282, -0.50822043, 25.673864)
 
 [node name="vehicle-truck-purple22" parent="CITY/CARS" unique_id=2044654049 instance=ExtResource("10_p3c1o")]
 transform = Transform3D(0.11945791, 0, 0.9928393, 0, 1, 0, -0.9928393, 0, 0.11945791, -34.592556, -0.4914537, -4.0684223)
@@ -625,10 +586,19 @@ transform = Transform3D(0.39396375, 0, -1.5603493, 0, 1.6093159, 0, 1.5603493, 0
 transform = Transform3D(-0.21764217, 0, 1.594531, 0, 1.6093159, 0, -1.594531, 0, -0.21764217, 23.38231, -0.405047, -0.83088493)
 
 [node name="car_hatchback4" parent="." unique_id=1076471454 instance=ExtResource("17_uoivm")]
-transform = Transform3D(0.3006092, 0, -1.5809907, 0, 1.6093159, 0, 1.5809907, 0, 0.3006092, 2.5329266, -0.40504545, 24.602322)
+transform = Transform3D(-0.035065502, 0, -1.6089337, 0, 1.6093159, 0, 1.6089337, 0, -0.035065502, 1.8650675, -0.40504545, 24.602322)
+
+[node name="car_hatchback6" parent="." unique_id=2111678655 instance=ExtResource("17_uoivm")]
+transform = Transform3D(-1.6089649, 0, -0.0336137, 0, 1.6093159, 0, 0.0336137, 0, -1.6089649, -7.5939713, -0.40504545, 23.27515)
+
+[node name="car_hatchback5" parent="." unique_id=491296728 instance=ExtResource("17_uoivm")]
+transform = Transform3D(1.559258, 0, 0.39826098, 0, 1.6093159, 0, -0.39826098, 0, 1.559258, -4.9318495, -0.40504545, 31.19762)
 
 [node name="car_taxi4" parent="." unique_id=1478771748 instance=ExtResource("23_uoivm")]
-transform = Transform3D(-0.21764217, 0, 1.594531, 0, 1.6093159, 0, -1.594531, 0, -0.21764217, 2.626173, -0.405047, 23.098501)
+transform = Transform3D(-1.601453, 0, -0.1588918, 0, 1.6093159, 0, 0.1588918, 0, -1.601453, 3.294034, -0.405047, 23.4448)
+
+[node name="car_taxi5" parent="." unique_id=1657232866 instance=ExtResource("23_uoivm")]
+transform = Transform3D(-0.21764217, 0, 1.594531, 0, 1.6093159, 0, -1.594531, 0, -0.21764217, -10.530138, -0.405047, 24.887299)
 
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
