@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" format=3 uid="uid://dje65ljw72hsy"]
+
+[ext_resource type="FontFile" uid="uid://c1ci4ktywqtvu" path="res://fonts/Cactron-Regular.otf" id="1_ci2d0"]
+
+[resource]
+base_font = ExtResource("1_ci2d0")
+spacing_glyph = 6

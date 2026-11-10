@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://d2jtmsipqxjfw"]
 
+[ext_resource type="Theme" uid="uid://d3u1s5kqiqbvs" path="res://fonts/car_ui.tres" id="1_m6128"]
 [ext_resource type="Script" uid="uid://c4d42dklvnuhb" path="res://scenes/CarUI/car_ui.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="2_laps"]
 
@@ -23,8 +24,9 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [node name="CarUI" type="PanelContainer" unique_id=130035257]
-custom_minimum_size = Vector2(153, 88)
+custom_minimum_size = Vector2(140, 88)
 mouse_filter = 2
+theme = ExtResource("1_m6128")
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 script = ExtResource("1_script")
 
@@ -111,12 +113,12 @@ theme_override_font_sizes/font_size = 10
 text = "Lap 0"
 clip_text = true
 
-[node name="BestRow" type="HBoxContainer" parent="Margin/HBox/Info"]
+[node name="BestRow" type="HBoxContainer" parent="Margin/HBox/Info" unique_id=1506816873]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="Icon" type="TextureRect" parent="Margin/HBox/Info/BestRow"]
+[node name="Icon" type="TextureRect" parent="Margin/HBox/Info/BestRow" unique_id=1414224716]
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2

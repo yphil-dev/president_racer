@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://01bain105ag8"]
+
+[ext_resource type="FontVariation" uid="uid://dje65ljw72hsy" path="res://fonts/font_variation.tres" id="1_513cy"]
+
+[resource]
+default_font = ExtResource("1_513cy")
