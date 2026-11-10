@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://duir0k05vd8i4"
-path="res://.godot/imported/AvrileSans-CondensedBlack.ttf-1542370103e586a0ee6d6edf9156a590.fontdata"
+uid="uid://dvxmnlimak1ue"
+path="res://.godot/imported/Ezarion-Regular.ttf-5db308ac5b34786d81b4cc34d4b15026.fontdata"
 
 [deps]
 
-source_file="res://fonts/AvrileSans-CondensedBlack.ttf"
-dest_files=["res://.godot/imported/AvrileSans-CondensedBlack.ttf-1542370103e586a0ee6d6edf9156a590.fontdata"]
+source_file="res://fonts/Ezarion-Regular.ttf"
+dest_files=["res://.godot/imported/Ezarion-Regular.ttf-5db308ac5b34786d81b4cc34d4b15026.fontdata"]
 
 [params]
 

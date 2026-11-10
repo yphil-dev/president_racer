@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ccp5g3aqp20h8"
-path="res://.godot/imported/AvrileSans-CondensedLightItalic.ttf-4a058d12c41e5a6f73e8c265481a02d9.fontdata"
+uid="uid://daymqa86uvf3o"
+path="res://.godot/imported/Ezarion-Bold.ttf-4103f4e34a4c628682da7ac39dfa4bfa.fontdata"
 
 [deps]
 
-source_file="res://fonts/AvrileSans-CondensedLightItalic.ttf"
-dest_files=["res://.godot/imported/AvrileSans-CondensedLightItalic.ttf-4a058d12c41e5a6f73e8c265481a02d9.fontdata"]
+source_file="res://fonts/Ezarion-Bold.ttf"
+dest_files=["res://.godot/imported/Ezarion-Bold.ttf-4103f4e34a4c628682da7ac39dfa4bfa.fontdata"]
 
 [params]
 

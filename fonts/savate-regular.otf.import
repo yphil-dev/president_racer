@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cd1mqqscvaum"
-path="res://.godot/imported/AvrileSans-CondensedExtraLightItalic.ttf-c914f8537503f8b7f52f43962cc690a8.fontdata"
+uid="uid://bh71x7uwqsy7s"
+path="res://.godot/imported/savate-regular.otf-c35a6c91ed93ea4d4df00cdab5b16f5c.fontdata"
 
 [deps]
 
-source_file="res://fonts/AvrileSans-CondensedExtraLightItalic.ttf"
-dest_files=["res://.godot/imported/AvrileSans-CondensedExtraLightItalic.ttf-c914f8537503f8b7f52f43962cc690a8.fontdata"]
+source_file="res://fonts/savate-regular.otf"
+dest_files=["res://.godot/imported/savate-regular.otf-c35a6c91ed93ea4d4df00cdab5b16f5c.fontdata"]
 
 [params]
 

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c5sai6n3wvfkv"
-path="res://.godot/imported/AvrileSans-CondensedItalic.ttf-f338be00efbc7622efb9f6cb4983cc75.fontdata"
+uid="uid://bsssowuoel7hl"
+path="res://.godot/imported/Constructium.ttf-37e858c580ce8fcc541630c6d7012a0d.fontdata"
 
 [deps]
 
-source_file="res://fonts/AvrileSans-CondensedItalic.ttf"
-dest_files=["res://.godot/imported/AvrileSans-CondensedItalic.ttf-f338be00efbc7622efb9f6cb4983cc75.fontdata"]
+source_file="res://fonts/Constructium.ttf"
+dest_files=["res://.godot/imported/Constructium.ttf-37e858c580ce8fcc541630c6d7012a0d.fontdata"]
 
 [params]
 

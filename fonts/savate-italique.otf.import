@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d2mw5di4cnf1d"
-path="res://.godot/imported/AvrileSans-CondensedBlackItalic.ttf-e4fbba5fd8f969e3e36b7edd33c44bf9.fontdata"
+uid="uid://clvfqgrqfv8f0"
+path="res://.godot/imported/savate-italique.otf-4b7bb313b9dd4d13d3be8d7c70a75dab.fontdata"
 
 [deps]
 
-source_file="res://fonts/AvrileSans-CondensedBlackItalic.ttf"
-dest_files=["res://.godot/imported/AvrileSans-CondensedBlackItalic.ttf-e4fbba5fd8f969e3e36b7edd33c44bf9.fontdata"]
+source_file="res://fonts/savate-italique.otf"
+dest_files=["res://.godot/imported/savate-italique.otf-4b7bb313b9dd4d13d3be8d7c70a75dab.fontdata"]
 
 [params]
 

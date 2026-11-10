@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://p8pbwlegjyer"
-path="res://.godot/imported/Le_Murmure-Regular_web.ttf-07e3318d6d1ac269797c105fd9ab1137.fontdata"
+uid="uid://diy7j08f04cu3"
+path="res://.godot/imported/Ezarion-Black.ttf-fc11614b8bf69f74b156d890b3f055d9.fontdata"
 
 [deps]
 
-source_file="res://fonts/Le_Murmure-Regular_web.ttf"
-dest_files=["res://.godot/imported/Le_Murmure-Regular_web.ttf-07e3318d6d1ac269797c105fd9ab1137.fontdata"]
+source_file="res://fonts/Ezarion-Black.ttf"
+dest_files=["res://.godot/imported/Ezarion-Black.ttf-fc11614b8bf69f74b156d890b3f055d9.fontdata"]
 
 [params]
 

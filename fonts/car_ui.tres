@@ -1,6 +1,0 @@
-[gd_resource type="Theme" format=3 uid="uid://d3u1s5kqiqbvs"]
-
-[ext_resource type="FontFile" uid="uid://t64bbgtep8eu" path="res://fonts/AvrileSans-CondensedBold.ttf" id="1_xxvua"]
-
-[resource]
-default_font = ExtResource("1_xxvua")
