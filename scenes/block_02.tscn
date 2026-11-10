@@ -103,18 +103,18 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
 [node name="Ba" parent="." unique_id=1030827182 instance=ExtResource("1_jxmcf")]
 transform = Transform3D(0.12578616, 0, 0, 0, 0.99999994, 0, 0, 0, 0.12578616, -0.21857889, 0.5562677, 0.30876577)
 
-[node name="building_A_withoutBase" parent="Ba" index="0" unique_id=1737974017]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.3710326, 0, 0.4777193)
+[node name="building_A_withoutBase" parent="Ba" index="0" unique_id=1630953492]
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, -0.84210217, 0, 0.4777193)
 
 [node name="building_A_withoutBase2" type="MeshInstance3D" parent="Ba" unique_id=1361956757]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.84210217, 0, 0.4777193)
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 0.3710326, 0, 0.4777193)
 mesh = SubResource("ArrayMesh_k78kn")
 skeleton = NodePath("")
 
 [node name="Bb" parent="." unique_id=12147590 instance=ExtResource("3_phrl5")]
 transform = Transform3D(0.12578616, 0, 0, 0, 0.99999994, 0, 0, 0, 0.12578616, 0.27047613, 0.62507457, 0.034207817)
 
-[node name="building_B_withoutBase" parent="Bb" index="0" unique_id=783227103]
+[node name="building_B_withoutBase" parent="Bb" index="0" unique_id=205237432]
 transform = Transform3D(-0.5, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.5, -0.38355637, 0, -2.9448595)
 
 [node name="building_B_withoutBase2" type="MeshInstance3D" parent="Bb" unique_id=1527526631]
@@ -125,20 +125,20 @@ skeleton = NodePath("")
 [node name="Bc" parent="." unique_id=318175941 instance=ExtResource("4_ag7kh")]
 transform = Transform3D(0.12578616, 0, 0, 0, 0.99999994, 0, 0, 0, 0.12578616, 0.1230055, 0.50765723, 0.36017722)
 
-[node name="building_C_withoutBase" parent="Bc" index="0" unique_id=1708143259]
+[node name="building_C_withoutBase" parent="Bc" index="0" unique_id=1359023724]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.78379333, 0, -2.075531)
 metadata/_edit_group_ = true
 
 [node name="Bd" parent="." unique_id=2055055168 instance=ExtResource("5_58mt8")]
 transform = Transform3D(0.12578616, 0, 0, 0, 0.99999994, 0, 0, 0, 0.12578616, -0.24976218, 0.5986096, -0.2100371)
 
-[node name="building_D_withoutBase" parent="Bd" index="0" unique_id=965944077]
+[node name="building_D_withoutBase" parent="Bd" index="0" unique_id=559621451]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.47256863, 0, 0.48051453)
 
 [node name="Be" parent="." unique_id=327886058 instance=ExtResource("6_huyfn")]
 transform = Transform3D(0.12578616, 0, 0, 0, 0.99999994, 0, 0, 0, 0.12578616, 0.015947668, 0.71940726, -0.37868822)
 
-[node name="building_E_withoutBase" parent="Be" index="0" unique_id=39498550]
+[node name="building_E_withoutBase" parent="Be" index="0" unique_id=1249688303]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9172478, 0, 0)
 
 [node name="Bf" parent="." unique_id=812361405 instance=ExtResource("7_qmblx")]
