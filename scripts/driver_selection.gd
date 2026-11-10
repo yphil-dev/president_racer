@@ -6,8 +6,8 @@ const SELECTED_SHADE := Color(0, 0, 0, 0.04)
 const NORMAL_SHADE := Color(0, 0, 0, 0.28)
 const SELECTED_LABEL_COLOR := Color(1, 0.88, 0.2, 1)
 const NORMAL_LABEL_COLOR := Color.WHITE
-const CONTROLLER_AVAILABLE_COLOR := Color(0.3, 1.0, 0.4, 1)
-const CONTROLLER_UNAVAILABLE_COLOR := Color(1.0, 0.22, 0.18, 1)
+const CONTROLLER_AVAILABLE_COLOR := Color(0.15, 0.8, 0.4, 1)
+const CONTROLLER_UNAVAILABLE_COLOR := Color(0.55, 0.08, 0.1,  1)
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
 const RACE_BUTTON_SIZE := Vector2(56, 56)
@@ -216,13 +216,13 @@ func _add_scheme_visual(button: Button, scheme: String) -> void:
 	match scheme:
 		RaceSelection.CONTROL_COMBO:
 			controller_icons.append(_add_controller_icon(row, 1))
-			_add_texture_icon(row, ARROW_KEYS_ICON)
+			_add_texture_icon(row, ARROW_KEYS_ICON).modulate = CONTROLLER_AVAILABLE_COLOR
 		RaceSelection.CONTROL_GAMEPAD_1:
 			controller_icons.append(_add_controller_icon(row, 1))
 		RaceSelection.CONTROL_ARROW:
-			_add_texture_icon(row, ARROW_KEYS_ICON)
+			_add_texture_icon(row, ARROW_KEYS_ICON).modulate = CONTROLLER_AVAILABLE_COLOR
 		RaceSelection.CONTROL_WASD:
-			_add_texture_icon(row, WASD_KEYS_ICON)
+			_add_texture_icon(row, WASD_KEYS_ICON).modulate = CONTROLLER_AVAILABLE_COLOR
 		RaceSelection.CONTROL_GAMEPAD_2:
 			controller_icons.append(_add_controller_icon(row, 2))
 		RaceSelection.CONTROL_GAMEPAD_3:
