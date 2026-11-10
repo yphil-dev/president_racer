@@ -23,7 +23,7 @@ const CONTROL_SCHEMES: Array[String] = [
 const DEFAULT_CONTROL_SCHEMES: Dictionary = {
 	"soral": CONTROL_COMBO,
 	"lepen": CONTROL_CPU,
-	"glux": CONTROL_CPU,
+	"macron": CONTROL_CPU,
 	"melenchon": CONTROL_CPU,
 }
 

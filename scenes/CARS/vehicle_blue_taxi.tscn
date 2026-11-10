@@ -162,18 +162,18 @@ shadow_mesh = SubResource("ArrayMesh_p7cpf")
 
 [node name="vehicle-truck-yellow" unique_id=609296354 instance=ExtResource("1_tyssi")]
 
-[node name="wheel-back-left" parent="." index="1" unique_id=526563083]
+[node name="wheel-back-left" parent="." index="1" unique_id=2115084316]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27499998, 0.15, -0.4980677)
 
-[node name="wheel-back-right" parent="." index="2" unique_id=1302584829]
+[node name="wheel-back-right" parent="." index="2" unique_id=341724650]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275, 0.15, -0.4980677)
 
-[node name="wheel-front-left" parent="." index="3" unique_id=1383190417]
+[node name="wheel-front-left" parent="." index="3" unique_id=564009346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275, 0.15, 0.5583816)
 
-[node name="wheel-front-right" parent="." index="4" unique_id=420442321]
+[node name="wheel-front-right" parent="." index="4" unique_id=223207240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275, 0.15, 0.5583816)
 
-[node name="body" parent="." index="5" unique_id=981036210]
+[node name="body" parent="." index="5" unique_id=1888853344]
 transform = Transform3D(0.50319326, 0, 0, 0, 0.50319326, 0, 0, 0, 0.50319326, 0, 0.030432299, 9.0238926e-17)
 mesh = SubResource("ArrayMesh_rqu5a")
