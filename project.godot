@@ -104,4 +104,5 @@ environment/ssao/half_size=false
 environment/ssao/fadeout_from=500.0
 environment/ssao/fadeout_to=2000.0
 anti_aliasing/quality/msaa_3d=2
+environment/defaults/default_clear_color=Color(0.03529412, 0.050980393, 0.08627451, 1)
 occlusion_culling/use_occlusion_culling=true
