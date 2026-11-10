@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d2jtmsipqxjfw"]
 
 [ext_resource type="Script" uid="uid://c4d42dklvnuhb" path="res://scenes/CarUI/car_ui.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="2_laps"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.025, 0.03, 0.045, 0.7)
@@ -110,12 +111,27 @@ theme_override_font_sizes/font_size = 10
 text = "Lap 0"
 clip_text = true
 
-[node name="BestLabel" type="Label" parent="Margin/HBox/Info" unique_id=1228088385]
+[node name="BestRow" type="HBoxContainer" parent="Margin/HBox/Info"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Icon" type="TextureRect" parent="Margin/HBox/Info/BestRow"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_laps")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BestLabel" type="Label" parent="Margin/HBox/Info/BestRow" unique_id=1228088385]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.62, 0.67, 0.76, 1)
 theme_override_font_sizes/font_size = 10
 text = "Best: --"
-clip_text = true
+vertical_alignment = 1
 
 [node name="ResultBadge" type="Panel" parent="." unique_id=377752260]
 visible = false

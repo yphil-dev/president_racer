@@ -21,7 +21,8 @@ const RACING_ICON: Texture2D = preload("res://sprites/steering-wheel.png")
 @onready var status_label: Label = $Margin/HBox/Info/StatusRow/StatusLabel
 @onready var result_badge: Panel = $ResultBadge
 @onready var result_icon: TextureRect = $ResultBadge/ResultIcon
-@onready var best_label: Label = $Margin/HBox/Info/BestLabel
+@onready var best_icon: TextureRect = $Margin/HBox/Info/BestRow/Icon
+@onready var best_label: Label = $Margin/HBox/Info/BestRow/BestLabel
 
 var race_state: CarRaceState
 
@@ -31,6 +32,7 @@ func _ready() -> void:
 func setup(state: CarRaceState) -> void:
 	race_state = state
 	rank_label.hide()
+	best_icon.hide()
 	portrait.texture = state.vehicle.portrait
 	accent.color = state.vehicle.car_color
 	name_label.text = state.vehicle.driver_name
@@ -65,6 +67,7 @@ func update_state(state: CarRaceState) -> void:
 func show_final_result() -> void:
 	rank_label.hide()
 	status_row.hide()
+	best_icon.show()
 	if race_state.dnf:
 		result_icon.texture = DNF_ICON
 	elif race_state.winner:

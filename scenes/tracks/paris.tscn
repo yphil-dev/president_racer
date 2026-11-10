@@ -13,10 +13,15 @@
 [ext_resource type="PackedScene" uid="uid://b34e2pvbemfac" path="res://models/vehicle-truck-red.glb" id="11_wocnk"]
 [ext_resource type="PackedScene" uid="uid://b3q38jkp02je8" path="res://scenes/block_02.tscn" id="11_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://bv6dwewym6qj2" path="res://scenes/CITY/streetlight_editable.tscn" id="12_wtwip"]
+[ext_resource type="PackedScene" uid="uid://fb7sb4wim6uc" path="res://models/city/car_sedan.gltf" id="15_yfyak"]
+[ext_resource type="PackedScene" uid="uid://b0ppvcr3kr6dj" path="res://models/city/car_police.gltf" id="16_n5dy1"]
 [ext_resource type="PackedScene" uid="uid://dn24yd7sv8g0w" path="res://scenes/traffic_light.tscn" id="16_ws3xf"]
 [ext_resource type="PackedScene" uid="uid://ca040wyv8weav" path="res://models/city/dumpster.gltf" id="16_yfyak"]
 [ext_resource type="PackedScene" uid="uid://c4ydxor8xjubi" path="res://models/city/firehydrant.gltf" id="17_cbdrs"]
+[ext_resource type="PackedScene" uid="uid://chjqfc8gsl6a5" path="res://models/city/car_hatchback.gltf" id="17_uoivm"]
 [ext_resource type="PackedScene" uid="uid://ca6fwu6qha84s" path="res://scenes/GameUI/game_ui.tscn" id="18_qycdi"]
+[ext_resource type="PackedScene" uid="uid://byri4nulfclj6" path="res://models/city/car_stationwagon.gltf" id="18_yqdd6"]
+[ext_resource type="PackedScene" uid="uid://ck4cd4cfdsmk" path="res://models/city/bush.gltf" id="22_n5dy1"]
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_a8y0u"]
 
@@ -192,12 +197,6 @@ mesh = SubResource("BoxMesh_6xfsa")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
 
-[node name="Block41" parent="CITY" unique_id=462970909 instance=ExtResource("11_ya4ey")]
-transform = Transform3D(16.543726, 0, 2.8925967e-06, 0, 2.0809715, 0, -2.8925967e-06, 0, 16.543726, -1.8455276, -1.5479884, 6.9562187)
-mesh = SubResource("BoxMesh_6xfsa")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
-
 [node name="Block38" parent="CITY" unique_id=543907432 instance=ExtResource("11_ya4ey")]
 transform = Transform3D(0.57846653, 0, 16.53361, 0, 2.0809715, 0, -16.53361, 0, 0.57846653, -23.872505, -1.5479884, 3.8150778)
 mesh = SubResource("BoxMesh_6xfsa")
@@ -217,7 +216,13 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
 
 [node name="Block03" parent="CITY" unique_id=1443011663 instance=ExtResource("10_choun")]
-transform = Transform3D(-7.086019e-07, 0, 16.21092, 0, 2.0391092, 0, -16.21092, 0, -7.086019e-07, -0.72983265, -1.6205614, -4.816817)
+transform = Transform3D(-7.086019e-07, 0, 16.21092, 0, 2.0391092, 0, -16.21092, 0, -7.086019e-07, -0.46948767, -1.6205614, -4.816817)
+mesh = SubResource("BoxMesh_6xfsa")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
+
+[node name="Block04" parent="CITY" unique_id=1928531647 instance=ExtResource("10_choun")]
+transform = Transform3D(-16.210918, 0, -1.4172035e-06, 0, 2.0391092, 0, 1.4172035e-06, 0, -16.210918, 0.35420036, -1.6205614, 7.0987506)
 mesh = SubResource("BoxMesh_6xfsa")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
@@ -568,6 +573,18 @@ transform = Transform3D(0.17175567, 0, 2.1996372, 0, 2.2063327, 0, -2.1996372, 0
 [node name="firehydrant2" parent="CITY" unique_id=1269665530 instance=ExtResource("17_cbdrs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.626799, -0.07203579, 3.7111263)
 
+[node name="car_sedan2" parent="CITY" unique_id=495923736 instance=ExtResource("15_yfyak")]
+transform = Transform3D(0.6526168, 0, -2.0977333, 0, 2.1969051, 0, 2.0977333, 0, 0.6526168, 6.4953365, -0.39799097, 7.651298)
+
+[node name="car_police2" parent="CITY" unique_id=2000018540 instance=ExtResource("16_n5dy1")]
+transform = Transform3D(2.002317, 0, 0, 0, 2.002317, 0, 0, 0, 2.002317, -1.3194504, -0.010992885, 9.112624)
+
+[node name="car_hatchback2" parent="CITY" unique_id=710619855 instance=ExtResource("17_uoivm")]
+transform = Transform3D(2.0289001, 0, 0, 0, 2.0289001, 0, 0, 0, 2.0289001, 1.5896063, -0.010992885, 9.986307)
+
+[node name="car_stationwagon2" parent="CITY" unique_id=1667242915 instance=ExtResource("18_yqdd6")]
+transform = Transform3D(2.0164042, 0, 0, 0, 2.0164042, 0, 0, 0, 2.0164042, -3.4647846, -0.010992885, 10.606872)
+
 [node name="Finish" type="Area3D" parent="." unique_id=989885447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.850459, 0, 3.3290129)
 collision_layer = 0
@@ -608,6 +625,15 @@ curve = SubResource("Curve3D_mdjv0")
 [node name="UI" type="CanvasLayer" parent="." unique_id=2062290784]
 
 [node name="GameUI" parent="UI" unique_id=239267494 instance=ExtResource("18_qycdi")]
+
+[node name="bush2" parent="." unique_id=1574440063 instance=ExtResource("22_n5dy1")]
+transform = Transform3D(3.216461, 0, 0, 0, 3.216461, 0, 0, 0, 3.216461, 4.442752, -0.45943707, 14.264126)
+
+[node name="bush3" parent="." unique_id=494440557 instance=ExtResource("22_n5dy1")]
+transform = Transform3D(3.216461, 0, 0, 0, 3.216461, 0, 0, 0, 3.216461, 3.21387, -0.45943707, 14.264126)
+
+[node name="dumpster2" parent="." unique_id=1124754300 instance=ExtResource("16_yfyak")]
+transform = Transform3D(2.376245, 0, 0, 0, 2.376245, 0, 0, 0, 2.376245, 6.0906563, -0.07203567, 13.661797)
 
 [connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Finish" to="." method="_on_finish_body_entered"]
