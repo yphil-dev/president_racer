@@ -182,7 +182,7 @@ func play_selection_beep() -> void:
 func _create_confirmation_beep() -> AudioStreamWAV:
 	const SAMPLE_RATE: int = 22050
 	const DURATION: float = 0.12
-	const FREQUENCY: float = 220.0
+	const FREQUENCY: float = 420.0
 	const AMPLITUDE: float = 0.22
 	const ATTACK: float = 0.01
 	const RELEASE: float = 0.07
