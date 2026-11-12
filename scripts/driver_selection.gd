@@ -13,8 +13,8 @@ const INTRO_STAGGER: float = 0.14
 const RACE_BUTTON_SIZE := Vector2(56, 56)
 const RACE_BUTTON_MARGIN := Vector2(32, 28)
 
-const DAY_ICON: Texture2D = preload("res://sprites/day-sun.svg")
-const NIGHT_ICON: Texture2D = preload("res://sprites/night-moon.svg")
+const DAY_ICON: Texture2D = preload("res://sprites/time-10.svg")
+const NIGHT_ICON: Texture2D = preload("res://sprites/time-22.svg")
 const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
 const WASD_KEYS_ICON: Texture2D = preload("res://sprites/wasd-keys.svg")
 const GAME_CONTROLLER_ICON: Texture2D = preload("res://sprites/game-controller.svg")
@@ -38,8 +38,14 @@ const SCHEME_ORDER: Array[String] = [
 @onready var time_badge_icon: TextureRect = $TimeBadge/Icon
 @onready var lap_selector: VBoxContainer = $LapSelector
 @onready var time_selector: HBoxContainer = $TimeSelector
+@onready var weather_selector: HBoxContainer = $WeatherSelector
 @onready var race_button: Button = $Race
 @onready var time_buttons: Array[Button] = [$TimeSelector/Day, $TimeSelector/Night]
+@onready var weather_buttons: Array[Button] = [
+	$WeatherSelector/Fair,
+	$WeatherSelector/Rain,
+	$WeatherSelector/Snow,
+]
 @onready var lap_buttons: Array[Button] = [
 	$LapSelector/Bar/Buttons/One,
 	$LapSelector/Bar/Buttons/Two,
@@ -116,12 +122,23 @@ func _ready() -> void:
 		time_buttons[index].focus_entered.connect(_focus_time)
 		time_buttons[index].mouse_entered.connect(_hover_time.bind(index))
 
+	var weather_modes := [
+		RaceSelection.WEATHER_FAIR,
+		RaceSelection.WEATHER_RAIN,
+		RaceSelection.WEATHER_SNOW,
+	]
+	for index in weather_buttons.size():
+		weather_buttons[index].pressed.connect(_select_weather.bind(weather_modes[index]))
+		weather_buttons[index].focus_entered.connect(_focus_weather)
+		weather_buttons[index].mouse_entered.connect(_hover_weather.bind(index))
+
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 
 	_apply_lap_selection()
 	_apply_time_selection()
+	_apply_weather_selection()
 	_refresh_controller_assignments()
 	_refresh_scheme_buttons()
 
@@ -157,7 +174,7 @@ func _layout_cards() -> void:
 		card_size.x * 2.0 + QuadrantLayout.HORIZONTAL_GAP,
 		card_size.y * 2.0 + QuadrantLayout.VERTICAL_GAP
 	)
-	var total_height := grid_size.y + 160.0
+	var total_height := grid_size.y + 220.0
 	driver_grid.position = Vector2(
 		(size.x - grid_size.x) * 0.5,
 		maxf(16.0, (size.y - total_height) * 0.5 + 10.0)
@@ -174,10 +191,12 @@ func _layout_cards() -> void:
 	lap_selector.size = Vector2(192.0, 36.0)
 	lap_badge.position = lap_selector.position + Vector2(200.0, 2.0)
 	lap_badge.size = Vector2(32.0, 32.0)
-	time_selector.position = lap_selector.position + Vector2(0.0, 76.0)
+	time_selector.position = lap_selector.position + Vector2(0.0, 60.0)
 	time_selector.size = Vector2(192.0, 40.0)
 	time_badge.position = time_selector.position + Vector2(200.0, 4.0)
 	time_badge.size = Vector2(32.0, 32.0)
+	weather_selector.position = time_selector.position + Vector2(0.0, 52.0)
+	weather_selector.size = Vector2(192.0, 40.0)
 	race_button.position = size - RACE_BUTTON_SIZE - RACE_BUTTON_MARGIN
 	race_button.size = RACE_BUTTON_SIZE
 	race_button.pivot_offset = RACE_BUTTON_SIZE * 0.5
@@ -495,6 +514,35 @@ func _apply_time_selection() -> void:
 				time_buttons[index].add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
 			else:
 				time_buttons[index].remove_theme_color_override(color_name)
+
+func _focus_weather() -> void:
+	if not _returning:
+		SceneTransition.play_selection_beep()
+
+func _hover_weather(index: int) -> void:
+	if not _returning and not _startup_hover_locked:
+		weather_buttons[index].grab_focus()
+
+func _select_weather(weather: String) -> void:
+	if _returning:
+		return
+	SceneTransition.play_selection_beep()
+	RaceSelection.selected_weather = weather
+	_apply_weather_selection()
+
+func _apply_weather_selection() -> void:
+	var weather_modes := [
+		RaceSelection.WEATHER_FAIR,
+		RaceSelection.WEATHER_RAIN,
+		RaceSelection.WEATHER_SNOW,
+	]
+	for index in weather_buttons.size():
+		var selected: bool = weather_modes[index] == RaceSelection.selected_weather
+		for color_name in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
+			if selected:
+				weather_buttons[index].add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
+			else:
+				weather_buttons[index].remove_theme_color_override(color_name)
 
 func _focus_race_button() -> void:
 	if not _returning:

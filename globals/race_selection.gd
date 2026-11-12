@@ -9,6 +9,10 @@ const CONTROL_GAMEPAD_3 := "gamepad_3"
 const CONTROL_GAMEPAD_4 := "gamepad_4"
 const CONTROL_CPU := "cpu"
 
+const WEATHER_FAIR := "fair"
+const WEATHER_RAIN := "rain"
+const WEATHER_SNOW := "snow"
+
 const CONTROL_SCHEMES: Array[String] = [
 	CONTROL_COMBO,
 	CONTROL_GAMEPAD_1,
@@ -41,6 +45,7 @@ const SCHEME_SOURCES: Dictionary = {
 var selected_driver_id: String = "soral"
 var selected_laps: int = 2
 var night_enabled: bool = false
+var selected_weather: String = WEATHER_FAIR
 var driver_control_schemes: Dictionary = DEFAULT_CONTROL_SCHEMES.duplicate(true)
 
 func select_driver(driver_id: String) -> void:

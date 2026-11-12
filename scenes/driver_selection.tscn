@@ -5,10 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="3_laps"]
 [ext_resource type="LabelSettings" uid="uid://dd86stn2888my" path="res://resources/city_label_settings.tres" id="4_a5fmu"]
 [ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="4_wheel"]
-[ext_resource type="Texture2D" uid="uid://b1ebtd7gnxtd1" path="res://sprites/day-sun.svg" id="5_sun"]
-[ext_resource type="Texture2D" uid="uid://bnetos1wy0c77" path="res://sprites/night-moon.svg" id="6_moon"]
-[ext_resource type="Texture2D" uid="uid://bfeq4ee746ffd" path="res://sprites/day-sun-neutral.svg" id="7_sun_neutral"]
 [ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="8_finish"]
+[ext_resource type="Texture2D" path="res://sprites/time-10.svg" id="9_time10"]
+[ext_resource type="Texture2D" path="res://sprites/time-22.svg" id="10_time22"]
+[ext_resource type="Texture2D" path="res://sprites/weather-fair.svg" id="11_weatherfair"]
+[ext_resource type="Texture2D" path="res://sprites/weather-rain.svg" id="12_weatherrain"]
+[ext_resource type="Texture2D" path="res://sprites/weather-snow.svg" id="13_weathersnow"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_title_badge"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -408,8 +410,9 @@ custom_minimum_size = Vector2(96, 40)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_right = NodePath("../Night")
+focus_neighbor_bottom = NodePath("../../WeatherSelector/Fair")
 theme_type_variation = &"CompactButton"
-icon = ExtResource("7_sun_neutral")
+icon = ExtResource("9_time10")
 icon_alignment = 1
 
 [node name="Night" type="Button" parent="TimeSelector" unique_id=1543998521]
@@ -417,8 +420,42 @@ custom_minimum_size = Vector2(96, 40)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Day")
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
+focus_neighbor_bottom = NodePath("../../WeatherSelector/Snow")
 theme_type_variation = &"CompactButton"
-icon = ExtResource("6_moon")
+icon = ExtResource("10_time22")
+icon_alignment = 1
+
+[node name="WeatherSelector" type="HBoxContainer" parent="." unique_id=1938812201]
+layout_mode = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Fair" type="Button" parent="WeatherSelector" unique_id=1938812202]
+custom_minimum_size = Vector2(64, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../TimeSelector/Day")
+focus_neighbor_right = NodePath("../Rain")
+theme_type_variation = &"CompactButton"
+icon = ExtResource("11_weatherfair")
+icon_alignment = 1
+
+[node name="Rain" type="Button" parent="WeatherSelector" unique_id=1938812203]
+custom_minimum_size = Vector2(64, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../TimeSelector/Day")
+focus_neighbor_left = NodePath("../Fair")
+focus_neighbor_right = NodePath("../Snow")
+theme_type_variation = &"CompactButton"
+icon = ExtResource("12_weatherrain")
+icon_alignment = 1
+
+[node name="Snow" type="Button" parent="WeatherSelector" unique_id=1938812204]
+custom_minimum_size = Vector2(64, 40)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../TimeSelector/Night")
+focus_neighbor_left = NodePath("../Rain")
+theme_type_variation = &"CompactButton"
+icon = ExtResource("13_weathersnow")
 icon_alignment = 1
 
 [node name="LapBadge" type="Panel" parent="." unique_id=2080201623]
@@ -465,7 +502,7 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("5_sun")
+texture = ExtResource("9_time10")
 expand_mode = 1
 stretch_mode = 5
 
