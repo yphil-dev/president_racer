@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b34e2pvbemfac" path="res://models/vehicle-truck-red.glb" id="11_wocnk"]
 [ext_resource type="PackedScene" uid="uid://dn24yd7sv8g0w" path="res://scenes/traffic_light.tscn" id="16_ws3xf"]
 [ext_resource type="PackedScene" uid="uid://fb7sb4wim6uc" path="res://models/city/car_sedan.gltf" id="17_jprjk"]
+[ext_resource type="PackedScene" uid="uid://e1553jj8qfvc" path="res://scenes/jump_ramp.tscn" id="17_mp5su"]
 [ext_resource type="PackedScene" uid="uid://ca6fwu6qha84s" path="res://scenes/GameUI/game_ui.tscn" id="18_qycdi"]
 [ext_resource type="PackedScene" uid="uid://b0ppvcr3kr6dj" path="res://models/city/car_police.gltf" id="18_yiti2"]
 [ext_resource type="PackedScene" uid="uid://byri4nulfclj6" path="res://models/city/car_stationwagon.gltf" id="19_fcj5g"]
@@ -81,16 +82,6 @@ _data = {
 }
 point_count = 14
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_glass_plane"]
-size = Vector2(7.235788, 8.150885)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glass_plane"]
-transparency = 1
-albedo_color = Color(0.41568628, 0.41568628, 0.41568628, 0.5764706)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_glass_plane"]
-data = PackedVector3Array(-3.617894, 0, -4.075442, -3.617894, 0, 4.075442, 3.617894, 0, -4.075442, 3.617894, 0, -4.075442, -3.617894, 0, 4.075442, 3.617894, 0, 4.075442)
-
 [node name="TRACK" type="Node3D" unique_id=1145999287]
 script = ExtResource("1_eb6dy")
 
@@ -145,7 +136,7 @@ mesh_library = ExtResource("8_eg7gk")
 physics_material = SubResource("PhysicsMaterial_tipki")
 cell_size = Vector3(9.99, 1, 9.99)
 data = {
-"cells": PackedInt32Array(1, 1, 6, 0, 65533, 1441797, 1, 0, 655365, 65531, 65534, 655361, 65530, 65534, 655361, 65529, 65534, 655361, 65535, 2, 1441797, 1, 2, 655363, 2, 2, 1441795, 2, 1, 655365, 2, 0, 655365, 2, 65535, 3, 1, 65535, 1441797, 1, 65533, 3, 65535, 65533, 1441797, 65534, 65533, 1441797, 65533, 65533, 1048579, 65533, 65534, 655365, 65533, 65535, 655365, 65533, 0, 655363, 65534, 0, 3, 65534, 1, 655365, 65534, 2, 655363, 0, 65535, 1048579, 0, 0, 5, 0, 1, 5, 0, 2, 1441795, 65535, 1, 1441794, 65535, 65535, 0, 0, 65534, 1441792, 65535, 0, 655360, 3, 65535, 655360, 3, 0, 655360, 3, 1, 655360, 3, 2, 655360, 3, 3, 655360, 2, 3, 655360, 2, 4, 655360, 65533, 65532, 655360, 65534, 65532, 655360, 65535, 65532, 655361, 65533, 65530, 655360, 65534, 65530, 655360, 65532, 65531, 655360, 0, 65532, 655360, 1, 65532, 655360, 2, 65533, 655360, 2, 65534, 655360, 65535, 65534, 655360, 65534, 65534, 1441792, 65534, 65535, 655360, 1, 65534, 6)
+"cells": PackedInt32Array(1, 1, 6, 0, 65533, 1441797, 1, 0, 655365, 65531, 65534, 655361, 65530, 65534, 655361, 65529, 65534, 655361, 65535, 2, 1441797, 1, 2, 655363, 2, 2, 1441795, 2, 1, 655365, 2, 0, 655365, 2, 65535, 3, 1, 65535, 1441797, 1, 65534, 6, 1, 65533, 3, 65535, 65533, 1441797, 65534, 65533, 1441797, 65533, 65533, 1048579, 65533, 65534, 655365, 65533, 65535, 655365, 65533, 0, 655363, 65534, 0, 3, 65534, 1, 655365, 65534, 2, 655363, 0, 65535, 1048579, 0, 0, 5, 0, 1, 5, 0, 2, 1441795, 65535, 1, 1441794, 65535, 65535, 0, 0, 65534, 1441792, 65535, 0, 655360, 3, 65535, 655360, 3, 0, 655360, 3, 1, 655360, 3, 2, 655360, 3, 3, 655360, 2, 3, 655360, 2, 4, 655360, 65533, 65532, 655360, 65534, 65532, 655360, 65535, 65532, 655361, 65533, 65530, 655360, 65534, 65530, 655360, 65532, 65531, 655360, 0, 65532, 655360, 1, 65532, 655360, 2, 65533, 655360, 2, 65534, 655360, 65535, 65534, 655360, 65534, 65534, 1441792, 65534, 65535, 655360)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
@@ -339,17 +330,8 @@ curve = SubResource("Curve3D_gjccx")
 
 [node name="GameUI" parent="UI" unique_id=239267494 instance=ExtResource("18_qycdi")]
 
-[node name="GlassPlane" type="StaticBody3D" parent="." unique_id=1352546647]
-transform = Transform3D(1, 0, 0, 0, 0.9970527, 0.07671903, 0, -0.07671903, 0.9970527, 11.192, 2.3, -3.65)
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="GlassPlane" unique_id=2070302238]
-mesh = SubResource("PlaneMesh_glass_plane")
-surface_material_override/0 = SubResource("StandardMaterial3D_glass_plane")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GlassPlane" unique_id=617566120]
-shape = SubResource("ConcavePolygonShape3D_glass_plane")
-disabled = true
+[node name="JumpRamp" parent="." unique_id=11557879 instance=ExtResource("17_mp5su")]
+transform = Transform3D(-8.438788e-08, 1.7388988e-08, -1.3335937, 0.024061842, 1.3252925, 1.683434e-08, 2.023743, -0.015757427, -5.580955e-08, 11.192327, 1.817244, -3.7099247)
 
 [node name="car_sedan2" parent="." unique_id=495923736 instance=ExtResource("17_jprjk")]
 transform = Transform3D(-1.4990149, 0, -0.05851397, 0, 1.5001564, 0, 0.05851397, 0, -1.4990149, -7.432228, -0.00487238, 23.68213)
