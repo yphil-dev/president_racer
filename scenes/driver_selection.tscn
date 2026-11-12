@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dvaqw8rt4ilqt" path="res://scripts/driver_selection.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="2_background"]
 [ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="3_laps"]
+[ext_resource type="LabelSettings" uid="uid://dd86stn2888my" path="res://resources/city_label_settings.tres" id="4_a5fmu"]
 [ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="4_wheel"]
 [ext_resource type="Texture2D" uid="uid://b1ebtd7gnxtd1" path="res://sprites/day-sun.svg" id="5_sun"]
 [ext_resource type="Texture2D" uid="uid://bnetos1wy0c77" path="res://sprites/night-moon.svg" id="6_moon"]
@@ -17,32 +18,6 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBox_lap_bar"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_button_left"]
-bg_color = Color(0.24, 0.24, 0.24, 1)
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_focus_left"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_button_middle"]
-bg_color = Color(0.24, 0.24, 0.24, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_focus_middle"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_button_right"]
-bg_color = Color(0.24, 0.24, 0.24, 1)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_focus_right"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
 
 [node name="DriverSelection" type="Control" unique_id=121834990]
 layout_mode = 3
@@ -160,6 +135,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -227,6 +203,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -295,6 +272,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -363,6 +341,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
 

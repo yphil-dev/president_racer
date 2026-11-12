@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5hs2dxnvsr6n" path="res://scripts/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="2_background"]
+[ext_resource type="LabelSettings" uid="uid://dd86stn2888my" path="res://resources/city_label_settings.tres" id="3_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="5_laps"]
 [ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="6_wheel"]
 [ext_resource type="Texture2D" uid="uid://b1ebtd7gnxtd1" path="res://sprites/day-sun.svg" id="7_day"]
@@ -89,6 +90,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 text = "PARIS"
+label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -149,6 +151,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 text = "MARSEILLE"
+label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -210,6 +213,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 text = "LIMOGES"
+label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -271,6 +275,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
 text = "LYON"
+label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
