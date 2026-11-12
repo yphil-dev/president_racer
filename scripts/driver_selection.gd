@@ -8,8 +8,6 @@ const SELECTED_LABEL_COLOR := Color(1, 0.88, 0.2, 1)
 const NORMAL_LABEL_COLOR := Color.WHITE
 const CONTROLLER_AVAILABLE_COLOR := Color(0.15, 0.8, 0.4, 1)
 const CONTROLLER_UNAVAILABLE_COLOR := Color(0.55, 0.08, 0.1,  1)
-const BUTTON_NORMAL_BG := Color(0.24, 0.24, 0.24, 1)
-const BUTTON_ACTIVE_BG := Color(0.35, 0.31, 0.12, 1)
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
 const RACE_BUTTON_SIZE := Vector2(56, 56)
@@ -109,18 +107,15 @@ func _ready() -> void:
 		_create_scheme_buttons(index)
 
 	for index in lap_buttons.size():
-		_apply_button_background_colors(lap_buttons[index])
 		lap_buttons[index].pressed.connect(_select_laps.bind(index + 1))
 		lap_buttons[index].focus_entered.connect(_focus_lap)
 		lap_buttons[index].mouse_entered.connect(_hover_lap.bind(index))
 
 	for index in time_buttons.size():
-		_apply_button_background_colors(time_buttons[index])
 		time_buttons[index].pressed.connect(_select_time_of_day.bind(index == 1))
 		time_buttons[index].focus_entered.connect(_focus_time)
 		time_buttons[index].mouse_entered.connect(_hover_time.bind(index))
 
-	_apply_button_background_colors(race_button)
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
@@ -187,18 +182,6 @@ func _layout_cards() -> void:
 	race_button.size = RACE_BUTTON_SIZE
 	race_button.pivot_offset = RACE_BUTTON_SIZE * 0.5
 
-func _apply_button_background_colors(button: Button) -> void:
-	var normal_style := button.get_theme_stylebox("normal").duplicate() as StyleBoxFlat
-	normal_style.bg_color = BUTTON_NORMAL_BG
-
-	var active_style := button.get_theme_stylebox("hover").duplicate() as StyleBoxFlat
-	active_style.bg_color = BUTTON_ACTIVE_BG
-
-	button.add_theme_stylebox_override("normal", normal_style)
-	button.add_theme_stylebox_override("pressed", active_style)
-	button.add_theme_stylebox_override("hover", active_style)
-	button.add_theme_stylebox_override("focus", active_style)
-
 func _create_scheme_buttons(driver_index: int) -> void:
 	var driver_id := DriverRoster.DRIVER_IDS[driver_index]
 	var buttons_for_driver: Dictionary = {}
@@ -212,6 +195,7 @@ func _create_scheme_buttons(driver_index: int) -> void:
 		button.size_flags_stretch_ratio = 1.7 if scheme == RaceSelection.CONTROL_COMBO else 1.0
 		button.focus_mode = Control.FOCUS_ALL
 		button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		button.theme_type_variation = &"CompactButton"
 		button.pressed.connect(_select_control_scheme.bind(driver_id, scheme))
 		button.focus_entered.connect(_focus_scheme_button.bind(driver_index))
 		button.mouse_entered.connect(_hover_scheme_button.bind(button))
@@ -327,31 +311,12 @@ func _refresh_scheme_buttons() -> void:
 			var available := _is_scheme_available(scheme)
 			button.disabled = false
 			button.tooltip_text = _get_scheme_tooltip(scheme, available)
-			_style_scheme_button(button, scheme, scheme == selected_scheme, available)
+			_style_scheme_button(button, scheme == selected_scheme)
 			_update_controller_icon_colors(button, scheme)
 
-func _style_scheme_button(
-	button: Button,
-	_scheme: String,
-	selected: bool,
-	_available: bool
-) -> void:
-	var normal_style := StyleBoxFlat.new()
-	normal_style.bg_color = BUTTON_NORMAL_BG
-	normal_style.border_width_right = 0
-
-	var active_style := StyleBoxFlat.new()
-	active_style.bg_color = BUTTON_ACTIVE_BG
-	active_style.border_width_right = 0
-
+func _style_scheme_button(button: Button, selected: bool) -> void:
 	var selection_bar := button.get_meta(&"selection_bar") as ColorRect
 	selection_bar.visible = selected
-
-	button.add_theme_stylebox_override("normal", normal_style)
-	button.add_theme_stylebox_override("disabled", normal_style)
-	button.add_theme_stylebox_override("pressed", active_style)
-	button.add_theme_stylebox_override("focus", active_style)
-	button.add_theme_stylebox_override("hover", active_style)
 
 func _update_controller_icon_colors(button: Button, scheme: String) -> void:
 	var controller_number := _get_gamepad_number(scheme)

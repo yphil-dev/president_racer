@@ -48,7 +48,7 @@ import/fbx/enabled=false
 
 [gui]
 
-theme/custom="uid://01bain105ag8"
+theme/custom="res://resources/ui_theme.tres"
 
 [input]
 

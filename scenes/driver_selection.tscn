@@ -397,10 +397,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
 focus_neighbor_right = NodePath("../Two")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
-theme_override_styles/normal = SubResource("StyleBox_button_left")
-theme_override_styles/pressed = SubResource("StyleBox_focus_left")
-theme_override_styles/hover = SubResource("StyleBox_focus_left")
-theme_override_styles/focus = SubResource("StyleBox_focus_left")
+theme_type_variation = &"CompactButton"
 text = "1"
 
 [node name="Two" type="Button" parent="LapSelector/Bar/Buttons" unique_id=661744785]
@@ -410,10 +407,7 @@ focus_neighbor_left = NodePath("../One")
 focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
 focus_neighbor_right = NodePath("../Three")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
-theme_override_styles/normal = SubResource("StyleBox_button_middle")
-theme_override_styles/pressed = SubResource("StyleBox_focus_middle")
-theme_override_styles/hover = SubResource("StyleBox_focus_middle")
-theme_override_styles/focus = SubResource("StyleBox_focus_middle")
+theme_type_variation = &"CompactButton"
 text = "2"
 
 [node name="Three" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1042194513]
@@ -422,10 +416,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../Two")
 focus_neighbor_top = NodePath("../../../../DriverGrid/Glucksman")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Night")
-theme_override_styles/normal = SubResource("StyleBox_button_right")
-theme_override_styles/pressed = SubResource("StyleBox_focus_right")
-theme_override_styles/hover = SubResource("StyleBox_focus_right")
-theme_override_styles/focus = SubResource("StyleBox_focus_right")
+theme_type_variation = &"CompactButton"
 text = "3"
 
 [node name="TimeSelector" type="HBoxContainer" parent="." unique_id=1970189216]
@@ -438,10 +429,7 @@ custom_minimum_size = Vector2(96, 40)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_right = NodePath("../Night")
-theme_override_styles/normal = SubResource("StyleBox_button_left")
-theme_override_styles/pressed = SubResource("StyleBox_focus_left")
-theme_override_styles/hover = SubResource("StyleBox_focus_left")
-theme_override_styles/focus = SubResource("StyleBox_focus_left")
+theme_type_variation = &"CompactButton"
 icon = ExtResource("7_sun_neutral")
 icon_alignment = 1
 
@@ -450,10 +438,7 @@ custom_minimum_size = Vector2(96, 40)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Day")
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
-theme_override_styles/normal = SubResource("StyleBox_button_right")
-theme_override_styles/pressed = SubResource("StyleBox_focus_right")
-theme_override_styles/hover = SubResource("StyleBox_focus_right")
-theme_override_styles/focus = SubResource("StyleBox_focus_right")
+theme_type_variation = &"CompactButton"
 icon = ExtResource("6_moon")
 icon_alignment = 1
 
@@ -511,7 +496,7 @@ layout_mode = 0
 offset_left = 89.0
 offset_right = 150.0
 offset_bottom = 56.0
-theme_type_variation = &"NavButton"
+theme_type_variation = &"CompactButton"
 
 [node name="Shade" type="ColorRect" parent="Race" unique_id=764245682]
 layout_mode = 1

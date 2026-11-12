@@ -30,6 +30,8 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 @onready var potato_rock_anim: AnimatedSprite2D = $PotatoRock/AnimatedSprite2D
 @onready var potato_rock_roll: AudioStreamPlayer2D = $PotatoRock/Roll
 @onready var potato_rock_sprout: AudioStreamPlayer2D = $PotatoRock/Sprout
+@onready var potato_rock_label: Label = $PotatoRock/PotatoRock
+@onready var studio_label: Label = $PotatoRock/Studio
 @onready var preview_viewport: SubViewport = $PreviewViewport
 @onready var track_buttons: Array[Button] = [
 	$TrackGrid/Paris,
@@ -103,13 +105,25 @@ func _play_potato_rock_intro() -> void:
 		potato_rock_anim.frame = potato_rock_anim.sprite_frames.get_frame_count(
 			potato_rock_anim.animation
 		) - 1
+		potato_rock_label.modulate = Color.WHITE
+		studio_label.modulate = Color.WHITE
 		return
 
 	SceneTransition.potato_rock_intro_played = true
+	potato_rock_label.modulate = Color(1, 1, 1, 0)
+	studio_label.modulate = Color(1, 1, 1, 0)
 	potato_rock_anim.play()
+	_fade_in_label(potato_rock_label, 4.0, 1.0)
+	_fade_in_label(studio_label, 5.0, 0.1)
+	await get_tree().create_timer(1.0).timeout
 	potato_rock_roll.play()
 	await potato_rock_roll.finished
 	potato_rock_sprout.play()
+
+func _fade_in_label(label: Label, delay: float, duration: float) -> void:
+	var tween := create_tween()
+	tween.tween_interval(delay)
+	tween.tween_property(label, "modulate", Color.WHITE, duration)
 
 func _initialize_selection() -> void:
 	await get_tree().process_frame

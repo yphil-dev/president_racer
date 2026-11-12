@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://41d6mofhfacq" path="res://sprites/potato_rock_tired_roll_32frames_8x4_200x100.png" id="8_tbmy8"]
 [ext_resource type="AudioStream" uid="uid://ci25k2dy5mesi" path="res://audio/rolling_stone.ogg" id="9_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://dln3bf5i12xa2" path="res://audio/sprout.ogg" id="10_5dd4i"]
+[ext_resource type="FontFile" uid="uid://b8akgj2c0f0pi" path="res://fonts/A Bebedera.ttf" id="11_lgwnu"]
+[ext_resource type="FontFile" uid="uid://d3ktt04y8sprq" path="res://fonts/Onilesca.ttf" id="12_flqon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jk1qb"]
 atlas = ExtResource("8_tbmy8")
@@ -242,6 +244,20 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6xfsa"]
+line_spacing = 1.0
+font = ExtResource("11_lgwnu")
+font_size = 22
+font_color = Color(1, 1, 0.83137256, 1)
+outline_size = 1
+outline_color = Color(0.2404995, 0.14098927, 1.2032688e-08, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_amcpy"]
+font = ExtResource("12_flqon")
+font_size = 20
+font_color = Color(0.60784316, 0.92156863, 0.44705883, 1)
+outline_size = 1
 
 [node name="MainMenu" type="Control" unique_id=459776246]
 layout_mode = 3
@@ -531,7 +547,7 @@ offset_right = 240.0
 offset_bottom = 56.0
 focus_neighbor_left = NodePath("../TrackGrid/Limoges")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
-theme_type_variation = &"NavButton"
+theme_type_variation = &"CompactButton"
 
 [node name="Shade" type="ColorRect" parent="Options" unique_id=1233481440]
 layout_mode = 1
@@ -636,6 +652,30 @@ speed_scale = 1.5
 
 [node name="Roll" type="AudioStreamPlayer2D" parent="PotatoRock" unique_id=1966045064]
 stream = ExtResource("9_jk1qb")
+volume_db = -5.0
 
 [node name="Sprout" type="AudioStreamPlayer2D" parent="PotatoRock" unique_id=1561696386]
 stream = ExtResource("10_5dd4i")
+volume_db = -2.083
+
+[node name="PotatoRock" type="Label" parent="PotatoRock" unique_id=1289255442]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 638.0
+offset_right = 94.0
+offset_bottom = 724.0
+text = "ROCHER
+PATATE
+
+"
+label_settings = SubResource("LabelSettings_6xfsa")
+horizontal_alignment = 1
+
+[node name="Studio" type="Label" parent="PotatoRock" unique_id=1772059657]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 691.0
+offset_right = 72.0
+offset_bottom = 708.0
+text = "studio"
+label_settings = SubResource("LabelSettings_amcpy")
