@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://01bain105ag8"]
+
+[ext_resource type="FontFile" uid="uid://bh71x7uwqsy7s" path="res://fonts/savate-regular.otf" id="1_513cy"]
+
+[resource]
+default_font = ExtResource("1_513cy")

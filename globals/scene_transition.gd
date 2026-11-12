@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 const MAIN_MENU_SCENE := "res://scenes/main_menu.tscn"
+const POTATO_ROCK_OVERLAY: PackedScene = preload("res://scenes/potato_rock_overlay.tscn")
 const SPLASH_TEXTURE: Texture2D = preload("res://splash-screen.png")
 
 const EXPAND_DURATION: float = 0.7
@@ -8,12 +9,12 @@ const REVEAL_DURATION: float = 0.6
 const MENU_COVER_DURATION: float = 0.45
 
 var _overlay: Control
+var _potato_rock_overlay
 var _preview: TextureRect
 var _black: ColorRect
 var _confirmation_sound: AudioStreamPlayer
 var _error_sound: AudioStreamPlayer
 var _active: bool = false
-var potato_rock_intro_played: bool = false
 var _ui_feedback_armed: bool = false
 
 func _ready() -> void:
@@ -48,6 +49,10 @@ func _ready() -> void:
 	_error_sound.volume_db = -10.0
 	add_child(_error_sound)
 
+	_potato_rock_overlay = POTATO_ROCK_OVERLAY.instantiate()
+	add_child(_potato_rock_overlay)
+	_initialize_potato_rock.call_deferred()
+
 func _input(event: InputEvent) -> void:
 	if (
 		event is InputEventKey
@@ -72,6 +77,16 @@ func _input(event: InputEvent) -> void:
 func is_active() -> bool:
 	return _active
 
+func show_potato_rock() -> void:
+	if _potato_rock_overlay == null:
+		return
+	_potato_rock_overlay.show()
+	_potato_rock_overlay.configure_navigation(get_tree().current_scene)
+
+func _initialize_potato_rock() -> void:
+	await get_tree().process_frame
+	show_potato_rock()
+
 func _toggle_fullscreen() -> void:
 	var current_mode := DisplayServer.window_get_mode()
 	var is_fullscreen := current_mode in [
@@ -93,6 +108,8 @@ func transition_to_track(
 		return
 
 	_active = true
+	_potato_rock_overlay.set_interactive(false)
+	_potato_rock_overlay.hide()
 	_overlay.show()
 	_black.color = Color(0, 0, 0, 0)
 	_preview.show()
@@ -134,6 +151,7 @@ func transition_to_scene(scene_path: String) -> void:
 		return
 
 	_active = true
+	_potato_rock_overlay.set_interactive(false)
 	_overlay.show()
 	_black.color = Color(0, 0, 0, 0)
 	_preview.show()
@@ -156,12 +174,14 @@ func transition_to_scene(scene_path: String) -> void:
 
 	await get_tree().process_frame
 	await get_tree().process_frame
+	_potato_rock_overlay.show()
 
 	var reveal_tween := create_tween()
 	reveal_tween.set_trans(Tween.TRANS_QUART)
 	reveal_tween.set_ease(Tween.EASE_OUT)
 	reveal_tween.tween_property(_preview, "modulate", Color(1, 1, 1, 0), REVEAL_DURATION)
 	await reveal_tween.finished
+	show_potato_rock()
 	_reset()
 
 func quit_game() -> void:

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://diy7j08f04cu3"
-path="res://.godot/imported/Ezarion-Black.ttf-fc11614b8bf69f74b156d890b3f055d9.fontdata"
+uid="uid://d3ktt04y8sprq"
+path="res://.godot/imported/Onilesca.ttf-ccf96bc0e4edee982d64fc328faad533.fontdata"
 
 [deps]
 
-source_file="res://fonts/Ezarion-Black.ttf"
-dest_files=["res://.godot/imported/Ezarion-Black.ttf-fc11614b8bf69f74b156d890b3f055d9.fontdata"]
+source_file="res://fonts/Onilesca.ttf"
+dest_files=["res://.godot/imported/Onilesca.ttf-ccf96bc0e4edee982d64fc328faad533.fontdata"]
 
 [params]
 

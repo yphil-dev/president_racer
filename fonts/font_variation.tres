@@ -1,7 +1,0 @@
-[gd_resource type="FontVariation" format=3 uid="uid://dje65ljw72hsy"]
-
-[ext_resource type="FontFile" uid="uid://bsssowuoel7hl" path="res://fonts/Constructium.ttf" id="1_ci2d0"]
-
-[resource]
-base_font = ExtResource("1_ci2d0")
-spacing_glyph = 2

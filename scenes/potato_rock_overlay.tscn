@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ckyb0ghicdmrw"]
+
+[ext_resource type="Script" uid="uid://cqglkwak5ea4j" path="res://scripts/potato_rock_overlay.gd" id="1_overlay"]
+[ext_resource type="Script" uid="uid://dbomi426cl1d6" path="res://scripts/potato_rock_button.gd" id="2_button"]
+[ext_resource type="FontFile" uid="uid://b8akgj2c0f0pi" path="res://fonts/A Bebedera.ttf" id="3_potato_font"]
+[ext_resource type="FontFile" uid="uid://d3ktt04y8sprq" path="res://fonts/Onilesca.ttf" id="4_studio_font"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_potato"]
+line_spacing = 1.0
+font = ExtResource("3_potato_font")
+font_size = 22
+font_color = Color(1, 1, 0.83137256, 1)
+outline_size = 1
+outline_color = Color(0.2404995, 0.14098927, 1.2032688e-08, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_studio"]
+font = ExtResource("4_studio_font")
+font_size = 20
+font_color = Color(0.60784316, 0.92156863, 0.44705883, 1)
+outline_size = 1
+
+[node name="PotatoRockOverlay" type="Control" unique_id=1197936269]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(48, 671)
+script = ExtResource("1_overlay")
+
+[node name="PotatoRockButton" type="TextureButton" parent="." unique_id=865289706]
+layout_mode = 0
+offset_left = -52.0
+offset_top = 621.0
+offset_right = 148.0
+offset_bottom = 724.0
+tooltip_text = "Potato Rock Studio"
+action_mode = 0
+script = ExtResource("2_button")
+
+[node name="Animation" type="AnimatedSprite2D" parent="." unique_id=2083122694]
+position = Vector2(48, 671)
+speed_scale = 1.5
+
+[node name="Roll" type="AudioStreamPlayer2D" parent="." unique_id=1899662003]
+volume_db = -5.0
+
+[node name="Sprout" type="AudioStreamPlayer2D" parent="." unique_id=2101518744]
+volume_db = -2.083
+
+[node name="PotatoRock" type="Label" parent="." unique_id=1701074503]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 638.0
+offset_right = 94.0
+offset_bottom = 724.0
+text = "PIERRE
+PATATE
+
+"
+label_settings = SubResource("LabelSettings_potato")
+horizontal_alignment = 1
+
+[node name="Studio" type="Label" parent="." unique_id=913195181]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 691.0
+offset_right = 72.0
+offset_bottom = 708.0
+text = "studio"
+label_settings = SubResource("LabelSettings_studio")

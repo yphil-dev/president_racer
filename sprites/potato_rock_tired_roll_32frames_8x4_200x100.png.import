@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djbebxnyenduc"
-path="res://.godot/imported/potato_rock_logo_rounded.png-4a2f63422d2d1dc0d2cbc26b57c99b22.ctex"
+uid="uid://41d6mofhfacq"
+path="res://.godot/imported/potato_rock_tired_roll_32frames_8x4_200x100.png-83b1ad947d6dd9fcdf4f010b15b958b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/potato_rock_logo_rounded.png"
-dest_files=["res://.godot/imported/potato_rock_logo_rounded.png-4a2f63422d2d1dc0d2cbc26b57c99b22.ctex"]
+source_file="res://sprites/potato_rock_tired_roll_32frames_8x4_200x100.png"
+dest_files=["res://.godot/imported/potato_rock_tired_roll_32frames_8x4_200x100.png-83b1ad947d6dd9fcdf4f010b15b958b7.ctex"]
 
 [params]
 

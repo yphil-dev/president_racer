@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://d3u1s5kqiqbvs"]
+
+[ext_resource type="FontFile" uid="uid://daymqa86uvf3o" path="res://fonts/Ezarion-Bold.ttf" id="1_xxvua"]
+
+[resource]
+default_font = ExtResource("1_xxvua")

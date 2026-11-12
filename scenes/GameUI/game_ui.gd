@@ -166,6 +166,7 @@ func _on_race_finished(final_standings: Array) -> void:
 	var result_rects := QuadrantLayout.get_rects(size)
 	result_background.show()
 	result_shade.show()
+	SceneTransition.show_potato_rock()
 	AudioPlayer.play_result(_did_player_win(final_standings))
 
 	var background_tween := create_tween()
