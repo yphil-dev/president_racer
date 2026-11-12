@@ -56,6 +56,7 @@ func _on_race_started() -> void:
 	_apply_overcast_lighting()
 	_rain.emitting = true
 	_rain_audio.play()
+	_rain_audio.volume_db = -9.0
 	_start_lightning_schedule()
 
 func _on_race_finished(_standings: Array) -> void:
@@ -161,6 +162,6 @@ func _play_lightning_pair() -> void:
 	await get_tree().create_timer(maxf(0.0, LIGHTNING_THUNDER_DELAY - flash_duration)).timeout
 	if _race_finished or not is_inside_tree():
 		return
-	_thunder_audio.pitch_scale = randf_range(0.92, 1.08)
-	_thunder_audio.volume_db = randf_range(-2.0, 1.0)
+	_thunder_audio.pitch_scale = randf_range(1.0, 1.05)
+	_thunder_audio.volume_db = randf_range(-8.0, -6.0)
 	_thunder_audio.play()
