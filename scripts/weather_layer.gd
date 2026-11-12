@@ -1,7 +1,8 @@
 extends Node3D
 
+const DIMMING_START := 2.0
+const DIMMING_DURATION := 4.5
 const WEATHER_DELAY := 5.0
-const DARKNESS_DURATION := 2.5
 const LIGHTNING_FLASH_MIN := 0.08
 const LIGHTNING_FLASH_MAX := 0.16
 const LIGHTNING_THUNDER_DELAY := 0.5
@@ -47,13 +48,23 @@ func _on_race_started() -> void:
 	if RaceSelection.night_enabled or RaceSelection.selected_weather != RaceSelection.WEATHER_RAIN:
 		return
 
+	_start_dimming_sequence()
+	_start_rain_sequence()
+
+func _start_dimming_sequence() -> void:
+	await get_tree().create_timer(DIMMING_START).timeout
+	if not is_inside_tree() or _race_finished:
+		return
+
+	_apply_overcast_lighting()
+
+func _start_rain_sequence() -> void:
 	await get_tree().create_timer(WEATHER_DELAY).timeout
 	if not is_inside_tree() or _race_finished:
 		return
 
 	_anchor_to_camera()
 	_weather_active = true
-	_apply_overcast_lighting()
 	_rain.emitting = true
 	_rain_audio.play()
 	_rain_audio.volume_db = -9.0
@@ -73,19 +84,32 @@ func _anchor_to_camera() -> void:
 	global_position = Vector3(camera.global_position.x, 0.0, camera.global_position.z)
 
 func _apply_overcast_lighting() -> void:
+	var tween := create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+
 	if _world_environment != null and _world_environment.environment != null:
 		var overcast_environment := _world_environment.environment.duplicate() as Environment
-		overcast_environment.ambient_light_energy *= 0.7
-		overcast_environment.tonemap_exposure *= 0.9
 		_world_environment.environment = overcast_environment
+		tween.tween_property(
+			overcast_environment,
+			"ambient_light_energy",
+			overcast_environment.ambient_light_energy * 0.7,
+			DIMMING_DURATION
+		)
+		tween.tween_property(
+			overcast_environment,
+			"tonemap_exposure",
+			overcast_environment.tonemap_exposure * 0.9,
+			DIMMING_DURATION
+		)
 
-	if _sun == null:
-		return
-
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(_sun, "light_energy", _original_sun_energy * 0.62, DARKNESS_DURATION)
-	await tween.finished
+	if _sun != null:
+		tween.tween_property(
+			_sun,
+			"light_energy",
+			_original_sun_energy * 0.62,
+			DIMMING_DURATION
+		)
 
 func _create_rain() -> void:
 	_rain = GPUParticles3D.new()
