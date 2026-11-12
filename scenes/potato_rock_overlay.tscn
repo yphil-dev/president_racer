@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cqglkwak5ea4j" path="res://scripts/potato_rock_overlay.gd" id="1_overlay"]
 [ext_resource type="Script" uid="uid://dbomi426cl1d6" path="res://scripts/potato_rock_button.gd" id="2_button"]
-[ext_resource type="FontFile" uid="uid://b8akgj2c0f0pi" path="res://fonts/A Bebedera.ttf" id="3_potato_font"]
+[ext_resource type="FontFile" uid="uid://b8kt86y6x7hj7" path="res://fonts/Rich Eatin'.otf" id="3_ru2yu"]
 [ext_resource type="FontFile" uid="uid://d3ktt04y8sprq" path="res://fonts/Onilesca.ttf" id="4_studio_font"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_potato"]
-line_spacing = 1.0
-font = ExtResource("3_potato_font")
-font_size = 22
+line_spacing = 0.0
+font = ExtResource("3_ru2yu")
+font_size = 21
 font_color = Color(1, 1, 0.83137256, 1)
 outline_size = 1
 outline_color = Color(0.2404995, 0.14098927, 1.2032688e-08, 1)
@@ -16,8 +16,7 @@ outline_color = Color(0.2404995, 0.14098927, 1.2032688e-08, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_studio"]
 font = ExtResource("4_studio_font")
 font_size = 20
-font_color = Color(0.60784316, 0.92156863, 0.44705883, 1)
-outline_size = 1
+font_color = Color(0.05882353, 0.83137256, 0.3647059, 1)
 
 [node name="PotatoRockOverlay" type="Control" unique_id=1197936269]
 layout_mode = 3
@@ -42,7 +41,7 @@ position = Vector2(48, 671)
 speed_scale = 1.5
 
 [node name="Roll" type="AudioStreamPlayer2D" parent="." unique_id=1899662003]
-volume_db = -5.0
+volume_db = -6.5
 
 [node name="Sprout" type="AudioStreamPlayer2D" parent="." unique_id=2101518744]
 volume_db = -2.083
@@ -62,9 +61,9 @@ horizontal_alignment = 1
 
 [node name="Studio" type="Label" parent="." unique_id=913195181]
 layout_mode = 0
-offset_left = 25.0
-offset_top = 691.0
-offset_right = 72.0
-offset_bottom = 708.0
+offset_left = 23.0
+offset_top = 684.0
+offset_right = 61.0
+offset_bottom = 704.0
 text = "studio"
 label_settings = SubResource("LabelSettings_studio")
