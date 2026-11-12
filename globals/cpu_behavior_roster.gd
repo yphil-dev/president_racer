@@ -9,7 +9,7 @@ const BEHAVIOR_IDS: Array[String] = [
 
 const PROFILES: Dictionary = {
 	"right_balanced": {
-		"waypoint_look_ahead": 2,
+		"waypoint_look_ahead": 3,
 		"lane_offset": -0.45,
 		"cpu_steering_gain": 1.5,
 		"cruise_throttle": 0.85,
@@ -22,7 +22,7 @@ const PROFILES: Dictionary = {
 		"prefer_right_pass": true,
 	},
 	"left_fast": {
-		"waypoint_look_ahead": 2,
+		"waypoint_look_ahead": 3,
 		"lane_offset": 0.0,
 		"cpu_steering_gain": 1.6,
 		"cruise_throttle": 0.92,
