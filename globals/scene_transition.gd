@@ -11,6 +11,7 @@ var _overlay: Control
 var _preview: TextureRect
 var _black: ColorRect
 var _confirmation_sound: AudioStreamPlayer
+var _error_sound: AudioStreamPlayer
 var _active: bool = false
 var _ui_feedback_armed: bool = false
 
@@ -40,6 +41,11 @@ func _ready() -> void:
 	_confirmation_sound.stream = _create_confirmation_beep()
 	_confirmation_sound.volume_db = -10.0
 	add_child(_confirmation_sound)
+
+	_error_sound = AudioStreamPlayer.new()
+	_error_sound.stream = _create_error_beep()
+	_error_sound.volume_db = -10.0
+	add_child(_error_sound)
 
 func _input(event: InputEvent) -> void:
 	if (
@@ -179,6 +185,12 @@ func play_selection_beep() -> void:
 	_confirmation_sound.stop()
 	_confirmation_sound.play()
 
+func play_error_beep() -> void:
+	if not _ui_feedback_armed:
+		return
+	_error_sound.stop()
+	_error_sound.play()
+
 func _create_confirmation_beep() -> AudioStreamWAV:
 	const SAMPLE_RATE: int = 22050
 	const DURATION: float = 0.12
@@ -206,8 +218,38 @@ func _create_confirmation_beep() -> AudioStreamWAV:
 	stream.data = data
 	return stream
 
+func _create_error_beep() -> AudioStreamWAV:
+	const SAMPLE_RATE: int = 22050
+	const DURATION: float = 0.18
+	const START_FREQUENCY: float = 220.0
+	const END_FREQUENCY: float = 150.0
+	const AMPLITUDE: float = 0.24
+	const ATTACK: float = 0.01
+	const RELEASE: float = 0.08
+
+	var sample_count := int(SAMPLE_RATE * DURATION)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+
+	for sample_index in sample_count:
+		var time := float(sample_index) / SAMPLE_RATE
+		var envelope := minf(time / ATTACK, 1.0)
+		if time > DURATION - RELEASE:
+			envelope *= (DURATION - time) / RELEASE
+		var frequency := lerpf(START_FREQUENCY, END_FREQUENCY, time / DURATION)
+		var wave := sin(TAU * frequency * time) * AMPLITUDE * envelope
+		data.encode_s16(sample_index * 2, int(wave * 32767.0))
+
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = SAMPLE_RATE
+	stream.stereo = false
+	stream.data = data
+	return stream
+
 func _reset() -> void:
 	_confirmation_sound.stop()
+	_error_sound.stop()
 	_preview.texture = null
 	_preview.modulate = Color.WHITE
 	_preview.hide()
