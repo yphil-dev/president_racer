@@ -13,6 +13,7 @@ var _black: ColorRect
 var _confirmation_sound: AudioStreamPlayer
 var _error_sound: AudioStreamPlayer
 var _active: bool = false
+var potato_rock_intro_played: bool = false
 var _ui_feedback_armed: bool = false
 
 func _ready() -> void:

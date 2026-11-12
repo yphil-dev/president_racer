@@ -27,6 +27,9 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 @onready var options_button: Button = $Options
 @onready var selected_driver_portrait: TextureRect = $Options/Portrait
 @onready var selected_time_icon: TextureRect = $Options/TimeIcon
+@onready var potato_rock_anim: AnimatedSprite2D = $PotatoRock/AnimatedSprite2D
+@onready var potato_rock_roll: AudioStreamPlayer2D = $PotatoRock/Roll
+@onready var potato_rock_sprout: AudioStreamPlayer2D = $PotatoRock/Sprout
 @onready var preview_viewport: SubViewport = $PreviewViewport
 @onready var track_buttons: Array[Button] = [
 	$TrackGrid/Paris,
@@ -90,8 +93,23 @@ func _ready() -> void:
 		selectable_buttons[index].resized.connect(_update_button_pivot.bind(index))
 
 	resized.connect(_layout_menu)
+	_play_potato_rock_intro()
 	_initialize_selection.call_deferred()
 	_generate_previews.call_deferred()
+
+func _play_potato_rock_intro() -> void:
+	if SceneTransition.potato_rock_intro_played:
+		potato_rock_anim.stop()
+		potato_rock_anim.frame = potato_rock_anim.sprite_frames.get_frame_count(
+			potato_rock_anim.animation
+		) - 1
+		return
+
+	SceneTransition.potato_rock_intro_played = true
+	potato_rock_anim.play()
+	potato_rock_roll.play()
+	await potato_rock_roll.finished
+	potato_rock_sprout.play()
 
 func _initialize_selection() -> void:
 	await get_tree().process_frame
