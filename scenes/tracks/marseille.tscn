@@ -96,12 +96,23 @@ transform = Transform3D(-1.8559803e-07, 0, 4.245988, 0, 4.245988, 0, -4.245988, 
 [node name="RaceController" parent="." unique_id=1837278698 instance=ExtResource("2_trceg")]
 traffic_light_path = NodePath("../TrafficLight")
 
-[node name="Environment" type="WorldEnvironment" parent="." unique_id=1097254880]
-environment = ExtResource("1_q4t1r")
-
 [node name="View" type="Node3D" parent="." unique_id=1807530472]
 transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573576, -0.707107, -0.40558, 0.579228, 3.5, 0, 5)
 script = ExtResource("5_0lrhn")
+
+[node name="Sun" type="DirectionalLight3D" parent="View" unique_id=385873465]
+transform = Transform3D(0.34202036, -0.7198456, 0.6040234, 0.538985, 0.67681986, 0.50140786, -0.76975113, 0.15406784, 0.61947244, 1.0606599, 3.4474258, -4.923438)
+light_color = Color(1, 0.95686275, 0.8392157, 1)
+light_energy = 0.85
+light_specular = 0.0
+shadow_enabled = true
+shadow_bias = 0.2
+shadow_normal_bias = 1.0
+shadow_opacity = 0.65
+directional_shadow_mode = 0
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 200.0
+directional_shadow_pancake_size = 2.0
 
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
 transform = Transform3D(0.76629645, -0.53314245, 0.35853618, 0.47159383, 0.8457329, 0.24966943, -0.43633524, -0.022236768, 0.8995096, 21.287733, 11.478874, 36.6232)
@@ -109,17 +120,8 @@ attributes = SubResource("CameraAttributesPhysical_a8y0u")
 current = true
 fov = 37.849285
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=385873465]
-transform = Transform3D(-0.422618, -0.694272, 0.582564, 0, 0.642788, 0.766044, -0.906308, 0.323744, -0.271654, 0, 0, 0)
-shadow_enabled = true
-shadow_bias = 0.2
-shadow_normal_bias = 1.0
-shadow_opacity = 0.75
-directional_shadow_mode = 0
-directional_shadow_blend_splits = true
-directional_shadow_max_distance = 30.0
-directional_shadow_pancake_size = 2.0
-sky_mode = 1
+[node name="Environment" type="WorldEnvironment" parent="View" unique_id=1097254880]
+environment = ExtResource("1_q4t1r")
 
 [node name="Plane" type="StaticBody3D" parent="." unique_id=1620956840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
@@ -412,6 +414,6 @@ material_override = SubResource("StandardMaterial3D_amcpy")
 mesh = SubResource("PlaneMesh_6xfsa")
 skeleton = NodePath("../..")
 
-[connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Finish" to="." method="_on_finish_body_entered"]
+[connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]

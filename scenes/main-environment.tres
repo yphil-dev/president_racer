@@ -1,25 +1,29 @@
 [gd_resource type="Environment" format=3 uid="uid://c3bs0wfxpri8g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lg8b7"]
-sky_horizon_color = Color(0.67451, 0.682353, 0.698039, 1)
-sky_curve = 0.0175
-ground_bottom_color = Color(1, 1, 1, 1)
-ground_curve = 0.171484
+sky_top_color = Color(0.26, 0.56, 0.92, 1)
+sky_horizon_color = Color(0.68, 0.85, 0.98, 1)
+sky_curve = 0.08
+ground_bottom_color = Color(0.25, 0.27, 0.3, 1)
+ground_horizon_color = Color(0.68, 0.85, 0.98, 1)
+ground_curve = 0.1
 
 [sub_resource type="Sky" id="Sky_7bk1c"]
+resource_name = "DaySun"
 sky_material = SubResource("ProceduralSkyMaterial_lg8b7")
 
 [resource]
-background_mode = 1
-background_color = Color(0.6756064, 0.76438403, 0.97408944, 1)
+background_mode = 2
 sky = SubResource("Sky_7bk1c")
-ambient_light_source = 3
-ambient_light_color = Color(0.6144546, 0.7034585, 0.81702733, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.84, 0.92, 1, 1)
+ambient_light_energy = 0.45
 tonemap_mode = 2
-tonemap_exposure = 0.45
+tonemap_exposure = 0.9
+tonemap_white = 1.5
 ssao_enabled = true
-ssao_power = 2.5
-ssil_enabled = true
-glow_levels/2 = 0.6
-glow_levels/3 = 0.6
-glow_strength = 1.25
+ssao_power = 1.0
+glow_levels/2 = 0.3
+glow_levels/3 = 0.3
+glow_strength = 0.5
+glow_bloom = 0.02

@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dd86stn2888my"]
+
+[ext_resource type="FontFile" uid="uid://bh71x7uwqsy7s" path="res://fonts/savate-regular.otf" id="1_ipi0q"]
+
+[resource]
+font = ExtResource("1_ipi0q")
+font_size = 42
+outline_size = 1

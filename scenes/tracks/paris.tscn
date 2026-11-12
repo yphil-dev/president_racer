@@ -104,16 +104,18 @@ fov = 37.849285
 environment = ExtResource("1_q4t1r")
 
 [node name="Sun" type="DirectionalLight3D" parent="View" unique_id=385873465]
-transform = Transform3D(0.3420203, -0.7198457, 0.60402274, 0.5389851, 0.6768196, 0.501408, -0.7697511, 0.15406814, 0.619473, 1.0606599, 3.4474258, -4.923438)
+transform = Transform3D(0.34202036, -0.7198456, 0.6040234, 0.538985, 0.67681986, 0.50140786, -0.76975113, 0.15406784, 0.61947244, 1.0606599, 3.4474258, -4.923438)
+light_color = Color(1, 0.95686275, 0.8392157, 1)
+light_energy = 0.85
+light_specular = 0.0
 shadow_enabled = true
 shadow_bias = 0.2
 shadow_normal_bias = 1.0
-shadow_opacity = 0.75
+shadow_opacity = 0.65
 directional_shadow_mode = 0
 directional_shadow_blend_splits = true
-directional_shadow_max_distance = 30.0
+directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 2.0
-sky_mode = 1
 
 [node name="Plane" type="StaticBody3D" parent="." unique_id=1620956840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
@@ -600,6 +602,6 @@ transform = Transform3D(-1.601453, 0, -0.1588918, 0, 1.6093159, 0, 0.1588918, 0,
 [node name="car_taxi5" parent="." unique_id=1657232866 instance=ExtResource("23_uoivm")]
 transform = Transform3D(-0.21764217, 0, 1.594531, 0, 1.6093159, 0, -1.594531, 0, -0.21764217, -10.530138, -0.405047, 24.887299)
 
-[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
+[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]

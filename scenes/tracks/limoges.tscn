@@ -85,13 +85,6 @@ _data = {
 }
 point_count = 14
 
-[sub_resource type="Environment" id="Environment_6xfsa"]
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.5
-tonemap_mode = 3
-ssao_enabled = true
-glow_enabled = true
-
 [sub_resource type="BoxMesh" id="BoxMesh_6xfsa"]
 size = Vector3(4.0273438, 0.25878906, 5.4257813)
 
@@ -120,12 +113,23 @@ transform = Transform3D(4.2459884, 0, 0, 0, 4.2459884, 0, 0, 0, 4.2459884, 14.47
 [node name="RaceController" parent="." unique_id=1837278698 instance=ExtResource("2_trceg")]
 traffic_light_path = NodePath("../TrafficLight")
 
-[node name="Environment" type="WorldEnvironment" parent="." unique_id=1097254880]
-environment = ExtResource("1_q4t1r")
-
 [node name="View" type="Node3D" parent="." unique_id=1807530472]
 transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573576, -0.707107, -0.40558, 0.579228, 3.5, 0, 5)
 script = ExtResource("5_0lrhn")
+
+[node name="Sun" type="DirectionalLight3D" parent="View" unique_id=1940918163]
+transform = Transform3D(0.3420203, -0.7198457, 0.60402274, 0.5389851, 0.6768196, 0.501408, -0.7697511, 0.15406814, 0.619473, 1.0606599, 3.4474258, -4.923438)
+light_color = Color(1, 0.95686275, 0.8392157, 1)
+light_energy = 0.85
+light_specular = 0.0
+shadow_enabled = true
+shadow_bias = 0.2
+shadow_normal_bias = 1.0
+shadow_opacity = 0.65
+directional_shadow_mode = 0
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 200.0
+directional_shadow_pancake_size = 2.0
 
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
 transform = Transform3D(0.99318576, 0.08145371, -0.08334643, -0.06684399, 0.9840051, 0.1651228, 0.09546316, -0.15842584, 0.9827454, -6.620155, 7.075038, 43.312134)
@@ -133,18 +137,8 @@ attributes = SubResource("CameraAttributesPhysical_a8y0u")
 current = true
 fov = 37.849285
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1940918163]
-transform = Transform3D(-0.422618, -0.694272, 0.582564, 0, 0.642788, 0.766044, -0.906308, 0.323744, -0.271654, 0, 0, 0)
-light_specular = 0.0
-shadow_enabled = true
-shadow_bias = 0.2
-shadow_normal_bias = 1.0
-shadow_opacity = 0.75
-directional_shadow_mode = 0
-directional_shadow_blend_splits = true
-directional_shadow_max_distance = 30.0
-directional_shadow_pancake_size = 2.0
-sky_mode = 1
+[node name="Environment" type="WorldEnvironment" parent="View" unique_id=1097254880]
+environment = ExtResource("1_q4t1r")
 
 [node name="Plane" type="StaticBody3D" parent="." unique_id=1620956840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
@@ -360,9 +354,6 @@ debug_custom_color = Color(1, 1, 1, 1)
 
 [node name="GameUI" parent="UI" unique_id=239267494 instance=ExtResource("18_qycdi")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=264416833]
-environment = SubResource("Environment_6xfsa")
-
 [node name="RAMPS" type="Node3D" parent="." unique_id=668943600]
 
 [node name="JumpRamp" type="StaticBody3D" parent="RAMPS" unique_id=11557879]
@@ -497,6 +488,6 @@ transform = Transform3D(-0.19589642, 0, 2.7165427, 0, 2.7235968, 0, -2.7165427, 
 [node name="building_H2" parent="." unique_id=1250644965 instance=ExtResource("20_p1bgp")]
 transform = Transform3D(2.4021258, 0, 0, 0, 2.4021258, 0, 0, 0, 2.4021258, 3.4360352, -0.7459717, 11.94397)
 
-[connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Finish" to="." method="_on_finish_body_entered"]
+[connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]
