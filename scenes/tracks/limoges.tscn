@@ -4,6 +4,7 @@
 [ext_resource type="Environment" uid="uid://c3bs0wfxpri8g" path="res://scenes/main-environment.tres" id="1_q4t1r"]
 [ext_resource type="Script" uid="uid://b5n3pjjngyieg" path="res://scripts/ai_boundary_builder.gd" id="2_boundaries"]
 [ext_resource type="PackedScene" uid="uid://dxa23770km15t" path="res://scenes/race_controller.tscn" id="2_trceg"]
+[ext_resource type="PackedScene" path="res://scenes/weather_layer.tscn" id="2_weather"]
 [ext_resource type="Script" uid="uid://8sg1ayu44brh" path="res://scripts/ai_waypoint_generator.gd" id="3_waypoints"]
 [ext_resource type="Script" uid="uid://b24bstassw26s" path="res://scripts/view.gd" id="5_0lrhn"]
 [ext_resource type="MeshLibrary" uid="uid://b6myd2b7l2o2j" path="res://models/Library/mesh-library.tres" id="8_eg7gk"]
@@ -130,6 +131,8 @@ directional_shadow_mode = 0
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 2.0
+
+[node name="WeatherLayer" parent="." instance=ExtResource("2_weather")]
 
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
 transform = Transform3D(0.99318576, 0.08145371, -0.08334643, -0.06684399, 0.9840051, 0.1651228, 0.09546316, -0.15842584, 0.9827454, -6.620155, 7.075038, 43.312134)

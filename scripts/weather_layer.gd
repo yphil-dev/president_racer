@@ -2,48 +2,68 @@ extends Node3D
 
 const WEATHER_DELAY := 5.0
 const DARKNESS_DURATION := 2.5
-const RAIN_DELAY_AFTER_DARKNESS := 5.0
+const LIGHTNING_FLASH_MIN := 0.08
+const LIGHTNING_FLASH_MAX := 0.16
+const LIGHTNING_THUNDER_DELAY := 0.5
 
 var _rain: GPUParticles3D
+var _rain_audio: AudioStreamPlayer
+var _thunder_audio: AudioStreamPlayer
+var _lightning: OmniLight3D
 var _sun: DirectionalLight3D
 var _world_environment: WorldEnvironment
 var _original_sun_energy := 0.0
 var _weather_active := false
+var _race_finished := false
+var _lightning_schedule_started := false
 
 func _ready() -> void:
-	_sun = get_node_or_null("../View/Sun") as DirectionalLight3D
-	_world_environment = get_node_or_null("../View/Environment") as WorldEnvironment
+	var track := get_parent()
+	_sun = track.find_child("Sun", true, false) as DirectionalLight3D
+	_world_environment = track.find_child("Environment", true, false) as WorldEnvironment
 	if _sun != null:
 		_original_sun_energy = _sun.light_energy
+
 	_create_rain()
 	_rain.emitting = false
-	_connect_race_started.call_deferred()
+	_create_audio()
+	_create_lightning()
+	_connect_race_signals.call_deferred()
 
 func _process(_delta: float) -> void:
 	if _weather_active:
 		_anchor_to_camera()
 
-func _connect_race_started() -> void:
+func _connect_race_signals() -> void:
 	var race_controller := get_parent().get_node_or_null("RaceController")
-	if race_controller == null or not race_controller.has_signal("race_started"):
+	if race_controller == null:
 		return
-	race_controller.race_started.connect(_on_race_started)
+	if race_controller.has_signal("race_started"):
+		race_controller.race_started.connect(_on_race_started)
+	if race_controller.has_signal("race_finished"):
+		race_controller.race_finished.connect(_on_race_finished)
 
 func _on_race_started() -> void:
-	if RaceSelection.selected_weather != RaceSelection.WEATHER_RAIN:
+	if RaceSelection.night_enabled or RaceSelection.selected_weather != RaceSelection.WEATHER_RAIN:
 		return
 
 	await get_tree().create_timer(WEATHER_DELAY).timeout
-	if not is_inside_tree():
+	if not is_inside_tree() or _race_finished:
 		return
 
 	_anchor_to_camera()
 	_weather_active = true
-	await _apply_overcast_lighting()
+	_apply_overcast_lighting()
+	_rain.emitting = true
+	_rain_audio.play()
+	_start_lightning_schedule()
 
-	await get_tree().create_timer(RAIN_DELAY_AFTER_DARKNESS).timeout
-	if is_inside_tree():
-		_rain.emitting = true
+func _on_race_finished(_standings: Array) -> void:
+	_race_finished = true
+	_rain.emitting = false
+	_rain_audio.stop()
+	_thunder_audio.stop()
+	_lightning.light_energy = 0.0
 
 func _anchor_to_camera() -> void:
 	var camera := get_viewport().get_camera_3d()
@@ -96,3 +116,51 @@ func _create_rain() -> void:
 	drop_mesh.material = drop_material
 	_rain.draw_pass_1 = drop_mesh
 	add_child(_rain)
+
+func _create_audio() -> void:
+	_rain_audio = AudioStreamPlayer.new()
+	_rain_audio.name = "RainAudio"
+	_rain_audio.stream = preload("res://audio/rain.ogg")
+	add_child(_rain_audio)
+
+	_thunder_audio = AudioStreamPlayer.new()
+	_thunder_audio.name = "ThunderAudio"
+	_thunder_audio.stream = preload("res://audio/thunder.ogg")
+	add_child(_thunder_audio)
+
+func _create_lightning() -> void:
+	_lightning = OmniLight3D.new()
+	_lightning.name = "Lightning"
+	_lightning.position = Vector3(0.0, 18.0, 0.0)
+	_lightning.omni_range = 180.0
+	_lightning.light_color = Color(0.82, 0.9, 1.0, 1.0)
+	_lightning.light_energy = 0.0
+	_lightning.shadow_enabled = false
+	add_child(_lightning)
+
+func _start_lightning_schedule() -> void:
+	if _lightning_schedule_started:
+		return
+	_lightning_schedule_started = true
+	_play_lightning_pairs.call_deferred()
+
+func _play_lightning_pairs() -> void:
+	var pair_count := randi_range(2, 3)
+	for _index in pair_count:
+		await get_tree().create_timer(randf_range(8.0, 18.0)).timeout
+		if _race_finished or not is_inside_tree():
+			return
+		await _play_lightning_pair()
+
+func _play_lightning_pair() -> void:
+	var flash_duration := randf_range(LIGHTNING_FLASH_MIN, LIGHTNING_FLASH_MAX)
+	_lightning.light_energy = randf_range(6.0, 10.0)
+	await get_tree().create_timer(flash_duration).timeout
+	_lightning.light_energy = 0.0
+
+	await get_tree().create_timer(maxf(0.0, LIGHTNING_THUNDER_DELAY - flash_duration)).timeout
+	if _race_finished or not is_inside_tree():
+		return
+	_thunder_audio.pitch_scale = randf_range(0.92, 1.08)
+	_thunder_audio.volume_db = randf_range(-2.0, 1.0)
+	_thunder_audio.play()

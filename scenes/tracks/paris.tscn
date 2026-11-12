@@ -118,7 +118,7 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 2.0
 
-[node name="WeatherLayer" parent="." instance=ExtResource("2_weather")]
+[node name="WeatherLayer" parent="." unique_id=821913669 instance=ExtResource("2_weather")]
 
 [node name="Plane" type="StaticBody3D" parent="." unique_id=1620956840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
