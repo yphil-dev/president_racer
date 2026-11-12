@@ -12,6 +12,13 @@ class_name Vehicle extends Node3D
 @export var drive_torque: float = 100.0
 @export var air_input_decay: float = 2.0
 
+const FAIR_BRAKING := 10.0
+const FAIR_FRICTION := 6.0
+const RAIN_BRAKING := 8.0
+const RAIN_FRICTION := 5.0
+const SNOW_BRAKING := 5.5
+const SNOW_FRICTION := 2.0
+
 @export_category("Skidmarks")
 @export var skidmarks_enabled: bool = true
 @export_range(0.05, 1.0, 0.05) var rear_skid_threshold: float = 0.3
@@ -118,6 +125,26 @@ func begin_finish_coast(distance: float) -> void:
 
 # Functions
 
+func _apply_weather_handling() -> void:
+	var target_braking := RAIN_BRAKING
+	var target_friction := RAIN_FRICTION
+	match RaceSelection.selected_weather:
+		RaceSelection.WEATHER_FAIR:
+			target_braking = FAIR_BRAKING
+			target_friction = FAIR_FRICTION
+		RaceSelection.WEATHER_SNOW:
+			target_braking = SNOW_BRAKING
+			target_friction = SNOW_FRICTION
+
+	braking = target_braking
+	var weather_material: PhysicsMaterial = sphere.physics_material_override
+	if weather_material != null:
+		weather_material = weather_material.duplicate() as PhysicsMaterial
+	else:
+		weather_material = PhysicsMaterial.new()
+	weather_material.friction = target_friction
+	sphere.physics_material_override = weather_material
+
 func _find_visible_model_part(part_name: String) -> MeshInstance3D:
 	var container := get_node_or_null("Container")
 	if container == null:
@@ -138,6 +165,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	headlights.visible = RaceSelection.night_enabled
+	_apply_weather_handling()
 
 	var profile := DriverRoster.get_profile(driver_id)
 	if not profile.is_empty():

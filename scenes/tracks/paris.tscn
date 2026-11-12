@@ -124,7 +124,7 @@ directional_shadow_pancake_size = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plane" unique_id=1617014915]
-transform = Transform3D(50.127007, 0, 0, 0, 1, 0, 0, 0, 50.127007, 0, -1.0496186, 0)
+transform = Transform3D(50.127007, 0, 0, 0, 1, 0, 0, 0, 50.127007, 0, -0.6498383, 0)
 mesh = SubResource("BoxMesh_e85i1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane" unique_id=815872636]
@@ -605,6 +605,6 @@ transform = Transform3D(-1.601453, 0, -0.1588918, 0, 1.6093159, 0, 0.1588918, 0,
 [node name="car_taxi5" parent="." unique_id=1657232866 instance=ExtResource("23_uoivm")]
 transform = Transform3D(-0.21764217, 0, 1.594531, 0, 1.6093159, 0, -1.594531, 0, -0.21764217, -10.530138, -0.405047, 24.887299)
 
-[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
 [connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]
