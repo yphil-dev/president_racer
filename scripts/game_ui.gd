@@ -426,20 +426,41 @@ func _on_race_finished(final_standings: Array) -> void:
 
 	_show_race_again()
 
+	var card_animations: Array[Dictionary] = []
 	for index in final_standings.size():
 		var state := final_standings[index] as CarRaceState
 		var card := _cards_by_vehicle.get(state.vehicle) as CarUI
 		if card == null:
 			continue
 
-		var start_position: Vector2 = card.global_position - global_position
-		var start_size := card.size
-		var target_rect := result_rects[index]
+		card_animations.append({
+			"card": card,
+			"state": state,
+			"start_position": card.global_position - global_position,
+			"start_size": card.size,
+			"target_rect": result_rects[index],
+		})
 
-		card.update_state(state)
+	for animation in card_animations:
+		var card := animation["card"] as CarUI
+		card.update_state(animation["state"] as CarRaceState)
+		card.prepare_final_layout()
+
+	for animation in card_animations:
+		var card := animation["card"] as CarUI
+		var start_position: Vector2 = animation["start_position"]
+		var start_size: Vector2 = animation["start_size"]
+		var target_rect: Rect2 = animation["target_rect"]
+		var start_scale := Vector2(
+			start_size.x / target_rect.size.x,
+			start_size.y / target_rect.size.y
+		)
+
 		card.reparent(self, false)
-		card.position = start_position
-		card.size = start_size
+		card.size = target_rect.size
+		card.pivot_offset = target_rect.size * 0.5
+		card.scale = start_scale
+		card.position = start_position - (Vector2.ONE - start_scale) * card.pivot_offset
 		card.show()
 
 		var tween := card.create_tween()
@@ -447,7 +468,7 @@ func _on_race_finished(final_standings: Array) -> void:
 		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.set_parallel(true)
 		tween.tween_property(card, "position", target_rect.position, RESULT_TWEEN_DURATION)
-		tween.tween_property(card, "size", target_rect.size, RESULT_TWEEN_DURATION)
+		tween.tween_property(card, "scale", Vector2.ONE, RESULT_TWEEN_DURATION)
 		tween.chain().tween_callback(card.show_final_result)
 
 	live_container.hide()

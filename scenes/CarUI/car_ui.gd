@@ -64,18 +64,10 @@ func update_state(state: CarRaceState) -> void:
 		else ""
 	)
 
-func show_final_result() -> void:
+func prepare_final_layout() -> void:
 	rank_label.hide()
 	status_row.hide()
 	best_icon.show()
-	if race_state.dnf:
-		result_icon.texture = DNF_ICON
-	elif race_state.winner:
-		result_icon.texture = WINNER_ICON
-	else:
-		result_icon.texture = FINISHED_ICON
-	_position_result_badge()
-	result_badge.show()
 	custom_minimum_size = Vector2.ZERO
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -97,6 +89,17 @@ func show_final_result() -> void:
 	time_label.add_theme_font_size_override("font_size", 30)
 	status_label.add_theme_font_size_override("font_size", 18)
 	best_label.add_theme_font_size_override("font_size", 16)
+
+func show_final_result() -> void:
+	prepare_final_layout()
+	if race_state.dnf:
+		result_icon.texture = DNF_ICON
+	elif race_state.winner:
+		result_icon.texture = WINNER_ICON
+	else:
+		result_icon.texture = FINISHED_ICON
+	_position_result_badge()
+	result_badge.show()
 
 func _position_result_badge() -> void:
 	result_badge.global_position = global_position + Vector2(size.x - 44.0, -20.0)
