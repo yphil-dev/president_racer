@@ -3,7 +3,7 @@ extends Vehicle
 
 @export_category("CPU Driving")
 @export_node_path("AIWaypointGenerator") var waypoint_generator_path: NodePath = ^"../PATH/WaypointGenerator"
-@export_range(1, 10, 1) var waypoint_look_ahead: int = 2
+@export_range(1, 10, 1) var waypoint_look_ahead: int = 3
 @export_range(-1.0, 1.0, 0.05) var lane_offset: float = 0.0
 @export_range(0.1, 5.0, 0.05) var cpu_steering_gain: float = 1.5
 @export_range(0.0, 1.0, 0.05) var cruise_throttle: float = 0.85

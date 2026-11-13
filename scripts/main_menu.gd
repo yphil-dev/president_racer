@@ -299,9 +299,6 @@ func _launch_track(index: int) -> void:
 
 	AudioPlayer.fade_out_and_stop(1.0)
 
-	loading_labels[index].text = "STARTING..."
-	loading_labels[index].show()
-
 	var button := track_buttons[index]
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUART)
