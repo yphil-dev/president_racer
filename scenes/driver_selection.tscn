@@ -12,6 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://dq7mxeohil7ux" path="res://sprites/weather-fair.svg" id="11_weatherfair"]
 [ext_resource type="Texture2D" uid="uid://cu8oc0n5fnc3y" path="res://sprites/weather-rain.svg" id="12_weatherrain"]
 [ext_resource type="Texture2D" uid="uid://cyw6sn0by1e1" path="res://sprites/weather-snow.svg" id="13_weathersnow"]
+[ext_resource type="Texture2D" path="res://sprites/daytime-day.svg" id="14_daytime_day"]
+[ext_resource type="Texture2D" path="res://sprites/daytime-night.svg" id="15_daytime_night"]
+[ext_resource type="Texture2D" path="res://sprites/laps-one.svg" id="16_laps_one"]
+[ext_resource type="Texture2D" path="res://sprites/laps-two.svg" id="17_laps_two"]
+[ext_resource type="Texture2D" path="res://sprites/laps-three.svg" id="18_laps_three"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_title_badge"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -380,7 +385,10 @@ focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
 focus_neighbor_right = NodePath("../Two")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
 theme_type_variation = &"CompactButton"
-text = "1"
+icon = ExtResource("16_laps_one")
+icon_alignment = 1
+icon_max_width = 28
+expand_icon = false
 
 [node name="Two" type="Button" parent="LapSelector/Bar/Buttons" unique_id=661744785]
 custom_minimum_size = Vector2(64, 36)
@@ -390,7 +398,10 @@ focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
 focus_neighbor_right = NodePath("../Three")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
 theme_type_variation = &"CompactButton"
-text = "2"
+icon = ExtResource("17_laps_two")
+icon_alignment = 1
+icon_max_width = 28
+expand_icon = false
 
 [node name="Three" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1042194513]
 custom_minimum_size = Vector2(64, 36)
@@ -399,7 +410,10 @@ focus_neighbor_left = NodePath("../Two")
 focus_neighbor_top = NodePath("../../../../DriverGrid/Glucksman")
 focus_neighbor_bottom = NodePath("../../../../TimeSelector/Night")
 theme_type_variation = &"CompactButton"
-text = "3"
+icon = ExtResource("18_laps_three")
+icon_alignment = 1
+icon_max_width = 28
+expand_icon = false
 
 [node name="TimeSelector" type="HBoxContainer" parent="." unique_id=1970189216]
 layout_mode = 0
@@ -413,9 +427,10 @@ focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_right = NodePath("../Night")
 focus_neighbor_bottom = NodePath("../../WeatherSelector/Fair")
 theme_type_variation = &"CompactButton"
-theme_override_fonts/font = ExtResource("9_dseg")
-theme_override_font_sizes/font_size = 22
-text = "10:00"
+icon = ExtResource("14_daytime_day")
+icon_alignment = 1
+icon_max_width = 32
+expand_icon = false
 
 [node name="Night" type="Button" parent="TimeSelector" unique_id=1543998521]
 custom_minimum_size = Vector2(96, 40)
@@ -424,9 +439,10 @@ focus_neighbor_left = NodePath("../Day")
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
 focus_neighbor_bottom = NodePath("../../WeatherSelector/Snow")
 theme_type_variation = &"CompactButton"
-theme_override_fonts/font = ExtResource("9_dseg")
-theme_override_font_sizes/font_size = 22
-text = "22:00"
+icon = ExtResource("15_daytime_night")
+icon_alignment = 1
+icon_max_width = 32
+expand_icon = false
 
 [node name="WeatherSelector" type="HBoxContainer" parent="." unique_id=1938812201]
 layout_mode = 0
@@ -524,8 +540,9 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("10_shuffle")
-icon_max_width = 36
-expand_icon = true
+icon_max_width = 32
+expand_icon = false
+icon_alignment = 1
 
 [node name="Saved" type="Button" parent="RandomOrSaved" unique_id=2003988245]
 custom_minimum_size = Vector2(56, 56)
@@ -534,8 +551,8 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("11_floppy")
-icon_max_width = 36
-expand_icon = true
+icon_max_width = 32
+expand_icon = false
 
 [node name="Race" type="Button" parent="." unique_id=2003988242]
 clip_contents = true

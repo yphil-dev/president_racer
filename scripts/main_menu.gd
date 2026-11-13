@@ -1,8 +1,18 @@
 extends Control
 
 const DRIVER_SELECTION_SCENE := "res://scenes/driver_selection.tscn"
-const DAY_ICON: Texture2D = preload("res://sprites/day-sun.svg")
-const NIGHT_ICON: Texture2D = preload("res://sprites/night-moon.svg")
+const DAY_ICON: Texture2D = preload("res://sprites/daytime-day.svg")
+const NIGHT_ICON: Texture2D = preload("res://sprites/daytime-night.svg")
+const WEATHER_ICONS: Dictionary = {
+	RaceSelection.WEATHER_FAIR: preload("res://sprites/weather-fair.svg"),
+	RaceSelection.WEATHER_RAIN: preload("res://sprites/weather-rain.svg"),
+	RaceSelection.WEATHER_SNOW: preload("res://sprites/weather-snow.svg"),
+}
+const LAPS_ICONS: Dictionary = {
+	1: preload("res://sprites/laps-one.svg"),
+	2: preload("res://sprites/laps-two.svg"),
+	3: preload("res://sprites/laps-three.svg"),
+}
 const CPU_ICON: Texture2D = preload("res://sprites/cpu.svg")
 
 const TRACK_SCENES: Array[String] = [
@@ -26,7 +36,9 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 @onready var track_grid: GridContainer = $TrackGrid
 @onready var options_button: Button = $Options
 @onready var selected_driver_portrait: TextureRect = $Options/Portrait
+@onready var selected_laps_icon: TextureRect = $Options/LapIcon
 @onready var selected_time_icon: TextureRect = $Options/TimeIcon
+@onready var selected_weather_icon: TextureRect = $Options/WeatherIcon
 @onready var preview_viewport: SubViewport = $PreviewViewport
 @onready var track_buttons: Array[Button] = [
 	$TrackGrid/Paris,
@@ -54,12 +66,12 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 	$TrackGrid/Lyon/Shade,
 	$Options/Shade,
 ]
-@onready var selection_labels: Array[Label] = [
+@onready var selection_labels: Array[Control] = [
 	$TrackGrid/Paris/CityLabel,
 	$TrackGrid/Marseille/CityLabel,
 	$TrackGrid/Limoges/CityLabel,
 	$TrackGrid/Lyon/CityLabel,
-	$Options/Label,
+	$Options/LapIcon,
 ]
 @onready var loading_labels: Array[Label] = [
 	$TrackGrid/Paris/LoadingLabel,
@@ -106,8 +118,12 @@ func _initialize_selection() -> void:
 	else:
 		var selected_profile := DriverRoster.get_profile(RaceSelection.selected_driver_id)
 		selected_driver_portrait.texture = selected_profile["portrait"]
-	selection_labels[4].text = str(RaceSelection.selected_laps)
+	selected_laps_icon.texture = LAPS_ICONS.get(RaceSelection.selected_laps, LAPS_ICONS[2])
 	selected_time_icon.texture = NIGHT_ICON if RaceSelection.night_enabled else DAY_ICON
+	selected_weather_icon.texture = WEATHER_ICONS.get(
+		RaceSelection.selected_weather,
+		WEATHER_ICONS[RaceSelection.WEATHER_FAIR]
+	)
 
 	_select_button(0)
 	selectable_buttons[0].grab_focus()
@@ -176,7 +192,8 @@ func _animate_button(index: int, selected: bool) -> void:
 
 	var button := selectable_buttons[index]
 	button.z_index = 1 if selected else 0
-	_style_title_label(selection_labels[index], selected)
+	if selection_labels[index] is Label:
+		_style_title_label(selection_labels[index] as Label, selected)
 	var target_scale := NORMAL_SCALE
 	if selected and index < track_buttons.size():
 		target_scale = SELECTED_SCALE

@@ -8,3 +8,4 @@ const SELECTED_LABEL_OUTLINE_SIZE := 18
 const NORMAL_LABEL_COLOR := Color(0.82, 0.92, 0.88, 1.0)          # soft celadon white
 const NORMAL_LABEL_OUTLINE_COLOR := Color(0.04, 0.14, 0.10, 0.7)  # dark forest outline
 const NORMAL_LABEL_OUTLINE_SIZE := 6
+const PLAYER_INTRO_BUBBLE_COLOR := Color(0.08, 0.11, 0.14, 0.85)

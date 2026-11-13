@@ -11,6 +11,7 @@ class_name GameUI
 @onready var classification_timer: ProgressBar = $ClassificationCountdown/Timer
 @onready var race_again: Button = $RaceAgain
 @onready var player_intro_bubble: Panel = $PlayerIntroBubble
+@onready var intro_tail: Polygon2D = $PlayerIntroBubble/Tail
 @onready var intro_scheme_icons: HBoxContainer = $PlayerIntroBubble/Content/Row/DetailsFrame/Details/SchemeIcons
 @onready var intro_driver_name: Label = $PlayerIntroBubble/Content/Row/DetailsFrame/Details/DriverName
 @onready var intro_model_viewport: SubViewport = $PlayerIntroBubble/Content/Row/ModelFrame/ModelViewportContainer/ModelViewport
@@ -84,12 +85,21 @@ func _setup_player_intro(initial_standings: Array) -> void:
 		player_intro_bubble.hide()
 		return
 
+	_apply_intro_bubble_color()
 	intro_driver_name.text = player_vehicle.driver_name
 	_populate_intro_scheme_icons(RaceSelection.get_control_scheme(player_vehicle.driver_id))
 	_setup_intro_model(player_vehicle)
 	player_intro_bubble.modulate = Color.WHITE
 	player_intro_bubble.show()
 	_position_player_intro_bubble.call_deferred()
+
+func _apply_intro_bubble_color() -> void:
+	var panel_style := player_intro_bubble.get_theme_stylebox("panel") as StyleBoxFlat
+	if panel_style != null:
+		var local_style := panel_style.duplicate() as StyleBoxFlat
+		local_style.bg_color = UIColors.PLAYER_INTRO_BUBBLE_COLOR
+		player_intro_bubble.add_theme_stylebox_override("panel", local_style)
+	intro_tail.color = UIColors.PLAYER_INTRO_BUBBLE_COLOR
 
 func _populate_intro_scheme_icons(scheme: String) -> void:
 	for child in intro_scheme_icons.get_children():

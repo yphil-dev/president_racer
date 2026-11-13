@@ -13,8 +13,8 @@ const INTRO_STAGGER: float = 0.14
 const RACE_BUTTON_SIZE := Vector2(56, 56)
 const RACE_BUTTON_MARGIN := Vector2(32, 28)
 const MODE_GROUP_GAP: float = 10.0
-const SAVED_ICON_COLOR := Color(0.2, 0.55, 1.0, 1)
-const SAVING_ICON_COLOR := Color(0.9, 0.08, 0.1, 1)
+const FLOPPY_ICON: Texture2D = preload("res://sprites/floppy.svg")
+const FLOPPY_SAVING_ICON: Texture2D = preload("res://sprites/floppy-saving.svg")
 
 const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
 const WASD_KEYS_ICON: Texture2D = preload("res://sprites/wasd-keys.svg")
@@ -149,6 +149,11 @@ func _ready() -> void:
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+	random_button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	saved_button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	random_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	saved_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	saved_button.icon = FLOPPY_ICON
 
 	_apply_lap_selection()
 	_apply_time_selection()
@@ -630,12 +635,23 @@ func _style_mode_button(button: Button, selected: bool) -> void:
 	if selection_bar != null:
 		selection_bar.visible = selected
 
+	if button == saved_button:
+		_clear_mode_icon_colors(button)
+		return
+
 	var icon_color := UIColors.NORMAL_LABEL_COLOR
-	if button == random_button and selected:
+	if selected:
 		icon_color = UIColors.SELECTED_LABEL_COLOR
-	elif button == saved_button:
-		icon_color = SAVED_ICON_COLOR
 	_set_mode_icon_color(button, icon_color)
+
+func _clear_mode_icon_colors(button: Button) -> void:
+	for color_name in [
+		"icon_normal_color",
+		"icon_hover_color",
+		"icon_pressed_color",
+		"icon_focus_color",
+	]:
+		button.remove_theme_color_override(color_name)
 
 func _set_mode_icon_color(button: Button, color: Color) -> void:
 	for color_name in [
@@ -647,20 +663,15 @@ func _set_mode_icon_color(button: Button, color: Color) -> void:
 		button.add_theme_color_override(color_name, color)
 
 func _flash_saved_icon() -> void:
-	_set_mode_icon_color(saved_button, SAVING_ICON_COLOR)
+	saved_button.icon = FLOPPY_SAVING_ICON
 	if _save_feedback_tween != null and _save_feedback_tween.is_valid():
 		_save_feedback_tween.kill()
 	_save_feedback_tween = create_tween()
-	_save_feedback_tween.tween_interval(0.1)
-	_save_feedback_tween.tween_method(
-		_set_saved_icon_color,
-		SAVING_ICON_COLOR,
-		SAVED_ICON_COLOR,
-		0.3
-	)
+	_save_feedback_tween.tween_interval(0.4)
+	_save_feedback_tween.tween_callback(_restore_saved_icon)
 
-func _set_saved_icon_color(color: Color) -> void:
-	_set_mode_icon_color(saved_button, color)
+func _restore_saved_icon() -> void:
+	saved_button.icon = FLOPPY_ICON
 
 func _focus_race_button() -> void:
 	if not _returning:

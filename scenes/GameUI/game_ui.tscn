@@ -38,10 +38,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_model_border"]
 bg_color = Color(0, 0, 0, 0)
-border_width_left = 0
-border_width_top = 0
-border_width_right = 0
-border_width_bottom = 0
 border_color = Color(0.1, 0.1, 0.1, 0.3)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -141,7 +137,6 @@ visible = false
 layout_mode = 2
 
 [node name="PlayerIntroBubble" type="Panel" parent="." unique_id=7164352]
-visible = false
 z_index = 4
 layout_mode = 0
 offset_right = 230.0
@@ -150,7 +145,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_player_intro")
 
 [node name="Tail" type="Polygon2D" parent="PlayerIntroBubble" unique_id=7164353]
-z_index = -1
+z_index = 1
 color = Color(0.08, 0.11, 0.14, 0.85)
 polygon = PackedVector2Array(0, 28, -14, 46, 0, 64)
 
@@ -193,8 +188,8 @@ stretch = true
 [node name="ModelViewport" type="SubViewport" parent="PlayerIntroBubble/Content/Row/ModelFrame/ModelViewportContainer" unique_id=7164357]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 0
+size = Vector2i(64, 64)
+render_target_update_mode = 4
 
 [node name="DetailsFrame" type="PanelContainer" parent="PlayerIntroBubble/Content/Row" unique_id=7164363]
 layout_mode = 2
