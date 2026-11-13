@@ -57,7 +57,7 @@ size = Vector3(0.9194336, 1, 1)
 albedo_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
-size = Vector3(10, 3, 1)
+size = Vector3(7.05249, 3, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_mp5su"]
 closed = true
@@ -115,8 +115,6 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 2.0
 
-[node name="WeatherLayer" parent="." instance=ExtResource("2_weather")]
-
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
 transform = Transform3D(0.76629645, -0.53314245, 0.35853618, 0.47159383, 0.8457329, 0.24966943, -0.43633524, -0.022236768, 0.8995096, 21.287733, 11.478874, 36.6232)
 attributes = SubResource("CameraAttributesPhysical_a8y0u")
@@ -125,6 +123,8 @@ fov = 37.849285
 
 [node name="Environment" type="WorldEnvironment" parent="View" unique_id=1097254880]
 environment = ExtResource("1_q4t1r")
+
+[node name="WeatherLayer" parent="." unique_id=728662528 instance=ExtResource("2_weather")]
 
 [node name="Plane" type="StaticBody3D" parent="." unique_id=1620956840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
@@ -417,6 +417,6 @@ material_override = SubResource("StandardMaterial3D_amcpy")
 mesh = SubResource("PlaneMesh_6xfsa")
 skeleton = NodePath("../..")
 
-[connection signal="body_entered" from="Finish" to="." method="_on_finish_body_entered"]
 [connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Finish" to="." method="_on_finish_body_entered"]
 [connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]
