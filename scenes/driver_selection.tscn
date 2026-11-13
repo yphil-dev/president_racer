@@ -6,11 +6,10 @@
 [ext_resource type="LabelSettings" uid="uid://dd86stn2888my" path="res://resources/city_label_settings.tres" id="4_a5fmu"]
 [ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="4_wheel"]
 [ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="8_finish"]
-[ext_resource type="Texture2D" path="res://sprites/time-10.svg" id="9_time10"]
-[ext_resource type="Texture2D" path="res://sprites/time-22.svg" id="10_time22"]
-[ext_resource type="Texture2D" path="res://sprites/weather-fair.svg" id="11_weatherfair"]
-[ext_resource type="Texture2D" path="res://sprites/weather-rain.svg" id="12_weatherrain"]
-[ext_resource type="Texture2D" path="res://sprites/weather-snow.svg" id="13_weathersnow"]
+[ext_resource type="FontFile" path="res://fonts/DSEG7Classic-Italic.ttf" id="9_dseg"]
+[ext_resource type="Texture2D" uid="uid://dq7mxeohil7ux" path="res://sprites/weather-fair.svg" id="11_weatherfair"]
+[ext_resource type="Texture2D" uid="uid://cu8oc0n5fnc3y" path="res://sprites/weather-rain.svg" id="12_weatherrain"]
+[ext_resource type="Texture2D" uid="uid://cyw6sn0by1e1" path="res://sprites/weather-snow.svg" id="13_weathersnow"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_title_badge"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -412,8 +411,9 @@ focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_right = NodePath("../Night")
 focus_neighbor_bottom = NodePath("../../WeatherSelector/Fair")
 theme_type_variation = &"CompactButton"
-icon = ExtResource("9_time10")
-icon_alignment = 1
+theme_override_fonts/font = ExtResource("9_dseg")
+theme_override_font_sizes/font_size = 22
+text = "10:00"
 
 [node name="Night" type="Button" parent="TimeSelector" unique_id=1543998521]
 custom_minimum_size = Vector2(96, 40)
@@ -422,8 +422,9 @@ focus_neighbor_left = NodePath("../Day")
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
 focus_neighbor_bottom = NodePath("../../WeatherSelector/Snow")
 theme_type_variation = &"CompactButton"
-icon = ExtResource("10_time22")
-icon_alignment = 1
+theme_override_fonts/font = ExtResource("9_dseg")
+theme_override_font_sizes/font_size = 22
+text = "22:00"
 
 [node name="WeatherSelector" type="HBoxContainer" parent="." unique_id=1938812201]
 layout_mode = 0
@@ -443,8 +444,8 @@ icon_alignment = 1
 [node name="Rain" type="Button" parent="WeatherSelector" unique_id=1938812203]
 custom_minimum_size = Vector2(64, 40)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../TimeSelector/Day")
 focus_neighbor_left = NodePath("../Fair")
+focus_neighbor_top = NodePath("../../TimeSelector/Day")
 focus_neighbor_right = NodePath("../Snow")
 focus_neighbor_bottom = NodePath("../../Race")
 theme_type_variation = &"CompactButton"
@@ -454,14 +455,15 @@ icon_alignment = 1
 [node name="Snow" type="Button" parent="WeatherSelector" unique_id=1938812204]
 custom_minimum_size = Vector2(64, 40)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../TimeSelector/Night")
 focus_neighbor_left = NodePath("../Rain")
+focus_neighbor_top = NodePath("../../TimeSelector/Night")
 focus_neighbor_bottom = NodePath("../../Race")
 theme_type_variation = &"CompactButton"
 icon = ExtResource("13_weathersnow")
 icon_alignment = 1
 
 [node name="LapBadge" type="Panel" parent="." unique_id=2080201623]
+visible = false
 z_index = 5
 layout_mode = 0
 offset_right = 32.0
@@ -486,6 +488,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="TimeBadge" type="Panel" parent="." unique_id=957859159]
+visible = false
 z_index = 5
 layout_mode = 0
 offset_right = 32.0
@@ -505,17 +508,16 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("9_time10")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Race" type="Button" parent="." unique_id=2003988242]
-focus_neighbor_top = NodePath("../WeatherSelector/Rain")
 clip_contents = true
 layout_mode = 0
 offset_left = 89.0
 offset_right = 150.0
 offset_bottom = 56.0
+focus_neighbor_top = NodePath("../WeatherSelector/Rain")
 theme_type_variation = &"CompactButton"
 
 [node name="Shade" type="ColorRect" parent="Race" unique_id=764245682]

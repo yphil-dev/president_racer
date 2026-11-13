@@ -13,8 +13,6 @@ const INTRO_STAGGER: float = 0.14
 const RACE_BUTTON_SIZE := Vector2(56, 56)
 const RACE_BUTTON_MARGIN := Vector2(32, 28)
 
-const DAY_ICON: Texture2D = preload("res://sprites/time-10.svg")
-const NIGHT_ICON: Texture2D = preload("res://sprites/time-22.svg")
 const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
 const WASD_KEYS_ICON: Texture2D = preload("res://sprites/wasd-keys.svg")
 const GAME_CONTROLLER_ICON: Texture2D = preload("res://sprites/game-controller.svg")
@@ -35,7 +33,6 @@ const SCHEME_ORDER: Array[String] = [
 @onready var driver_badge: Panel = $DriverBadge
 @onready var lap_badge: Panel = $LapBadge
 @onready var time_badge: Panel = $TimeBadge
-@onready var time_badge_icon: TextureRect = $TimeBadge/Icon
 @onready var lap_selector: VBoxContainer = $LapSelector
 @onready var time_selector: HBoxContainer = $TimeSelector
 @onready var weather_selector: HBoxContainer = $WeatherSelector
@@ -131,6 +128,13 @@ func _ready() -> void:
 		weather_buttons[index].pressed.connect(_select_weather.bind(weather_modes[index]))
 		weather_buttons[index].focus_entered.connect(_focus_weather)
 		weather_buttons[index].mouse_entered.connect(_hover_weather.bind(index))
+
+	for button in lap_buttons:
+		_add_selection_bar(button)
+	for button in time_buttons:
+		_add_selection_bar(button)
+	for button in weather_buttons:
+		_add_selection_bar(button)
 
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
@@ -254,6 +258,9 @@ func _add_scheme_visual(button: Button, scheme: String) -> void:
 
 	button.set_meta(&"controller_icons", controller_icons)
 
+	_add_selection_bar(button)
+
+func _add_selection_bar(button: Button) -> void:
 	var selection_bar := ColorRect.new()
 	selection_bar.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	selection_bar.offset_bottom = 3.0
@@ -262,6 +269,31 @@ func _add_scheme_visual(button: Button, scheme: String) -> void:
 	selection_bar.hide()
 	button.add_child(selection_bar)
 	button.set_meta(&"selection_bar", selection_bar)
+
+func _style_option_button(button: Button, selected: bool) -> void:
+	var selection_bar := button.get_meta(&"selection_bar") as ColorRect
+	if selection_bar != null:
+		selection_bar.visible = selected
+	for color_name in [
+		"font_color",
+		"font_hover_color",
+		"font_pressed_color",
+		"font_focus_color",
+	]:
+		if selected:
+			button.add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
+		else:
+			button.remove_theme_color_override(color_name)
+	for color_name in [
+		"icon_normal_color",
+		"icon_hover_color",
+		"icon_pressed_color",
+		"icon_focus_color",
+	]:
+		if selected:
+			button.add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
+		else:
+			button.remove_theme_color_override(color_name)
 
 func _add_texture_icon(parent: HBoxContainer, texture: Texture2D) -> TextureRect:
 	var icon := TextureRect.new()
@@ -448,11 +480,11 @@ func _animate_driver_card(index: int, selected: bool) -> void:
 
 	var button := driver_buttons[index]
 	button.z_index = 1 if selected else 0
+	_style_option_button(button, selected)
 	var tween := create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(button, "scale", SELECTED_SCALE if selected else NORMAL_SCALE, 0.14)
 	tween.tween_property(shades[index], "color", SELECTED_SHADE if selected else NORMAL_SHADE, 0.14)
 	tween.tween_property(
 		name_labels[index],
@@ -483,11 +515,7 @@ func _select_laps(laps: int) -> void:
 func _apply_lap_selection() -> void:
 	for index in lap_buttons.size():
 		var selected := index == RaceSelection.selected_laps - 1
-		for color_name in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
-			if selected:
-				lap_buttons[index].add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
-			else:
-				lap_buttons[index].remove_theme_color_override(color_name)
+		_style_option_button(lap_buttons[index], selected)
 
 func _focus_time() -> void:
 	if not _returning:
@@ -506,14 +534,9 @@ func _select_time_of_day(night: bool) -> void:
 
 func _apply_time_selection() -> void:
 	var selected_time := 1 if RaceSelection.night_enabled else 0
-	time_badge_icon.texture = NIGHT_ICON if RaceSelection.night_enabled else DAY_ICON
 	for index in time_buttons.size():
 		var selected := index == selected_time
-		for color_name in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
-			if selected:
-				time_buttons[index].add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
-			else:
-				time_buttons[index].remove_theme_color_override(color_name)
+		_style_option_button(time_buttons[index], selected)
 
 func _focus_weather() -> void:
 	if not _returning:
@@ -538,11 +561,7 @@ func _apply_weather_selection() -> void:
 	]
 	for index in weather_buttons.size():
 		var selected: bool = weather_modes[index] == RaceSelection.selected_weather
-		for color_name in ["icon_normal_color", "icon_hover_color", "icon_pressed_color", "icon_focus_color"]:
-			if selected:
-				weather_buttons[index].add_theme_color_override(color_name, SELECTED_LABEL_COLOR)
-			else:
-				weather_buttons[index].remove_theme_color_override(color_name)
+		_style_option_button(weather_buttons[index], selected)
 
 func _focus_race_button() -> void:
 	if not _returning:
