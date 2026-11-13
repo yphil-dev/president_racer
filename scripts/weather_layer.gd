@@ -2,7 +2,7 @@ extends Node3D
 
 const WEATHER_DELAY := 5.0
 const DIMMING_DURATION := 4.5
-const SNOW_COLOR := Color(1.0, 1.0, 1.0, 1.0)
+const SNOW_COLOR := Color(0.64, 0.7, 0.8, 1.0)
 const SNOW_MESH_LIBRARY: MeshLibrary = preload("res://models/Library/mesh-library-snow.tres")
 const SNOW_COVER_SHADER: Shader = preload("res://shaders/snow_cover.gdshader")
 const SNOW_OVERLAY_SHADER: Shader = preload("res://shaders/snow_overlay.gdshader")

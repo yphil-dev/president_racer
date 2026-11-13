@@ -3,7 +3,7 @@ shader_type spatial;
 uniform sampler2D base_texture : source_color;
 uniform bool use_base_texture = false;
 uniform vec4 base_color : source_color = vec4(1.0);
-uniform vec4 snow_color : source_color = vec4(1.0);
+uniform vec4 snow_color : source_color = vec4(0.64, 0.7, 0.8, 1.0);
 uniform float snow_amount : hint_range(0.0, 1.0) = 0.0;
 uniform bool snow_upward_only = false;
 
