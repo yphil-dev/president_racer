@@ -5,6 +5,7 @@ const DIMMING_DURATION := 4.5
 const SNOW_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const SNOW_MESH_LIBRARY: MeshLibrary = preload("res://models/Library/mesh-library-snow.tres")
 const SNOW_COVER_SHADER: Shader = preload("res://shaders/snow_cover.gdshader")
+const SNOW_OVERLAY_SHADER: Shader = preload("res://shaders/snow_overlay.gdshader")
 const LIGHTNING_FLASH_MIN := 0.08
 const LIGHTNING_FLASH_MAX := 0.16
 const LIGHTNING_THUNDER_DELAY := 0.5
@@ -66,6 +67,7 @@ func _on_race_started() -> void:
 		_start_snow_cover()
 		_start_plane_snow_cover()
 		_start_building_snow_cover()
+		_start_city_snow_cover()
 		return
 
 	_apply_overcast_lighting()
@@ -183,6 +185,34 @@ func _start_building_snow_cover() -> void:
 
 	if not snow_materials.is_empty():
 		_animate_snow_materials(snow_materials)
+
+func _start_city_snow_cover() -> void:
+	var city := get_parent().get_node_or_null("CITY") as Node3D
+	if city == null:
+		return
+
+	var snow_overlay := ShaderMaterial.new()
+	snow_overlay.shader = SNOW_OVERLAY_SHADER
+	snow_overlay.set_shader_parameter("snow_color", SNOW_COLOR)
+
+	var applied := false
+	for city_node in city.find_children("*", "GeometryInstance3D", true, false):
+		var geometry := city_node as GeometryInstance3D
+		if geometry == null or _is_excluded_city_geometry(geometry, city):
+			continue
+		geometry.material_overlay = snow_overlay
+		applied = true
+
+	if applied:
+		_animate_snow_materials([snow_overlay])
+
+func _is_excluded_city_geometry(geometry: GeometryInstance3D, city: Node3D) -> bool:
+	var current: Node = geometry
+	while current != null and current != city:
+		if current.name == "BUILDINGS" or current.name.begins_with("Block"):
+			return true
+		current = current.get_parent()
+	return false
 
 func _animate_snow_materials(materials: Array[ShaderMaterial]) -> void:
 	var tween := create_tween().set_parallel(true)

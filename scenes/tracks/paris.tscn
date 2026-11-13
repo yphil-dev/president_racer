@@ -611,6 +611,21 @@ mesh = SubResource("BoxMesh_6xfsa")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
 
+[node name="bush2" parent="CITY" unique_id=1574440063 instance=ExtResource("22_n5dy1")]
+transform = Transform3D(3.216461, 0, 0, 0, 3.216461, 0, 0, 0, 3.216461, 4.442752, -0.45943707, 14.264126)
+
+[node name="bush3" parent="CITY" unique_id=494440557 instance=ExtResource("22_n5dy1")]
+transform = Transform3D(3.216461, 0, 0, 0, 3.216461, 0, 0, 0, 3.216461, 3.21387, -0.45943707, 14.264126)
+
+[node name="dumpster4" parent="CITY" unique_id=752264694 instance=ExtResource("16_yfyak")]
+transform = Transform3D(2.376245, 0, 0, 0, 2.376245, 0, 0, 0, 2.376245, 6.0906563, -0.07203567, 13.661797)
+
+[node name="dumpster5" parent="CITY" unique_id=734057332 instance=ExtResource("16_yfyak")]
+transform = Transform3D(2.376245, 0, 0, 0, 2.376245, 0, 0, 0, 2.376245, -16.301008, -0.07203567, 0.74165916)
+
+[node name="dumpster6" parent="CITY" unique_id=927248738 instance=ExtResource("16_yfyak")]
+transform = Transform3D(2.364537, 0, -0.23559205, 0, 2.3762448, 0, 0.23559205, 0, 2.364537, -16.301008, -0.07203567, 2.00453)
+
 [node name="PATH" type="Node3D" parent="." unique_id=2089517924]
 script = ExtResource("2_boundaries")
 segment_spacing = 2.0
@@ -633,21 +648,6 @@ curve = SubResource("Curve3D_mdjv0")
 [node name="UI" type="CanvasLayer" parent="." unique_id=2062290784]
 
 [node name="GameUI" parent="UI" unique_id=239267494 instance=ExtResource("18_qycdi")]
-
-[node name="bush2" parent="." unique_id=1574440063 instance=ExtResource("22_n5dy1")]
-transform = Transform3D(3.216461, 0, 0, 0, 3.216461, 0, 0, 0, 3.216461, 4.442752, -0.45943707, 14.264126)
-
-[node name="bush3" parent="." unique_id=494440557 instance=ExtResource("22_n5dy1")]
-transform = Transform3D(3.216461, 0, 0, 0, 3.216461, 0, 0, 0, 3.216461, 3.21387, -0.45943707, 14.264126)
-
-[node name="dumpster2" parent="." unique_id=752264694 instance=ExtResource("16_yfyak")]
-transform = Transform3D(2.376245, 0, 0, 0, 2.376245, 0, 0, 0, 2.376245, 6.0906563, -0.07203567, 13.661797)
-
-[node name="dumpster3" parent="." unique_id=734057332 instance=ExtResource("16_yfyak")]
-transform = Transform3D(2.376245, 0, 0, 0, 2.376245, 0, 0, 0, 2.376245, -16.301008, -0.07203567, 0.74165916)
-
-[node name="dumpster4" parent="." unique_id=927248738 instance=ExtResource("16_yfyak")]
-transform = Transform3D(2.364537, 0, -0.23559205, 0, 2.3762448, 0, 0.23559205, 0, 2.364537, -16.301008, -0.07203567, 2.00453)
 
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
