@@ -22,7 +22,7 @@ volume_db = -12.156
 
 [node name="Victory" type="AudioStreamPlayer2D" parent="." unique_id=957770245]
 stream = ExtResource("4_nn5wq")
-volume_db = -8.814
+volume_db = -16.0
 
 [node name="Loser" type="AudioStreamPlayer2D" parent="." unique_id=721072456]
 stream = ExtResource("5_loser")

@@ -123,7 +123,19 @@ func _start_snow_cover() -> void:
 	if grid_map == null:
 		return
 
-	grid_map.mesh_library = SNOW_MESH_LIBRARY
+	if grid_map.mesh_library != SNOW_MESH_LIBRARY:
+		var cells := grid_map.get_used_cells()
+		var cell_items: Array[int] = []
+		var cell_orientations: Array[int] = []
+		for cell in cells:
+			cell_items.append(grid_map.get_cell_item(cell))
+			cell_orientations.append(grid_map.get_cell_item_orientation(cell))
+
+		grid_map.clear()
+		grid_map.mesh_library = SNOW_MESH_LIBRARY
+		for index in cells.size():
+			grid_map.set_cell_item(cells[index], cell_items[index], cell_orientations[index])
+
 	var snow_materials: Array[ShaderMaterial] = []
 	for item in SNOW_MESH_LIBRARY.get_item_list():
 		if not SNOW_MESH_LIBRARY.get_item_name(item).begins_with("track-"):
