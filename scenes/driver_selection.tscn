@@ -387,8 +387,7 @@ focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
 theme_type_variation = &"CompactButton"
 icon = ExtResource("16_laps_one")
 icon_alignment = 1
-icon_max_width = 24
-expand_icon = true
+expand_icon = false
 
 [node name="Two" type="Button" parent="LapSelector/Bar/Buttons" unique_id=661744785]
 custom_minimum_size = Vector2(64, 36)
@@ -400,8 +399,7 @@ focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
 theme_type_variation = &"CompactButton"
 icon = ExtResource("17_laps_two")
 icon_alignment = 1
-icon_max_width = 24
-expand_icon = true
+expand_icon = false
 
 [node name="Three" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1042194513]
 custom_minimum_size = Vector2(64, 36)
@@ -412,8 +410,7 @@ focus_neighbor_bottom = NodePath("../../../../TimeSelector/Night")
 theme_type_variation = &"CompactButton"
 icon = ExtResource("18_laps_three")
 icon_alignment = 1
-icon_max_width = 24
-expand_icon = true
+expand_icon = false
 
 [node name="TimeSelector" type="HBoxContainer" parent="." unique_id=1970189216]
 layout_mode = 0
