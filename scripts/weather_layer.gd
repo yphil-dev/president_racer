@@ -3,20 +3,7 @@ extends Node3D
 const WEATHER_DELAY := 5.0
 const DIMMING_DURATION := 4.5
 const SNOW_COLOR := Color(0.64, 0.7, 0.8, 1.0)
-const SNOW_SHADER_CODE := """
-shader_type spatial;
-
-uniform sampler2D base_texture : source_color;
-uniform vec4 base_color : source_color = vec4(1.0);
-uniform vec4 snow_color : source_color = vec4(0.64, 0.7, 0.8, 1.0);
-uniform float snow_amount : hint_range(0.0, 1.0) = 0.0;
-
-void fragment() {
-	vec3 base = texture(base_texture, UV).rgb * base_color.rgb;
-	ALBEDO = mix(base, snow_color.rgb, snow_amount);
-	ROUGHNESS = mix(0.9, 1.0, snow_amount);
-}
-"""
+const SNOW_MESH_LIBRARY: MeshLibrary = preload("res://models/Library/mesh-library-snow.tres")
 const LIGHTNING_FLASH_MIN := 0.08
 const LIGHTNING_FLASH_MAX := 0.16
 const LIGHTNING_THUNDER_DELAY := 0.5
@@ -30,7 +17,6 @@ var _sun: DirectionalLight3D
 var _world_environment: WorldEnvironment
 var _plane_mesh: MeshInstance3D
 var _original_sun_energy := 0.0
-var _weather_active := false
 var _race_finished := false
 var _lightning_schedule_started := false
 
@@ -51,10 +37,6 @@ func _ready() -> void:
 
 	_connect_race_signals.call_deferred()
 
-func _process(_delta: float) -> void:
-	if _weather_active:
-		_anchor_to_camera()
-
 func _connect_race_signals() -> void:
 	var race_controller := get_parent().get_node_or_null("RaceController")
 	if race_controller == null:
@@ -72,8 +54,6 @@ func _on_race_started() -> void:
 	if not is_inside_tree() or _race_finished:
 		return
 
-	_anchor_to_camera()
-	_weather_active = true
 	if RaceSelection.selected_weather == RaceSelection.WEATHER_SNOW:
 		_snow.emitting = true
 		get_tree().call_group(
@@ -105,12 +85,6 @@ func _on_race_finished(_standings: Array) -> void:
 	if _lightning != null:
 		_lightning.light_energy = 0.0
 
-func _anchor_to_camera() -> void:
-	var camera := get_viewport().get_camera_3d()
-	if camera == null:
-		return
-	global_position = Vector3(camera.global_position.x, 0.0, camera.global_position.z)
-
 func _apply_overcast_lighting() -> void:
 	var tween := create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
@@ -141,50 +115,21 @@ func _apply_overcast_lighting() -> void:
 
 func _start_snow_cover() -> void:
 	var grid_map := get_parent().get_node_or_null("GridMap") as GridMap
-	if grid_map == null or grid_map.mesh_library == null:
+	if grid_map == null:
 		return
 
-	var snow_library := grid_map.mesh_library.duplicate(true) as MeshLibrary
-	var snow_shader := Shader.new()
-	snow_shader.code = SNOW_SHADER_CODE
+	grid_map.mesh_library = SNOW_MESH_LIBRARY
 	var snow_materials: Array[ShaderMaterial] = []
-	for item in snow_library.get_item_list():
-		if not snow_library.get_item_name(item).begins_with("track-"):
+	for item in SNOW_MESH_LIBRARY.get_item_list():
+		if not SNOW_MESH_LIBRARY.get_item_name(item).begins_with("track-"):
 			continue
-
-		var snow_mesh := snow_library.get_item_mesh(item).duplicate(true) as ArrayMesh
+		var snow_mesh := SNOW_MESH_LIBRARY.get_item_mesh(item) as ArrayMesh
 		if snow_mesh == null:
 			continue
 		for surface_index in snow_mesh.get_surface_count():
-			var source_material := snow_mesh.surface_get_material(surface_index) as StandardMaterial3D
-			var snow_material := ShaderMaterial.new()
-			snow_material.shader = snow_shader
-			if source_material != null:
-				snow_material.set_shader_parameter("base_color", source_material.albedo_color)
-				if source_material.albedo_texture != null:
-					snow_material.set_shader_parameter("base_texture", source_material.albedo_texture)
-			snow_material.set_shader_parameter("snow_color", SNOW_COLOR)
-			snow_material.set_shader_parameter("snow_amount", 0.0)
-			snow_mesh.surface_set_material(surface_index, snow_material)
-			snow_materials.append(snow_material)
-		snow_library.set_item_mesh(item, snow_mesh)
-
-	var cells: Array[Dictionary] = []
-	for cell in grid_map.get_used_cells():
-		cells.append({
-			"position": cell,
-			"item": grid_map.get_cell_item(cell),
-			"orientation": grid_map.get_cell_item_orientation(cell),
-		})
-
-	grid_map.clear()
-	grid_map.mesh_library = snow_library
-	for cell_data in cells:
-		grid_map.set_cell_item(
-			cell_data["position"],
-			cell_data["item"],
-			cell_data["orientation"]
-		)
+			var snow_material := snow_mesh.surface_get_material(surface_index) as ShaderMaterial
+			if snow_material != null and snow_material not in snow_materials:
+				snow_materials.append(snow_material)
 	_animate_snow_materials(snow_materials)
 
 func _start_plane_snow_cover() -> void:
