@@ -454,11 +454,14 @@ func _on_race_finished(final_standings: Array) -> void:
 	live_container.hide()
 
 func _did_player_win(final_standings: Array) -> bool:
+	var has_human_driver := false
 	for state_value in final_standings:
 		var state := state_value as CarRaceState
-		if state.vehicle is PlayerCar:
-			return state.winner
-	return false
+		if RaceSelection.get_control_scheme(state.vehicle.driver_id) == RaceSelection.CONTROL_CPU:
+			continue
+		has_human_driver = true
+		return state.winner
+	return not has_human_driver
 
 func _show_race_again() -> void:
 	_layout_race_again()
