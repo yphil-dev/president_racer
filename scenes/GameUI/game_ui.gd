@@ -78,10 +78,24 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 	_setup_player_intro(initial_standings)
 
 func _setup_player_intro(initial_standings: Array) -> void:
+	var human_driver_id := ""
+	for state_value in initial_standings:
+		var state := state_value as CarRaceState
+		if RaceSelection.get_control_scheme(state.vehicle.driver_id) == RaceSelection.CONTROL_CPU:
+			continue
+		if not human_driver_id.is_empty():
+			player_intro_bubble.hide()
+			return
+		human_driver_id = state.vehicle.driver_id
+
+	if human_driver_id.is_empty():
+		player_intro_bubble.hide()
+		return
+
 	var player_vehicle: Vehicle
 	for state_value in initial_standings:
 		var state := state_value as CarRaceState
-		if state.vehicle.driver_id == RaceSelection.selected_driver_id:
+		if state.vehicle.driver_id == human_driver_id:
 			player_vehicle = state.vehicle
 			break
 

@@ -6,7 +6,7 @@ extends Node
 @export var loser: AudioStreamPlayer2D
 
 const SILENT_DB: float = -80.0
-const TARGET_DB: float = -14.0  # adjust to taste
+const TARGET_DB: float = -18.0  # adjust to taste
 
 var _fade_tween: Tween
 
