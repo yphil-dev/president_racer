@@ -46,6 +46,9 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 friction = 0.0
 bounce = 0.1
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
+size = Vector3(7.1052246, 3, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_amcpy"]
 size = Vector3(7.4393005, 1.0828857, 0.09539795)
 
@@ -55,9 +58,6 @@ roughness = 0.9
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_choun"]
 data = PackedVector3Array(-3.7196999, 0.5414, 0.0477, 3.7196999, 0.5414, 0.0477, -3.7196999, -0.5414, 0.0477, 3.7196999, 0.5414, 0.0477, 3.7196999, -0.5414, 0.0477, -3.7196999, -0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, -3.7196999, 0.5414, -0.0477, 3.7196999, -0.5414, -0.0477, -3.7196999, 0.5414, -0.0477, -3.7196999, -0.5414, -0.0477, 3.7196999, -0.5414, -0.0477, 3.7196999, 0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, 3.7196999, -0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, 3.7196999, -0.5414, -0.0477, 3.7196999, -0.5414, 0.0477, -3.7196999, 0.5414, -0.0477, -3.7196999, 0.5414, 0.0477, -3.7196999, -0.5414, -0.0477, -3.7196999, 0.5414, 0.0477, -3.7196999, -0.5414, 0.0477, -3.7196999, -0.5414, -0.0477, 3.7196999, 0.5414, 0.0477, -3.7196999, 0.5414, 0.0477, 3.7196999, 0.5414, -0.0477, -3.7196999, 0.5414, 0.0477, -3.7196999, 0.5414, -0.0477, 3.7196999, 0.5414, -0.0477, -3.7196999, -0.5414, 0.0477, 3.7196999, -0.5414, 0.0477, -3.7196999, -0.5414, -0.0477, 3.7196999, -0.5414, 0.0477, 3.7196999, -0.5414, -0.0477, -3.7196999, -0.5414, -0.0477)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
-size = Vector3(8.818481, 3, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_jvy8i"]
 closed = true
@@ -119,7 +119,7 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 2.0
 
-[node name="WeatherLayer" parent="." instance=ExtResource("2_weather")]
+[node name="WeatherLayer" parent="." unique_id=2001722379 instance=ExtResource("2_weather")]
 
 [node name="Plane" type="StaticBody3D" parent="." unique_id=1620956840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.080482244, 0)
@@ -159,6 +159,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9851074, 0, 0)
 
 [node name="road_straight_crossing2" parent="START_GRID" unique_id=1648012944 instance=ExtResource("9_85g3d")]
 transform = Transform3D(2.240331, 0, 0, 0, 1, 0, 0, 0, 3.792224, -0.9125786, -0.19066334, -1.2638044)
+
+[node name="Finish" type="Area3D" parent="START_GRID" unique_id=989885447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4941492, 0, -1.6709871)
+collision_layer = 0
+collision_mask = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="START_GRID/Finish" unique_id=551114254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44833374, 0.24408382, 0.3239746)
+shape = SubResource("BoxShape3D_6xfsa")
+
+[node name="Verif" type="Area3D" parent="START_GRID" unique_id=1020220827]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.1779594, 0, 12.601187)
+collision_layer = 0
+collision_mask = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="START_GRID/Verif" unique_id=290017500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.855011, 0.24408382, 1.366333)
+shape = SubResource("BoxShape3D_6xfsa")
 
 [node name="RampSupport" type="StaticBody3D" parent="." unique_id=1680593542]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.511998, 0, 0)
@@ -364,24 +382,6 @@ transform = Transform3D(2.1173975, 0, -0.18108109, 0, 2.1251264, 0, 0.18108109, 
 [node name="building_F2" parent="CITY" unique_id=1792677549 instance=ExtResource("13_dsllp")]
 transform = Transform3D(0.06381388, 0, 2.9276597, 0, 2.928355, 0, -2.9276597, 0, 0.06381388, -21.699707, -0.072021484, 2.8735046)
 
-[node name="Finish" type="Area3D" parent="." unique_id=989885447]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.850459, 0, 3.3290129)
-collision_layer = 0
-collision_mask = 9
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Finish" unique_id=551114254]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97888184, 0.24408382, 0.3239746)
-shape = SubResource("BoxShape3D_6xfsa")
-
-[node name="Verif" type="Area3D" parent="." unique_id=1020220827]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.166649, 0, 17.601187)
-collision_layer = 0
-collision_mask = 9
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Verif" unique_id=290017500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38812256, 0.24408382, 0.3239746)
-shape = SubResource("BoxShape3D_6xfsa")
-
 [node name="PATH" type="Node3D" parent="." unique_id=2089517924]
 script = ExtResource("2_boundaries")
 segment_spacing = 2.0
@@ -475,6 +475,6 @@ transform = Transform3D(1.5268648, 0, 0.1370047, 0, 1.5329993, 0, -0.1370047, 0,
 [node name="car_taxi7" parent="." unique_id=407835333 instance=ExtResource("27_lym4u")]
 transform = Transform3D(1.5327929, 0, 0.02513378, 0, 1.5329993, 0, -0.02513378, 0, 1.5327929, 6.1583996, -0.34445888, -23.635525)
 
-[connection signal="body_entered" from="Finish" to="." method="_on_finish_body_entered"]
-[connection signal="body_entered" from="Finish" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]
+[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
+[connection signal="body_entered" from="START_GRID/Verif" to="." method="_on_verif_body_entered"]
