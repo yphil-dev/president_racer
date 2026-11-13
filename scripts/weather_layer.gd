@@ -2,8 +2,9 @@ extends Node3D
 
 const WEATHER_DELAY := 5.0
 const DIMMING_DURATION := 4.5
-const SNOW_COLOR := Color(0.64, 0.7, 0.8, 1.0)
+const SNOW_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const SNOW_MESH_LIBRARY: MeshLibrary = preload("res://models/Library/mesh-library-snow.tres")
+const SNOW_COVER_SHADER: Shader = preload("res://shaders/snow_cover.gdshader")
 const LIGHTNING_FLASH_MIN := 0.08
 const LIGHTNING_FLASH_MAX := 0.16
 const LIGHTNING_THUNDER_DELAY := 0.5
@@ -64,6 +65,7 @@ func _on_race_started() -> void:
 		)
 		_start_snow_cover()
 		_start_plane_snow_cover()
+		_start_building_snow_cover()
 		return
 
 	_apply_overcast_lighting()
@@ -152,6 +154,35 @@ func _start_plane_snow_cover() -> void:
 		SNOW_COLOR,
 		RaceSelection.WEATHER_TRANSITION_DURATION
 	)
+
+func _start_building_snow_cover() -> void:
+	var buildings := get_parent().get_node_or_null("CITY/BUILDINGS") as Node3D
+	if buildings == null:
+		return
+
+	var snow_materials: Array[ShaderMaterial] = []
+	for block_node in buildings.find_children("Block*", "MeshInstance3D", true, false):
+		var block := block_node as MeshInstance3D
+		if block == null or block.mesh == null or block.mesh.get_surface_count() == 0:
+			continue
+
+		var snow_material := ShaderMaterial.new()
+		snow_material.shader = SNOW_COVER_SHADER
+		snow_material.set_shader_parameter("snow_color", SNOW_COLOR)
+		snow_material.set_shader_parameter("snow_upward_only", true)
+
+		var source_material := block.get_active_material(0) as StandardMaterial3D
+		if source_material != null:
+			snow_material.set_shader_parameter("base_color", source_material.albedo_color)
+			if source_material.albedo_texture != null:
+				snow_material.set_shader_parameter("base_texture", source_material.albedo_texture)
+				snow_material.set_shader_parameter("use_base_texture", true)
+
+		block.material_override = snow_material
+		snow_materials.append(snow_material)
+
+	if not snow_materials.is_empty():
+		_animate_snow_materials(snow_materials)
 
 func _animate_snow_materials(materials: Array[ShaderMaterial]) -> void:
 	var tween := create_tween().set_parallel(true)
