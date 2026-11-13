@@ -338,5 +338,5 @@ func _play_lightning_pair() -> void:
 	if _race_finished or not is_inside_tree():
 		return
 	_thunder_audio.pitch_scale = randf_range(1.0, 1.05)
-	_thunder_audio.volume_db = randf_range(-8.0, -6.0)
+	_thunder_audio.volume_db = randf_range(-12.0, -10.0)
 	_thunder_audio.play()

@@ -111,17 +111,22 @@ func _ready() -> void:
 		portraits[index].texture = profile["portrait"]
 		color_accents[index].color = profile["car_color"]
 		name_labels[index].text = profile["display_name"]
+		driver_buttons[index].tooltip_text = profile["display_name"]
 		driver_buttons[index].focus_mode = Control.FOCUS_NONE
 		driver_buttons[index].mouse_entered.connect(_hover_driver.bind(index))
 		driver_buttons[index].resized.connect(_update_button_pivot.bind(index))
 		_create_scheme_buttons(index)
 
+	var lap_tooltips := ["One lap", "Two laps", "Three laps"]
 	for index in lap_buttons.size():
+		lap_buttons[index].tooltip_text = lap_tooltips[index]
 		lap_buttons[index].pressed.connect(_select_laps.bind(index + 1))
 		lap_buttons[index].focus_entered.connect(_focus_lap)
 		lap_buttons[index].mouse_entered.connect(_hover_lap.bind(index))
 
+	var time_tooltips := ["Daytime", "Nighttime"]
 	for index in time_buttons.size():
+		time_buttons[index].tooltip_text = time_tooltips[index]
 		time_buttons[index].pressed.connect(_select_time_of_day.bind(index == 1))
 		time_buttons[index].focus_entered.connect(_focus_time)
 		time_buttons[index].mouse_entered.connect(_hover_time.bind(index))
@@ -131,7 +136,9 @@ func _ready() -> void:
 		RaceSelection.WEATHER_RAIN,
 		RaceSelection.WEATHER_SNOW,
 	]
+	var weather_tooltips := ["Fair weather", "Stormy weather", "Snowy weather"]
 	for index in weather_buttons.size():
+		weather_buttons[index].tooltip_text = weather_tooltips[index]
 		weather_buttons[index].pressed.connect(_select_weather.bind(weather_modes[index]))
 		weather_buttons[index].focus_entered.connect(_focus_weather)
 		weather_buttons[index].mouse_entered.connect(_hover_weather.bind(index))
@@ -144,8 +151,11 @@ func _ready() -> void:
 		_add_selection_bar(button)
 	_add_selection_bar(random_button)
 	_add_selection_bar(saved_button)
+	random_button.tooltip_text = "Random options"
+	saved_button.tooltip_text = "Saved options"
 	random_button.pressed.connect(_select_random_mode)
 
+	race_button.tooltip_text = "Start race"
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)

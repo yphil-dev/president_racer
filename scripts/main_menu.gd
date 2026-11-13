@@ -1,6 +1,6 @@
 extends Control
 
-const DRIVER_SELECTION_SCENE := "res://scenes/driver_selection.tscn"
+const DRIVER_SELECTION_SCENE := "res://scenes/options_menu.tscn"
 const DAY_ICON: Texture2D = preload("res://sprites/daytime-day.svg")
 const NIGHT_ICON: Texture2D = preload("res://sprites/daytime-night.svg")
 const WEATHER_ICONS: Dictionary = {

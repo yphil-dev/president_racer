@@ -1,7 +1,7 @@
 extends Control
 
 const MAIN_MENU_SCENE := "res://scenes/main_menu.tscn"
-const DRIVER_SELECTION_SCENE := "res://scenes/driver_selection.tscn"
+const DRIVER_SELECTION_SCENE := "res://scenes/options_menu.tscn"
 const SPRITE_SHEET: Texture2D = preload("res://sprites/potato_rock_tired_roll_32frames_8x4_200x100.png")
 const ROLL_SOUND: AudioStream = preload("res://audio/rolling_stone.ogg")
 const SPROUT_SOUND: AudioStream = preload("res://audio/sprout.ogg")
