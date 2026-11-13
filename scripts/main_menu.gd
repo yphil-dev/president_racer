@@ -95,6 +95,7 @@ func _ready() -> void:
 
 func _initialize_selection() -> void:
 	await get_tree().process_frame
+	RaceSelection.prepare_next_race()
 	_layout_menu()
 	for index in selectable_buttons.size():
 		selectable_buttons[index].modulate = Color(1, 1, 1, 0)
@@ -293,6 +294,7 @@ func _launch_track(index: int) -> void:
 	await tween.finished
 
 	button.scale = SELECTED_SCALE
+	RaceSelection.mark_race_started()
 	var start_rect := _get_control_global_rect(button)
 	SceneTransition.transition_to_track(
 		TRACK_SCENES[index],

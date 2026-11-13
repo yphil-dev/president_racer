@@ -12,6 +12,9 @@ const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
 const RACE_BUTTON_SIZE := Vector2(56, 56)
 const RACE_BUTTON_MARGIN := Vector2(32, 28)
+const MODE_GROUP_GAP: float = 10.0
+const SAVED_ICON_COLOR := Color(0.2, 0.55, 1.0, 1)
+const SAVING_ICON_COLOR := Color(0.9, 0.08, 0.1, 1)
 
 const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
 const WASD_KEYS_ICON: Texture2D = preload("res://sprites/wasd-keys.svg")
@@ -37,6 +40,9 @@ const SCHEME_ORDER: Array[String] = [
 @onready var time_selector: HBoxContainer = $TimeSelector
 @onready var weather_selector: HBoxContainer = $WeatherSelector
 @onready var race_button: Button = $Race
+@onready var random_saved_group: HBoxContainer = $RandomOrSaved
+@onready var random_button: Button = $RandomOrSaved/Random
+@onready var saved_button: Button = $RandomOrSaved/Saved
 @onready var time_buttons: Array[Button] = [$TimeSelector/Day, $TimeSelector/Night]
 @onready var weather_buttons: Array[Button] = [
 	$WeatherSelector/Fair,
@@ -90,6 +96,7 @@ var _scheme_buttons: Dictionary = {}
 var _selected_index: int = 0
 var _startup_hover_locked: bool = true
 var _returning: bool = false
+var _save_feedback_tween: Tween
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and not _returning and not SceneTransition.is_active():
@@ -135,6 +142,9 @@ func _ready() -> void:
 		_add_selection_bar(button)
 	for button in weather_buttons:
 		_add_selection_bar(button)
+	_add_selection_bar(random_button)
+	_add_selection_bar(saved_button)
+	random_button.pressed.connect(_select_random_mode)
 
 	race_button.pressed.connect(_return_to_menu)
 	race_button.focus_entered.connect(_focus_race_button)
@@ -143,6 +153,7 @@ func _ready() -> void:
 	_apply_lap_selection()
 	_apply_time_selection()
 	_apply_weather_selection()
+	_apply_mode_selection()
 	_refresh_controller_assignments()
 	_refresh_scheme_buttons()
 
@@ -157,7 +168,7 @@ func _initialize() -> void:
 		driver_buttons[index].modulate = Color(1, 1, 1, 0)
 		_update_button_pivot(index)
 
-	_selected_index = _first_human_driver_index()
+	_selected_index = _selected_driver_index()
 	_focus_driver(_selected_index)
 	var driver_id := DriverRoster.DRIVER_IDS[_selected_index]
 	var selected_scheme := RaceSelection.get_control_scheme(driver_id)
@@ -204,6 +215,11 @@ func _layout_cards() -> void:
 	race_button.position = size - RACE_BUTTON_SIZE - RACE_BUTTON_MARGIN
 	race_button.size = RACE_BUTTON_SIZE
 	race_button.pivot_offset = RACE_BUTTON_SIZE * 0.5
+	random_saved_group.size = Vector2(RACE_BUTTON_SIZE.x * 2.0, RACE_BUTTON_SIZE.y)
+	random_saved_group.position = Vector2(
+		race_button.position.x - random_saved_group.size.x - MODE_GROUP_GAP,
+		race_button.position.y
+	)
 
 func _create_scheme_buttons(driver_index: int) -> void:
 	var driver_id := DriverRoster.DRIVER_IDS[driver_index]
@@ -341,6 +357,9 @@ func _select_control_scheme(driver_id: String, scheme: String) -> void:
 
 	SceneTransition.play_selection_beep()
 	RaceSelection.assign_control_scheme(driver_id, scheme)
+	RaceSelection.mark_options_changed()
+	_apply_mode_selection()
+	_flash_saved_icon()
 	_refresh_scheme_buttons()
 
 	var button := _get_scheme_button(driver_id, RaceSelection.get_control_scheme(driver_id))
@@ -529,7 +548,10 @@ func _select_laps(laps: int) -> void:
 		return
 	SceneTransition.play_selection_beep()
 	RaceSelection.selected_laps = laps
+	RaceSelection.mark_options_changed()
 	_apply_lap_selection()
+	_apply_mode_selection()
+	_flash_saved_icon()
 
 func _apply_lap_selection() -> void:
 	for index in lap_buttons.size():
@@ -549,7 +571,10 @@ func _select_time_of_day(night: bool) -> void:
 		return
 	SceneTransition.play_selection_beep()
 	RaceSelection.night_enabled = night
+	RaceSelection.mark_options_changed()
 	_apply_time_selection()
+	_apply_mode_selection()
+	_flash_saved_icon()
 
 func _apply_time_selection() -> void:
 	var selected_time := 1 if RaceSelection.night_enabled else 0
@@ -570,7 +595,10 @@ func _select_weather(weather: String) -> void:
 		return
 	SceneTransition.play_selection_beep()
 	RaceSelection.selected_weather = weather
+	RaceSelection.mark_options_changed()
 	_apply_weather_selection()
+	_apply_mode_selection()
+	_flash_saved_icon()
 
 func _apply_weather_selection() -> void:
 	var weather_modes := [
@@ -581,6 +609,58 @@ func _apply_weather_selection() -> void:
 	for index in weather_buttons.size():
 		var selected: bool = weather_modes[index] == RaceSelection.selected_weather
 		_style_option_button(weather_buttons[index], selected)
+
+func _select_random_mode() -> void:
+	if _returning:
+		return
+	SceneTransition.play_selection_beep()
+	RaceSelection.set_random_mode()
+	_apply_lap_selection()
+	_apply_time_selection()
+	_apply_weather_selection()
+	_apply_mode_selection()
+	_flash_saved_icon()
+
+func _apply_mode_selection() -> void:
+	_style_mode_button(random_button, RaceSelection.random_mode)
+	_style_mode_button(saved_button, not RaceSelection.random_mode)
+
+func _style_mode_button(button: Button, selected: bool) -> void:
+	var selection_bar := button.get_meta(&"selection_bar") as ColorRect
+	if selection_bar != null:
+		selection_bar.visible = selected
+
+	var icon_color := UIColors.NORMAL_LABEL_COLOR
+	if button == random_button and selected:
+		icon_color = UIColors.SELECTED_LABEL_COLOR
+	elif button == saved_button:
+		icon_color = SAVED_ICON_COLOR
+	_set_mode_icon_color(button, icon_color)
+
+func _set_mode_icon_color(button: Button, color: Color) -> void:
+	for color_name in [
+		"icon_normal_color",
+		"icon_hover_color",
+		"icon_pressed_color",
+		"icon_focus_color",
+	]:
+		button.add_theme_color_override(color_name, color)
+
+func _flash_saved_icon() -> void:
+	_set_mode_icon_color(saved_button, SAVING_ICON_COLOR)
+	if _save_feedback_tween != null and _save_feedback_tween.is_valid():
+		_save_feedback_tween.kill()
+	_save_feedback_tween = create_tween()
+	_save_feedback_tween.tween_interval(0.1)
+	_save_feedback_tween.tween_method(
+		_set_saved_icon_color,
+		SAVING_ICON_COLOR,
+		SAVED_ICON_COLOR,
+		0.3
+	)
+
+func _set_saved_icon_color(color: Color) -> void:
+	_set_mode_icon_color(saved_button, color)
 
 func _focus_race_button() -> void:
 	if not _returning:
@@ -604,11 +684,19 @@ func _disable_buttons() -> void:
 		button.disabled = true
 	for button in time_buttons:
 		button.disabled = true
+	random_button.disabled = true
+	saved_button.disabled = true
 	race_button.disabled = true
 
 func _get_scheme_button(driver_id: String, scheme: String) -> Button:
 	var buttons_for_driver: Dictionary = _scheme_buttons.get(driver_id, {})
 	return buttons_for_driver.get(scheme) as Button
+
+func _selected_driver_index() -> int:
+	var selected_index := DriverRoster.DRIVER_IDS.find(RaceSelection.selected_driver_id)
+	if selected_index >= 0:
+		return selected_index
+	return _first_human_driver_index()
 
 func _first_human_driver_index() -> int:
 	for index in DriverRoster.DRIVER_IDS.size():

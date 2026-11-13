@@ -8,6 +8,7 @@ const PLAYER_SLOT := "GridSlot2"
 const CPU_SLOTS: Array[String] = ["GridSlot1", "GridSlot3", "GridSlot4"]
 
 static func spawn(track: Node3D, selected_driver_id: String) -> Node3D:
+	RaceSelection.ensure_selected_driver_is_player()
 	if not DriverRoster.has_driver(selected_driver_id):
 		push_error("Unknown selected driver %s; using Soral." % selected_driver_id)
 		selected_driver_id = "soral"

@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://j3r1bh7d6b6d" path="res://sprites/steering-wheel.png" id="4_wheel"]
 [ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="8_finish"]
 [ext_resource type="FontFile" path="res://fonts/DSEG7Classic-Italic.ttf" id="9_dseg"]
+[ext_resource type="Texture2D" path="res://sprites/shuffle.svg" id="10_shuffle"]
+[ext_resource type="Texture2D" path="res://sprites/floppy.svg" id="11_floppy"]
 [ext_resource type="Texture2D" uid="uid://dq7mxeohil7ux" path="res://sprites/weather-fair.svg" id="11_weatherfair"]
 [ext_resource type="Texture2D" uid="uid://cu8oc0n5fnc3y" path="res://sprites/weather-rain.svg" id="12_weatherrain"]
 [ext_resource type="Texture2D" uid="uid://cyw6sn0by1e1" path="res://sprites/weather-snow.svg" id="13_weathersnow"]
@@ -510,6 +512,30 @@ grow_vertical = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="RandomOrSaved" type="HBoxContainer" parent="." unique_id=2003988243]
+layout_mode = 0
+theme_override_constants/separation = 0
+
+[node name="Random" type="Button" parent="RandomOrSaved" unique_id=2003988244]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"CompactButton"
+icon = ExtResource("10_shuffle")
+icon_max_width = 36
+expand_icon = true
+
+[node name="Saved" type="Button" parent="RandomOrSaved" unique_id=2003988245]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"CompactButton"
+icon = ExtResource("11_floppy")
+icon_max_width = 36
+expand_icon = true
 
 [node name="Race" type="Button" parent="." unique_id=2003988242]
 clip_contents = true
