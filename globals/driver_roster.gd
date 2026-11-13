@@ -8,7 +8,7 @@ const PROFILES: Dictionary = {
 		"display_name": "A. Soral",
 		"car_number": 0,
 		"portrait": preload("res://sprites/Soral.jpg"),
-		"car_color": Color(0, 0, 0, 1), # Pure Vibrant Black
+		"car_color": Color(0.05, 0.06, 0.1, 1.0)
 	},
 	"lepen": {
 		"display_name": "M. Le Pen",

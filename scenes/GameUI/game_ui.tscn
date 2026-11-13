@@ -5,6 +5,61 @@
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="3_background"]
 [ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="4_11qk4"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_player_intro"]
+bg_color = Color(0.08, 0.11, 0.14, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.82, 0.92, 0.88, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.04, 0.14, 0.1, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(3, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_debug_model"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.42, 0.46, 0.52, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.36, 0.33, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_model_border"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_debug_details"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_countdown_background"]
 bg_color = Color(0.025, 0.03, 0.045, 0.82)
 corner_radius_top_left = 5
@@ -84,6 +139,87 @@ layout_mode = 2
 [node name="CarUI4" parent="MarginContainer/VBoxContainer" unique_id=1609130544 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
+
+[node name="PlayerIntroBubble" type="Panel" parent="." unique_id=7164352]
+visible = false
+z_index = 4
+layout_mode = 0
+offset_right = 230.0
+offset_bottom = 92.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_player_intro")
+
+[node name="Tail" type="Polygon2D" parent="PlayerIntroBubble" unique_id=7164353]
+z_index = -1
+color = Color(0.08, 0.11, 0.14, 0.85)
+polygon = PackedVector2Array(0, 28, -14, 46, 0, 64)
+
+[node name="Content" type="MarginContainer" parent="PlayerIntroBubble" unique_id=7164354]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Row" type="HBoxContainer" parent="PlayerIntroBubble/Content" unique_id=7164355]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ModelFrame" type="PanelContainer" parent="PlayerIntroBubble/Content/Row" unique_id=7164362]
+custom_minimum_size = Vector2(64, 64)
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_debug_model")
+
+[node name="FrameBorder" type="Panel" parent="PlayerIntroBubble/Content/Row/ModelFrame" unique_id=7164365]
+z_index = 10
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_model_border")
+
+[node name="ModelViewportContainer" type="SubViewportContainer" parent="PlayerIntroBubble/Content/Row/ModelFrame" unique_id=7164356]
+clip_contents = true
+layout_mode = 2
+mouse_filter = 2
+stretch = true
+
+[node name="ModelViewport" type="SubViewport" parent="PlayerIntroBubble/Content/Row/ModelFrame/ModelViewportContainer" unique_id=7164357]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 0
+
+[node name="DetailsFrame" type="PanelContainer" parent="PlayerIntroBubble/Content/Row" unique_id=7164363]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_debug_details")
+
+[node name="Details" type="VBoxContainer" parent="PlayerIntroBubble/Content/Row/DetailsFrame" unique_id=7164358]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="SchemeIcons" type="HBoxContainer" parent="PlayerIntroBubble/Content/Row/DetailsFrame/Details" unique_id=7164359]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="DriverName" type="Label" parent="PlayerIntroBubble/Content/Row/DetailsFrame/Details" unique_id=7164360]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.96, 0.94, 1)
+theme_override_font_sizes/font_size = 16
+text = "Soral"
+horizontal_alignment = 2
 
 [node name="ClassificationCountdown" type="Control" parent="." unique_id=7164351]
 visible = false
