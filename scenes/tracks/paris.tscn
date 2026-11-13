@@ -43,7 +43,7 @@ friction = 0.0
 bounce = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
-size = Vector3(10, 3, 1)
+size = Vector3(7.1989746, 3, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_amcpy"]
 size = Vector3(7.4393005, 1.0828857, 0.09539795)
@@ -167,6 +167,15 @@ shape = SubResource("BoxShape3D_6xfsa")
 
 [node name="road_straight_crossing2" parent="START_GRID" unique_id=1648012944 instance=ExtResource("9_85g3d")]
 transform = Transform3D(2.240331, 0, 0, 0, 1, 0, 0, 0, 3.792224, -0.9125786, -0.19066334, -1.2638044)
+
+[node name="Verif" type="Area3D" parent="START_GRID" unique_id=1020220827]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.1779594, 0, 12.601187)
+collision_layer = 0
+collision_mask = 9
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="START_GRID/Verif" unique_id=290017500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0817719, 0.24408382, 2.5144653)
+shape = SubResource("BoxShape3D_6xfsa")
 
 [node name="RampSupport" type="StaticBody3D" parent="." unique_id=1680593542]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.511998, 0, 0)
@@ -528,15 +537,6 @@ transform = Transform3D(2.0289001, 0, 0, 0, 2.0289001, 0, 0, 0, 2.0289001, 1.589
 [node name="car_stationwagon2" parent="CITY" unique_id=1667242915 instance=ExtResource("18_yqdd6")]
 transform = Transform3D(2.0164042, 0, 0, 0, 2.0164042, 0, 0, 0, 2.0164042, -3.4647846, -0.010992885, 10.606872)
 
-[node name="Verif" type="Area3D" parent="." unique_id=1020220827]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.166649, 0, 17.601187)
-collision_layer = 0
-collision_mask = 9
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Verif" unique_id=290017500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38812256, 0.24408382, 0.3239746)
-shape = SubResource("BoxShape3D_6xfsa")
-
 [node name="PATH" type="Node3D" parent="." unique_id=2089517924]
 script = ExtResource("2_boundaries")
 segment_spacing = 2.0
@@ -607,4 +607,4 @@ transform = Transform3D(-0.21764217, 0, 1.594531, 0, 1.6093159, 0, -1.594531, 0,
 
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
-[connection signal="body_entered" from="Verif" to="." method="_on_verif_body_entered"]
+[connection signal="body_entered" from="START_GRID/Verif" to="." method="_on_verif_body_entered"]
