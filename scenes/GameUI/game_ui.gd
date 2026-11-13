@@ -23,6 +23,7 @@ const REORDER_DURATION: float = 0.22
 const COUNTDOWN_CARD_GAP: float = 8.0
 const PLAYER_INTRO_FADE_DURATION: float = 0.5
 const PLAYER_INTRO_MODEL_SCALE: float = 1.5
+const PLAYER_INTRO_MODEL_ROTATION_SPEED: float = 0.15
 const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
 const WASD_KEYS_ICON: Texture2D = preload("res://sprites/wasd-keys.svg")
 const GAME_CONTROLLER_ICON: Texture2D = preload("res://sprites/game-controller.svg")
@@ -36,6 +37,7 @@ var _restarting: bool = false
 var _controller: RaceController
 var _classification_duration: float = 0.0
 var _classification_countdown_active: bool = false
+var _intro_model_root: Node3D
 
 func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -> void:
 	_cards_by_vehicle.clear()
@@ -135,6 +137,7 @@ func _setup_intro_model(vehicle: Vehicle) -> void:
 	model_root.rotation.y = deg_to_rad(25.0)
 	model_root.scale = Vector3.ONE * PLAYER_INTRO_MODEL_SCALE
 	intro_model_viewport.add_child(model_root)
+	_intro_model_root = model_root
 
 	var model_added := false
 	for child in vehicle.vehicle_model.get_children():
@@ -218,9 +221,22 @@ func _on_race_started() -> void:
 		Color(1, 1, 1, 0),
 		PLAYER_INTRO_FADE_DURATION
 	)
-	tween.tween_callback(player_intro_bubble.hide)
+	tween.tween_callback(_clear_player_intro)
 
-func _process(_delta: float) -> void:
+func _clear_player_intro() -> void:
+	player_intro_bubble.hide()
+	_intro_model_root = null
+	for child in intro_model_viewport.get_children():
+		child.queue_free()
+	intro_model_viewport.world_3d = null
+	intro_model_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+	for child in intro_scheme_icons.get_children():
+		child.queue_free()
+
+func _process(delta: float) -> void:
+	if is_instance_valid(_intro_model_root) and player_intro_bubble.visible:
+		_intro_model_root.rotate_y(PLAYER_INTRO_MODEL_ROTATION_SPEED * delta)
+
 	if not _classification_countdown_active or _controller == null:
 		return
 
