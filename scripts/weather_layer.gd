@@ -57,6 +57,7 @@ func _on_race_started() -> void:
 		return
 
 	if RaceSelection.selected_weather == RaceSelection.WEATHER_SNOW:
+		_apply_overcast_lighting()
 		_snow.emitting = true
 		get_tree().call_group(
 			"race_vehicles",
