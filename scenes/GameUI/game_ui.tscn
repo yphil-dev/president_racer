@@ -12,9 +12,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-shadow_color = Color(0.04, 0.14, 0.1, 0.35)
-shadow_size = 8
-shadow_offset = Vector2(3, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_debug_model"]
 content_margin_left = 0.0

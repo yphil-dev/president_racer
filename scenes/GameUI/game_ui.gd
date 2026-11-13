@@ -23,6 +23,10 @@ const ACTION_MARGIN := Vector2(32, 28)
 const REORDER_DURATION: float = 0.22
 const COUNTDOWN_CARD_GAP: float = 8.0
 const PLAYER_INTRO_FADE_DURATION: float = 0.5
+const PLAYER_INTRO_SWAY_DISTANCE: float = 10.0
+const PLAYER_INTRO_SWAY_DURATION: float = 0.16
+const PLAYER_INTRO_SWAY_COUNT: int = 2
+const PLAYER_INTRO_HOLD_DURATION: float = 0.6
 const PLAYER_INTRO_MODEL_SCALE: float = 1.5
 const PLAYER_INTRO_MODEL_ROTATION_SPEED: float = 0.15
 const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
@@ -92,6 +96,7 @@ func _setup_player_intro(initial_standings: Array) -> void:
 	player_intro_bubble.modulate = Color.WHITE
 	player_intro_bubble.show()
 	_position_player_intro_bubble.call_deferred()
+	_animate_player_intro.call_deferred()
 
 func _apply_intro_bubble_color() -> void:
 	var panel_style := player_intro_bubble.get_theme_stylebox("panel") as StyleBoxFlat
@@ -218,19 +223,46 @@ func _position_player_intro_bubble() -> void:
 	bubble_position.y = clampf(bubble_position.y, 16.0, size.y - player_intro_bubble.size.y - 16.0)
 	player_intro_bubble.position = bubble_position
 
+func _animate_player_intro() -> void:
+	if not player_intro_bubble.visible:
+		return
+
+	var base_position := player_intro_bubble.position
+	var right_position := base_position + Vector2(PLAYER_INTRO_SWAY_DISTANCE, 0.0)
+	var left_position := base_position - Vector2(PLAYER_INTRO_SWAY_DISTANCE, 0.0)
+	var tween := create_tween()
+	for _index in PLAYER_INTRO_SWAY_COUNT:
+		tween.tween_property(
+			player_intro_bubble,
+			"position",
+			right_position,
+			PLAYER_INTRO_SWAY_DURATION
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(
+			player_intro_bubble,
+			"position",
+			left_position,
+			PLAYER_INTRO_SWAY_DURATION
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(
+		player_intro_bubble,
+		"position",
+		base_position,
+		PLAYER_INTRO_SWAY_DURATION
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_interval(PLAYER_INTRO_HOLD_DURATION)
+
 func _on_race_started() -> void:
 	if not player_intro_bubble.visible:
 		return
 
 	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_QUART)
-	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(
 		player_intro_bubble,
 		"modulate",
 		Color(1, 1, 1, 0),
 		PLAYER_INTRO_FADE_DURATION
-	)
+	).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
 	tween.tween_callback(_clear_player_intro)
 
 func _clear_player_intro() -> void:
