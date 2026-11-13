@@ -110,4 +110,3 @@ func _connect_main_menu_navigation(scene: Node) -> void:
 		Side.SIDE_RIGHT,
 		potato_rock_button.get_path_to(options)
 	)
-

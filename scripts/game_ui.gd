@@ -284,7 +284,6 @@ func _clear_player_intro() -> void:
 	_intro_model_root = null
 	for child in intro_model_viewport.get_children():
 		child.queue_free()
-	intro_model_viewport.world_3d = null
 	intro_model_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	for child in intro_scheme_icons.get_children():
 		child.queue_free()

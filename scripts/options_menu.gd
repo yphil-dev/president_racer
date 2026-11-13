@@ -302,8 +302,8 @@ func _add_selection_bar(button: Button) -> void:
 	button.set_meta(&"selection_bar", selection_bar)
 
 func _style_option_button(button: Button, selected: bool) -> void:
-	var selection_bar := button.get_meta(&"selection_bar") as ColorRect
-	if selection_bar != null:
+	if button.has_meta(&"selection_bar"):
+		var selection_bar := button.get_meta(&"selection_bar") as ColorRect
 		selection_bar.visible = selected
 	for color_name in [
 		"font_color",
