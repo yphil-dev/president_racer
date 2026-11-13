@@ -12,6 +12,7 @@ const CONTROL_CPU := "cpu"
 const WEATHER_FAIR := "fair"
 const WEATHER_RAIN := "rain"
 const WEATHER_SNOW := "snow"
+const WEATHER_TRANSITION_DURATION: float = 45.0
 
 const CONTROL_SCHEMES: Array[String] = [
 	CONTROL_COMBO,

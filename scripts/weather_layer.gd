@@ -2,9 +2,21 @@ extends Node3D
 
 const WEATHER_DELAY := 5.0
 const DIMMING_DURATION := 4.5
-const SNOW_COVER_DURATION := 3.0
-const SNOW_COLOR := Color(0.94, 0.96, 1.0, 1.0)
-const SNOW_WASH_COLOR := Color(4.0, 4.0, 4.0, 1.0)
+const SNOW_COLOR := Color(0.64, 0.7, 0.8, 1.0)
+const SNOW_SHADER_CODE := """
+shader_type spatial;
+
+uniform sampler2D base_texture : source_color;
+uniform vec4 base_color : source_color = vec4(1.0);
+uniform vec4 snow_color : source_color = vec4(0.64, 0.7, 0.8, 1.0);
+uniform float snow_amount : hint_range(0.0, 1.0) = 0.0;
+
+void fragment() {
+	vec3 base = texture(base_texture, UV).rgb * base_color.rgb;
+	ALBEDO = mix(base, snow_color.rgb, snow_amount);
+	ROUGHNESS = mix(0.9, 1.0, snow_amount);
+}
+"""
 const LIGHTNING_FLASH_MIN := 0.08
 const LIGHTNING_FLASH_MAX := 0.16
 const LIGHTNING_THUNDER_DELAY := 0.5
@@ -64,6 +76,12 @@ func _on_race_started() -> void:
 	_weather_active = true
 	if RaceSelection.selected_weather == RaceSelection.WEATHER_SNOW:
 		_snow.emitting = true
+		get_tree().call_group(
+			"race_vehicles",
+			"start_weather_transition",
+			RaceSelection.WEATHER_SNOW,
+			RaceSelection.WEATHER_TRANSITION_DURATION
+		)
 		_start_snow_cover()
 		_start_plane_snow_cover()
 		return
@@ -127,7 +145,9 @@ func _start_snow_cover() -> void:
 		return
 
 	var snow_library := grid_map.mesh_library.duplicate(true) as MeshLibrary
-	var snow_materials: Array[StandardMaterial3D] = []
+	var snow_shader := Shader.new()
+	snow_shader.code = SNOW_SHADER_CODE
+	var snow_materials: Array[ShaderMaterial] = []
 	for item in snow_library.get_item_list():
 		if not snow_library.get_item_name(item).begins_with("track-"):
 			continue
@@ -137,10 +157,14 @@ func _start_snow_cover() -> void:
 			continue
 		for surface_index in snow_mesh.get_surface_count():
 			var source_material := snow_mesh.surface_get_material(surface_index) as StandardMaterial3D
-			var snow_material := StandardMaterial3D.new()
+			var snow_material := ShaderMaterial.new()
+			snow_material.shader = snow_shader
 			if source_material != null:
-				snow_material = source_material.duplicate() as StandardMaterial3D
-			snow_material.roughness = 1.0
+				snow_material.set_shader_parameter("base_color", source_material.albedo_color)
+				if source_material.albedo_texture != null:
+					snow_material.set_shader_parameter("base_texture", source_material.albedo_texture)
+			snow_material.set_shader_parameter("snow_color", SNOW_COLOR)
+			snow_material.set_shader_parameter("snow_amount", 0.0)
 			snow_mesh.surface_set_material(surface_index, snow_material)
 			snow_materials.append(snow_material)
 		snow_library.set_item_mesh(item, snow_mesh)
@@ -177,17 +201,29 @@ func _start_plane_snow_cover() -> void:
 
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(snow_material, "albedo_color", SNOW_COLOR, SNOW_COVER_DURATION)
+	tween.tween_property(
+		snow_material,
+		"albedo_color",
+		SNOW_COLOR,
+		RaceSelection.WEATHER_TRANSITION_DURATION
+	)
 
-func _animate_snow_materials(materials: Array[StandardMaterial3D]) -> void:
+func _animate_snow_materials(materials: Array[ShaderMaterial]) -> void:
 	var tween := create_tween().set_parallel(true)
 	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	for material in materials:
-		tween.tween_property(material, "albedo_color", SNOW_WASH_COLOR, SNOW_COVER_DURATION)
+		tween.tween_method(
+			_set_snow_amount.bind(material),
+			0.0,
+			1.0,
+			RaceSelection.WEATHER_TRANSITION_DURATION
+		)
 	await tween.finished
 	for material in materials:
-		material.albedo_texture = null
-		material.albedo_color = SNOW_COLOR
+		material.set_shader_parameter("snow_amount", 1.0)
+
+func _set_snow_amount(amount: float, material: ShaderMaterial) -> void:
+	material.set_shader_parameter("snow_amount", amount)
 
 func _create_rain() -> GPUParticles3D:
 	var particles := GPUParticles3D.new()

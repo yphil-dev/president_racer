@@ -68,6 +68,7 @@ var _finish_coast_distance: float = 0.0
 var _finish_coast_start: Vector3
 var _finish_coast_speed: float = 0.0
 var _race_finished: bool = false
+var _weather_material: PhysicsMaterial
 const REAR_LAMP_HOLD_DURATION: float = 0.4
 
 # Sounds
@@ -125,10 +126,10 @@ func begin_finish_coast(distance: float) -> void:
 
 # Functions
 
-func _apply_weather_handling() -> void:
+func _apply_weather_handling(weather: String) -> void:
 	var target_braking := RAIN_BRAKING
 	var target_friction := RAIN_FRICTION
-	match RaceSelection.selected_weather:
+	match weather:
 		RaceSelection.WEATHER_FAIR:
 			target_braking = FAIR_BRAKING
 			target_friction = FAIR_FRICTION
@@ -137,13 +138,22 @@ func _apply_weather_handling() -> void:
 			target_friction = SNOW_FRICTION
 
 	braking = target_braking
-	var weather_material: PhysicsMaterial = sphere.physics_material_override
-	if weather_material != null:
-		weather_material = weather_material.duplicate() as PhysicsMaterial
-	else:
-		weather_material = PhysicsMaterial.new()
-	weather_material.friction = target_friction
-	sphere.physics_material_override = weather_material
+	if _weather_material == null:
+		if sphere.physics_material_override != null:
+			_weather_material = sphere.physics_material_override.duplicate() as PhysicsMaterial
+		else:
+			_weather_material = PhysicsMaterial.new()
+	_weather_material.friction = target_friction
+	sphere.physics_material_override = _weather_material
+
+func start_weather_transition(weather: String, duration: float) -> void:
+	if weather != RaceSelection.WEATHER_SNOW or _weather_material == null:
+		return
+
+	var tween := create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "braking", SNOW_BRAKING, duration)
+	tween.tween_property(_weather_material, "friction", SNOW_FRICTION, duration)
 
 func _find_visible_model_part(part_name: String) -> MeshInstance3D:
 	var container := get_node_or_null("Container")
@@ -165,7 +175,10 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	headlights.visible = RaceSelection.night_enabled
-	_apply_weather_handling()
+	var initial_weather := RaceSelection.selected_weather
+	if initial_weather == RaceSelection.WEATHER_SNOW:
+		initial_weather = RaceSelection.WEATHER_RAIN
+	_apply_weather_handling(initial_weather)
 
 	var profile := DriverRoster.get_profile(driver_id)
 	if not profile.is_empty():
