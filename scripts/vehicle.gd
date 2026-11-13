@@ -68,6 +68,8 @@ var _finish_coast_distance: float = 0.0
 var _finish_coast_start: Vector3
 var _finish_coast_speed: float = 0.0
 var _race_finished: bool = false
+var _engine_sound_suppressed: bool = false
+var _engine_fade_tween: Tween
 var _weather_material: PhysicsMaterial
 const REAR_LAMP_HOLD_DURATION: float = 0.4
 
@@ -112,6 +114,14 @@ func set_driving_enabled(enabled: bool) -> void:
 		input = Vector3.ZERO
 		linear_speed = 0.0
 		angular_speed = 0.0
+
+func fade_engine_sound(duration: float = 0.25) -> void:
+	_engine_sound_suppressed = true
+	if _engine_fade_tween != null and _engine_fade_tween.is_valid():
+		_engine_fade_tween.kill()
+	_engine_fade_tween = create_tween()
+	_engine_fade_tween.tween_property(engine_sound, "volume_db", -80.0, duration)
+	_engine_fade_tween.tween_callback(engine_sound.stop)
 
 func begin_finish_coast(distance: float) -> void:
 	_race_finished = true
@@ -363,6 +373,9 @@ func effect_wheels(delta):
 # Engine sounds
 
 func effect_engine(delta):
+	if _engine_sound_suppressed:
+		engine_sound.volume_db = -80.0
+		return
 
 	var speed_factor = clamp(abs(linear_speed), 0.0, 1.0)
 	var throttle_factor = clamp(abs(input.z), 0.0, 1.0)

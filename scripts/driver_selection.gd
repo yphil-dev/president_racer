@@ -4,8 +4,8 @@ const SELECTED_SCALE := Vector2(1.02, 1.02)
 const NORMAL_SCALE := Vector2.ONE
 const SELECTED_SHADE := Color(0, 0, 0, 0.04)
 const NORMAL_SHADE := Color(0, 0, 0, 0.28)
-const SELECTED_LABEL_COLOR := Color(1, 0.88, 0.2, 1)
-const NORMAL_LABEL_COLOR := Color.WHITE
+const SELECTED_LABEL_COLOR := UIColors.SELECTED_LABEL_COLOR
+const NORMAL_LABEL_COLOR := UIColors.NORMAL_LABEL_COLOR
 const CONTROLLER_AVAILABLE_COLOR := Color(0.15, 0.8, 0.4, 1)
 const CONTROLLER_UNAVAILABLE_COLOR := Color(0.55, 0.08, 0.1,  1)
 const INTRO_DURATION: float = 0.8
@@ -481,6 +481,7 @@ func _animate_driver_card(index: int, selected: bool) -> void:
 	var button := driver_buttons[index]
 	button.z_index = 1 if selected else 0
 	_style_option_button(button, selected)
+	_style_title_label(name_labels[index], selected)
 	var tween := create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_QUART)
@@ -493,6 +494,24 @@ func _animate_driver_card(index: int, selected: bool) -> void:
 		0.14
 	)
 	_button_tweens[index] = tween
+
+func _style_title_label(label: Label, selected: bool) -> void:
+	if not label.has_meta(&"local_label_settings"):
+		var settings := label.label_settings
+		label.label_settings = settings.duplicate() if settings != null else LabelSettings.new()
+		label.set_meta(&"local_label_settings", true)
+
+	var settings := label.label_settings
+	settings.outline_color = (
+		UIColors.SELECTED_LABEL_OUTLINE_COLOR
+		if selected
+		else UIColors.NORMAL_LABEL_OUTLINE_COLOR
+	)
+	settings.outline_size = (
+		UIColors.SELECTED_LABEL_OUTLINE_SIZE
+		if selected
+		else UIColors.NORMAL_LABEL_OUTLINE_SIZE
+	)
 
 func _update_button_pivot(index: int) -> void:
 	driver_buttons[index].pivot_offset = driver_buttons[index].size * 0.5

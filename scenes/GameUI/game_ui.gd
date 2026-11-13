@@ -161,6 +161,10 @@ func _animate_reorder(current_standings: Array) -> void:
 
 func _on_race_finished(final_standings: Array) -> void:
 	_results_active = true
+	for state_value in final_standings:
+		var state := state_value as CarRaceState
+		if state.vehicle != null:
+			state.vehicle.fade_engine_sound()
 	_classification_countdown_active = false
 	classification_countdown.hide()
 	var result_rects := QuadrantLayout.get_rects(size)

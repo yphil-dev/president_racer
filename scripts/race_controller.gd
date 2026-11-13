@@ -47,6 +47,7 @@ const TONE_DURATION: float = 1.0
 const TONE_BODY_DURATION: float = 0.46
 const LOW_TONE_FREQUENCY: float = 440.0
 const HIGH_TONE_FREQUENCY: float = 880.0
+const BEEPS_VOLUME: float = -12.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and not SceneTransition.is_active():
@@ -263,6 +264,9 @@ func _setup_race_audio() -> void:
 	_finish_audio.name = "FinishAudio"
 	_finish_audio.stream = _high_tone
 	_finish_audio.max_polyphony = 4
+	_countdown_audio.volume_db = BEEPS_VOLUME
+	_finish_audio.volume_db = BEEPS_VOLUME
+
 	add_child(_finish_audio)
 
 func _play_countdown_tones() -> void:
