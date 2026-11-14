@@ -73,13 +73,6 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 	$TrackGrid/Lyon/CityLabel,
 	$Options/LapIcon,
 ]
-@onready var loading_labels: Array[Label] = [
-	$TrackGrid/Paris/LoadingLabel,
-	$TrackGrid/Marseille/LoadingLabel,
-	$TrackGrid/Limoges/LoadingLabel,
-	$TrackGrid/Lyon/LoadingLabel,
-]
-
 var _button_tweens: Dictionary = {}
 var _selected_index: int = 0
 var _startup_hover_locked: bool = true
@@ -242,21 +235,14 @@ func _update_button_pivot(index: int) -> void:
 func _generate_previews() -> void:
 	await get_tree().process_frame
 	if DisplayServer.get_name() == "headless":
-		for label in loading_labels:
-			label.text = "PREVIEW REQUIRES DISPLAY"
 		return
 
 	for index in TRACK_SCENES.size():
-		await _capture_preview(TRACK_SCENES[index], previews[index], loading_labels[index])
+		await _capture_preview(TRACK_SCENES[index], previews[index])
 
-func _capture_preview(
-	scene_path: String,
-	preview: TextureRect,
-	loading_label: Label
-) -> void:
+func _capture_preview(scene_path: String, preview: TextureRect) -> void:
 	var packed_scene := load(scene_path) as PackedScene
 	if packed_scene == null:
-		loading_label.text = "PREVIEW UNAVAILABLE"
 		return
 
 	var track := packed_scene.instantiate()
@@ -280,9 +266,6 @@ func _capture_preview(
 	var image := preview_viewport.get_texture().get_image()
 	if not image.is_empty():
 		preview.texture = ImageTexture.create_from_image(image)
-		loading_label.hide()
-	else:
-		loading_label.text = "PREVIEW UNAVAILABLE"
 
 	preview_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	track.queue_free()
@@ -298,9 +281,6 @@ func _launch_track(index: int) -> void:
 		button.disabled = true
 
 	AudioPlayer.fade_out_and_stop(1.0)
-
-	loading_labels[index].text = "STARTING..."
-	loading_labels[index].show()
 
 	var button := track_buttons[index]
 	var tween := create_tween()
