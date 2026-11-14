@@ -89,14 +89,7 @@ func _ready() -> void:
 	add_child(_classification_light_timer)
 	_setup_race_audio()
 
-	_orange_enabled = true
-	traffic_light.set_orange_enabled(_orange_enabled)
-	_blink_timer.start()
 	await _play_countdown_tones()
-
-	_blink_timer.stop()
-	traffic_light.show_start()
-	_start_race()
 
 func _process(delta: float) -> void:
 	if not _race_running:
@@ -270,13 +263,26 @@ func _setup_race_audio() -> void:
 	add_child(_finish_audio)
 
 func _play_countdown_tones() -> void:
+	_blink_timer.stop()
+	traffic_light.show_off()
+
 	_countdown_audio.stream = _low_tone
 	_countdown_audio.play()
-	await get_tree().create_timer(1.0).timeout
+	traffic_light.set_orange_enabled(true)
+	await get_tree().create_timer(0.5).timeout
+	traffic_light.show_off()
+	await get_tree().create_timer(0.5).timeout
+
 	_countdown_audio.play()
-	await get_tree().create_timer(1.0).timeout
+	traffic_light.set_orange_enabled(true)
+	await get_tree().create_timer(0.5).timeout
+	traffic_light.show_off()
+	await get_tree().create_timer(0.5).timeout
+
 	_countdown_audio.stream = _high_tone
 	_countdown_audio.play()
+	traffic_light.show_start()
+	_start_race()
 	await _countdown_audio.finished
 
 func _create_tone_stream(frequency: float) -> AudioStreamWAV:

@@ -292,7 +292,7 @@ vertical_alignment = 1
 [node name="Options" type="Button" parent="." unique_id=2016133167]
 clip_contents = true
 layout_mode = 0
-offset_right = 240.0
+offset_right = 226.0
 offset_bottom = 56.0
 focus_neighbor_left = NodePath("../TrackGrid/Limoges")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")

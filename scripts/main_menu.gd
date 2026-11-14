@@ -30,7 +30,7 @@ const SELECTED_LABEL_COLOR := UIColors.SELECTED_LABEL_COLOR
 const NORMAL_LABEL_COLOR := UIColors.NORMAL_LABEL_COLOR
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
-const OPTIONS_SIZE := Vector2(240, 56)
+const OPTIONS_SIZE := Vector2(212, 56)
 const OPTIONS_MARGIN := Vector2(32, 28)
 
 @onready var track_grid: GridContainer = $TrackGrid
@@ -298,6 +298,9 @@ func _launch_track(index: int) -> void:
 		button.disabled = true
 
 	AudioPlayer.fade_out_and_stop(1.0)
+
+	loading_labels[index].text = "STARTING..."
+	loading_labels[index].show()
 
 	var button := track_buttons[index]
 	var tween := create_tween()

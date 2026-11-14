@@ -6,6 +6,8 @@ const SNOW_COLOR := Color(0.64, 0.7, 0.8, 1.0)
 const SNOW_MESH_LIBRARY: MeshLibrary = preload("res://models/Library/mesh-library-snow.tres")
 const SNOW_COVER_SHADER: Shader = preload("res://shaders/snow_cover.gdshader")
 const SNOW_OVERLAY_SHADER: Shader = preload("res://shaders/snow_overlay.gdshader")
+const LIGHTNING_FIRST_DELAY_MIN := 2.5
+const LIGHTNING_FIRST_DELAY_MAX := 3.5
 const LIGHTNING_FLASH_MIN := 0.08
 const LIGHTNING_FLASH_MAX := 0.16
 const LIGHTNING_THUNDER_DELAY := 0.5
@@ -51,6 +53,8 @@ func _connect_race_signals() -> void:
 func _on_race_started() -> void:
 	if RaceSelection.selected_weather == RaceSelection.WEATHER_FAIR:
 		return
+	if RaceSelection.selected_weather == RaceSelection.WEATHER_RAIN:
+		_start_lightning_schedule()
 
 	await get_tree().create_timer(WEATHER_DELAY).timeout
 	if not is_inside_tree() or _race_finished:
@@ -75,7 +79,6 @@ func _on_race_started() -> void:
 	_rain.emitting = true
 	_rain_audio.play()
 	_rain_audio.volume_db = -9.0
-	_start_lightning_schedule()
 
 func _on_race_finished(_standings: Array) -> void:
 	_race_finished = true
@@ -341,8 +344,11 @@ func _start_lightning_schedule() -> void:
 
 func _play_lightning_pairs() -> void:
 	var pair_count := randi_range(2, 3)
-	for _index in pair_count:
-		await get_tree().create_timer(randf_range(8.0, 18.0)).timeout
+	for index in pair_count:
+		var delay := randf_range(LIGHTNING_FIRST_DELAY_MIN, LIGHTNING_FIRST_DELAY_MAX)
+		if index > 0:
+			delay = randf_range(8.0, 18.0)
+		await get_tree().create_timer(delay).timeout
 		if _race_finished or not is_inside_tree():
 			return
 		await _play_lightning_pair()

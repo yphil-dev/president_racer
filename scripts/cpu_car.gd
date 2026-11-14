@@ -1,12 +1,9 @@
 class_name CpuCar
 extends Vehicle
 
-const CORNER_PREVIEW_WAYPOINTS: int = 2
-const CORNER_PREVIEW_FULL_ANGLE: float = 0.55
-
 @export_category("CPU Driving")
 @export_node_path("AIWaypointGenerator") var waypoint_generator_path: NodePath = ^"../PATH/WaypointGenerator"
-@export_range(1, 10, 1) var waypoint_look_ahead: int = 3
+@export_range(1, 10, 1) var waypoint_look_ahead: int = 2
 @export_range(-1.0, 1.0, 0.05) var lane_offset: float = 0.0
 @export_range(0.1, 5.0, 0.05) var cpu_steering_gain: float = 1.5
 @export_range(0.0, 1.0, 0.05) var cruise_throttle: float = 0.85
@@ -104,10 +101,6 @@ func get_control_input() -> Vector2:
 	var path_steering := clampf(-angle * cpu_steering_gain, -1.0, 1.0)
 	var steering := path_steering
 	var corner_amount := clampf(absf(angle) / full_corner_angle, 0.0, 1.0)
-	corner_amount = maxf(
-		corner_amount,
-		_get_preview_corner_amount(target_direction, lane_offset, waypoint_count)
-	)
 	var throttle := lerpf(cruise_throttle, corner_throttle, corner_amount)
 
 	if _reverse_time_remaining > 0.0:
@@ -120,27 +113,6 @@ func get_control_input() -> Vector2:
 	throttle *= lerpf(1.0, blocked_throttle_multiplier, avoidance.y)
 
 	return Vector2(steering, throttle)
-
-func _get_preview_corner_amount(
-	target_direction: Vector3,
-	lane_offset_value: float,
-	waypoint_count: int
-) -> float:
-	var target_index := (_current_waypoint_index + waypoint_look_ahead) % waypoint_count
-	var preview_index := (
-		_current_waypoint_index + waypoint_look_ahead + CORNER_PREVIEW_WAYPOINTS
-	) % waypoint_count
-	var preview_start := waypoint_generator.waypoints[target_index].get_lane_point(lane_offset_value)
-	var preview_end := waypoint_generator.waypoints[preview_index].get_lane_point(lane_offset_value)
-	var preview_direction := preview_end - preview_start
-	preview_direction.y = 0.0
-	if preview_direction.length_squared() <= 0.0001:
-		return 0.0
-
-	var preview_angle := absf(
-		target_direction.signed_angle_to(preview_direction.normalized(), Vector3.UP)
-	)
-	return clampf(preview_angle / CORNER_PREVIEW_FULL_ANGLE, 0.0, 1.0)
 
 func _update_recovery(delta: float) -> void:
 	if _current_waypoint_index != _last_progress_waypoint:
