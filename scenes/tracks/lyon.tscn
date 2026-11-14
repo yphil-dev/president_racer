@@ -192,39 +192,6 @@ shape = SubResource("ConcavePolygonShape3D_choun")
 
 [node name="CITY" type="Node3D" parent="." unique_id=720431403]
 
-[node name="Block01" parent="CITY" unique_id=657435294 instance=ExtResource("11_ya4ey")]
-transform = Transform3D(24.989908, 0, 0, 0, 3.1433847, 0, 0, 0, 24.989908, -0.02319336, -1.9617143, -37.389915)
-
-[node name="Block03" parent="CITY" unique_id=448508668 instance=ExtResource("11_ya4ey")]
-transform = Transform3D(24.98991, 0, 0, 0, 3.143385, 0, 0, 0, 24.98991, -0.02319336, -1.9617143, 34.917767)
-
-[node name="Block09" parent="CITY" unique_id=1940078055 instance=ExtResource("11_ya4ey")]
-transform = Transform3D(21.440287, 0, -12.83782, 0, 3.1433847, 0, 12.83782, 0, 21.440287, -33.8909, -1.9617143, -14.779442)
-
-[node name="Block04" parent="CITY" unique_id=1981063036 instance=ExtResource("11_ya4ey")]
-transform = Transform3D(24.98991, 0, 0, 0, 3.143385, 0, 0, 0, 24.98991, -24.475754, -1.9617143, 37.104347)
-
-[node name="Block07" parent="CITY" unique_id=1303364264 instance=ExtResource("10_choun")]
-transform = Transform3D(21.244703, 0, 0, 0, 2.6722896, 0, 0, 0, 21.244703, 16.491234, -1.4097621, -35.841095)
-
-[node name="Block08" parent="CITY" unique_id=151034681 instance=ExtResource("10_choun")]
-transform = Transform3D(21.240814, 0, -0.40654823, 0, 2.6722898, 0, 0.40654823, 0, 21.240814, -19.011675, -1.4097621, -34.469128)
-
-[node name="Block12" parent="CITY" unique_id=2067086598 instance=ExtResource("10_choun")]
-transform = Transform3D(0.40654737, 0, 21.240816, 0, 2.6722898, 0, -21.240816, 0, 0.40654737, -23.035378, -1.4097621, -56.422638)
-
-[node name="Block13" parent="CITY" unique_id=561748269 instance=ExtResource("10_choun")]
-transform = Transform3D(0.40654737, 0, 21.240816, 0, 2.6722898, 0, -21.240816, 0, 0.40654737, -2.84626, -1.4097621, -56.422638)
-
-[node name="Block05" parent="CITY" unique_id=188801700 instance=ExtResource("10_choun")]
-transform = Transform3D(21.244703, 0, 0, 0, 2.6722896, 0, 0, 0, 21.244703, 25.180595, -1.4097621, 0.77145386)
-
-[node name="Block10" parent="CITY" unique_id=234869425 instance=ExtResource("10_choun")]
-transform = Transform3D(1.0243843, 0, 21.219994, 0, 2.6722896, 0, -21.219994, 0, 1.0243843, -30.347115, -1.4097621, 10.474579)
-
-[node name="Block06" parent="CITY" unique_id=1055617299 instance=ExtResource("10_choun")]
-transform = Transform3D(0.27065724, 0, 21.242981, 0, 2.6722898, 0, -21.242981, 0, 0.27065724, 25.180595, -1.4097621, 21.74472)
-
 [node name="LIGHTS" type="Node3D" parent="CITY" unique_id=1212558147]
 
 [node name="streetlight2" parent="CITY/LIGHTS" unique_id=549394370 instance=ExtResource("13_b1f51")]
@@ -418,8 +385,81 @@ transform = Transform3D(1.5268648, 0, 0.1370047, 0, 1.5329993, 0, -0.1370047, 0,
 [node name="car_taxi7" parent="CITY/CARS" unique_id=407835333 instance=ExtResource("27_lym4u")]
 transform = Transform3D(1.5327929, 0, 0.02513378, 0, 1.5329993, 0, -0.02513378, 0, 1.5327929, 6.1583996, -0.34445888, -23.635525)
 
-[node name="building_F2" parent="CITY" unique_id=1792677549 instance=ExtResource("13_dsllp")]
+[node name="BUILDINGS" type="Node3D" parent="CITY" unique_id=1671605542]
+
+[node name="Block01" parent="CITY/BUILDINGS" unique_id=657435294 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(24.989908, 0, 0, 0, 3.1433847, 0, 0, 0, 24.989908, -0.02319336, -1.9617143, -37.389915)
+skeleton = NodePath("../..")
+
+[node name="Block03" parent="CITY/BUILDINGS" unique_id=448508668 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(24.98991, 0, 0, 0, 3.143385, 0, 0, 0, 24.98991, -0.02319336, -1.9617143, 34.917767)
+skeleton = NodePath("../..")
+
+[node name="Block09" parent="CITY/BUILDINGS" unique_id=1940078055 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(21.440287, 0, -12.83782, 0, 3.1433847, 0, 12.83782, 0, 21.440287, -33.8909, -1.9617143, -14.779442)
+skeleton = NodePath("../..")
+
+[node name="Block04" parent="CITY/BUILDINGS" unique_id=1981063036 instance=ExtResource("11_ya4ey")]
+transform = Transform3D(24.98991, 0, 0, 0, 3.143385, 0, 0, 0, 24.98991, -24.475754, -1.9617143, 37.104347)
+skeleton = NodePath("../..")
+
+[node name="Block07" parent="CITY/BUILDINGS" unique_id=1303364264 instance=ExtResource("10_choun")]
+transform = Transform3D(21.244703, 0, 0, 0, 2.6722896, 0, 0, 0, 21.244703, 16.491234, -1.4097621, -35.841095)
+skeleton = NodePath("../..")
+
+[node name="Block08" parent="CITY/BUILDINGS" unique_id=151034681 instance=ExtResource("10_choun")]
+transform = Transform3D(21.240814, 0, -0.40654823, 0, 2.6722898, 0, 0.40654823, 0, 21.240814, -19.011675, -1.4097621, -34.469128)
+skeleton = NodePath("../..")
+
+[node name="Block12" parent="CITY/BUILDINGS" unique_id=2067086598 instance=ExtResource("10_choun")]
+transform = Transform3D(0.40654737, 0, 21.240816, 0, 2.6722898, 0, -21.240816, 0, 0.40654737, -23.035378, -1.4097621, -56.422638)
+skeleton = NodePath("../..")
+
+[node name="Block13" parent="CITY/BUILDINGS" unique_id=561748269 instance=ExtResource("10_choun")]
+transform = Transform3D(0.40654737, 0, 21.240816, 0, 2.6722898, 0, -21.240816, 0, 0.40654737, -2.84626, -1.4097621, -56.422638)
+skeleton = NodePath("../..")
+
+[node name="Block05" parent="CITY/BUILDINGS" unique_id=188801700 instance=ExtResource("10_choun")]
+transform = Transform3D(21.244703, 0, 0, 0, 2.6722896, 0, 0, 0, 21.244703, 25.180595, -1.4097621, 0.77145386)
+skeleton = NodePath("../..")
+
+[node name="Block10" parent="CITY/BUILDINGS" unique_id=234869425 instance=ExtResource("10_choun")]
+transform = Transform3D(1.0243843, 0, 21.219994, 0, 2.6722896, 0, -21.219994, 0, 1.0243843, -30.347115, -1.4097621, 10.474579)
+skeleton = NodePath("../..")
+
+[node name="Block06" parent="CITY/BUILDINGS" unique_id=1055617299 instance=ExtResource("10_choun")]
+transform = Transform3D(0.27065724, 0, 21.242981, 0, 2.6722898, 0, -21.242981, 0, 0.27065724, 25.180595, -1.4097621, 21.74472)
+skeleton = NodePath("../..")
+
+[node name="building_F2" parent="CITY/BUILDINGS" unique_id=1792677549 instance=ExtResource("13_dsllp")]
 transform = Transform3D(0.06381388, 0, 2.9276597, 0, 2.928355, 0, -2.9276597, 0, 0.06381388, -21.699707, -0.072021484, 2.8735046)
+
+[node name="Ba" parent="CITY/BUILDINGS" unique_id=2046549897 instance=ExtResource("20_b1f51")]
+transform = Transform3D(2.8266127, 0, 0, 0, 2.8266127, 0, 0, 0, 2.8266127, -8.585205, -0.74542236, -10.104919)
+
+[node name="Bc" parent="CITY/BUILDINGS" unique_id=858823710 instance=ExtResource("21_560sc")]
+transform = Transform3D(2.4930234, 0, 0, 0, 2.4930234, 0, 0, 0, 2.4930234, -5.0341797, -0.74542236, -10.268127)
+
+[node name="Be" parent="CITY/BUILDINGS" unique_id=475686470 instance=ExtResource("22_beb6x")]
+transform = Transform3D(2.5504987, 0, 0, 0, 2.5504987, 0, 0, 0, 2.5504987, -0.77368164, -0.74542236, -10.322998)
+
+[node name="building_H2" parent="CITY/BUILDINGS" unique_id=1250644965 instance=ExtResource("24_aear2")]
+transform = Transform3D(-9.989717e-08, 0, 2.2853808, 0, 2.2853808, 0, -2.2853808, 0, -9.989717e-08, 4.7472534, -0.072021484, -10.512329)
+
+[node name="dumpster2" parent="CITY" unique_id=1159890860 instance=ExtResource("16_olhm5")]
+transform = Transform3D(2.280007, 0, 0, 0, 2.280007, 0, 0, 0, 2.280007, -4.7419434, 0, 28.705566)
+
+[node name="firehydrant2" parent="CITY" unique_id=1269665530 instance=ExtResource("17_b1f51")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.116455, 0, 27.291138)
+
+[node name="bench2" parent="CITY" unique_id=1483025309 instance=ExtResource("23_2vib7")]
+transform = Transform3D(2.224916, 0, 0, 0, 2.224916, 0, 0, 0, 2.224916, 8.173767, 2.125, -5.324829)
+
+[node name="dumpster3" parent="CITY" unique_id=1124754300 instance=ExtResource("16_olhm5")]
+transform = Transform3D(-0.5097242, 0, 1.7961906, 0, 1.8671153, 0, -1.7961906, 0, -0.5097242, -14.619379, -0.48068237, -9.366501)
+
+[node name="firehydrant3" parent="CITY" unique_id=1241569781 instance=ExtResource("17_b1f51")]
+transform = Transform3D(1.8671155, 0, 0, 0, 1.8671155, 0, 0, 0, 1.8671155, -14.895575, -0.48068237, -15.031998)
 
 [node name="PATH" type="Node3D" parent="." unique_id=2089517924]
 script = ExtResource("2_boundaries")
@@ -447,33 +487,6 @@ curve = SubResource("Curve3D_olhm5")
 [node name="UI" type="CanvasLayer" parent="." unique_id=2062290784]
 
 [node name="GameUI" parent="UI" unique_id=239267494 instance=ExtResource("18_qycdi")]
-
-[node name="dumpster2" parent="." unique_id=1159890860 instance=ExtResource("16_olhm5")]
-transform = Transform3D(2.280007, 0, 0, 0, 2.280007, 0, 0, 0, 2.280007, -4.7419434, 0, 28.705566)
-
-[node name="firehydrant2" parent="." unique_id=1269665530 instance=ExtResource("17_b1f51")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.116455, 0, 27.291138)
-
-[node name="Ba" parent="." unique_id=2046549897 instance=ExtResource("20_b1f51")]
-transform = Transform3D(2.8266127, 0, 0, 0, 2.8266127, 0, 0, 0, 2.8266127, -8.585205, -0.74542236, -10.104919)
-
-[node name="Bc" parent="." unique_id=858823710 instance=ExtResource("21_560sc")]
-transform = Transform3D(2.4930234, 0, 0, 0, 2.4930234, 0, 0, 0, 2.4930234, -5.0341797, -0.74542236, -10.268127)
-
-[node name="Be" parent="." unique_id=475686470 instance=ExtResource("22_beb6x")]
-transform = Transform3D(2.5504987, 0, 0, 0, 2.5504987, 0, 0, 0, 2.5504987, -0.77368164, -0.74542236, -10.322998)
-
-[node name="bench2" parent="." unique_id=1483025309 instance=ExtResource("23_2vib7")]
-transform = Transform3D(2.224916, 0, 0, 0, 2.224916, 0, 0, 0, 2.224916, 8.173767, 2.125, -5.324829)
-
-[node name="building_H2" parent="." unique_id=1250644965 instance=ExtResource("24_aear2")]
-transform = Transform3D(-9.989717e-08, 0, 2.2853808, 0, 2.2853808, 0, -2.2853808, 0, -9.989717e-08, 4.7472534, -0.072021484, -10.512329)
-
-[node name="dumpster3" parent="." unique_id=1124754300 instance=ExtResource("16_olhm5")]
-transform = Transform3D(-0.5097242, 0, 1.7961906, 0, 1.8671153, 0, -1.7961906, 0, -0.5097242, -14.619379, -0.48068237, -9.366501)
-
-[node name="firehydrant3" parent="." unique_id=1241569781 instance=ExtResource("17_b1f51")]
-transform = Transform3D(1.8671155, 0, 0, 0, 1.8671155, 0, 0, 0, 1.8671155, -14.895575, -0.48068237, -15.031998)
 
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]

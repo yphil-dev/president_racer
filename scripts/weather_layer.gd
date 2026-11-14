@@ -72,6 +72,7 @@ func _on_race_started() -> void:
 		_start_snow_cover()
 		_start_plane_snow_cover()
 		_start_building_snow_cover()
+		_start_crossing_snow_cover()
 		_start_city_snow_cover()
 		return
 
@@ -211,6 +212,35 @@ func _start_building_snow_cover() -> void:
 				snow_material.set_shader_parameter("use_base_texture", true)
 
 		block.material_override = snow_material
+		snow_materials.append(snow_material)
+
+	if not snow_materials.is_empty():
+		_animate_snow_materials(snow_materials)
+
+func _start_crossing_snow_cover() -> void:
+	var crossing := get_parent().find_child("road_straight_crossing2", true, false) as Node3D
+	if crossing == null:
+		return
+
+	var snow_materials: Array[ShaderMaterial] = []
+	for mesh_node in crossing.find_children("*", "MeshInstance3D", true, false):
+		var mesh_instance := mesh_node as MeshInstance3D
+		if mesh_instance == null or mesh_instance.mesh == null or mesh_instance.mesh.get_surface_count() == 0:
+			continue
+
+		var snow_material := ShaderMaterial.new()
+		snow_material.shader = SNOW_COVER_SHADER
+		snow_material.set_shader_parameter("snow_color", SNOW_COLOR)
+		snow_material.set_shader_parameter("snow_upward_only", true)
+
+		var source_material := mesh_instance.get_active_material(0) as StandardMaterial3D
+		if source_material != null:
+			snow_material.set_shader_parameter("base_color", source_material.albedo_color)
+			if source_material.albedo_texture != null:
+				snow_material.set_shader_parameter("base_texture", source_material.albedo_texture)
+				snow_material.set_shader_parameter("use_base_texture", true)
+
+		mesh_instance.material_override = snow_material
 		snow_materials.append(snow_material)
 
 	if not snow_materials.is_empty():
