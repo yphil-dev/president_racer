@@ -143,7 +143,8 @@ func _start_race() -> void:
 	_update_standings(true)
 	_set_vehicles_enabled(true)
 	race_started.emit()
-	print("Race started!")
+	if Debug.DEBUG_VERBOSE:
+		print("Race started!")
 
 func _on_track_lap_completed(car: VehicleSphere, lap_number: int) -> void:
 	if not _race_running or not _states_by_car.has(car):
@@ -184,10 +185,11 @@ func _on_track_car_finished(car: VehicleSphere, lap_number: int) -> void:
 		classification_time_remaining = classification_window
 		classification_started.emit(classification_window)
 		_start_classification_light()
-		print("Winner: %s. Classification closes in %.0f seconds." % [
-			state.vehicle.driver_name,
-			classification_window,
-		])
+		if Debug.DEBUG_VERBOSE:
+			print("Winner: %s. Classification closes in %.0f seconds." % [
+				state.vehicle.driver_name,
+				classification_window,
+			])
 
 	_update_standings(true)
 	if _all_cars_finished():

@@ -25,6 +25,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Debug="*res://globals/debug.gd"
 EventHub="*uid://clrrjil8lhexi"
 RaceSelection="*res://globals/race_selection.gd"
 SceneTransition="*res://globals/scene_transition.gd"

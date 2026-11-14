@@ -16,7 +16,8 @@ func _ready() -> void:
 	if RaceSelection.night_enabled:
 		_apply_night_lighting()
 	target_laps = RaceSelection.selected_laps
-	print("START! Target laps set to: ", target_laps)
+	if Debug.DEBUG_VERBOSE:
+		print("START! Target laps set to: ", target_laps)
 
 func _adjust_web_exposure() -> void:
 	for node in find_children("*", "WorldEnvironment", true, false):
@@ -62,7 +63,8 @@ func _on_verif_body_entered(body: Node3D) -> void:
 		return
 
 	_verified_by_car[car] = true
-	print("Lap verification complete for %s." % car.car_name)
+	if Debug.DEBUG_VERBOSE:
+		print("Lap verification complete for %s." % car.car_name)
 
 func _on_finish_body_entered(body: Node3D) -> void:
 	if not body is VehicleSphere:
@@ -73,13 +75,15 @@ func _on_finish_body_entered(body: Node3D) -> void:
 		return
 
 	if not _verified_by_car.get(car, false):
-		print("%s passed the finish line, but the lap was not verified." % car.car_name)
+		if Debug.DEBUG_VERBOSE:
+			print("%s passed the finish line, but the lap was not verified." % car.car_name)
 		return
 
 	var laps_completed := int(_laps_by_car.get(car, 0)) + 1
 	_laps_by_car[car] = laps_completed
 	_verified_by_car[car] = false
-	print("Lap completed by %s! Total laps: %d" % [car.car_name, laps_completed])
+	if Debug.DEBUG_VERBOSE:
+		print("Lap completed by %s! Total laps: %d" % [car.car_name, laps_completed])
 	lap_completed.emit(car, laps_completed)
 
 	if laps_completed == target_laps:

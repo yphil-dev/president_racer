@@ -12,9 +12,11 @@ func _ready() -> void:
 	max_contacts_reported = 4
 
 func race_completed(num_laps: int, race_time: float) -> void:
-	print("Race completed by %s! %d laps in %.2f" % [car_name, num_laps, race_time])
+	if Debug.DEBUG_VERBOSE:
+		print("Race completed by %s! %d laps in %.2f" % [car_name, num_laps, race_time])
 
 func lap_completed(num_lap: int, lap_time: float, race_time: float) -> void:
 	var info := LapCompleteData.new(self, num_lap, lap_time, race_time)
-	print("Lap completed! ", info)
+	if Debug.DEBUG_VERBOSE:
+		print("Lap completed! ", info)
 	EventHub.emitOnLapCompleted(info)

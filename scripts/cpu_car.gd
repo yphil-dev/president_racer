@@ -73,7 +73,8 @@ func _ready() -> void:
 	_current_waypoint_index = _find_nearest_waypoint()
 	_last_progress_waypoint = _current_waypoint_index
 	_can_drive = true
-	print("CPU car %s ready at waypoint %d" % [sphere.car_name, _current_waypoint_index])
+	if Debug.DEBUG_VERBOSE:
+		print("CPU car %s ready at waypoint %d" % [sphere.car_name, _current_waypoint_index])
 
 func get_control_input() -> Vector2:
 	if not _can_drive:
@@ -149,11 +150,12 @@ func _begin_recovery(reverse_first: bool) -> void:
 	_wedged_time = 0.0
 	_reverse_time_remaining = recovery_reverse_duration if reverse_first else 0.0
 	_guidance_time_remaining = recovery_guidance_duration
-	print("CPU recovery: %s reacquired waypoint %d%s." % [
-		driver_name,
-		_current_waypoint_index,
-		" after becoming wedged" if reverse_first else " after losing progress",
-	])
+	if Debug.DEBUG_VERBOSE:
+		print("CPU recovery: %s reacquired waypoint %d%s." % [
+			driver_name,
+			_current_waypoint_index,
+			" after becoming wedged" if reverse_first else " after losing progress",
+		])
 
 func _is_recovering() -> bool:
 	return _reverse_time_remaining > 0.0 or _guidance_time_remaining > 0.0

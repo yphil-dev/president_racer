@@ -32,7 +32,8 @@ func _ready() -> void:
 
 	is_ready = true
 	waypoints_ready.emit()
-	print("AI waypoints ready: %d waypoints, %d ray misses" % [waypoints.size(), ray_miss_count])
+	if Debug.DEBUG_VERBOSE:
+		print("AI waypoints ready: %d waypoints, %d ray misses" % [waypoints.size(), ray_miss_count])
 
 func _generate_waypoints() -> void:
 	waypoints.clear()

@@ -18,7 +18,8 @@ func start_lap_test() -> void:
 	_total_time = 0.0
 	_frame_count = 0
 	_is_running = true
-	print("Benchmark started | Lights forced off: ", force_lights_off)
+	if Debug.DEBUG_VERBOSE:
+		print("Benchmark started | Lights forced off: ", force_lights_off)
 
 func _process(delta: float) -> void:
 	if _is_running:
@@ -33,11 +34,12 @@ func stop_lap_test() -> void:
 	var avg_ms := (_total_time / _frame_count) * 1000.0
 	var avg_fps := _frame_count / _total_time
 
-	print("=== LAP BENCHMARK RESULTS ===")
-	print("Track: ", get_tree().current_scene.name)
-	print("Night Mode: ", RaceSelection.night_enabled)
-	print("Lights Forced Off: ", force_lights_off)
-	print("Avg Frame Time: %.2f ms | Avg FPS: %.1f" % [avg_ms, avg_fps])
+	if Debug.DEBUG_VERBOSE:
+		print("=== LAP BENCHMARK RESULTS ===")
+		print("Track: ", get_tree().current_scene.name)
+		print("Night Mode: ", RaceSelection.night_enabled)
+		print("Lights Forced Off: ", force_lights_off)
+		print("Avg Frame Time: %.2f ms | Avg FPS: %.1f" % [avg_ms, avg_fps])
 
 func _disable_all_lights(node: Node) -> void:
 	# Automatically hides DirectionalLight3D, OmniLight3D, and SpotLight3D

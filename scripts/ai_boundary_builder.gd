@@ -36,7 +36,8 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	is_ready = true
 	boundaries_ready.emit()
-	print("AI boundaries ready: %d segments" % segment_count)
+	if Debug.DEBUG_VERBOSE:
+		print("AI boundaries ready: %d segments" % segment_count)
 
 func _build_wall(path: Path3D, wall_name: String) -> int:
 	var curve := path.curve
