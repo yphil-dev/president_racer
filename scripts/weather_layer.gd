@@ -141,14 +141,28 @@ func _start_snow_cover() -> void:
 
 	var snow_materials: Array[ShaderMaterial] = []
 	for item in SNOW_MESH_LIBRARY.get_item_list():
-		if not SNOW_MESH_LIBRARY.get_item_name(item).begins_with("track-"):
+		var item_name := SNOW_MESH_LIBRARY.get_item_name(item)
+		if not item_name.begins_with("track-") and not item_name.begins_with("decoration-"):
 			continue
 		var snow_mesh := SNOW_MESH_LIBRARY.get_item_mesh(item) as ArrayMesh
 		if snow_mesh == null:
 			continue
 		for surface_index in snow_mesh.get_surface_count():
 			var snow_material := snow_mesh.surface_get_material(surface_index) as ShaderMaterial
-			if snow_material != null and snow_material not in snow_materials:
+			if snow_material == null:
+				var source_material := snow_mesh.surface_get_material(surface_index) as StandardMaterial3D
+				if source_material == null:
+					continue
+				snow_material = ShaderMaterial.new()
+				snow_material.shader = SNOW_COVER_SHADER
+				snow_material.set_shader_parameter("snow_color", SNOW_COLOR)
+				snow_material.set_shader_parameter("snow_upward_only", false)
+				snow_material.set_shader_parameter("base_color", source_material.albedo_color)
+				if source_material.albedo_texture != null:
+					snow_material.set_shader_parameter("base_texture", source_material.albedo_texture)
+					snow_material.set_shader_parameter("use_base_texture", true)
+				snow_mesh.surface_set_material(surface_index, snow_material)
+			if snow_material not in snow_materials:
 				snow_materials.append(snow_material)
 	_animate_snow_materials(snow_materials)
 
