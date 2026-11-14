@@ -59,7 +59,7 @@ friction = 5.0
 rough = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hhncp"]
-radius = 0.52
+radius = 0.6
 
 [node name="Vehicle" type="Node3D" unique_id=1867641805]
 script = ExtResource("1_e2g1l")
