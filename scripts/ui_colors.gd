@@ -2,6 +2,7 @@ class_name UIColors
 extends RefCounted
 
 const SELECTED_LABEL_COLOR := Color(1.0, 0.95, 0.78, 1.0)         # antique enamel cream
+const FOCUS_BORDER_COLOR := Color(1.0, 0.85, 0.42, 1.0)
 const SELECTED_LABEL_OUTLINE_COLOR := Color(0.06, 0.28, 0.20, 1.0) # Parisian cast-iron green
 const SELECTED_LABEL_OUTLINE_SIZE := 18
 

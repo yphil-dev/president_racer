@@ -85,7 +85,10 @@ _data = {
 }
 point_count = 12
 
-[node name="TRACK" type="Node3D" unique_id=1145999287]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ramp_walls_left_paris"]
+size = Vector3(4.875244, 4.329834, 0.31445313)
+
+[node name="TRACK2" type="Node3D" unique_id=1145999287]
 script = ExtResource("1_eb6dy")
 
 [node name="RaceController" parent="." unique_id=1837278698 instance=ExtResource("2_trceg")]
@@ -648,6 +651,34 @@ curve = SubResource("Curve3D_mdjv0")
 [node name="UI" type="CanvasLayer" parent="." unique_id=2062290784]
 
 [node name="GameUI" parent="UI" unique_id=239267494 instance=ExtResource("18_qycdi")]
+
+[node name="ReSpawn01" type="Node3D" parent="." unique_id=1877283788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5741844, 0, -18.71503)
+
+[node name="RampWalls" type="Node3D" parent="." unique_id=2082436172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9959793, 0, -18.215576)
+
+[node name="LeftWall" type="Node3D" parent="RampWalls" unique_id=2082436173]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.0604324)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RampWalls/LeftWall" unique_id=2082436174]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RampWalls/LeftWall/StaticBody3D" unique_id=2082436175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3734646, 1.6333923, 0.00078964233)
+shape = SubResource("BoxShape3D_ramp_walls_left_paris")
+debug_color = Color(0.89411765, 0, 0, 0.41960785)
+
+[node name="RightWall" type="Node3D" parent="RampWalls" unique_id=2082436176]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.1077347)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RampWalls/RightWall" unique_id=2082436177]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RampWalls/RightWall/StaticBody3D" unique_id=1037076009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3734646, 1.6333923, -0.21068192)
+shape = SubResource("BoxShape3D_ramp_walls_left_paris")
+debug_color = Color(0.89411765, 0, 0, 0.41960785)
 
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]

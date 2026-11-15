@@ -18,7 +18,7 @@ class_name GameUI
 
 const RESULT_TWEEN_DURATION: float = 1.1
 const BACKGROUND_FADE_DURATION: float = 0.8
-const ACTION_SIZE := Vector2(56, 56)
+const ACTION_SIZE := Vector2(72, 72)
 const ACTION_MARGIN := Vector2(32, 28)
 const REORDER_DURATION: float = 0.22
 const COUNTDOWN_CARD_GAP: float = 8.0

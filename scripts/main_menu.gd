@@ -22,7 +22,7 @@ const TRACK_SCENES: Array[String] = [
 	"res://scenes/tracks/lyon.tscn",
 ]
 
-const SELECTED_SCALE := Vector2(1.02, 1.02)
+const SELECTED_SCALE := Vector2.ONE
 const NORMAL_SCALE := Vector2.ONE
 const SELECTED_SHADE := Color(0, 0, 0, 0.04)
 const NORMAL_SHADE := Color(0, 0, 0, 0.28)
@@ -65,6 +65,12 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 	$TrackGrid/Limoges/Shade,
 	$TrackGrid/Lyon/Shade,
 	$Options/Shade,
+]
+@onready var selection_frames: Array[Panel] = [
+	$TrackGrid/Paris/SelectionFrame,
+	$TrackGrid/Marseille/SelectionFrame,
+	$TrackGrid/Limoges/SelectionFrame,
+	$TrackGrid/Lyon/SelectionFrame,
 ]
 @onready var selection_labels: Array[Control] = [
 	$TrackGrid/Paris/CityLabel,
@@ -197,6 +203,7 @@ func _animate_button(index: int, selected: bool) -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(button, "scale", target_scale, 0.14)
 	if index < track_buttons.size():
+		selection_frames[index].visible = selected
 		tween.tween_property(
 			selection_shades[index],
 			"color",

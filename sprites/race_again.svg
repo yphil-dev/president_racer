@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 512 512"
+   width="512"
+   height="512"
+   version="1.1"
+   id="svg67"
+   sodipodi:docname="race_again.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview69"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.65186406"
+     inkscape:cx="264.62572"
+     inkscape:cy="295.30697"
+     inkscape:window-width="1452"
+     inkscape:window-height="1036"
+     inkscape:window-x="0"
+     inkscape:window-y="20"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg67" />
+  <defs
+     id="defs5">
+    <clipPath
+       id="arrowRimClip">
+      <path
+         d="M 469.89,156.26 A 236.0,236.0 0 1,1 305.07,25.16 L 310.89,-2.23 L 403.79,108.21 L 288.02,105.37 L 293.84,77.98 A 182.0,182.0 0 1,0 420.95,179.08 Z"
+         id="path2" />
+    </clipPath>
+  </defs>
+  <!-- LAYER 1: EDITABLE RED PARTS (Circular Arrow Rim + Grips + Center Horn Button) -->
+  <!-- LAYER 2: METALLIC SPOKES & CENTER HUB -->
+  <!-- LAYER 3: BLACK OUTLINES & DETAILS -->
+  <g
+     id="g458"
+     transform="translate(-0.01280321,11.136571)">
+    <path
+       id="red-circular-arrow"
+       d="M 469.89,156.26 A 236,236 0 1 1 305.07,25.16 l 5.82,-27.39 92.9,110.44 -115.77,-2.84 5.82,-27.39 a 182,182 0 1 0 127.11,101.1 z"
+       style="fill:#d94348" />
+    <path
+       id="red-grip-right"
+       d="m 433.71948,199.76 -25.39087,14.02 -0.43862,11.32 3.67949,36.31 2.70478,11.11 27.86417,10.38 z"
+       style="fill:#d94348;stroke-width:1" />
+    <path
+       id="red-grip-bottom"
+       d="m 293.84,438.27495 -11.76,-26.16883 -11.22,-1.81614 h -29.72 l -11.22,1.81614 -11.76,26.16883 z"
+       style="fill:#d94348;stroke-width:1" />
+    <path
+       id="red-grip-left"
+       d="M 69.860027,282.9 97.725443,272.52 100.43035,261.41 104.11,225.1 103.67136,213.78 78.279355,199.76 Z"
+       style="fill:#d94348;stroke-width:1" />
+    <circle
+       id="red-center-button"
+       cx="256"
+       cy="256"
+       r="34"
+       style="fill:#d94348" />
+    <g
+       id="metallic-spokes-and-hub">
+      <!-- Left Spoke -->
+      <path
+         id="left-spoke"
+         d="M 212,212 104.11,225.1 101.09,261.41 201,276 Z"
+         fill="#e3e4e6" />
+      <path
+         d="M 203,264 103,249 101.09,261.41 201,276 Z"
+         fill="#c9cbce"
+         id="path19" />
+      <!-- Right Spoke -->
+      <path
+         id="right-spoke"
+         d="m 300,212 107.89,13.1 3.02,36.31 L 311,276 Z"
+         fill="#e3e4e6" />
+      <path
+         d="m 309,264 100,-15 1.91,12.41 L 311,276 Z"
+         fill="#c9cbce"
+         id="path22" />
+      <!-- Bottom Spoke -->
+      <path
+         id="bottom-spoke"
+         d="m 222,306 h 68 l -19.14,104.29 h -29.72 z"
+         fill="#e3e4e6" />
+      <path
+         d="m 275,306 h 15 L 270.86,410.29 259,410 Z"
+         fill="#c9cbce"
+         id="path25" />
+      <!-- Center Hub Outer Metallic Ring -->
+      <path
+         id="hub-silver-ring"
+         d="m 256,196 c -33.14,0 -60,26.86 -60,60 0,33.14 26.86,60 60,60 33.14,0 60,-26.86 60,-60 0,-33.14 -26.86,-60 -60,-60 z m 0,26 c 18.78,0 34,15.22 34,34 0,18.78 -15.22,34 -34,34 -18.78,0 -34,-15.22 -34,-34 0,-18.78 15.22,-34 34,-34 z"
+         fill="#a7a9ac" />
+    </g>
+    <path
+       d="M 469.89,156.26 A 236,236 0 1 1 305.07,25.16 l 5.82,-27.39 92.9,110.44 -115.77,-2.84 5.82,-27.39 A 182,182 0 0 0 82.91,199.76 l 20.84,14.02 0.36,11.32 -3.02,36.31 -2.22,11.11 L 76,282.9 a 182,182 0 0 0 142.16,151.12 l 11.76,-22.19 11.22,-1.54 h 29.72 l 11.22,1.54 11.76,22.19 A 182,182 0 0 0 436,282.9 l -22.87,-10.38 -2.22,-11.11 -3.02,-36.31 0.36,-11.32 20.84,-14.02 a 182,182 0 0 0 -8.14,-20.68 z"
+       id="path29"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="104.11"
+       y1="225.10001"
+       x2="212"
+       y2="212"
+       id="line31"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="101.09"
+       y1="261.41"
+       x2="201"
+       y2="276"
+       id="line33"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="407.89001"
+       y1="225.10001"
+       x2="300"
+       y2="212"
+       id="line35"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="410.91"
+       y1="261.41"
+       x2="311"
+       y2="276"
+       id="line37"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="241.14"
+       y1="410.29001"
+       x2="222"
+       y2="306"
+       id="line39"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="270.85999"
+       y1="410.29001"
+       x2="290"
+       y2="306"
+       id="line41"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <circle
+       cx="256"
+       cy="256"
+       r="60"
+       id="circle43"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+    <circle
+       cx="256"
+       cy="256"
+       r="34"
+       id="circle45"
+       style="fill:none;stroke:#000000;stroke-width:14;stroke-linecap:round;stroke-linejoin:round" />
+  </g>
+  <!-- Spoke Perforation Holes -->
+</svg>

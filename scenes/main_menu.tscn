@@ -44,7 +44,6 @@ theme_override_constants/v_separation = 24
 columns = 2
 
 [node name="Paris" type="Button" parent="TrackGrid" unique_id=707157219]
-clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -91,8 +90,23 @@ label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SelectionFrame" type="Panel" parent="TrackGrid/Paris" unique_id=2082436180]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"SelectionFrame"
+
 [node name="Marseille" type="Button" parent="TrackGrid" unique_id=1859771612]
-clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -139,8 +153,23 @@ label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SelectionFrame" type="Panel" parent="TrackGrid/Marseille" unique_id=2082436181]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"SelectionFrame"
+
 [node name="Limoges" type="Button" parent="TrackGrid" unique_id=106822650]
-clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -188,8 +217,23 @@ label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SelectionFrame" type="Panel" parent="TrackGrid/Limoges" unique_id=2082436182]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"SelectionFrame"
+
 [node name="Lyon" type="Button" parent="TrackGrid" unique_id=1700040413]
-clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -236,6 +280,22 @@ text = "LYON"
 label_settings = ExtResource("3_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SelectionFrame" type="Panel" parent="TrackGrid/Lyon" unique_id=2082436183]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"SelectionFrame"
 
 [node name="Options" type="Button" parent="." unique_id=2016133167]
 clip_contents = true

@@ -87,7 +87,7 @@ _data = {
 point_count = 14
 
 [sub_resource type="BoxMesh" id="BoxMesh_6xfsa"]
-size = Vector3(4.0273438, 0.25878906, 5.4257813)
+size = Vector3(4.0273438, 0.25878906, 6.2851563)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6usw"]
 transparency = 1
@@ -104,6 +104,12 @@ albedo_color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_c1jag"]
 data = PackedVector3Array(-2.0137, 0.1294, 2.7129, 2.0137, 0.1294, 2.7129, -2.0137, -0.1294, 2.7129, 2.0137, 0.1294, 2.7129, 2.0137, -0.1294, 2.7129, -2.0137, -0.1294, 2.7129, 2.0137, 0.1294, -2.7129, -2.0137, 0.1294, -2.7129, 2.0137, -0.1294, -2.7129, -2.0137, 0.1294, -2.7129, -2.0137, -0.1294, -2.7129, 2.0137, -0.1294, -2.7129, 2.0137, 0.1294, 2.7129, 2.0137, 0.1294, -2.7129, 2.0137, -0.1294, 2.7129, 2.0137, 0.1294, -2.7129, 2.0137, -0.1294, -2.7129, 2.0137, -0.1294, 2.7129, -2.0137, 0.1294, -2.7129, -2.0137, 0.1294, 2.7129, -2.0137, -0.1294, -2.7129, -2.0137, 0.1294, 2.7129, -2.0137, -0.1294, 2.7129, -2.0137, -0.1294, -2.7129, 2.0137, 0.1294, 2.7129, -2.0137, 0.1294, 2.7129, 2.0137, 0.1294, -2.7129, -2.0137, 0.1294, 2.7129, -2.0137, 0.1294, -2.7129, 2.0137, 0.1294, -2.7129, -2.0137, -0.1294, 2.7129, 2.0137, -0.1294, 2.7129, -2.0137, -0.1294, -2.7129, 2.0137, -0.1294, 2.7129, 2.0137, -0.1294, -2.7129, -2.0137, -0.1294, -2.7129)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4il75"]
+size = Vector3(8.732452, 0.25878906, 6.38916)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yec72"]
+size = Vector3(8.732452, 0.25878906, 6.38916)
 
 [node name="TRACK" type="Node3D" unique_id=1145999287]
 script = ExtResource("1_eb6dy")
@@ -264,7 +270,7 @@ debug_custom_color = Color(1, 1, 1, 1)
 transform = Transform3D(0.95389223, -0.30014935, 0, 0.30014935, 0.95389223, 0, 0, 0, 1, -5.791649, 2.4255939, -11.188733)
 
 [node name="JumpRamp" type="MeshInstance3D" parent="RAMPS/JumpRamp" unique_id=1217700106]
-transform = Transform3D(1, 2.9802322e-08, 0, -2.9802322e-08, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 2.9802322e-08, 0, -2.9802322e-08, 1, 0, 0, 0, 1, 0, 0, 0.21571255)
 mesh = SubResource("BoxMesh_6xfsa")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_g6usw")
@@ -493,6 +499,30 @@ skeleton = NodePath("../..")
 [node name="Block06" parent="CITY/BUILDINGS" unique_id=1627460474 instance=ExtResource("13_11uo2")]
 transform = Transform3D(16.360645, 0, 1.223774, 0, 2.063692, 0, -1.223774, 0, 16.360645, 23.60619, -1.509778, -7.431757)
 skeleton = NodePath("../..")
+
+[node name="ReSpawn01" type="Node3D" parent="." unique_id=2101684958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.343925, 0, -11.822435)
+
+[node name="RampWalls" type="Node3D" parent="." unique_id=1082436172]
+
+[node name="LeftWall" type="Node3D" parent="RampWalls" unique_id=165868493]
+unique_name_in_owner = true
+transform = Transform3D(1, 2.9802322e-08, 0, 1.3027009e-15, -4.371139e-08, 0.7551697, 2.9802322e-08, -1, -3.3009513e-08, -3.3614626, 4.2086606, -14.504525)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RampWalls/LeftWall" unique_id=1010313696]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RampWalls/LeftWall/StaticBody3D" unique_id=1029608945]
+shape = SubResource("BoxShape3D_4il75")
+debug_color = Color(1, 0, 0, 1)
+
+[node name="RightWall" type="Node3D" parent="RampWalls" unique_id=1476271140]
+unique_name_in_owner = true
+transform = Transform3D(1, 2.9802322e-08, 0, 1.3027009e-15, -4.371139e-08, 0.7551697, 2.9802322e-08, -1, -3.3009513e-08, -3.3614626, 4.2086606, -7.6050925)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="RampWalls/RightWall" unique_id=1150782809]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RampWalls/RightWall/StaticBody3D" unique_id=824826870]
+shape = SubResource("BoxShape3D_yec72")
 
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]

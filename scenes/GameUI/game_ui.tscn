@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d2jtmsipqxjfw" path="res://scenes/CarUI/car_ui.tscn" id="1_card"]
 [ext_resource type="Script" uid="uid://b30dxfdc8mqso" path="res://scripts/game_ui.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="3_background"]
-[ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="4_11qk4"]
+[ext_resource type="Texture2D" path="res://sprites/race_again.svg" id="4_race_again"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_player_intro"]
 bg_color = Color(0.08, 0.11, 0.14, 0.85)
@@ -247,9 +247,9 @@ visible = false
 clip_contents = true
 layout_mode = 0
 offset_left = 59.0
-offset_right = 121.0
-offset_bottom = 56.0
-theme_type_variation = &"CompactButton"
+offset_right = 131.0
+offset_bottom = 72.0
+theme_type_variation = &"ResultAction"
 
 [node name="Shade" type="ColorRect" parent="RaceAgain" unique_id=661387778]
 layout_mode = 1
@@ -272,13 +272,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -22.0
-offset_right = 28.0
-offset_bottom = 22.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_11qk4")
+texture = ExtResource("4_race_again")
 expand_mode = 1
 stretch_mode = 5

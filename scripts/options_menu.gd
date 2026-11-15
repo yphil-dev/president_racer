@@ -143,6 +143,11 @@ func _ready() -> void:
 		weather_buttons[index].focus_entered.connect(_focus_weather)
 		weather_buttons[index].mouse_entered.connect(_hover_weather.bind(index))
 
+	for button in lap_buttons + time_buttons + weather_buttons:
+		button.theme_type_variation = &"OptionsButton"
+	random_button.theme_type_variation = &"OptionsButton"
+	saved_button.theme_type_variation = &"OptionsButton"
+
 	for button in lap_buttons:
 		_add_selection_bar(button)
 	for button in time_buttons:
@@ -249,7 +254,7 @@ func _create_scheme_buttons(driver_index: int) -> void:
 		button.size_flags_stretch_ratio = 1.7 if scheme == RaceSelection.CONTROL_COMBO else 1.0
 		button.focus_mode = Control.FOCUS_ALL
 		button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		button.theme_type_variation = &"CompactButton"
+		button.theme_type_variation = &"SchemeButton"
 		button.pressed.connect(_select_control_scheme.bind(driver_id, scheme))
 		button.focus_entered.connect(_focus_scheme_button.bind(driver_index))
 		button.mouse_entered.connect(_hover_scheme_button.bind(button))
