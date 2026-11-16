@@ -18,6 +18,7 @@ var _confirmation_sound: AudioStreamPlayer
 var _error_sound: AudioStreamPlayer
 var _active: bool = false
 var _ui_feedback_armed: bool = false
+var _main_menu_focus_target: StringName = &"default"
 
 func _ready() -> void:
 	layer = 100
@@ -103,6 +104,14 @@ func _input(event: InputEvent) -> void:
 
 func is_active() -> bool:
 	return _active
+
+func request_main_menu_quit_focus() -> void:
+	_main_menu_focus_target = &"quit"
+
+func consume_main_menu_focus_target() -> StringName:
+	var target := _main_menu_focus_target
+	_main_menu_focus_target = &"default"
+	return target
 
 func show_potato_rock() -> void:
 	if _potato_rock_overlay == null:

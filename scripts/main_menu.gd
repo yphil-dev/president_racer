@@ -131,8 +131,14 @@ func _initialize_selection() -> void:
 		WEATHER_ICONS[RaceSelection.WEATHER_FAIR]
 	)
 
-	_select_button(0)
-	selectable_buttons[0].grab_focus()
+	var initial_focus_index := 0
+	if (
+		SceneTransition.consume_main_menu_focus_target() == &"quit"
+		and quit_button.visible
+	):
+		initial_focus_index = selectable_buttons.find(quit_button)
+	_select_button(initial_focus_index)
+	selectable_buttons[initial_focus_index].grab_focus()
 	AudioPlayer.fade_in(2.5)
 	_play_intro()
 	_unlock_startup_hover.call_deferred()

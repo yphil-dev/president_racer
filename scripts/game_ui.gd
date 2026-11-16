@@ -11,7 +11,9 @@ class_name GameUI
 @onready var classification_timer: ProgressBar = $ClassificationCountdown/Timer
 @onready var race_again: Button = $RaceAgain
 @onready var pause_overlay: Control = $PauseOverlay
-@onready var pause_quit_button: Button = $PauseOverlay/Panel/Quit
+@onready var pause_back_button: Button = $PauseOverlay/Panel/Back
+@onready var pause_restart_button: Button = $PauseOverlay/Panel/Restart
+@onready var pause_resume_button: Button = $PauseOverlay/Panel/Resume
 @onready var player_intro_bubble: Panel = $PlayerIntroBubble
 @onready var intro_tail: Polygon2D = $PlayerIntroBubble/Tail
 @onready var intro_scheme_icons: HBoxContainer = $PlayerIntroBubble/Content/Row/DetailsFrame/Details/SchemeIcons
@@ -49,7 +51,9 @@ var _paused: bool = false
 
 func _ready() -> void:
 	pause_overlay.hide()
-	pause_quit_button.pressed.connect(_quit_from_pause)
+	pause_back_button.pressed.connect(_return_to_menu_from_pause)
+	pause_restart_button.pressed.connect(_restart_from_pause)
+	pause_resume_button.pressed.connect(_resume_from_pause)
 
 func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -> void:
 	_cards_by_vehicle.clear()
@@ -98,15 +102,35 @@ func toggle_pause() -> void:
 	get_tree().paused = _paused
 	if _paused:
 		pause_overlay.show()
-		pause_quit_button.grab_focus()
+		pause_resume_button.grab_focus()
 	else:
 		pause_overlay.hide()
 
-func _quit_from_pause() -> void:
-	get_tree().paused = false
+func _resume_from_pause() -> void:
+	if not _paused:
+		return
+
 	_paused = false
+	get_tree().paused = false
 	pause_overlay.hide()
-	SceneTransition.quit_game()
+
+func _return_to_menu_from_pause() -> void:
+	if not _paused:
+		return
+
+	_paused = false
+	get_tree().paused = false
+	pause_overlay.hide()
+	_controller.return_to_menu()
+
+func _restart_from_pause() -> void:
+	if not _paused:
+		return
+
+	_paused = false
+	get_tree().paused = false
+	pause_overlay.hide()
+	_controller.restart_race()
 
 func _setup_player_intro(initial_standings: Array) -> void:
 	var human_driver_id := ""

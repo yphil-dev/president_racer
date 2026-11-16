@@ -4,7 +4,8 @@
 [ext_resource type="Script" uid="uid://b30dxfdc8mqso" path="res://scripts/game_ui.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="3_background"]
 [ext_resource type="Texture2D" path="res://sprites/race_again.svg" id="4_race_again"]
-[ext_resource type="Texture2D" path="res://sprites/quit.svg" id="5_quit"]
+[ext_resource type="Texture2D" path="res://sprites/arrow-left.svg" id="5_back"]
+[ext_resource type="Texture2D" path="res://sprites/results-finish-flag.svg" id="6_resume"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_player_intro"]
 bg_color = Color(0.08, 0.11, 0.14, 0.85)
@@ -279,9 +280,9 @@ color = Color(0, 0, 0, 0.55)
 
 [node name="Panel" type="Panel" parent="PauseOverlay" unique_id=1358150467]
 layout_mode = 0
-offset_left = -56.0
+offset_left = -128.0
 offset_top = -56.0
-offset_right = 56.0
+offset_right = 128.0
 offset_bottom = 56.0
 anchors_preset = 8
 anchor_left = 0.5
@@ -293,15 +294,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pause_panel")
 
-[node name="Quit" type="Button" parent="PauseOverlay/Panel" unique_id=1358150468]
+[node name="Back" type="Button" parent="PauseOverlay/Panel" unique_id=1358150468]
 layout_mode = 0
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 97.0
-offset_bottom = 97.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 92.0
+offset_bottom = 92.0
+focus_neighbor_right = NodePath("../Restart")
 theme_type_variation = &"CompactButton"
 
-[node name="Icon" type="TextureRect" parent="PauseOverlay/Panel/Quit" unique_id=1358150469]
+[node name="Icon" type="TextureRect" parent="PauseOverlay/Panel/Back" unique_id=1358150469]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -315,7 +317,62 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("5_quit")
+texture = ExtResource("5_back")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Restart" type="Button" parent="PauseOverlay/Panel" unique_id=1358150470]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 20.0
+offset_right = 164.0
+offset_bottom = 92.0
+focus_neighbor_left = NodePath("../Back")
+focus_neighbor_right = NodePath("../Resume")
+theme_type_variation = &"CompactButton"
+
+[node name="Icon" type="TextureRect" parent="PauseOverlay/Panel/Restart" unique_id=1358150471]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_race_again")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Resume" type="Button" parent="PauseOverlay/Panel" unique_id=1358150472]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 20.0
+offset_right = 236.0
+offset_bottom = 92.0
+focus_neighbor_left = NodePath("../Restart")
+theme_type_variation = &"CompactButton"
+
+[node name="Icon" type="TextureRect" parent="PauseOverlay/Panel/Resume" unique_id=1358150473]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_resume")
 expand_mode = 1
 stretch_mode = 5
 

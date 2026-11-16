@@ -39,6 +39,9 @@ var _blink_timer: Timer
 var _classification_light_timer: Timer
 var _countdown_audio: AudioStreamPlayer
 var _finish_audio: AudioStreamPlayer
+var _player_marker: Node3D
+var _player_marker_target: Vehicle
+var _player_marker_height: float = 0.0
 var _low_tone: AudioStreamWAV
 var _high_tone: AudioStreamWAV
 
@@ -48,6 +51,8 @@ const TONE_BODY_DURATION: float = 0.46
 const LOW_TONE_FREQUENCY: float = 440.0
 const HIGH_TONE_FREQUENCY: float = 880.0
 const BEEPS_VOLUME: float = -12.0
+const PLAYER_MARKER_TILT := Vector3(45.0, 0.0, 35.264)
+const PLAYER_MARKER_SPIN_SPEED: float = 2.5
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (
@@ -61,6 +66,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			SceneTransition.transition_to_menu()
 		else:
 			game_ui.toggle_pause()
+
+func return_to_menu() -> void:
+	_race_running = false
+	_set_vehicles_enabled(false)
+	SceneTransition.request_main_menu_quit_focus()
+	SceneTransition.transition_to_menu()
+
+func restart_race() -> void:
+	_race_running = false
+	_set_vehicles_enabled(false)
+	SceneTransition.transition_to_scene(race_track.scene_file_path)
 
 func _ready() -> void:
 	if race_track.get_meta(&"menu_preview", false):
@@ -81,6 +97,7 @@ func _ready() -> void:
 				camera_target = vehicle
 				break
 	get_node("../View").set("target", camera_target)
+	_create_player_marker(camera_target)
 
 	_setup_race_states()
 	game_ui.setup(self, standings)
@@ -100,6 +117,7 @@ func _ready() -> void:
 	await _play_countdown_tones()
 
 func _process(delta: float) -> void:
+	_update_player_marker(delta)
 	if get_tree().paused or not _race_running:
 		return
 
@@ -120,6 +138,49 @@ func _process(delta: float) -> void:
 		if classification_time_remaining <= 0.0:
 			_finalize_race()
 
+func _create_player_marker(target: Vehicle) -> void:
+	if target == null or target.vehicle_body == null:
+		return
+
+	_player_marker_target = target
+	_player_marker = Node3D.new()
+	_player_marker.name = "PlayerMarker"
+	race_track.add_child(_player_marker)
+
+	var body_aabb := target.vehicle_body.get_aabb()
+	var body_scale: Vector3 = target.vehicle_body.global_transform.basis.get_scale()
+	var body_size := Vector3(
+		absf(body_aabb.size.x * body_scale.x),
+		absf(body_aabb.size.y * body_scale.y),
+		absf(body_aabb.size.z * body_scale.z)
+	)
+	var marker_size := minf(body_size.x, body_size.z) * 0.5
+	_player_marker_height = body_size.y * 0.5 + marker_size * 3.5
+
+	var marker_mesh := BoxMesh.new()
+	marker_mesh.size = Vector3.ONE * marker_size
+
+	var marker_material := StandardMaterial3D.new()
+	marker_material.albedo_color = target.car_color
+	marker_material.roughness = 0.42
+
+	var marker_model := MeshInstance3D.new()
+	marker_model.mesh = marker_mesh
+	marker_model.material_override = marker_material
+	marker_model.rotation_degrees = PLAYER_MARKER_TILT
+	_player_marker.add_child(marker_model)
+	_update_player_marker(0.0)
+
+func _update_player_marker(delta: float) -> void:
+	if _player_marker == null or _player_marker_target == null or _race_running:
+		return
+
+	_player_marker.global_position = (
+		_player_marker_target.vehicle_body.global_position
+		+ Vector3.UP * _player_marker_height
+	)
+	_player_marker.rotate_y(delta * PLAYER_MARKER_SPIN_SPEED)
+
 func _setup_race_states() -> void:
 	_states_by_car.clear()
 	standings.clear()
@@ -138,6 +199,8 @@ func _setup_race_states() -> void:
 	_update_standings(true)
 
 func _start_race() -> void:
+	if _player_marker != null:
+		_player_marker.hide()
 	race_elapsed = 0.0
 	classification_time_remaining = 0.0
 	_classification_active = false
