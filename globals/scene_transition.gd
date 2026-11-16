@@ -59,7 +59,19 @@ func _input(event: InputEvent) -> void:
 		and event.pressed
 		and not event.echo
 		and event.ctrl_pressed
+		and event.physical_keycode == KEY_Q
+	):
+		get_viewport().set_input_as_handled()
+		quit_game()
+		return
+
+	if (
+		event is InputEventKey
+		and event.pressed
+		and not event.echo
 		and event.physical_keycode == KEY_F
+		and not event.alt_pressed
+		and not event.meta_pressed
 	):
 		_toggle_fullscreen()
 		get_viewport().set_input_as_handled()

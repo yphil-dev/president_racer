@@ -39,9 +39,9 @@
   <content_rating type="oars-1.1" />
 
   <releases>
-    <release version="1.4.2" date="2026-11-16">
+    <release version="1.4.4" date="2026-11-16">
       <description>
-        <p>Added track boundary walls and improved UI focus indicators.</p>
+        <p>Added safer ramp boundaries, clearer UI focus feedback, and global fullscreen and quit shortcuts.</p>
       </description>
     </release>
   </releases>

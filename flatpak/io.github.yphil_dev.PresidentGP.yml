@@ -22,9 +22,8 @@ modules:
       - install -Dm644 io.github.yphil_dev.PresidentGP.metainfo.xml /app/share/metainfo/io.github.yphil_dev.PresidentGP.metainfo.xml
     sources:
       - type: archive
-        url: https://github.com/yphil-dev/president_racer/releases/download/1.4.2/president-gp-linux.zip
-        # Replace this with the sha256 printed by the release workflow.
-        sha256: REPLACE_WITH_SHA256_OF_ZIP
+        url: https://github.com/yphil-dev/president_racer/releases/download/1.4.3/president-gp-linux.zip
+        sha256: 15cd04f8282629aa56dbc095206c21e887d556e6c83520f86df0088e375a6935
       - type: file
         path: io.github.yphil_dev.PresidentGP.desktop
       - type: file

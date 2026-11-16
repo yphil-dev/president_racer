@@ -84,11 +84,6 @@ var _selected_index: int = 0
 var _startup_hover_locked: bool = true
 var _launching: bool = false
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and not _launching and not SceneTransition.is_active():
-		get_viewport().set_input_as_handled()
-		SceneTransition.quit_game()
-
 func _ready() -> void:
 	for index in track_buttons.size():
 		track_buttons[index].pressed.connect(_launch_track.bind(index))
