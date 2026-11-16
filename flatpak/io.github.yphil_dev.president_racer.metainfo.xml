@@ -42,6 +42,7 @@
     <release version="1.4.5" date="2026-11-16">
       <description>
         <p>Added a real "escape" menu, with "resume, retart, and back to main menu" buttons.</p>
+        <p>Added a rotating cube above the player car before race start.</p>
       </description>
     </release>
   </releases>

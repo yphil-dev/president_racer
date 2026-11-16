@@ -1,6 +1,6 @@
 app-id: io.github.yphil_dev.president_racer
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 command: president-gp
 
@@ -9,7 +9,8 @@ finish-args:
   - --socket=fallback-x11
   - --socket=wayland
   - --socket=pulseaudio
-  - --device=all
+  - --device=dri
+  - --device=input
 
 modules:
   - name: president-gp
@@ -22,8 +23,8 @@ modules:
       - install -Dm644 io.github.yphil_dev.president_racer.metainfo.xml /app/share/metainfo/io.github.yphil_dev.president_racer.metainfo.xml
     sources:
       - type: archive
-        url: https://github.com/yphil-dev/president_racer/releases/download/1.4.3/president-gp-linux.zip
-        sha256: 15cd04f8282629aa56dbc095206c21e887d556e6c83520f86df0088e375a6935
+        url: https://github.com/yphil-dev/president_racer/releases/download/1.4.5/president-gp-linux.zip
+        sha256: 52ca7c0a4e5981524815c31620c312084544685f1925c3f54a04fa54ffbdbffe
       - type: file
         path: io.github.yphil_dev.president_racer.desktop
       - type: file
