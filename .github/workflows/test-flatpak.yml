@@ -49,7 +49,10 @@ jobs:
   test-flatpak:
     name: Build Flatpak bundle
     needs: build-linux-archive
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
 
     steps:
       - name: Check out repository
