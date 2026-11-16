@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 const MAIN_MENU_SCENE := "res://scenes/main_menu.tscn"
+const DISPLAY_SETTINGS_PATH := "user://display_settings.cfg"
+const DISPLAY_SETTINGS_SECTION := "display"
 const POTATO_ROCK_OVERLAY: PackedScene = preload("res://scenes/potato_rock_overlay.tscn")
 const SPLASH_TEXTURE: Texture2D = preload("res://splash-screen.png")
 
@@ -19,6 +21,7 @@ var _ui_feedback_armed: bool = false
 
 func _ready() -> void:
 	layer = 100
+	_apply_fullscreen_preference()
 
 	_overlay = Control.new()
 	_overlay.name = "TransitionOverlay"
@@ -69,9 +72,21 @@ func _input(event: InputEvent) -> void:
 		event is InputEventKey
 		and event.pressed
 		and not event.echo
-		and event.physical_keycode == KEY_F
-		and not event.alt_pressed
-		and not event.meta_pressed
+		and (
+			event.physical_keycode == KEY_F11
+			or (
+				event.physical_keycode == KEY_F
+				and not event.alt_pressed
+				and not event.meta_pressed
+			)
+			or (
+				event.alt_pressed
+				and (
+					event.physical_keycode == KEY_ENTER
+					or event.physical_keycode == KEY_KP_ENTER
+				)
+			)
+		)
 	):
 		_toggle_fullscreen()
 		get_viewport().set_input_as_handled()
@@ -105,11 +120,32 @@ func _toggle_fullscreen() -> void:
 		DisplayServer.WINDOW_MODE_FULLSCREEN,
 		DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,
 	]
+	var fullscreen := not is_fullscreen
 	DisplayServer.window_set_mode(
-		DisplayServer.WINDOW_MODE_WINDOWED
-		if is_fullscreen
-		else DisplayServer.WINDOW_MODE_FULLSCREEN
+		DisplayServer.WINDOW_MODE_FULLSCREEN
+		if fullscreen
+		else DisplayServer.WINDOW_MODE_WINDOWED
 	)
+	_save_fullscreen_preference(fullscreen)
+
+func _apply_fullscreen_preference() -> void:
+	var config := ConfigFile.new()
+	if config.load(DISPLAY_SETTINGS_PATH) != OK:
+		return
+	if not config.has_section_key(DISPLAY_SETTINGS_SECTION, "fullscreen"):
+		return
+
+	var fullscreen := bool(config.get_value(DISPLAY_SETTINGS_SECTION, "fullscreen"))
+	DisplayServer.window_set_mode(
+		DisplayServer.WINDOW_MODE_FULLSCREEN
+		if fullscreen
+		else DisplayServer.WINDOW_MODE_WINDOWED
+	)
+
+func _save_fullscreen_preference(fullscreen: bool) -> void:
+	var config := ConfigFile.new()
+	config.set_value(DISPLAY_SETTINGS_SECTION, "fullscreen", fullscreen)
+	config.save(DISPLAY_SETTINGS_PATH)
 
 func transition_to_track(
 	scene_path: String,

@@ -10,6 +10,8 @@ class_name GameUI
 @onready var classification_label: Label = $ClassificationCountdown/Label
 @onready var classification_timer: ProgressBar = $ClassificationCountdown/Timer
 @onready var race_again: Button = $RaceAgain
+@onready var pause_overlay: Control = $PauseOverlay
+@onready var pause_quit_button: Button = $PauseOverlay/Panel/Quit
 @onready var player_intro_bubble: Panel = $PlayerIntroBubble
 @onready var intro_tail: Polygon2D = $PlayerIntroBubble/Tail
 @onready var intro_scheme_icons: HBoxContainer = $PlayerIntroBubble/Content/Row/DetailsFrame/Details/SchemeIcons
@@ -43,9 +45,17 @@ var _controller: RaceController
 var _classification_duration: float = 0.0
 var _classification_countdown_active: bool = false
 var _intro_model_root: Node3D
+var _paused: bool = false
+
+func _ready() -> void:
+	pause_overlay.hide()
+	pause_quit_button.pressed.connect(_quit_from_pause)
 
 func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -> void:
 	_cards_by_vehicle.clear()
+	_paused = false
+	get_tree().paused = false
+	pause_overlay.hide()
 	_controller = controller
 	_classification_duration = 0.0
 	_classification_countdown_active = false
@@ -76,6 +86,27 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 
 	_apply_initial_standings(initial_standings)
 	_setup_player_intro(initial_standings)
+
+func is_results_active() -> bool:
+	return _results_active
+
+func toggle_pause() -> void:
+	if _results_active or _restarting:
+		return
+
+	_paused = not _paused
+	get_tree().paused = _paused
+	if _paused:
+		pause_overlay.show()
+		pause_quit_button.grab_focus()
+	else:
+		pause_overlay.hide()
+
+func _quit_from_pause() -> void:
+	get_tree().paused = false
+	_paused = false
+	pause_overlay.hide()
+	SceneTransition.quit_game()
 
 func _setup_player_intro(initial_standings: Array) -> void:
 	var human_driver_id := ""

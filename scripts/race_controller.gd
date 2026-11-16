@@ -50,15 +50,23 @@ const HIGH_TONE_FREQUENCY: float = 880.0
 const BEEPS_VOLUME: float = -12.0
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and not SceneTransition.is_active():
+	if (
+		(event.is_action_pressed("ui_cancel") or event.is_action_pressed("pause"))
+		and not SceneTransition.is_active()
+	):
 		get_viewport().set_input_as_handled()
-		_race_running = false
-		_set_vehicles_enabled(false)
-		SceneTransition.transition_to_menu()
+		if OS.has_feature("web") or game_ui.is_results_active():
+			_race_running = false
+			_set_vehicles_enabled(false)
+			SceneTransition.transition_to_menu()
+		else:
+			game_ui.toggle_pause()
 
 func _ready() -> void:
 	if race_track.get_meta(&"menu_preview", false):
 		return
+
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	race_track.connect("lap_completed", _on_track_lap_completed)
 	race_track.connect("car_finished", _on_track_car_finished)
@@ -92,7 +100,7 @@ func _ready() -> void:
 	await _play_countdown_tones()
 
 func _process(delta: float) -> void:
-	if not _race_running:
+	if get_tree().paused or not _race_running:
 		return
 
 	race_elapsed += delta

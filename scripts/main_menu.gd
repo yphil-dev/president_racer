@@ -14,6 +14,7 @@ const LAPS_ICONS: Dictionary = {
 	3: preload("res://sprites/laps-three.svg"),
 }
 const CPU_ICON: Texture2D = preload("res://sprites/cpu.svg")
+const QUIT_ICON: Texture2D = preload("res://sprites/quit.svg")
 
 const TRACK_SCENES: Array[String] = [
 	"res://scenes/tracks/paris.tscn",
@@ -31,10 +32,14 @@ const NORMAL_LABEL_COLOR := UIColors.NORMAL_LABEL_COLOR
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
 const OPTIONS_SIZE := Vector2(212, 56)
+const QUIT_SIZE := Vector2(106, 56)
 const OPTIONS_MARGIN := Vector2(32, 28)
+const QUIT_GAP: float = 12.0
 
 @onready var track_grid: GridContainer = $TrackGrid
 @onready var options_button: Button = $Options
+@onready var quit_button: Button = $Quit
+@onready var quit_icon: TextureRect = $Quit/Icon
 @onready var selected_driver_portrait: TextureRect = $Options/Portrait
 @onready var selected_laps_icon: TextureRect = $Options/LapIcon
 @onready var selected_time_icon: TextureRect = $Options/TimeIcon
@@ -52,6 +57,7 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 	$TrackGrid/Limoges,
 	$TrackGrid/Lyon,
 	$Options,
+	$Quit,
 ]
 @onready var previews: Array[TextureRect] = [
 	$TrackGrid/Paris/Preview,
@@ -78,6 +84,7 @@ const OPTIONS_MARGIN := Vector2(32, 28)
 	$TrackGrid/Limoges/CityLabel,
 	$TrackGrid/Lyon/CityLabel,
 	$Options/LapIcon,
+	$Quit/Icon,
 ]
 var _button_tweens: Dictionary = {}
 var _selected_index: int = 0
@@ -89,6 +96,11 @@ func _ready() -> void:
 		track_buttons[index].pressed.connect(_launch_track.bind(index))
 
 	options_button.pressed.connect(_open_options)
+	quit_button.pressed.connect(_quit_game)
+	quit_icon.texture = QUIT_ICON
+	if OS.has_feature("web"):
+		quit_button.hide()
+		quit_button.focus_mode = Control.FOCUS_NONE
 	for index in selectable_buttons.size():
 		selectable_buttons[index].focus_entered.connect(_select_button.bind(index))
 		if index < track_buttons.size():
@@ -147,6 +159,13 @@ func _layout_menu() -> void:
 	options_button.position = size - OPTIONS_SIZE - OPTIONS_MARGIN
 	options_button.size = OPTIONS_SIZE
 	options_button.custom_minimum_size = OPTIONS_SIZE
+
+	quit_button.position = Vector2(
+		options_button.position.x + options_button.size.x - QUIT_SIZE.x,
+		options_button.position.y - QUIT_SIZE.y - QUIT_GAP
+	)
+	quit_button.size = QUIT_SIZE
+	quit_button.custom_minimum_size = QUIT_SIZE
 
 func _play_intro() -> void:
 	for index in selectable_buttons.size():
@@ -316,10 +335,22 @@ func _open_options() -> void:
 	for button in selectable_buttons:
 		button.disabled = true
 
-	var index := selectable_buttons.size() - 1
+	var index := selectable_buttons.size() - 2
 	var previous_tween := _button_tweens.get(index) as Tween
 	if previous_tween != null and previous_tween.is_valid():
 		previous_tween.kill()
 
 	await NavButtonAnimation.play(options_button)
 	SceneTransition.transition_to_scene(DRIVER_SELECTION_SCENE)
+
+func _quit_game() -> void:
+	if _launching:
+		return
+
+	_launching = true
+	SceneTransition.play_selection_beep()
+	for button in selectable_buttons:
+		button.disabled = true
+
+	await NavButtonAnimation.play(quit_button)
+	SceneTransition.quit_game()
