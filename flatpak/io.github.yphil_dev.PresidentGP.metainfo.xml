@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.yphil.PresidentGP</id>
+  <id>io.github.yphil_dev.PresidentGP</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-only</project_license>
   <name>President Grand Prix</name>
@@ -19,7 +19,7 @@
     </ul>
   </description>
 
-  <launchable type="desktop-id">io.github.yphil.PresidentGP.desktop</launchable>
+  <launchable type="desktop-id">io.github.yphil_dev.PresidentGP.desktop</launchable>
 
   <url type="homepage">https://yphil.itch.io/president-gp</url>
   <url type="bugtracker">https://github.com/yphil-dev/president_racer/issues</url>
