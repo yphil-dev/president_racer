@@ -39,10 +39,7 @@ var _blink_timer: Timer
 var _classification_light_timer: Timer
 var _countdown_audio: AudioStreamPlayer
 var _finish_audio: AudioStreamPlayer
-var _player_marker: Node3D
-var _player_marker_target: Vehicle
-var _player_marker_material: StandardMaterial3D
-var _player_marker_height: float = 0.0
+var _player_markers: Array[Dictionary] = []
 var _low_tone: AudioStreamWAV
 var _high_tone: AudioStreamWAV
 
@@ -112,7 +109,7 @@ func _ready() -> void:
 				camera_target = vehicle
 				break
 	get_node("../View").set("target", camera_target)
-	_create_player_marker(camera_target)
+	_create_player_markers()
 
 	_setup_race_states()
 	game_ui.setup(self, standings)
@@ -132,7 +129,7 @@ func _ready() -> void:
 	await _play_countdown_tones()
 
 func _process(delta: float) -> void:
-	_update_player_marker(delta)
+	_update_player_markers(delta)
 	if get_tree().paused or not _race_running:
 		return
 
@@ -153,66 +150,88 @@ func _process(delta: float) -> void:
 		if classification_time_remaining <= 0.0:
 			_finalize_race()
 
-func _create_player_marker(target: Vehicle) -> void:
-	if target == null or target.vehicle_body == null:
+func _create_player_markers() -> void:
+	_player_markers.clear()
+	for node in cars.get_children():
+		var target := node as Vehicle
+		if (
+			target == null
+			or target.vehicle_body == null
+			or RaceSelection.get_control_scheme(target.driver_id) == RaceSelection.CONTROL_CPU
+		):
+			continue
+
+		var marker := Node3D.new()
+		marker.name = "PlayerMarker_%s" % target.driver_id
+		race_track.add_child(marker)
+
+		var body_aabb := target.vehicle_body.get_aabb()
+		var body_scale: Vector3 = target.vehicle_body.global_transform.basis.get_scale()
+		var body_size := Vector3(
+			absf(body_aabb.size.x * body_scale.x),
+			absf(body_aabb.size.y * body_scale.y),
+			absf(body_aabb.size.z * body_scale.z)
+		)
+		var marker_size := minf(body_size.x, body_size.z) * 0.65
+		var marker_height := body_size.y * 0.5 + marker_size * 3.5
+
+		var marker_mesh := BoxMesh.new()
+		marker_mesh.size = Vector3.ONE * marker_size
+
+		var marker_material := StandardMaterial3D.new()
+		marker_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		marker_material.albedo_color = target.car_color
+		marker_material.emission_enabled = true
+		marker_material.emission = target.car_color
+		marker_material.emission_energy_multiplier = 3.0
+		marker_material.roughness = 0.42
+
+		var marker_model := MeshInstance3D.new()
+		marker_model.mesh = marker_mesh
+		marker_model.material_override = marker_material
+		marker_model.rotation_degrees = PLAYER_MARKER_TILT
+		marker.add_child(marker_model)
+
+		_player_markers.append({
+			"marker": marker,
+			"target": target,
+			"material": marker_material,
+			"height": marker_height,
+		})
+	_update_player_markers(0.0)
+
+func _fade_player_markers() -> void:
+	for marker_data in _player_markers:
+		var marker := marker_data["marker"] as Node3D
+		var target := marker_data["target"] as Vehicle
+		var material := marker_data["material"] as StandardMaterial3D
+		if marker == null or target == null or material == null:
+			continue
+
+		var faded_color := target.car_color
+		faded_color.a = 0.0
+		var fade_tween := create_tween()
+		fade_tween.set_parallel(true)
+		fade_tween.tween_property(material, "albedo_color", faded_color, 0.2)
+		fade_tween.tween_property(material, "emission", faded_color, 0.2)
+		fade_tween.set_parallel(false)
+		fade_tween.tween_callback(marker.hide)
+
+func _update_player_markers(delta: float) -> void:
+	if _race_running:
 		return
 
-	_player_marker_target = target
-	_player_marker = Node3D.new()
-	_player_marker.name = "PlayerMarker"
-	race_track.add_child(_player_marker)
+	for marker_data in _player_markers:
+		var marker := marker_data["marker"] as Node3D
+		var target := marker_data["target"] as Vehicle
+		if marker == null or target == null or target.vehicle_body == null:
+			continue
 
-	var body_aabb := target.vehicle_body.get_aabb()
-	var body_scale: Vector3 = target.vehicle_body.global_transform.basis.get_scale()
-	var body_size := Vector3(
-		absf(body_aabb.size.x * body_scale.x),
-		absf(body_aabb.size.y * body_scale.y),
-		absf(body_aabb.size.z * body_scale.z)
-	)
-	var marker_size := minf(body_size.x, body_size.z) * 0.65
-	_player_marker_height = body_size.y * 0.5 + marker_size * 3.5
-
-	var marker_mesh := BoxMesh.new()
-	marker_mesh.size = Vector3.ONE * marker_size
-
-	var marker_material := StandardMaterial3D.new()
-	marker_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	marker_material.albedo_color = target.car_color
-	marker_material.emission_enabled = true
-	marker_material.emission = target.car_color
-	marker_material.emission_energy_multiplier = 3.0
-	marker_material.roughness = 0.42
-	_player_marker_material = marker_material
-
-	var marker_model := MeshInstance3D.new()
-	marker_model.mesh = marker_mesh
-	marker_model.material_override = marker_material
-	marker_model.rotation_degrees = PLAYER_MARKER_TILT
-	_player_marker.add_child(marker_model)
-	_update_player_marker(0.0)
-
-func _fade_player_marker() -> void:
-	if _player_marker == null or _player_marker_material == null:
-		return
-
-	var faded_color := _player_marker_target.car_color
-	faded_color.a = 0.0
-	var fade_tween := create_tween()
-	fade_tween.set_parallel(true)
-	fade_tween.tween_property(_player_marker_material, "albedo_color", faded_color, 0.2)
-	fade_tween.tween_property(_player_marker_material, "emission", faded_color, 0.2)
-	fade_tween.set_parallel(false)
-	fade_tween.tween_callback(_player_marker.hide)
-
-func _update_player_marker(delta: float) -> void:
-	if _player_marker == null or _player_marker_target == null or _race_running:
-		return
-
-	_player_marker.global_position = (
-		_player_marker_target.vehicle_body.global_position
-		+ Vector3.UP * _player_marker_height
-	)
-	_player_marker.rotate_y(delta * PLAYER_MARKER_SPIN_SPEED)
+		marker.global_position = (
+			target.vehicle_body.global_position
+			+ Vector3.UP * float(marker_data["height"])
+		)
+		marker.rotate_y(delta * PLAYER_MARKER_SPIN_SPEED)
 
 func _setup_race_states() -> void:
 	_states_by_car.clear()
@@ -232,7 +251,7 @@ func _setup_race_states() -> void:
 	_update_standings(true)
 
 func _start_race() -> void:
-	_fade_player_marker()
+	_fade_player_markers()
 	race_elapsed = 0.0
 	classification_time_remaining = 0.0
 	_classification_active = false

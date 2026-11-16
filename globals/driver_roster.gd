@@ -27,7 +27,7 @@ const PROFILES: Dictionary = {
 		"display_name": "B. Macron",
 		"car_number": 2,
 		"portrait": preload("res://sprites/Macron.jpg"),
-		"car_color": Color(0.68, 0.33, 0.45, 1), # Deep Rose
+		"car_color": Color(1.0, 0.0, 0.498, 1.0), # Classic Rose
 	}
 }
 
