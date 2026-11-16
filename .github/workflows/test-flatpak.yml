@@ -1,0 +1,103 @@
+name: Test Flatpak build
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GODOT_VERSION: 4.7.2
+
+jobs:
+  build-linux-archive:
+    name: Build Linux archive
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.7.2
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Godot export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          mv "/root/.local/share/godot/export_templates/${GODOT_VERSION}.stable" \
+             "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+
+      - name: Export Linux binary and PCK
+        run: |
+          mkdir -p export/linux export/flatpak
+          godot --headless --verbose --export-release "Linux/X11" export/linux/president-gp.x86_64
+          godot --headless --verbose --export-pack "Linux/X11" export/flatpak/president-gp.pck
+          cp export/linux/president-gp.x86_64 export/flatpak/
+          cp icon.png export/flatpak/
+          chmod +x export/flatpak/president-gp.x86_64
+          (cd export/flatpak && zip -X -9 ../president-gp-linux.zip president-gp.x86_64 president-gp.pck icon.png)
+
+      - name: Upload Linux archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: president-gp-linux
+          path: export/president-gp-linux.zip
+          if-no-files-found: error
+
+  test-flatpak:
+    name: Build Flatpak bundle
+    needs: build-linux-archive
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download Linux archive
+        uses: actions/download-artifact@v4
+        with:
+          name: president-gp-linux
+          path: flatpak
+
+      - name: Create local test manifest
+        run: |
+          cat > flatpak/io.github_yphil_dev.PresidentGP.test.yml <<'EOF'
+          app-id: io.github_yphil_dev.PresidentGP
+          runtime: org.freedesktop.Platform
+          runtime-version: '25.08'
+          sdk: org.freedesktop.Sdk
+          command: president-gp
+
+          finish-args:
+            - --share=ipc
+            - --socket=fallback-x11
+            - --socket=wayland
+            - --socket=pulseaudio
+            - --device=all
+
+          modules:
+            - name: president-gp
+              buildsystem: simple
+              build-commands:
+                - install -Dm755 president-gp.x86_64 /app/bin/president-gp
+                - install -Dm644 president-gp.pck /app/bin/president-gp.pck
+                - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github_yphil_dev.PresidentGP.png
+                - install -Dm644 io.github_yphil_dev.PresidentGP.desktop /app/share/applications/io.github_yphil_dev.PresidentGP.desktop
+                - install -Dm644 io.github_yphil_dev.PresidentGP.metainfo.xml /app/share/metainfo/io.github_yphil_dev.PresidentGP.metainfo.xml
+              sources:
+                - type: archive
+                  path: president-gp-linux.zip
+                - type: file
+                  path: io.github_yphil_dev.PresidentGP.desktop
+                - type: file
+                  path: io.github_yphil_dev.PresidentGP.metainfo.xml
+          EOF
+
+      - name: Build Flatpak bundle
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: PresidentGP.flatpak
+          manifest-path: flatpak/io.github_yphil_dev.PresidentGP.test.yml
+          cache: true
