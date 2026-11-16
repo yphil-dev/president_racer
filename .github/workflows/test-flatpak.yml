@@ -66,8 +66,8 @@ jobs:
 
       - name: Create local test manifest
         run: |
-          cat > flatpak/io.github_yphil_dev.PresidentGP.test.yml <<'EOF'
-          app-id: io.github_yphil_dev.PresidentGP
+          cat > flatpak/io.yphil.PresidentGP.test.yml <<'EOF'
+          app-id: io.yphil.PresidentGP
           runtime: org.freedesktop.Platform
           runtime-version: '25.08'
           sdk: org.freedesktop.Sdk
@@ -86,21 +86,21 @@ jobs:
               build-commands:
                 - install -Dm755 president-gp.x86_64 /app/bin/president-gp
                 - install -Dm644 president-gp.pck /app/bin/president-gp.pck
-                - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github_yphil_dev.PresidentGP.png
-                - install -Dm644 io.github_yphil_dev.PresidentGP.desktop /app/share/applications/io.github_yphil_dev.PresidentGP.desktop
-                - install -Dm644 io.github_yphil_dev.PresidentGP.metainfo.xml /app/share/metainfo/io.github_yphil_dev.PresidentGP.metainfo.xml
+                - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.yphil.PresidentGP.png
+                - install -Dm644 io.yphil.PresidentGP.desktop /app/share/applications/io.yphil.PresidentGP.desktop
+                - install -Dm644 io.yphil.PresidentGP.metainfo.xml /app/share/metainfo/io.yphil.PresidentGP.metainfo.xml
               sources:
                 - type: archive
                   path: president-gp-linux.zip
                 - type: file
-                  path: io.github_yphil_dev.PresidentGP.desktop
+                  path: io.yphil.PresidentGP.desktop
                 - type: file
-                  path: io.github_yphil_dev.PresidentGP.metainfo.xml
+                  path: io.yphil.PresidentGP.metainfo.xml
           EOF
 
       - name: Build Flatpak bundle
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: PresidentGP.flatpak
-          manifest-path: flatpak/io.github_yphil_dev.PresidentGP.test.yml
+          manifest-path: flatpak/io.yphil.PresidentGP.test.yml
           cache: true
