@@ -39,9 +39,9 @@
   <content_rating type="oars-1.1" />
 
   <releases>
-    <release version="1.4.4" date="2026-11-16">
+    <release version="1.4.5" date="2026-11-16">
       <description>
-        <p>Added safer ramp boundaries, clearer UI focus feedback, and global fullscreen and quit shortcuts.</p>
+        <p>Added a real "escape" menu, with "resume, retart, and back to main menu" buttons.</p>
       </description>
     </release>
   </releases>
