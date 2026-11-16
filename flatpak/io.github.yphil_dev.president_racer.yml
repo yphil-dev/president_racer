@@ -1,4 +1,4 @@
-app-id: io.github.yphil_dev.PresidentGP
+app-id: io.github.yphil_dev.president_racer
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
@@ -17,14 +17,14 @@ modules:
     build-commands:
       - install -Dm755 president-gp.x86_64 /app/bin/president-gp
       - install -Dm644 president-gp.pck /app/bin/president-gp.pck
-      - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github.yphil_dev.PresidentGP.png
-      - install -Dm644 io.github.yphil_dev.PresidentGP.desktop /app/share/applications/io.github.yphil_dev.PresidentGP.desktop
-      - install -Dm644 io.github.yphil_dev.PresidentGP.metainfo.xml /app/share/metainfo/io.github.yphil_dev.PresidentGP.metainfo.xml
+      - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github.yphil_dev.president_racer.png
+      - install -Dm644 io.github.yphil_dev.president_racer.desktop /app/share/applications/io.github.yphil_dev.president_racer.desktop
+      - install -Dm644 io.github.yphil_dev.president_racer.metainfo.xml /app/share/metainfo/io.github.yphil_dev.president_racer.metainfo.xml
     sources:
       - type: archive
         url: https://github.com/yphil-dev/president_racer/releases/download/1.4.3/president-gp-linux.zip
         sha256: 15cd04f8282629aa56dbc095206c21e887d556e6c83520f86df0088e375a6935
       - type: file
-        path: io.github.yphil_dev.PresidentGP.desktop
+        path: io.github.yphil_dev.president_racer.desktop
       - type: file
-        path: io.github.yphil_dev.PresidentGP.metainfo.xml
+        path: io.github.yphil_dev.president_racer.metainfo.xml

@@ -66,8 +66,8 @@ jobs:
 
       - name: Create local test manifest
         run: |
-          cat > flatpak/io.github.yphil_dev.PresidentGP.test.yml <<'EOF'
-          app-id: io.github.yphil_dev.PresidentGP
+          cat > flatpak/io.github.yphil_dev.president_racer.test.yml <<'EOF'
+          app-id: io.github.yphil_dev.president_racer
           runtime: org.freedesktop.Platform
           runtime-version: '25.08'
           sdk: org.freedesktop.Sdk
@@ -86,21 +86,21 @@ jobs:
               build-commands:
                 - install -Dm755 president-gp.x86_64 /app/bin/president-gp
                 - install -Dm644 president-gp.pck /app/bin/president-gp.pck
-                - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github.yphil_dev.PresidentGP.png
-                - install -Dm644 io.github.yphil_dev.PresidentGP.desktop /app/share/applications/io.github.yphil_dev.PresidentGP.desktop
-                - install -Dm644 io.github.yphil_dev.PresidentGP.metainfo.xml /app/share/metainfo/io.github.yphil_dev.PresidentGP.metainfo.xml
+                - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github.yphil_dev.president_racer.png
+                - install -Dm644 io.github.yphil_dev.president_racer.desktop /app/share/applications/io.github.yphil_dev.president_racer.desktop
+                - install -Dm644 io.github.yphil_dev.president_racer.metainfo.xml /app/share/metainfo/io.github.yphil_dev.president_racer.metainfo.xml
               sources:
                 - type: archive
                   path: president-gp-linux.zip
                 - type: file
-                  path: io.github.yphil_dev.PresidentGP.desktop
+                  path: io.github.yphil_dev.president_racer.desktop
                 - type: file
-                  path: io.github.yphil_dev.PresidentGP.metainfo.xml
+                  path: io.github.yphil_dev.president_racer.metainfo.xml
           EOF
 
       - name: Build Flatpak bundle
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: PresidentGP.flatpak
-          manifest-path: flatpak/io.github.yphil_dev.PresidentGP.test.yml
+          manifest-path: flatpak/io.github.yphil_dev.president_racer.test.yml
           cache: true
