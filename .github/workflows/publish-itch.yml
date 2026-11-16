@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   GODOT_VERSION: 4.7.2
@@ -40,6 +40,16 @@ jobs:
           mkdir -p export/linux
           godot --headless --verbose --export-release "Linux/X11" export/linux/president-gp.x86_64
 
+      - name: Build Linux release archive
+        run: |
+          mkdir -p export/flatpak
+          godot --headless --verbose --export-pack "Linux/X11" export/flatpak/president-gp.pck
+          cp export/linux/president-gp.x86_64 export/flatpak/
+          cp icon.png export/flatpak/
+          chmod +x export/flatpak/president-gp.x86_64
+          (cd export/flatpak && zip -X -9 ../president-gp-linux.zip president-gp.x86_64 president-gp.pck icon.png)
+          sha256sum export/president-gp-linux.zip
+
       - name: Export Windows build
         run: |
           mkdir -p export/windows
@@ -49,6 +59,13 @@ jobs:
         run: |
           mkdir -p export/macos
           godot --headless --verbose --export-release "macOS" export/macos/president-gp.zip
+
+      - name: Publish Linux archive to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: export/president-gp-linux.zip
+          generate_release_notes: true
 
       - name: Publish to itch.io
         env:
