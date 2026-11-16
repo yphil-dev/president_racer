@@ -81,7 +81,7 @@ func _on_race_started() -> void:
 	_rain_audio.play()
 	_rain_audio.volume_db = -9.0
 
-func _on_race_finished(_standings: Array) -> void:
+func stop_audio() -> void:
 	_race_finished = true
 	if _rain != null:
 		_rain.emitting = false
@@ -93,6 +93,9 @@ func _on_race_finished(_standings: Array) -> void:
 		_thunder_audio.stop()
 	if _lightning != null:
 		_lightning.light_energy = 0.0
+
+func _on_race_finished(_standings: Array) -> void:
+	stop_audio()
 
 func _apply_overcast_lighting() -> void:
 	var tween := create_tween().set_parallel(true)

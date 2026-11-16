@@ -123,6 +123,14 @@ func fade_engine_sound(duration: float = 0.25) -> void:
 	_engine_fade_tween.tween_property(engine_sound, "volume_db", -80.0, duration)
 	_engine_fade_tween.tween_callback(engine_sound.stop)
 
+func stop_race_audio() -> void:
+	_engine_sound_suppressed = true
+	if _engine_fade_tween != null and _engine_fade_tween.is_valid():
+		_engine_fade_tween.kill()
+	engine_sound.stop()
+	screech_sound.stop()
+	impact_sound.stop()
+
 func begin_finish_coast(distance: float) -> void:
 	_race_finished = true
 	_finish_coast_distance = maxf(distance, 0.0)

@@ -61,22 +61,36 @@ func _unhandled_input(event: InputEvent) -> void:
 	):
 		get_viewport().set_input_as_handled()
 		if OS.has_feature("web") or game_ui.is_results_active():
-			_race_running = false
-			_set_vehicles_enabled(false)
-			SceneTransition.transition_to_menu()
+			return_to_menu()
 		else:
 			game_ui.toggle_pause()
 
 func return_to_menu() -> void:
 	_race_running = false
 	_set_vehicles_enabled(false)
+	_stop_race_audio()
 	SceneTransition.request_main_menu_quit_focus()
 	SceneTransition.transition_to_menu()
 
 func restart_race() -> void:
 	_race_running = false
 	_set_vehicles_enabled(false)
+	_stop_race_audio()
 	SceneTransition.transition_to_scene(race_track.scene_file_path)
+
+func _stop_race_audio() -> void:
+	if _countdown_audio != null:
+		_countdown_audio.stop()
+	if _finish_audio != null:
+		_finish_audio.stop()
+
+	for node in get_tree().get_nodes_in_group("race_vehicles"):
+		if node is Vehicle:
+			node.stop_race_audio()
+
+	var weather_layer := race_track.get_node_or_null("WeatherLayer")
+	if weather_layer != null and weather_layer.has_method("stop_audio"):
+		weather_layer.stop_audio()
 
 func _ready() -> void:
 	if race_track.get_meta(&"menu_preview", false):
