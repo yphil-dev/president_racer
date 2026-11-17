@@ -314,7 +314,7 @@ offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_neighbor_left = NodePath("../TrackGrid/Lyon")
-focus_neighbor_top = NodePath("../TrackGrid/Lyon")
+focus_neighbor_top = NodePath("../Quit")
 theme_type_variation = &"CompactButton"
 
 [node name="Shade" type="ColorRect" parent="Options" unique_id=1233481440]
@@ -386,6 +386,7 @@ offset_bottom = -72.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
+focus_neighbor_bottom = NodePath("../Options")
 focus_neighbor_right = NodePath("../Options")
 theme_type_variation = &"CompactButton"
 

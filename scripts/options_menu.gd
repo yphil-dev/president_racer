@@ -29,7 +29,7 @@ const SCHEME_ORDER: Array[String] = [
 	RaceSelection.CONTROL_CPU,
 ]
 
-@onready var driver_grid: GridContainer = $DriverGrid
+@onready var driver_grid: Control = $DriverGrid
 @onready var driver_badge: Panel = $DriverBadge
 @onready var lap_badge: Panel = $LapBadge
 @onready var time_badge: Panel = $TimeBadge
@@ -101,8 +101,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		_return_to_menu()
 
 func _ready() -> void:
-	driver_grid.move_child(driver_buttons[3], 2)
-
 	for index in driver_buttons.size():
 		var profile := DriverRoster.get_profile(DriverRoster.DRIVER_IDS[index])
 		portraits[index].texture = profile["portrait"]
@@ -200,26 +198,17 @@ func _layout_cards() -> void:
 	if not is_node_ready():
 		return
 
-	var available_size := Vector2(size.x, maxf(size.y - 250.0, 0.0))
-	var card_size := QuadrantLayout.get_card_size(available_size) * 1.56
-	var grid_size := Vector2(
-		card_size.x * 2.0 + QuadrantLayout.HORIZONTAL_GAP,
-		card_size.y * 2.0 + QuadrantLayout.VERTICAL_GAP
+	var driver_cards_bounds := _get_driver_cards_bounds()
+	driver_badge.position = driver_cards_bounds.position + Vector2(
+		driver_cards_bounds.size.x + 8.0,
+		0.0
 	)
-	var total_height := grid_size.y + 220.0
-	driver_grid.position = Vector2(
-		(size.x - grid_size.x) * 0.5,
-		maxf(16.0, (size.y - total_height) * 0.5 + 10.0)
-	)
-	driver_badge.position = driver_grid.position + Vector2(grid_size.x + 8.0, 0.0)
 	driver_badge.size = Vector2(32.0, 32.0)
-	driver_grid.size = grid_size
-	driver_grid.custom_minimum_size = grid_size
 
-	for button in driver_buttons:
-		button.custom_minimum_size = card_size
-
-	lap_selector.position = Vector2((size.x - 192.0) * 0.5, driver_grid.position.y + grid_size.y + 20.0)
+	lap_selector.position = Vector2(
+		(size.x - 192.0) * 0.5,
+		driver_cards_bounds.end.y + 20.0
+	)
 	lap_selector.size = Vector2(192.0, 36.0)
 	lap_badge.position = lap_selector.position + Vector2(200.0, 2.0)
 	lap_badge.size = Vector2(32.0, 32.0)
@@ -229,6 +218,13 @@ func _layout_cards() -> void:
 	time_badge.size = Vector2(32.0, 32.0)
 	weather_selector.position = time_selector.position + Vector2(0.0, 52.0)
 	weather_selector.size = Vector2(192.0, 40.0)
+
+func _get_driver_cards_bounds() -> Rect2:
+	var bounds := Rect2(driver_buttons[0].position, driver_buttons[0].size)
+	for index in range(1, driver_buttons.size()):
+		var card := driver_buttons[index]
+		bounds = bounds.merge(Rect2(card.position, card.size))
+	return bounds
 
 func _create_scheme_buttons(driver_index: int) -> void:
 	var driver_id := DriverRoster.DRIVER_IDS[driver_index]

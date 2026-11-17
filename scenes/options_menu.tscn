@@ -83,19 +83,22 @@ texture = ExtResource("4_wheel")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="DriverGrid" type="GridContainer" parent="." unique_id=188854883]
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 100.0
-theme_override_constants/h_separation = 32
-theme_override_constants/v_separation = 24
-columns = 2
+[node name="DriverGrid" type="Control" parent="." unique_id=188854883]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Soral" type="Button" parent="DriverGrid" unique_id=1143044812]
 clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+layout_mode = 0
+offset_left = 187.136
+offset_top = 16.0
+offset_right = 464.0
+offset_bottom = 169.816
 focus_neighbor_right = NodePath("../LePen")
 focus_neighbor_bottom = NodePath("../Melenchon")
 flat = true
@@ -161,9 +164,11 @@ alignment = 1
 
 [node name="LePen" type="Button" parent="DriverGrid" unique_id=362051121]
 clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+layout_mode = 0
+offset_left = 496.0
+offset_top = 16.0
+offset_right = 772.864
+offset_bottom = 169.816
 focus_neighbor_left = NodePath("../Soral")
 focus_neighbor_bottom = NodePath("../Glucksman")
 flat = true
@@ -229,9 +234,11 @@ alignment = 1
 
 [node name="Glucksman" type="Button" parent="DriverGrid" unique_id=1739639960]
 clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+layout_mode = 0
+offset_left = 496.0
+offset_top = 193.816
+offset_right = 772.864
+offset_bottom = 347.632
 focus_neighbor_left = NodePath("../Melenchon")
 focus_neighbor_top = NodePath("../LePen")
 focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/Three")
@@ -298,9 +305,11 @@ alignment = 1
 
 [node name="Melenchon" type="Button" parent="DriverGrid" unique_id=1704054427]
 clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+layout_mode = 0
+offset_left = 187.136
+offset_top = 193.816
+offset_right = 464.0
+offset_bottom = 347.632
 focus_neighbor_top = NodePath("../Soral")
 focus_neighbor_right = NodePath("../Glucksman")
 focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/One")
