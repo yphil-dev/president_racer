@@ -54,37 +54,37 @@ const SCHEME_ORDER: Array[String] = [
 @onready var driver_buttons: Array[Button] = [
 	$DriverGrid/Soral,
 	$DriverGrid/LePen,
-	$DriverGrid/Glucksman,
+	$DriverGrid/Macron,
 	$DriverGrid/Melenchon,
 ]
 @onready var scheme_containers: Array[HBoxContainer] = [
 	$DriverGrid/Soral/ControlSchemes,
 	$DriverGrid/LePen/ControlSchemes,
-	$DriverGrid/Glucksman/ControlSchemes,
+	$DriverGrid/Macron/ControlSchemes,
 	$DriverGrid/Melenchon/ControlSchemes,
 ]
 @onready var portraits: Array[TextureRect] = [
 	$DriverGrid/Soral/Portrait,
 	$DriverGrid/LePen/Portrait,
-	$DriverGrid/Glucksman/Portrait,
+	$DriverGrid/Macron/Portrait,
 	$DriverGrid/Melenchon/Portrait,
 ]
 @onready var shades: Array[ColorRect] = [
 	$DriverGrid/Soral/Shade,
 	$DriverGrid/LePen/Shade,
-	$DriverGrid/Glucksman/Shade,
+	$DriverGrid/Macron/Shade,
 	$DriverGrid/Melenchon/Shade,
 ]
 @onready var color_accents: Array[ColorRect] = [
 	$DriverGrid/Soral/ColorAccent,
 	$DriverGrid/LePen/ColorAccent,
-	$DriverGrid/Glucksman/ColorAccent,
+	$DriverGrid/Macron/ColorAccent,
 	$DriverGrid/Melenchon/ColorAccent,
 ]
 @onready var name_labels: Array[Label] = [
 	$DriverGrid/Soral/NameLabel,
 	$DriverGrid/LePen/NameLabel,
-	$DriverGrid/Glucksman/NameLabel,
+	$DriverGrid/Macron/NameLabel,
 	$DriverGrid/Melenchon/NameLabel,
 ]
 
@@ -172,13 +172,10 @@ func _ready() -> void:
 	_refresh_controller_assignments()
 	_refresh_scheme_buttons()
 
-	resized.connect(_layout_cards)
 	_initialize.call_deferred()
 
 func _initialize() -> void:
 	await get_tree().process_frame
-	_layout_cards()
-
 	for index in driver_buttons.size():
 		driver_buttons[index].modulate = Color(1, 1, 1, 0)
 		_update_button_pivot(index)
@@ -193,38 +190,6 @@ func _initialize() -> void:
 
 	_play_intro()
 	_unlock_startup_hover.call_deferred()
-
-func _layout_cards() -> void:
-	if not is_node_ready():
-		return
-
-	var driver_cards_bounds := _get_driver_cards_bounds()
-	driver_badge.position = driver_cards_bounds.position + Vector2(
-		driver_cards_bounds.size.x + 8.0,
-		0.0
-	)
-	driver_badge.size = Vector2(32.0, 32.0)
-
-	lap_selector.position = Vector2(
-		(size.x - 192.0) * 0.5,
-		driver_cards_bounds.end.y + 20.0
-	)
-	lap_selector.size = Vector2(192.0, 36.0)
-	lap_badge.position = lap_selector.position + Vector2(200.0, 2.0)
-	lap_badge.size = Vector2(32.0, 32.0)
-	time_selector.position = lap_selector.position + Vector2(0.0, 60.0)
-	time_selector.size = Vector2(192.0, 40.0)
-	time_badge.position = time_selector.position + Vector2(200.0, 4.0)
-	time_badge.size = Vector2(32.0, 32.0)
-	weather_selector.position = time_selector.position + Vector2(0.0, 52.0)
-	weather_selector.size = Vector2(192.0, 40.0)
-
-func _get_driver_cards_bounds() -> Rect2:
-	var bounds := Rect2(driver_buttons[0].position, driver_buttons[0].size)
-	for index in range(1, driver_buttons.size()):
-		var card := driver_buttons[index]
-		bounds = bounds.merge(Rect2(card.position, card.size))
-	return bounds
 
 func _create_scheme_buttons(driver_index: int) -> void:
 	var driver_id := DriverRoster.DRIVER_IDS[driver_index]
