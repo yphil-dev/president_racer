@@ -3,8 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://dffh13ujx0tmi" path="res://models/decoration-empty.glb" id="1_8k04h"]
 [ext_resource type="PackedScene" uid="uid://dnonb1wl5fs0h" path="res://models/decoration-forest.glb" id="2_dlvak"]
 [ext_resource type="PackedScene" uid="uid://ch83y7b822ibm" path="res://models/decoration-tents.glb" id="3_6wkmy"]
-[ext_resource type="ArrayMesh" uid="uid://ckfa8kxp3wpfy" path="res://tmp/new_array_mesh.mesh" id="5_oxy43"]
+[ext_resource type="ArrayMesh" path="res://models/Library/track-straight.mesh" id="5_oxy43"]
 [ext_resource type="Texture2D" uid="uid://cn1tfklahvwc0" path="res://models/Textures/colormap.png" id="5_qst2b"]
+[ext_resource type="Texture2D" uid="uid://cq5eqs4i53y3u" path="res://models/Textures/colormap_sand.png" id="6_dsn08"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqi4y"]
 resource_name = "colormap"
@@ -98,6 +99,9 @@ data = PackedVector3Array(4.9, 3, 5, 4.6, 3, -5, 4.9, 3, -5, 4.6, 3, -5, 4.9, 3,
 [sub_resource type="BoxShape3D" id="BoxShape3D_8vya0"]
 size = Vector3(9.024811, 0.0087890625, 10.000351)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mf22"]
+albedo_texture = ExtResource("6_dsn08")
+
 [sub_resource type="BoxMesh" id="BoxMesh_6xfsa"]
 size = Vector3(10, 1, 10)
 
@@ -156,6 +160,50 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_qst2b")
 
 [node name="Floor" type="CollisionShape3D" parent="track-ramp/collision" unique_id=888443787]
+shape = SubResource("BoxShape3D_8vya0")
+
+[node name="track-sand-corner" type="MeshInstance3D" parent="." unique_id=1588084065]
+visible = false
+mesh = SubResource("ArrayMesh_fjrti")
+skeleton = NodePath("")
+
+[node name="collision" type="StaticBody3D" parent="track-sand-corner" unique_id=1438842577]
+
+[node name="Walls" type="CollisionShape3D" parent="track-sand-corner/collision" unique_id=1684697462]
+shape = SubResource("ConcavePolygonShape3D_ftcqc")
+
+[node name="track-sand-finish" type="MeshInstance3D" parent="." unique_id=637890245]
+visible = false
+mesh = SubResource("ArrayMesh_glc7t")
+skeleton = NodePath("")
+
+[node name="collision" type="StaticBody3D" parent="track-sand-finish" unique_id=246851601]
+
+[node name="Walls" type="CollisionShape3D" parent="track-sand-finish/collision" unique_id=1435461188]
+shape = SubResource("ConcavePolygonShape3D_oxy43")
+
+[node name="track-sand-straight" type="MeshInstance3D" parent="." unique_id=1519739988]
+mesh = ExtResource("5_oxy43")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_0mf22")
+
+[node name="collision" type="StaticBody3D" parent="track-sand-straight" unique_id=10304496]
+
+[node name="Walls" type="CollisionShape3D" parent="track-sand-straight/collision" unique_id=946836852]
+shape = SubResource("ConcavePolygonShape3D_oxy43")
+
+[node name="track-sand-ramp" type="MeshInstance3D" parent="." unique_id=387073552]
+transform = Transform3D(1, 0, 0, 0, 0.9596154, 0.28131545, 0, -0.28131545, 0.9596154, 0, 1.3992083, -0.1168437)
+visible = false
+mesh = ExtResource("5_oxy43")
+skeleton = NodePath("")
+
+[node name="collision" type="StaticBody3D" parent="track-sand-ramp" unique_id=1322104675]
+
+[node name="Walls" type="CollisionShape3D" parent="track-sand-ramp/collision" unique_id=314016470]
+shape = SubResource("ConcavePolygonShape3D_qst2b")
+
+[node name="Floor" type="CollisionShape3D" parent="track-sand-ramp/collision" unique_id=1178687826]
 shape = SubResource("BoxShape3D_8vya0")
 
 [node name="track-half-ramp" type="MeshInstance3D" parent="." unique_id=776915030]
