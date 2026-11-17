@@ -48,6 +48,8 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_neighbor_left = NodePath("../Marseille")
+focus_neighbor_top = NodePath("../Limoges")
 focus_neighbor_right = NodePath("../Marseille")
 focus_neighbor_bottom = NodePath("../Limoges")
 flat = true
@@ -112,6 +114,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Paris")
+focus_neighbor_top = NodePath("../Lyon")
+focus_neighbor_right = NodePath("../Paris")
 focus_neighbor_bottom = NodePath("../Lyon")
 flat = true
 
@@ -174,9 +178,10 @@ theme_type_variation = &"SelectionFrame"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_neighbor_left = NodePath("../../Options")
 focus_neighbor_top = NodePath("../Paris")
 focus_neighbor_right = NodePath("../Lyon")
-focus_neighbor_bottom = NodePath("../../Quit")
+focus_neighbor_bottom = NodePath("../../Options")
 flat = true
 
 [node name="Preview" type="TextureRect" parent="TrackGrid/Limoges" unique_id=16404306]
@@ -241,7 +246,7 @@ size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Limoges")
 focus_neighbor_top = NodePath("../Marseille")
 focus_neighbor_right = NodePath("../../Quit")
-focus_neighbor_bottom = NodePath("../../Quit")
+focus_neighbor_bottom = NodePath("../../Options")
 flat = true
 
 [node name="Preview" type="TextureRect" parent="TrackGrid/Lyon" unique_id=1536931630]
@@ -315,6 +320,8 @@ grow_horizontal = 0
 grow_vertical = 0
 focus_neighbor_left = NodePath("../TrackGrid/Lyon")
 focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../TrackGrid/Limoges")
+focus_neighbor_bottom = NodePath("../TrackGrid/Marseille")
 theme_type_variation = &"CompactButton"
 
 [node name="Shade" type="ColorRect" parent="Options" unique_id=1233481440]
@@ -385,9 +392,10 @@ offset_right = -8.0
 offset_bottom = -72.0
 grow_horizontal = 0
 grow_vertical = 0
+focus_neighbor_left = NodePath("../TrackGrid/Lyon")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
-focus_neighbor_bottom = NodePath("../Options")
 focus_neighbor_right = NodePath("../Options")
+focus_neighbor_bottom = NodePath("../Options")
 theme_type_variation = &"CompactButton"
 
 [node name="Icon" type="TextureRect" parent="Quit" unique_id=2016133169]
