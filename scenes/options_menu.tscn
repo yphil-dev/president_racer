@@ -168,6 +168,103 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 alignment = 1
 
+[node name="gamepad_1_arrow" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=1318588794]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.7
+focus_neighbor_left = NodePath("../../../LePen/ControlSchemes/cpu")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_1")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/gamepad_1_arrow")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1 + arrows"
+
+[node name="gamepad_1" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=2140669289]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1_arrow")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/gamepad_1")
+focus_neighbor_right = NodePath("../arrow")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/gamepad_1")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1"
+
+[node name="arrow" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=1515190793]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/arrow")
+focus_neighbor_right = NodePath("../wasd")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/arrow")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "Arrows"
+
+[node name="wasd" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=41153070]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../arrow")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/wasd")
+focus_neighbor_right = NodePath("../gamepad_2")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/wasd")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "WASD"
+
+[node name="gamepad_2" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=1151991462]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../wasd")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/gamepad_2")
+focus_neighbor_right = NodePath("../gamepad_3")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/gamepad_2")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G2"
+
+[node name="gamepad_3" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=1783682284]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_2")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/gamepad_3")
+focus_neighbor_right = NodePath("../gamepad_4")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/gamepad_3")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G3"
+
+[node name="gamepad_4" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=441109970]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_3")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/gamepad_4")
+focus_neighbor_right = NodePath("../cpu")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/gamepad_4")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G4"
+
+[node name="cpu" type="Button" parent="DriverGrid/Soral/ControlSchemes" unique_id=1816898399]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_4")
+focus_neighbor_top = NodePath("../../../Melenchon/ControlSchemes/cpu")
+focus_neighbor_right = NodePath("../../../LePen/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_bottom = NodePath("../../../Melenchon/ControlSchemes/cpu")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "CPU"
+
 [node name="LePen" type="Button" parent="DriverGrid" unique_id=362051121]
 clip_contents = true
 layout_mode = 0
@@ -239,6 +336,103 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
 alignment = 1
+
+[node name="gamepad_1_arrow" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=1980633657]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.7
+focus_neighbor_left = NodePath("../../../Soral/ControlSchemes/cpu")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_1")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/gamepad_1_arrow")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1 + arrows"
+
+[node name="gamepad_1" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=475280887]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1_arrow")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/gamepad_1")
+focus_neighbor_right = NodePath("../arrow")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/gamepad_1")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1"
+
+[node name="arrow" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=126424472]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/arrow")
+focus_neighbor_right = NodePath("../wasd")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/arrow")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "Arrows"
+
+[node name="wasd" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=1233923982]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../arrow")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/wasd")
+focus_neighbor_right = NodePath("../gamepad_2")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/wasd")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "WASD"
+
+[node name="gamepad_2" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=699230246]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../wasd")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/gamepad_2")
+focus_neighbor_right = NodePath("../gamepad_3")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/gamepad_2")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G2"
+
+[node name="gamepad_3" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=29911120]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_2")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/gamepad_3")
+focus_neighbor_right = NodePath("../gamepad_4")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/gamepad_3")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G3"
+
+[node name="gamepad_4" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=351905174]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_3")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/gamepad_4")
+focus_neighbor_right = NodePath("../cpu")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/gamepad_4")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G4"
+
+[node name="cpu" type="Button" parent="DriverGrid/LePen/ControlSchemes" unique_id=1573014984]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_4")
+focus_neighbor_top = NodePath("../../../Macron/ControlSchemes/cpu")
+focus_neighbor_right = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_bottom = NodePath("../../../Macron/ControlSchemes/cpu")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "CPU"
 
 [node name="Macron" type="Button" parent="DriverGrid" unique_id=1739639960]
 clip_contents = true
@@ -313,6 +507,103 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 alignment = 1
 
+[node name="gamepad_1_arrow" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=1419632351]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.7
+focus_neighbor_left = NodePath("../../../Melenchon/ControlSchemes/cpu")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_1")
+focus_neighbor_bottom = NodePath("../../../../WeatherSelector/Snow")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1 + arrows"
+
+[node name="gamepad_1" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=493442832]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1_arrow")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/gamepad_1")
+focus_neighbor_right = NodePath("../arrow")
+focus_neighbor_bottom = NodePath("../../../../LapSelector/Bar/Buttons/One")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1"
+
+[node name="arrow" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=1643831815]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/arrow")
+focus_neighbor_right = NodePath("../wasd")
+focus_neighbor_bottom = NodePath("../../../../LapSelector/Bar/Buttons/Two")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "Arrows"
+
+[node name="wasd" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=1690193633]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../arrow")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/wasd")
+focus_neighbor_right = NodePath("../gamepad_2")
+focus_neighbor_bottom = NodePath("../../../../LapSelector/Bar/Buttons/Three")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "WASD"
+
+[node name="gamepad_2" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=2069531844]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../wasd")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/gamepad_2")
+focus_neighbor_right = NodePath("../gamepad_3")
+focus_neighbor_bottom = NodePath("../../../../Race")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G2"
+
+[node name="gamepad_3" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=1193484591]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_2")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/gamepad_3")
+focus_neighbor_right = NodePath("../gamepad_4")
+focus_neighbor_bottom = NodePath("../../../../Race")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G3"
+
+[node name="gamepad_4" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=699157128]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_3")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/gamepad_4")
+focus_neighbor_right = NodePath("../cpu")
+focus_neighbor_bottom = NodePath("../../../../Race")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G4"
+
+[node name="cpu" type="Button" parent="DriverGrid/Macron/ControlSchemes" unique_id=696961819]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_4")
+focus_neighbor_top = NodePath("../../../LePen/ControlSchemes/cpu")
+focus_neighbor_right = NodePath("../../../Melenchon/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_bottom = NodePath("../../../../Race")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "CPU"
+
 [node name="Melenchon" type="Button" parent="DriverGrid" unique_id=1704054427]
 clip_contents = true
 layout_mode = 0
@@ -386,6 +677,103 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 alignment = 1
 
+[node name="gamepad_1_arrow" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=1736986203]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.7
+focus_neighbor_left = NodePath("../../../Macron/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_1")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1 + arrows"
+
+[node name="gamepad_1" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=674282091]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1_arrow")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../arrow")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G1"
+
+[node name="arrow" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=33759639]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_1")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../wasd")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "Arrows"
+
+[node name="wasd" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=849693979]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../arrow")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_2")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Day")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "WASD"
+
+[node name="gamepad_2" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=2000112724]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../wasd")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_3")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Night")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G2"
+
+[node name="gamepad_3" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=1088023926]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_2")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../gamepad_4")
+focus_neighbor_bottom = NodePath("../../../../TimeSelector/Night")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G3"
+
+[node name="gamepad_4" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=1861218435]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_3")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../cpu")
+focus_neighbor_bottom = NodePath("../../../../WeatherSelector/Fair")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "G4"
+
+[node name="cpu" type="Button" parent="DriverGrid/Melenchon/ControlSchemes" unique_id=1100151582]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../gamepad_4")
+focus_neighbor_top = NodePath("../../../Soral/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_right = NodePath("../../../Macron/ControlSchemes/gamepad_1_arrow")
+focus_neighbor_bottom = NodePath("../../../../WeatherSelector/Fair")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"SchemeButton"
+text = "CPU"
+
 [node name="TimeSelector" type="HBoxContainer" parent="." unique_id=1970189216]
 layout_mode = 0
 offset_left = 159.0
@@ -399,7 +787,7 @@ alignment = 1
 custom_minimum_size = Vector2(92, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../Race")
-focus_neighbor_top = NodePath("../../DriverGrid/Melenchon")
+focus_neighbor_top = NodePath("../../DriverGrid/Melenchon/ControlSchemes/arrow")
 focus_neighbor_right = NodePath("../Night")
 focus_neighbor_bottom = NodePath("../Night")
 theme_type_variation = &"CompactButton"
@@ -410,7 +798,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(92, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Day")
-focus_neighbor_top = NodePath("../../DriverGrid/Melenchon")
+focus_neighbor_top = NodePath("../../DriverGrid/Melenchon/ControlSchemes/wasd")
 focus_neighbor_right = NodePath("../../WeatherSelector/Fair")
 focus_neighbor_bottom = NodePath("../../WeatherSelector/Fair")
 theme_type_variation = &"CompactButton"
@@ -431,7 +819,7 @@ alignment = 1
 custom_minimum_size = Vector2(60, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../TimeSelector/Night")
-focus_neighbor_top = NodePath("../../DriverGrid/Melenchon")
+focus_neighbor_top = NodePath("../../DriverGrid/Melenchon/ControlSchemes/cpu")
 focus_neighbor_right = NodePath("../Rain")
 focus_neighbor_bottom = NodePath("../Rain")
 theme_type_variation = &"CompactButton"
@@ -442,7 +830,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(60, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Fair")
-focus_neighbor_top = NodePath("../../DriverGrid/Melenchon")
+focus_neighbor_top = NodePath("../../DriverGrid/Melenchon/ControlSchemes/cpu")
 focus_neighbor_right = NodePath("../Snow")
 focus_neighbor_bottom = NodePath("../Snow")
 theme_type_variation = &"CompactButton"
@@ -453,7 +841,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(60, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Rain")
-focus_neighbor_top = NodePath("../../DriverGrid/Macron")
+focus_neighbor_top = NodePath("../../DriverGrid/Macron/ControlSchemes/gamepad_1_arrow")
 focus_neighbor_right = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_bottom = NodePath("../../LapSelector/Bar/Buttons/One")
 theme_type_variation = &"CompactButton"
@@ -484,7 +872,7 @@ alignment = 1
 custom_minimum_size = Vector2(60, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../../WeatherSelector/Snow")
-focus_neighbor_top = NodePath("../../../../DriverGrid/Macron")
+focus_neighbor_top = NodePath("../../../../DriverGrid/Macron/ControlSchemes/gamepad_1_arrow")
 focus_neighbor_right = NodePath("../Two")
 focus_neighbor_bottom = NodePath("../Two")
 theme_type_variation = &"CompactButton"
@@ -495,7 +883,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(60, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../One")
-focus_neighbor_top = NodePath("../../../../DriverGrid/Macron")
+focus_neighbor_top = NodePath("../../../../DriverGrid/Macron/ControlSchemes/gamepad_1_arrow")
 focus_neighbor_right = NodePath("../Three")
 focus_neighbor_bottom = NodePath("../Three")
 theme_type_variation = &"CompactButton"
@@ -506,7 +894,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(60, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Two")
-focus_neighbor_top = NodePath("../../../../DriverGrid/Macron")
+focus_neighbor_top = NodePath("../../../../DriverGrid/Macron/ControlSchemes/gamepad_1_arrow")
 focus_neighbor_right = NodePath("../../../../Race")
 focus_neighbor_bottom = NodePath("../../../../Race")
 theme_type_variation = &"CompactButton"

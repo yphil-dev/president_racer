@@ -197,18 +197,17 @@ func _create_scheme_buttons(driver_index: int) -> void:
 	var container := scheme_containers[driver_index]
 
 	for scheme in SCHEME_ORDER:
-		var button := Button.new()
-		button.name = scheme.to_pascal_case()
-		button.custom_minimum_size = Vector2(0.0, 56.0)
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.size_flags_stretch_ratio = 1.7 if scheme == RaceSelection.CONTROL_COMBO else 1.0
+		var button := container.get_node_or_null(scheme) as Button
+		if button == null:
+			push_error("Missing scheme button %s for %s." % [scheme, driver_id])
+			continue
+		button.text = ""
 		button.focus_mode = Control.FOCUS_ALL
 		button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		button.theme_type_variation = &"SchemeButton"
 		button.pressed.connect(_select_control_scheme.bind(driver_id, scheme))
 		button.focus_entered.connect(_focus_scheme_button.bind(driver_index))
 		button.mouse_entered.connect(_hover_scheme_button.bind(button))
-		container.add_child(button)
 		_add_scheme_visual(button, scheme)
 		buttons_for_driver[scheme] = button
 
