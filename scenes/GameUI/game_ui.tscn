@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dedl7wmrll5l3" path="res://sprites/arrow-left.svg" id="5_back"]
 [ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="6_resume"]
 
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_countdown_background"]
 bg_color = Color(0.025, 0.03, 0.045, 0.82)
 corner_radius_top_left = 5
@@ -23,7 +22,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_panel"]
-bg_color = Color(0.025, 0.03, 0.045, 0.92)
+bg_color = Color(0.14509805, 0.20784314, 0.29803923, 1)
 border_color = Color(1, 0.85, 0.42, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -95,7 +94,6 @@ layout_mode = 2
 [node name="CarUI4" parent="MarginContainer/VBoxContainer" unique_id=1609130544 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
-
 
 [node name="ClassificationCountdown" type="Control" parent="." unique_id=7164351]
 visible = false

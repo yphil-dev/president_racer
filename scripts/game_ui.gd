@@ -110,7 +110,6 @@ func _restart_from_pause() -> void:
 	_set_pause_audio(false)
 	_paused = false
 	get_tree().paused = false
-	pause_overlay.hide()
 	_controller.restart_race()
 
 

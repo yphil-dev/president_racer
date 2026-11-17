@@ -76,7 +76,7 @@ func restart_race() -> void:
 	_race_running = false
 	_set_vehicles_enabled(false)
 	_stop_race_audio()
-	SceneTransition.transition_to_scene(race_track.scene_file_path)
+	SceneTransition.transition_to_restart(race_track.scene_file_path)
 
 func _stop_race_audio() -> void:
 	if _countdown_audio != null:

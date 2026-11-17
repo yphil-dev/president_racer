@@ -8,7 +8,10 @@ const SPLASH_TEXTURE: Texture2D = preload("res://splash-screen.png")
 
 const EXPAND_DURATION: float = 0.7
 const REVEAL_DURATION: float = 0.6
-const MENU_COVER_DURATION: float = 0.45
+const MENU_COVER_DURATION: float = 1.45
+const RESTART_FADE_IN_DURATION: float = 0.7
+const RESTART_FADE_OUT_DURATION: float = 0.25
+const RESTART_FADE_COLOR: Color = Color("#25354c")
 
 var _overlay: Control
 var _potato_rock_overlay
@@ -257,6 +260,43 @@ func transition_to_track(
 
 func transition_to_menu() -> void:
 	transition_to_scene(MAIN_MENU_SCENE)
+
+func transition_to_restart(scene_path: String) -> void:
+	if _active:
+		return
+
+	_active = true
+	_potato_rock_overlay.set_interactive(false)
+	_potato_rock_overlay.hide()
+	_overlay.show()
+	_preview.hide()
+	var transparent_fade_color := RESTART_FADE_COLOR
+	transparent_fade_color.a = 0.0
+	_black.color = transparent_fade_color
+
+	var fade_out_tween := create_tween()
+	fade_out_tween.set_trans(Tween.TRANS_QUART)
+	fade_out_tween.set_ease(Tween.EASE_IN_OUT)
+	fade_out_tween.tween_property(_black, "color", RESTART_FADE_COLOR, RESTART_FADE_IN_DURATION)
+	await fade_out_tween.finished
+
+	var error := get_tree().change_scene_to_file(scene_path)
+	if error != OK:
+		push_error("Could not restart scene %s: error %d" % [scene_path, error])
+		_reset()
+		return
+
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_potato_rock_overlay.show()
+
+	var fade_in_tween := create_tween()
+	fade_in_tween.set_trans(Tween.TRANS_QUART)
+	fade_in_tween.set_ease(Tween.EASE_OUT)
+	fade_in_tween.tween_property(_black, "color", transparent_fade_color, RESTART_FADE_OUT_DURATION)
+	await fade_in_tween.finished
+	show_potato_rock()
+	_reset()
 
 func transition_to_scene(scene_path: String) -> void:
 	if _active:
