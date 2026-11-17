@@ -16,6 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://yb7expqoqxvb" path="res://sprites/laps-one.svg" id="16_laps_one"]
 [ext_resource type="Texture2D" uid="uid://dlmoa1on0tsn" path="res://sprites/laps-two.svg" id="17_laps_two"]
 [ext_resource type="Texture2D" uid="uid://cqkoyikce2m8l" path="res://sprites/laps-three.svg" id="18_laps_three"]
+[ext_resource type="Texture2D" uid="uid://bfaf8a51m4duh" path="res://sprites/Soral.jpg" id="19_soral"]
+[ext_resource type="Texture2D" uid="uid://cht6vw8k22pyd" path="res://sprites/Lepen.jpg" id="20_lepen"]
+[ext_resource type="Texture2D" uid="uid://bfxgr53wjcmlx" path="res://sprites/Melenchon.jpg" id="21_melenchon"]
+[ext_resource type="Texture2D" uid="uid://16gpa6qdcqni" path="res://sprites/Macron.jpg" id="22_macron"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_title_badge"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -111,6 +115,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("19_soral")
 expand_mode = 1
 stretch_mode = 6
 
@@ -146,6 +151,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+text = "A. Soral"
 label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -181,6 +187,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("20_lepen")
 expand_mode = 1
 stretch_mode = 6
 
@@ -216,6 +223,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+text = "M. Le Pen"
 label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -252,6 +260,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("22_macron")
 expand_mode = 1
 stretch_mode = 6
 
@@ -287,6 +296,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+text = "B. Macron"
 label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -323,6 +333,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("21_melenchon")
 expand_mode = 1
 stretch_mode = 6
 
@@ -358,6 +369,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 36
+text = "JL. Mélenchon"
 label_settings = ExtResource("4_a5fmu")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -376,9 +388,9 @@ alignment = 1
 
 [node name="TimeSelector" type="HBoxContainer" parent="." unique_id=1970189216]
 layout_mode = 0
-offset_left = 148.0
+offset_left = 159.0
 offset_top = 476.0
-offset_right = 340.0
+offset_right = 351.0
 offset_bottom = 528.0
 theme_override_constants/separation = 0
 alignment = 1

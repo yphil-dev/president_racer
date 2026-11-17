@@ -15,7 +15,7 @@ outline_color = Color(0.2404995, 0.14098927, 1.2032688e-08, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_studio"]
 font = ExtResource("4_studio_font")
-font_size = 20
+font_size = 24
 font_color = Color(0.05882353, 0.83137256, 0.3647059, 1)
 
 [node name="PotatoRockOverlay" type="Control" unique_id=1197936269]
@@ -28,21 +28,29 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_overlay")
 
-[node name="PotatoRockButton" type="TextureButton" parent="." unique_id=865289706]
+[node name="Content" type="Control" parent="." unique_id=2083122695]
 layout_mode = 1
 anchors_preset = 2
 anchor_bottom = 1.0
-grow_vertical = 0
 offset_left = -52.0
 offset_top = -99.0
 offset_right = 148.0
 offset_bottom = 4.0
+grow_vertical = 0
+pivot_offset = Vector2(100, 103)
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+
+[node name="PotatoRockButton" type="TextureButton" parent="Content" unique_id=865289706]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 103.0
 tooltip_text = "Potato Rock Studio"
 action_mode = 0
 script = ExtResource("2_button")
 
-[node name="Animation" type="AnimatedSprite2D" parent="." unique_id=2083122694]
-position = Vector2(48, 671)
+[node name="Animation" type="AnimatedSprite2D" parent="Content" unique_id=2083122694]
+position = Vector2(100, 50)
 speed_scale = 1.5
 
 [node name="Roll" type="AudioStreamPlayer2D" parent="." unique_id=1899662003]
@@ -51,16 +59,13 @@ volume_db = -15.0
 [node name="Sprout" type="AudioStreamPlayer2D" parent="." unique_id=2101518744]
 volume_db = -12.0
 
-[node name="PotatoRock" type="Label" parent="." unique_id=1701074503]
-layout_mode = 1
+[node name="PotatoRock" type="Label" parent="Content" unique_id=1701074503]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 33.0
+offset_right = 159.0
+offset_bottom = 125.0
 mouse_filter = 2
-anchors_preset = 2
-anchor_bottom = 1.0
-grow_vertical = 0
-offset_left = -11.0
-offset_top = -82.0
-offset_right = 94.0
-offset_bottom = 4.0
 text = "PIERRE
 PATATE
 
@@ -68,15 +73,12 @@ PATATE
 label_settings = SubResource("LabelSettings_potato")
 horizontal_alignment = 1
 
-[node name="Studio" type="Label" parent="." unique_id=913195181]
-layout_mode = 1
+[node name="Studio" type="Label" parent="Content" unique_id=913195181]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 65.0
+offset_right = 128.0
+offset_bottom = 98.0
 mouse_filter = 2
-anchors_preset = 2
-anchor_bottom = 1.0
-grow_vertical = 0
-offset_left = 23.0
-offset_top = -36.0
-offset_right = 61.0
-offset_bottom = -16.0
 text = "studio"
 label_settings = SubResource("LabelSettings_studio")

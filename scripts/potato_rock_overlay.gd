@@ -14,12 +14,12 @@ const STUDIO_DELAY: float = 5.0
 const STUDIO_FADE_DURATION: float = 0.1
 const SOUND_DELAY: float = 1.0
 
-@onready var animation: AnimatedSprite2D = $Animation
+@onready var animation: AnimatedSprite2D = $Content/Animation
 @onready var roll: AudioStreamPlayer2D = $Roll
 @onready var sprout: AudioStreamPlayer2D = $Sprout
-@onready var potato_rock_label: Label = $PotatoRock
-@onready var studio_label: Label = $Studio
-@onready var potato_rock_button: TextureButton = $PotatoRockButton
+@onready var potato_rock_label: Label = $Content/PotatoRock
+@onready var studio_label: Label = $Content/Studio
+@onready var potato_rock_button: TextureButton = $Content/PotatoRockButton
 
 var _intro_finished: bool = false
 
@@ -30,16 +30,11 @@ func _ready() -> void:
 	potato_rock_label.modulate = Color(1, 1, 1, 0)
 	studio_label.modulate = Color(1, 1, 1, 0)
 	animation.play(&"default")
-	resized.connect(_layout_overlay)
-	_layout_overlay()
 	_fade_in_label(potato_rock_label, LABEL_DELAY, LABEL_FADE_DURATION)
 	_fade_in_label(studio_label, STUDIO_DELAY, STUDIO_FADE_DURATION)
 	set_interactive(false)
 	_play_sound_sequence()
 	_unlock_interaction_after_intro()
-
-func _layout_overlay() -> void:
-	animation.position = Vector2(48.0, size.y - 49.0)
 
 func configure_navigation(scene: Node) -> void:
 	potato_rock_button.focus_mode = Control.FOCUS_NONE

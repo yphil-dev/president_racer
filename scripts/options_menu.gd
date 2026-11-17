@@ -54,38 +54,38 @@ const SCHEME_ORDER: Array[String] = [
 @onready var driver_buttons: Array[Button] = [
 	$DriverGrid/Soral,
 	$DriverGrid/LePen,
-	$DriverGrid/Macron,
 	$DriverGrid/Melenchon,
+	$DriverGrid/Macron,
 ]
 @onready var scheme_containers: Array[HBoxContainer] = [
 	$DriverGrid/Soral/ControlSchemes,
 	$DriverGrid/LePen/ControlSchemes,
-	$DriverGrid/Macron/ControlSchemes,
 	$DriverGrid/Melenchon/ControlSchemes,
+	$DriverGrid/Macron/ControlSchemes,
 ]
 @onready var portraits: Array[TextureRect] = [
 	$DriverGrid/Soral/Portrait,
 	$DriverGrid/LePen/Portrait,
-	$DriverGrid/Macron/Portrait,
 	$DriverGrid/Melenchon/Portrait,
+	$DriverGrid/Macron/Portrait,
 ]
 @onready var shades: Array[ColorRect] = [
 	$DriverGrid/Soral/Shade,
 	$DriverGrid/LePen/Shade,
-	$DriverGrid/Macron/Shade,
 	$DriverGrid/Melenchon/Shade,
+	$DriverGrid/Macron/Shade,
 ]
 @onready var color_accents: Array[ColorRect] = [
 	$DriverGrid/Soral/ColorAccent,
 	$DriverGrid/LePen/ColorAccent,
-	$DriverGrid/Macron/ColorAccent,
 	$DriverGrid/Melenchon/ColorAccent,
+	$DriverGrid/Macron/ColorAccent,
 ]
 @onready var name_labels: Array[Label] = [
 	$DriverGrid/Soral/NameLabel,
 	$DriverGrid/LePen/NameLabel,
-	$DriverGrid/Macron/NameLabel,
 	$DriverGrid/Melenchon/NameLabel,
+	$DriverGrid/Macron/NameLabel,
 ]
 
 var _button_tweens: Dictionary = {}
