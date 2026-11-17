@@ -344,9 +344,9 @@ stretch_mode = 5
 [node name="LapIcon" type="TextureRect" parent="Options" unique_id=649597507]
 layout_mode = 0
 offset_left = 60.0
-offset_top = 12.0
+offset_top = 8.0
 offset_right = 88.0
-offset_bottom = 40.0
+offset_bottom = 36.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
@@ -354,9 +354,9 @@ stretch_mode = 5
 [node name="TimeIcon" type="TextureRect" parent="Options" unique_id=816277354]
 layout_mode = 0
 offset_left = 114.0
-offset_top = 12.0
+offset_top = 8.0
 offset_right = 142.0
-offset_bottom = 40.0
+offset_bottom = 36.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
@@ -364,9 +364,9 @@ stretch_mode = 5
 [node name="WeatherIcon" type="TextureRect" parent="Options" unique_id=816277356]
 layout_mode = 0
 offset_left = 168.0
-offset_top = 12.0
+offset_top = 8.0
 offset_right = 196.0
-offset_bottom = 40.0
+offset_bottom = 36.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5

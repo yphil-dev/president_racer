@@ -1,7 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://cm4x7m72ugug"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_nav_active"]
-bg_color = Color(0.35, 0.31, 0.12, 1)
+bg_color = Color(0.24, 0.24, 0.24, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -62,7 +62,7 @@ border_color = Color(1, 0.85, 0.42, 1)
 [resource]
 CompactButton/base_type = &"Button"
 CompactButton/styles/focus = SubResource("StyleBox_nav_active")
-CompactButton/styles/hover = SubResource("StyleBox_nav_active")
+CompactButton/styles/hover = SubResource("StyleBox_nav_normal")
 CompactButton/styles/normal = SubResource("StyleBox_nav_normal")
 CompactButton/styles/pressed = SubResource("StyleBox_nav_active")
 IconBadge/base_type = &"Panel"
@@ -74,7 +74,7 @@ OptionsButton/styles/normal = SubResource("StyleBox_options_normal")
 OptionsButton/styles/pressed = SubResource("StyleBox_options_active")
 ResultAction/base_type = &"Button"
 ResultAction/styles/focus = SubResource("StyleBox_result_action_active")
-ResultAction/styles/hover = SubResource("StyleBox_result_action_active")
+ResultAction/styles/hover = SubResource("StyleBox_result_action_normal")
 ResultAction/styles/normal = SubResource("StyleBox_result_action_normal")
 ResultAction/styles/pressed = SubResource("StyleBox_result_action_active")
 SchemeButton/base_type = &"Button"
