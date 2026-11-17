@@ -379,7 +379,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="One" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1831656569]
-custom_minimum_size = Vector2(64, 36)
+custom_minimum_size = Vector2(60, 32)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
 focus_neighbor_right = NodePath("../Two")
@@ -390,7 +390,7 @@ icon_alignment = 1
 expand_icon = false
 
 [node name="Two" type="Button" parent="LapSelector/Bar/Buttons" unique_id=661744785]
-custom_minimum_size = Vector2(64, 36)
+custom_minimum_size = Vector2(60, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../One")
 focus_neighbor_top = NodePath("../../../../DriverGrid/Melenchon")
@@ -402,7 +402,7 @@ icon_alignment = 1
 expand_icon = false
 
 [node name="Three" type="Button" parent="LapSelector/Bar/Buttons" unique_id=1042194513]
-custom_minimum_size = Vector2(64, 36)
+custom_minimum_size = Vector2(60, 32)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Two")
 focus_neighbor_top = NodePath("../../../../DriverGrid/Glucksman")
@@ -418,7 +418,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Day" type="Button" parent="TimeSelector" unique_id=568552443]
-custom_minimum_size = Vector2(96, 40)
+custom_minimum_size = Vector2(92, 36)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/One")
 focus_neighbor_right = NodePath("../Night")
@@ -426,11 +426,11 @@ focus_neighbor_bottom = NodePath("../../WeatherSelector/Fair")
 theme_type_variation = &"CompactButton"
 icon = ExtResource("14_daytime_day")
 icon_alignment = 1
-icon_max_width = 32
+icon_max_width = 28
 expand_icon = false
 
 [node name="Night" type="Button" parent="TimeSelector" unique_id=1543998521]
-custom_minimum_size = Vector2(96, 40)
+custom_minimum_size = Vector2(92, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Day")
 focus_neighbor_top = NodePath("../../LapSelector/Bar/Buttons/Three")
@@ -438,7 +438,7 @@ focus_neighbor_bottom = NodePath("../../WeatherSelector/Snow")
 theme_type_variation = &"CompactButton"
 icon = ExtResource("15_daytime_night")
 icon_alignment = 1
-icon_max_width = 32
+icon_max_width = 28
 expand_icon = false
 
 [node name="WeatherSelector" type="HBoxContainer" parent="." unique_id=1938812201]
@@ -447,7 +447,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Fair" type="Button" parent="WeatherSelector" unique_id=1938812202]
-custom_minimum_size = Vector2(64, 40)
+custom_minimum_size = Vector2(60, 36)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../TimeSelector/Day")
 focus_neighbor_right = NodePath("../Rain")
@@ -457,7 +457,7 @@ icon = ExtResource("11_weatherfair")
 icon_alignment = 1
 
 [node name="Rain" type="Button" parent="WeatherSelector" unique_id=1938812203]
-custom_minimum_size = Vector2(64, 40)
+custom_minimum_size = Vector2(60, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Fair")
 focus_neighbor_top = NodePath("../../TimeSelector/Day")
@@ -468,7 +468,7 @@ icon = ExtResource("12_weatherrain")
 icon_alignment = 1
 
 [node name="Snow" type="Button" parent="WeatherSelector" unique_id=1938812204]
-custom_minimum_size = Vector2(64, 40)
+custom_minimum_size = Vector2(60, 36)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Rain")
 focus_neighbor_top = NodePath("../../TimeSelector/Night")
@@ -527,36 +527,56 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="RandomOrSaved" type="HBoxContainer" parent="." unique_id=2003988243]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -80.0
+offset_right = -94.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="Random" type="Button" parent="RandomOrSaved" unique_id=2003988244]
-custom_minimum_size = Vector2(56, 56)
+custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("10_shuffle")
-icon_max_width = 32
+icon_max_width = 28
 expand_icon = false
 icon_alignment = 1
 
 [node name="Saved" type="Button" parent="RandomOrSaved" unique_id=2003988245]
-custom_minimum_size = Vector2(56, 56)
+custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("11_floppy")
-icon_max_width = 32
+icon_max_width = 28
 expand_icon = false
 
 [node name="Race" type="Button" parent="." unique_id=2003988242]
 clip_contents = true
-layout_mode = 0
-offset_left = 89.0
-offset_right = 150.0
-offset_bottom = 56.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -80.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(26, 26)
 focus_neighbor_top = NodePath("../WeatherSelector/Rain")
 theme_type_variation = &"CompactButton"
 
@@ -581,10 +601,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -22.0
-offset_right = 28.0
-offset_bottom = 22.0
+offset_left = -26.0
+offset_top = -20.0
+offset_right = 26.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

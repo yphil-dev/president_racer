@@ -22,8 +22,6 @@ class_name GameUI
 
 const RESULT_TWEEN_DURATION: float = 1.1
 const BACKGROUND_FADE_DURATION: float = 0.8
-const ACTION_SIZE := Vector2(72, 72)
-const ACTION_MARGIN := Vector2(32, 28)
 const REORDER_DURATION: float = 0.22
 const COUNTDOWN_CARD_GAP: float = 8.0
 const PLAYER_INTRO_FADE_DURATION: float = 0.5
@@ -85,9 +83,6 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 		controller.race_finished.connect(_on_race_finished)
 	if not race_again.pressed.is_connected(_restart_race):
 		race_again.pressed.connect(_restart_race)
-	if not resized.is_connected(_layout_race_again):
-		resized.connect(_layout_race_again)
-
 	_apply_initial_standings(initial_standings)
 	_setup_player_intro(initial_standings)
 
@@ -539,7 +534,6 @@ func _did_player_win(final_standings: Array) -> bool:
 	return not has_human_driver
 
 func _show_race_again() -> void:
-	_layout_race_again()
 	race_again.modulate = Color(1, 1, 1, 0)
 	race_again.show()
 	race_again.grab_focus()
@@ -549,14 +543,6 @@ func _show_race_again() -> void:
 	intro_tween.tween_property(race_again, "modulate", Color.WHITE, 0.6).set_trans(
 		Tween.TRANS_QUART
 	).set_ease(Tween.EASE_OUT)
-
-func _layout_race_again() -> void:
-	if not is_node_ready():
-		return
-
-	race_again.position = size - ACTION_SIZE - ACTION_MARGIN
-	race_again.size = ACTION_SIZE
-	race_again.pivot_offset = ACTION_SIZE * 0.5
 
 func _restart_race() -> void:
 	if _restarting:

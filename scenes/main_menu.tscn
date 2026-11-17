@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b5hs2dxnvsr6n" path="res://scripts/main_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="2_background"]
 [ext_resource type="LabelSettings" uid="uid://dd86stn2888my" path="res://resources/city_label_settings.tres" id="3_rtw2f"]
-[ext_resource type="Texture2D" path="res://sprites/quit.svg" id="4_quit"]
+[ext_resource type="Texture2D" uid="uid://djogvgttxibpn" path="res://sprites/quit.svg" id="4_quit"]
 
 [node name="MainMenu" type="Control" unique_id=459776246]
 layout_mode = 3
@@ -239,8 +239,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Limoges")
-focus_neighbor_right = NodePath("../../Quit")
 focus_neighbor_top = NodePath("../Marseille")
+focus_neighbor_right = NodePath("../../Quit")
 focus_neighbor_bottom = NodePath("../../Quit")
 flat = true
 
@@ -301,9 +301,18 @@ theme_type_variation = &"SelectionFrame"
 
 [node name="Options" type="Button" parent="." unique_id=2016133167]
 clip_contents = true
-layout_mode = 0
-offset_right = 226.0
-offset_bottom = 56.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -64.0
+offset_right = -8.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
 focus_neighbor_left = NodePath("../TrackGrid/Lyon")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
 theme_type_variation = &"CompactButton"
@@ -324,51 +333,60 @@ color = Color(0, 0, 0, 0)
 
 [node name="Portrait" type="TextureRect" parent="Options" unique_id=388672804]
 layout_mode = 0
-offset_left = 12.0
+offset_left = 14.0
 offset_top = 8.0
-offset_right = 52.0
-offset_bottom = 48.0
+offset_right = 42.0
+offset_bottom = 36.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="LapIcon" type="TextureRect" parent="Options" unique_id=649597507]
 layout_mode = 0
-offset_left = 58.0
+offset_left = 60.0
 offset_top = 12.0
-offset_right = 90.0
-offset_bottom = 44.0
+offset_right = 88.0
+offset_bottom = 40.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="TimeIcon" type="TextureRect" parent="Options" unique_id=816277354]
 layout_mode = 0
-offset_left = 112.0
+offset_left = 114.0
 offset_top = 12.0
-offset_right = 144.0
-offset_bottom = 44.0
+offset_right = 142.0
+offset_bottom = 40.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="WeatherIcon" type="TextureRect" parent="Options" unique_id=816277356]
 layout_mode = 0
-offset_left = 166.0
+offset_left = 168.0
 offset_top = 12.0
-offset_right = 198.0
-offset_bottom = 44.0
+offset_right = 196.0
+offset_bottom = 40.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Quit" type="Button" parent="." unique_id=2016133168]
 clip_contents = true
-layout_mode = 0
-offset_right = 106.0
-offset_bottom = 56.0
-focus_neighbor_right = NodePath("../Options")
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -120.0
+offset_right = -8.0
+offset_bottom = -72.0
+grow_horizontal = 0
+grow_vertical = 0
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
+focus_neighbor_right = NodePath("../Options")
 theme_type_variation = &"CompactButton"
 
 [node name="Icon" type="TextureRect" parent="Quit" unique_id=2016133169]
@@ -378,10 +396,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

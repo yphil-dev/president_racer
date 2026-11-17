@@ -10,9 +10,6 @@ const CONTROLLER_AVAILABLE_COLOR := Color(0.15, 0.8, 0.4, 1)
 const CONTROLLER_UNAVAILABLE_COLOR := Color(0.55, 0.08, 0.1,  1)
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
-const RACE_BUTTON_SIZE := Vector2(56, 56)
-const RACE_BUTTON_MARGIN := Vector2(32, 28)
-const MODE_GROUP_GAP: float = 10.0
 const FLOPPY_ICON: Texture2D = preload("res://sprites/floppy.svg")
 const FLOPPY_SAVING_ICON: Texture2D = preload("res://sprites/floppy-saving.svg")
 
@@ -232,14 +229,6 @@ func _layout_cards() -> void:
 	time_badge.size = Vector2(32.0, 32.0)
 	weather_selector.position = time_selector.position + Vector2(0.0, 52.0)
 	weather_selector.size = Vector2(192.0, 40.0)
-	race_button.position = size - RACE_BUTTON_SIZE - RACE_BUTTON_MARGIN
-	race_button.size = RACE_BUTTON_SIZE
-	race_button.pivot_offset = RACE_BUTTON_SIZE * 0.5
-	random_saved_group.size = Vector2(RACE_BUTTON_SIZE.x * 2.0, RACE_BUTTON_SIZE.y)
-	random_saved_group.position = Vector2(
-		race_button.position.x - random_saved_group.size.x - MODE_GROUP_GAP,
-		race_button.position.y
-	)
 
 func _create_scheme_buttons(driver_index: int) -> void:
 	var driver_id := DriverRoster.DRIVER_IDS[driver_index]

@@ -30,11 +30,16 @@ func _ready() -> void:
 	potato_rock_label.modulate = Color(1, 1, 1, 0)
 	studio_label.modulate = Color(1, 1, 1, 0)
 	animation.play(&"default")
+	resized.connect(_layout_overlay)
+	_layout_overlay()
 	_fade_in_label(potato_rock_label, LABEL_DELAY, LABEL_FADE_DURATION)
 	_fade_in_label(studio_label, STUDIO_DELAY, STUDIO_FADE_DURATION)
 	set_interactive(false)
 	_play_sound_sequence()
 	_unlock_interaction_after_intro()
+
+func _layout_overlay() -> void:
+	animation.position = Vector2(48.0, size.y - 49.0)
 
 func configure_navigation(scene: Node) -> void:
 	potato_rock_button.focus_mode = Control.FOCUS_NONE

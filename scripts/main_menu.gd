@@ -31,10 +31,6 @@ const SELECTED_LABEL_COLOR := UIColors.SELECTED_LABEL_COLOR
 const NORMAL_LABEL_COLOR := UIColors.NORMAL_LABEL_COLOR
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
-const OPTIONS_SIZE := Vector2(212, 56)
-const QUIT_SIZE := Vector2(106, 56)
-const OPTIONS_MARGIN := Vector2(32, 28)
-const QUIT_GAP: float = 12.0
 
 @onready var track_grid: GridContainer = $TrackGrid
 @onready var options_button: Button = $Options
@@ -162,16 +158,6 @@ func _layout_menu() -> void:
 	for button in track_buttons:
 		button.custom_minimum_size = card_size
 
-	options_button.position = size - OPTIONS_SIZE - OPTIONS_MARGIN
-	options_button.size = OPTIONS_SIZE
-	options_button.custom_minimum_size = OPTIONS_SIZE
-
-	quit_button.position = Vector2(
-		options_button.position.x + options_button.size.x - QUIT_SIZE.x,
-		options_button.position.y - QUIT_SIZE.y - QUIT_GAP
-	)
-	quit_button.size = QUIT_SIZE
-	quit_button.custom_minimum_size = QUIT_SIZE
 
 func _play_intro() -> void:
 	for index in selectable_buttons.size():

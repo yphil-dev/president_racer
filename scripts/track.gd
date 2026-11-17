@@ -10,6 +10,8 @@ var _laps_by_car: Dictionary = {}
 var _finished_cars: Dictionary = {}
 
 func _ready() -> void:
+	if OS.has_feature("arm64"):
+		_apply_arm_performance_profile()
 	if OS.has_feature("web"):
 		_adjust_web_exposure()
 	_set_city_lights_enabled(RaceSelection.night_enabled)
@@ -18,6 +20,25 @@ func _ready() -> void:
 	target_laps = RaceSelection.selected_laps
 	if Debug.DEBUG_VERBOSE:
 		print("START! Target laps set to: ", target_laps)
+
+func _apply_arm_performance_profile() -> void:
+	for node in find_children("*", "WorldEnvironment", true, false):
+		var world_environment := node as WorldEnvironment
+		if world_environment.environment == null:
+			continue
+		var arm_environment := world_environment.environment.duplicate() as Environment
+		arm_environment.ssao_enabled = false
+		arm_environment.ssil_enabled = false
+		arm_environment.glow_enabled = false
+		arm_environment.ssr_enabled = false
+		world_environment.environment = arm_environment
+
+	for node in find_children("*", "Light3D", true, false):
+		(node as Light3D).shadow_enabled = false
+
+	for node in find_children("*", "GPUParticles3D", true, false):
+		var particles := node as GPUParticles3D
+		particles.amount = mini(particles.amount, 160)
 
 func _adjust_web_exposure() -> void:
 	for node in find_children("*", "WorldEnvironment", true, false):
