@@ -31,7 +31,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/yphil-dev/president_racer/releases/download/1.5.0/president-gp-linux.zip
-        sha256: 52ca7c0a4e5981524815c31620c312084544685f1925c3f54a04fa54ffbdbffe
+        sha256: 0b357f3e4feaed1bce960fd8dbdc709a097a8841539a4acf8f2c431338afd3e1
       - type: file
         path: io.github.yphil_dev.president_racer.desktop
       - type: file
@@ -39,4 +39,4 @@ modules:
       - type: archive
         only-arches: [aarch64]
         url: https://github.com/yphil-dev/president_racer/releases/download/1.5.0/president-gp-linux-arm64.zip
-        sha256: ARM64_HASH 
+        sha256: 72a27696087781e10c0811dfaa7ea64120734006070591383d6178c018704002
