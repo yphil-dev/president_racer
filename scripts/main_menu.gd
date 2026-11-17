@@ -92,7 +92,7 @@ func _ready() -> void:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		var win := get_window()
 		win.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
-		win.content_scale_size = Vector2i(1280, 720)
+		win.content_scale_size = Vector2i(960, 540)
 		var vp := get_viewport()
 		vp.use_hdr_2d = false
 		vp.use_occlusion_culling = false
