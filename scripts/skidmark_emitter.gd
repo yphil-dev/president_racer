@@ -23,6 +23,12 @@ func _ready() -> void:
 	_material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	_material.render_priority = 1
 
+	_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	if OS.has_feature("arm64") or OS.has_feature("arm32"):
+		point_spacing = 0.28
+		chunk_segment_limit = 64
+		max_segments_per_tire = 384
+
 	for tire_index in TIRE_COUNT:
 		_tire_states.append(_new_tire_state(tire_index))
 

@@ -22,6 +22,7 @@ func _ready() -> void:
 		print("START! Target laps set to: ", target_laps)
 
 func _apply_arm_performance_profile() -> void:
+	get_viewport().use_occlusion_culling = false
 	for node in find_children("*", "WorldEnvironment", true, false):
 		var world_environment := node as WorldEnvironment
 		if world_environment.environment == null:

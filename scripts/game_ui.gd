@@ -48,6 +48,7 @@ var _intro_model_root: Node3D
 var _paused: bool = false
 
 func _ready() -> void:
+	intro_model_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 	pause_overlay.hide()
 	pause_back_button.pressed.connect(_return_to_menu_from_pause)
 	pause_restart_button.pressed.connect(_restart_from_pause)

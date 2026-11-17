@@ -71,6 +71,7 @@ var _race_finished: bool = false
 var _engine_sound_suppressed: bool = false
 var _engine_fade_tween: Tween
 var _weather_material: PhysicsMaterial
+var _arm_performance_profile := false
 const REAR_LAMP_HOLD_DURATION: float = 0.4
 
 # Sounds
@@ -192,6 +193,15 @@ func _enter_tree() -> void:
 	add_to_group("race_vehicles")
 
 func _ready() -> void:
+	_arm_performance_profile = OS.has_feature("arm64") or OS.has_feature("arm32")
+	if _arm_performance_profile:
+		if trail_left != null:
+			trail_left.emitting = false
+			trail_left.visible = false
+		if trail_right != null:
+			trail_right.emitting = false
+			trail_right.visible = false
+
 	headlights.visible = RaceSelection.night_enabled
 	var initial_weather := RaceSelection.selected_weather
 	if initial_weather == RaceSelection.WEATHER_SNOW:
@@ -308,7 +318,8 @@ func _physics_process(delta):
 	effect_wheels(delta)
 	effect_brake_lights(rear_lamps_on or _rear_lamp_hold_remaining > 0.0)
 	var drift_intensity := effect_trails()
-	effect_skidmarks(drift_intensity)
+	if not _arm_performance_profile or Engine.get_physics_frames() % 2 == 0:
+		effect_skidmarks(drift_intensity)
 
 # Override this in player/CPU subclasses to provide steering and throttle.
 func get_control_input() -> Vector2:

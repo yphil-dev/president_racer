@@ -27,3 +27,4 @@ mono_crash.*.json
 
 # Temporary files
 tmp/
+bench.txt

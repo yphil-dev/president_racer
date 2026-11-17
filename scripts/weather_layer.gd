@@ -34,10 +34,12 @@ func _ready() -> void:
 
 	if RaceSelection.selected_weather == RaceSelection.WEATHER_SNOW:
 		_snow = _create_snow()
-	elif RaceSelection.selected_weather == RaceSelection.WEATHER_RAIN:
-		_rain = _create_rain()
-		_create_audio()
-		_create_lightning()
+	else:
+		_clear_snow_overlays()
+		if RaceSelection.selected_weather == RaceSelection.WEATHER_RAIN:
+			_rain = _create_rain()
+			_create_audio()
+			_create_lightning()
 
 	_connect_race_signals.call_deferred()
 
@@ -269,6 +271,14 @@ func _start_city_snow_cover() -> void:
 	if applied:
 		_animate_snow_materials([snow_overlay])
 
+func _clear_snow_overlays() -> void:
+	var track := get_parent()
+	for node in track.find_children("*", "GeometryInstance3D", true, false):
+		var geometry := node as GeometryInstance3D
+		var overlay := geometry.material_overlay as ShaderMaterial
+		if overlay != null and overlay.shader == SNOW_OVERLAY_SHADER:
+			geometry.material_overlay = null
+
 func _is_excluded_city_geometry(geometry: GeometryInstance3D, city: Node3D) -> bool:
 	var current: Node = geometry
 	while current != null and current != city:
@@ -293,11 +303,19 @@ func _animate_snow_materials(materials: Array[ShaderMaterial]) -> void:
 
 func _set_snow_amount(amount: float, material: ShaderMaterial) -> void:
 	material.set_shader_parameter("snow_amount", amount)
+	if (
+		amount <= 0.001
+		and RaceSelection.selected_weather in [
+			RaceSelection.WEATHER_FAIR,
+			RaceSelection.WEATHER_RAIN,
+		]
+	):
+		_clear_snow_overlays()
 
 func _create_rain() -> GPUParticles3D:
 	var particles := GPUParticles3D.new()
 	particles.name = "Rain"
-	particles.amount = 2400
+	particles.amount = 350 if (OS.has_feature("arm64") or OS.has_feature("arm32")) else 2400
 	particles.lifetime = 1.25
 	particles.preprocess = 1.25
 	particles.visibility_aabb = AABB(Vector3(-70.0, -30.0, -70.0), Vector3(140.0, 80.0, 140.0))
@@ -330,7 +348,7 @@ func _create_rain() -> GPUParticles3D:
 func _create_snow() -> GPUParticles3D:
 	var particles := GPUParticles3D.new()
 	particles.name = "Snow"
-	particles.amount = 650
+	particles.amount = 180 if (OS.has_feature("arm64") or OS.has_feature("arm32")) else 650
 	particles.lifetime = 5.0
 	particles.preprocess = 5.0
 	particles.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
