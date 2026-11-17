@@ -339,41 +339,47 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Portrait" type="TextureRect" parent="Options" unique_id=388672804]
+texture_filter = 1
 layout_mode = 0
-offset_left = 14.0
-offset_top = 8.0
-offset_right = 42.0
-offset_bottom = 36.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 34.0
+offset_bottom = 32.0
+scale = Vector2(1.4120777, 1.4120777)
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="LapIcon" type="TextureRect" parent="Options" unique_id=649597507]
+texture_filter = 1
 layout_mode = 0
-offset_left = 60.0
-offset_top = 8.0
+offset_left = 56.0
+offset_top = 5.0
 offset_right = 88.0
-offset_bottom = 36.0
+offset_bottom = 37.0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="TimeIcon" type="TextureRect" parent="Options" unique_id=816277354]
+texture_filter = 1
 layout_mode = 0
-offset_left = 114.0
-offset_top = 8.0
-offset_right = 142.0
-offset_bottom = 36.0
+offset_left = 106.0
+offset_top = 5.0
+offset_right = 134.0
+offset_bottom = 33.0
+scale = Vector2(1.3438811, 1.3438811)
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
 [node name="WeatherIcon" type="TextureRect" parent="Options" unique_id=816277356]
 layout_mode = 0
-offset_left = 168.0
-offset_top = 8.0
-offset_right = 196.0
-offset_bottom = 36.0
+offset_left = 157.0
+offset_top = 4.0
+offset_right = 185.0
+offset_bottom = 32.0
+scale = Vector2(1.3639519, 1.3639519)
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
@@ -386,9 +392,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -110.0
+offset_left = -57.0
 offset_top = -120.0
-offset_right = -8.0
+offset_right = -9.0
 offset_bottom = -72.0
 grow_horizontal = 0
 grow_vertical = 0

@@ -23,7 +23,9 @@ var _intro_finished: bool = false
 func _ready() -> void:
 	animation.sprite_frames = _create_sprite_frames()
 	roll.stream = ROLL_SOUND
+	roll.volume_db = -18.0
 	sprout.stream = SPROUT_SOUND
+	sprout.volume_db = -18.0
 	potato_rock_label.modulate = Color(1, 1, 1, 0)
 	studio_label.modulate = Color(1, 1, 1, 0)
 	potato_rock_button.mouse_entered.connect(_show_studio_label)

@@ -51,6 +51,7 @@ const HIGH_TONE_FREQUENCY: float = 880.0
 const BEEPS_VOLUME: float = -12.0
 const PLAYER_MARKER_TILT := Vector3(45.0, 0.0, 35.264)
 const PLAYER_MARKER_SPIN_SPEED: float = 2.5
+const PLAYER_MARKER_FADE_DELAY: float = 0.5
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (
@@ -211,6 +212,7 @@ func _fade_player_markers() -> void:
 		var faded_color := target.car_color
 		faded_color.a = 0.0
 		var fade_tween := create_tween()
+		fade_tween.tween_interval(PLAYER_MARKER_FADE_DELAY)
 		fade_tween.set_parallel(true)
 		fade_tween.tween_property(material, "albedo_color", faded_color, 0.2)
 		fade_tween.tween_property(material, "emission", faded_color, 0.2)
