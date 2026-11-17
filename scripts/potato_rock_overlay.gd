@@ -10,8 +10,6 @@ const FRAME_COLUMNS: int = 8
 const FRAME_COUNT: int = 32
 const LABEL_DELAY: float = 4.0
 const LABEL_FADE_DURATION: float = 1.0
-const STUDIO_DELAY: float = 5.0
-const STUDIO_FADE_DURATION: float = 0.1
 const SOUND_DELAY: float = 1.0
 
 @onready var animation: AnimatedSprite2D = $Content/Animation
@@ -29,9 +27,10 @@ func _ready() -> void:
 	sprout.stream = SPROUT_SOUND
 	potato_rock_label.modulate = Color(1, 1, 1, 0)
 	studio_label.modulate = Color(1, 1, 1, 0)
+	potato_rock_button.mouse_entered.connect(_show_studio_label)
+	potato_rock_button.mouse_exited.connect(_hide_studio_label)
 	animation.play(&"default")
 	_fade_in_label(potato_rock_label, LABEL_DELAY, LABEL_FADE_DURATION)
-	_fade_in_label(studio_label, STUDIO_DELAY, STUDIO_FADE_DURATION)
 	set_interactive(false)
 	_play_sound_sequence()
 	_unlock_interaction_after_intro()
@@ -76,6 +75,22 @@ func _fade_in_label(label: Label, delay: float, duration: float) -> void:
 	var tween := create_tween()
 	tween.tween_interval(delay)
 	tween.tween_property(label, "modulate", Color.WHITE, duration)
+
+func _show_studio_label() -> void:
+	studio_label.create_tween().tween_property(
+		studio_label,
+		"modulate",
+		Color.WHITE,
+		0.1
+	)
+
+func _hide_studio_label() -> void:
+	studio_label.create_tween().tween_property(
+		studio_label,
+		"modulate",
+		Color(1, 1, 1, 0),
+		0.1
+	)
 
 func _play_sound_sequence() -> void:
 	await get_tree().create_timer(SOUND_DELAY).timeout

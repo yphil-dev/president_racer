@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://d2jtmsipqxjfw" path="res://scenes/CarUI/car_ui.tscn" id="1_card"]
 [ext_resource type="Script" uid="uid://b30dxfdc8mqso" path="res://scripts/game_ui.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="3_background"]
-[ext_resource type="Texture2D" path="res://sprites/race_again.svg" id="4_race_again"]
-[ext_resource type="Texture2D" path="res://sprites/arrow-left.svg" id="5_back"]
-[ext_resource type="Texture2D" path="res://sprites/results-finish-flag.svg" id="6_resume"]
+[ext_resource type="Texture2D" uid="uid://8hvw7i8q3me7" path="res://sprites/race_again.svg" id="4_race_again"]
+[ext_resource type="Texture2D" uid="uid://dedl7wmrll5l3" path="res://sprites/arrow-left.svg" id="5_back"]
+[ext_resource type="Texture2D" uid="uid://bmxogxe77h62e" path="res://sprites/results-finish-flag.svg" id="6_resume"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_player_intro"]
 bg_color = Color(0.08, 0.11, 0.14, 0.85)
@@ -67,10 +67,6 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause_panel"]
 bg_color = Color(0.025, 0.03, 0.045, 0.92)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
 border_color = Color(1, 0.85, 0.42, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -257,8 +253,8 @@ value = 100.0
 show_percentage = false
 
 [node name="PauseOverlay" type="Control" parent="." unique_id=1358150465]
-visible = false
 process_mode = 3
+visible = false
 z_index = 20
 layout_mode = 1
 anchors_preset = 15
@@ -266,7 +262,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 
 [node name="Shade" type="ColorRect" parent="PauseOverlay" unique_id=1358150466]
 layout_mode = 1
@@ -280,15 +275,14 @@ color = Color(0, 0, 0, 0.55)
 
 [node name="Panel" type="Panel" parent="PauseOverlay" unique_id=1358150467]
 layout_mode = 0
-offset_left = -128.0
-offset_top = -56.0
-offset_right = 128.0
-offset_bottom = 56.0
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -56.0
+offset_right = 128.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
