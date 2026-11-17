@@ -84,7 +84,8 @@ func _on_arm_node_added(node: Node) -> void:
 		node.use_hdr_2d = false
 	elif node is MeshInstance3D:
 		var mesh_inst := node as MeshInstance3D
-		mesh_inst.material_overlay = null
+		if not _is_player_effect_mesh(node):
+			mesh_inst.material_overlay = null
 		for i in mesh_inst.get_surface_override_material_count():
 			var mat: Material = mesh_inst.get_active_material(i)
 			if mat is StandardMaterial3D:
@@ -96,6 +97,20 @@ func _on_arm_node_added(node: Node) -> void:
 				if smat is StandardMaterial3D:
 					(smat as StandardMaterial3D).shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX
 					(smat as StandardMaterial3D).specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+
+func _is_player_effect_mesh(node: Node) -> bool:
+	var current := node
+	while current != null:
+		if current.name.begins_with("PlayerMarker_"):
+			return true
+		if current.is_in_group("race_vehicles"):
+			var driver_id := str(current.get("driver_id"))
+			return (
+				not driver_id.is_empty()
+				and RaceSelection.get_control_scheme(driver_id) != RaceSelection.CONTROL_CPU
+			)
+		current = current.get_parent()
+	return false
 
 func _input(event: InputEvent) -> void:
 	if (

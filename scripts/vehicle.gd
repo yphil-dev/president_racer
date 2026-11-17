@@ -18,6 +18,7 @@ const RAIN_BRAKING := 8.0
 const RAIN_FRICTION := 5.0
 const SNOW_BRAKING := 5.5
 const SNOW_FRICTION := 2.0
+const SHEEN_SHADER: Shader = preload("res://shaders/car_sheen_sweep.gdshader")
 
 @export_category("Skidmarks")
 @export var skidmarks_enabled: bool = true
@@ -72,6 +73,8 @@ var _engine_sound_suppressed: bool = false
 var _engine_fade_tween: Tween
 var _weather_material: PhysicsMaterial
 var _arm_performance_profile := false
+var _sheen_material: ShaderMaterial
+var _sheen_meshes: Array[MeshInstance3D] = []
 const REAR_LAMP_HOLD_DURATION: float = 0.4
 
 # Sounds
@@ -105,6 +108,24 @@ var calculated_lean: float
 # Public Functions
 
 func get_vehicle_position() -> Vector3: return vehicle_model.global_position
+
+func set_start_highlight(enabled: bool) -> void:
+	if enabled:
+		if _sheen_material == null:
+			_sheen_material = ShaderMaterial.new()
+			_sheen_material.shader = SHEEN_SHADER
+		_sheen_material.set_shader_parameter("sheen_color", car_color.lightened(0.6))
+		_sheen_meshes.clear()
+		for node in find_children("*", "MeshInstance3D", true, false):
+			var mesh := node as MeshInstance3D
+			mesh.material_overlay = _sheen_material
+			_sheen_meshes.append(mesh)
+		return
+
+	for mesh in _sheen_meshes:
+		if is_instance_valid(mesh):
+			mesh.material_overlay = null
+	_sheen_meshes.clear()
 
 func set_driving_enabled(enabled: bool) -> void:
 	driving_enabled = enabled

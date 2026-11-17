@@ -52,6 +52,7 @@ const BEEPS_VOLUME: float = -12.0
 const PLAYER_MARKER_TILT := Vector3(45.0, 0.0, 35.264)
 const PLAYER_MARKER_SPIN_SPEED: float = 2.5
 const PLAYER_MARKER_FADE_DELAY: float = 0.5
+const SHEEN_SHADER: Shader = preload("res://shaders/car_sheen_sweep.gdshader")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (
@@ -191,10 +192,16 @@ func _create_player_markers() -> void:
 		marker_model.mesh = marker_mesh
 		marker_model.material_override = marker_material
 		marker_model.rotation_degrees = PLAYER_MARKER_TILT
+		var marker_sheen_material := ShaderMaterial.new()
+		marker_sheen_material.shader = SHEEN_SHADER
+		marker_sheen_material.set_shader_parameter("sheen_color", target.car_color.lightened(0.6))
+		marker_model.material_overlay = marker_sheen_material
 		marker.add_child(marker_model)
+		target.set_start_highlight(true)
 
 		_player_markers.append({
 			"marker": marker,
+			"model": marker_model,
 			"target": target,
 			"material": marker_material,
 			"height": marker_height,
@@ -204,8 +211,13 @@ func _create_player_markers() -> void:
 func _fade_player_markers() -> void:
 	for marker_data in _player_markers:
 		var marker := marker_data["marker"] as Node3D
+		var marker_model := marker_data["model"] as MeshInstance3D
 		var target := marker_data["target"] as Vehicle
 		var material := marker_data["material"] as StandardMaterial3D
+		if target != null:
+			target.set_start_highlight(false)
+		if marker_model != null:
+			marker_model.material_overlay = null
 		if marker == null or target == null or material == null:
 			continue
 

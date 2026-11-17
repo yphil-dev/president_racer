@@ -29,6 +29,7 @@ var _controller: RaceController
 var _classification_duration: float = 0.0
 var _classification_countdown_active: bool = false
 var _paused: bool = false
+var _pause_audio_master_was_muted: bool = false
 
 func _ready() -> void:
 	pause_overlay.hide()
@@ -38,6 +39,7 @@ func _ready() -> void:
 
 func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -> void:
 	_cards_by_vehicle.clear()
+	_set_pause_audio(false)
 	_paused = false
 	get_tree().paused = false
 	pause_overlay.hide()
@@ -74,6 +76,7 @@ func toggle_pause() -> void:
 		return
 
 	_paused = not _paused
+	_set_pause_audio(_paused)
 	get_tree().paused = _paused
 	if _paused:
 		pause_overlay.show()
@@ -85,6 +88,7 @@ func _resume_from_pause() -> void:
 	if not _paused:
 		return
 
+	_set_pause_audio(false)
 	_paused = false
 	get_tree().paused = false
 	pause_overlay.hide()
@@ -93,6 +97,7 @@ func _return_to_menu_from_pause() -> void:
 	if not _paused:
 		return
 
+	_set_pause_audio(false)
 	_paused = false
 	get_tree().paused = false
 	pause_overlay.hide()
@@ -102,12 +107,30 @@ func _restart_from_pause() -> void:
 	if not _paused:
 		return
 
+	_set_pause_audio(false)
 	_paused = false
 	get_tree().paused = false
 	pause_overlay.hide()
 	_controller.restart_race()
 
 
+
+func _set_pause_audio(paused: bool) -> void:
+	var master_bus := AudioServer.get_bus_index("Master")
+	if master_bus >= 0:
+		if paused:
+			_pause_audio_master_was_muted = AudioServer.is_bus_mute(master_bus)
+			AudioServer.set_bus_mute(master_bus, true)
+		else:
+			AudioServer.set_bus_mute(master_bus, _pause_audio_master_was_muted)
+
+	for node in get_tree().root.find_children("*", "AudioStreamPlayer", true, false):
+		if node is AudioStreamPlayer:
+			(node as AudioStreamPlayer).stream_paused = paused
+		elif node is AudioStreamPlayer2D:
+			(node as AudioStreamPlayer2D).stream_paused = paused
+		elif node is AudioStreamPlayer3D:
+			(node as AudioStreamPlayer3D).stream_paused = paused
 
 func _process(_delta: float) -> void:
 	if not _classification_countdown_active or _controller == null:
