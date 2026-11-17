@@ -115,7 +115,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Paris")
 focus_neighbor_top = NodePath("../Lyon")
-focus_neighbor_right = NodePath("../Paris")
+focus_neighbor_right = NodePath("../../Quit")
 focus_neighbor_bottom = NodePath("../Lyon")
 flat = true
 

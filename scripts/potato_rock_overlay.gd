@@ -1,6 +1,5 @@
 extends Control
 
-const MAIN_MENU_SCENE := "res://scenes/main_menu.tscn"
 const DRIVER_SELECTION_SCENE := "res://scenes/options_menu.tscn"
 const SPRITE_SHEET: Texture2D = preload("res://sprites/potato_rock_tired_roll_32frames_8x4_200x100.png")
 const ROLL_SOUND: AudioStream = preload("res://audio/rolling_stone.ogg")
@@ -35,16 +34,13 @@ func _ready() -> void:
 	_play_sound_sequence()
 	_unlock_interaction_after_intro()
 
-func configure_navigation(scene: Node) -> void:
+func configure_navigation(_scene: Node) -> void:
 	potato_rock_button.focus_mode = Control.FOCUS_NONE
 	if not _intro_finished:
 		set_interactive(false)
 		return
 
 	potato_rock_button.mouse_filter = Control.MOUSE_FILTER_STOP
-	if scene.scene_file_path == MAIN_MENU_SCENE:
-		potato_rock_button.focus_mode = Control.FOCUS_ALL
-		_connect_main_menu_navigation(scene)
 
 func set_interactive(interactive: bool) -> void:
 	potato_rock_button.mouse_filter = (
@@ -102,26 +98,3 @@ func _unlock_interaction_after_intro() -> void:
 	await get_tree().create_timer(8.0).timeout
 	_intro_finished = true
 	configure_navigation(get_tree().current_scene)
-
-func _connect_main_menu_navigation(scene: Node) -> void:
-	var limoges := scene.get_node_or_null("TrackGrid/Limoges") as Control
-	var options := scene.get_node_or_null("Options") as Control
-	if limoges == null or options == null:
-		return
-
-	limoges.set_focus_neighbor(
-		Side.SIDE_BOTTOM,
-		limoges.get_path_to(potato_rock_button)
-	)
-	options.set_focus_neighbor(
-		Side.SIDE_LEFT,
-		options.get_path_to(potato_rock_button)
-	)
-	potato_rock_button.set_focus_neighbor(
-		Side.SIDE_TOP,
-		potato_rock_button.get_path_to(limoges)
-	)
-	potato_rock_button.set_focus_neighbor(
-		Side.SIDE_RIGHT,
-		potato_rock_button.get_path_to(options)
-	)

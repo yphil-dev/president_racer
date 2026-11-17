@@ -21,6 +21,12 @@ var _ui_feedback_armed: bool = false
 var _main_menu_focus_target: StringName = &"default"
 
 func _ready() -> void:
+	if OS.has_feature("arm64") or OS.has_feature("arm32"):
+		if not get_tree().node_added.is_connected(_on_arm_node_added):
+			get_tree().node_added.connect(_on_arm_node_added)
+		for node in get_tree().root.find_children("*", "Node", true, false):
+			_on_arm_node_added(node)
+
 	layer = 100
 	_apply_fullscreen_preference()
 
@@ -56,6 +62,40 @@ func _ready() -> void:
 	_potato_rock_overlay = POTATO_ROCK_OVERLAY.instantiate()
 	add_child(_potato_rock_overlay)
 	_initialize_potato_rock.call_deferred()
+
+func _on_arm_node_added(node: Node) -> void:
+	if node is Light3D:
+		node.shadow_enabled = false
+	elif node is WorldEnvironment and node.environment != null:
+		var env: Environment = (node as WorldEnvironment).environment
+		env.glow_enabled = false
+		env.ssao_enabled = false
+		env.ssil_enabled = false
+		env.sdfgi_enabled = false
+		env.fog_enabled = false
+		env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
+		env.background_mode = Environment.BG_COLOR
+		env.background_color = Color(0.45, 0.72, 0.95)
+	elif node is SubViewport:
+		node.render_target_update_mode = SubViewport.UPDATE_ONCE
+		node.use_occlusion_culling = false
+		node.msaa_3d = Viewport.MSAA_DISABLED
+		node.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
+		node.use_hdr_2d = false
+	elif node is MeshInstance3D:
+		var mesh_inst := node as MeshInstance3D
+		mesh_inst.material_overlay = null
+		for i in mesh_inst.get_surface_override_material_count():
+			var mat: Material = mesh_inst.get_active_material(i)
+			if mat is StandardMaterial3D:
+				(mat as StandardMaterial3D).shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX
+				(mat as StandardMaterial3D).specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		if mesh_inst.mesh != null:
+			for i in mesh_inst.mesh.get_surface_count():
+				var smat: Material = mesh_inst.mesh.surface_get_material(i)
+				if smat is StandardMaterial3D:
+					(smat as StandardMaterial3D).shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX
+					(smat as StandardMaterial3D).specular_mode = BaseMaterial3D.SPECULAR_DISABLED
 
 func _input(event: InputEvent) -> void:
 	if (

@@ -47,6 +47,7 @@ layout_mode = 0
 offset_right = 200.0
 offset_bottom = 103.0
 tooltip_text = "Potato Rock Studio"
+focus_mode = 0
 action_mode = 0
 script = ExtResource("2_button")
 

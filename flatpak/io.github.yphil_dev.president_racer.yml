@@ -21,11 +21,22 @@ modules:
       - install -Dm644 icon.png /app/share/icons/hicolor/256x256/apps/io.github.yphil_dev.president_racer.png
       - install -Dm644 io.github.yphil_dev.president_racer.desktop /app/share/applications/io.github.yphil_dev.president_racer.desktop
       - install -Dm644 io.github.yphil_dev.president_racer.metainfo.xml /app/share/metainfo/io.github.yphil_dev.president_racer.metainfo.xml
+      - |
+        if [ "$FLATPAK_ARCH" = "aarch64" ]; then
+        install -Dm755 president-gp.arm64 /app/bin/president-gp
+        else
+        install -Dm755 president-gp.x86_64 /app/bin/president-gp
+        fi
+        - install -Dm644 president-gp.pck /app/bin/president-gp.pck
     sources:
       - type: archive
-        url: https://github.com/yphil-dev/president_racer/releases/download/1.4.5/president-gp-linux.zip
+        url: https://github.com/yphil-dev/president_racer/releases/download/1.5.0/president-gp-linux.zip
         sha256: 52ca7c0a4e5981524815c31620c312084544685f1925c3f54a04fa54ffbdbffe
       - type: file
         path: io.github.yphil_dev.president_racer.desktop
       - type: file
         path: io.github.yphil_dev.president_racer.metainfo.xml
+      - type: archive
+        only-arches: [aarch64]
+        url: https://github.com/yphil-dev/president_racer/releases/download/1.5.0/president-gp-linux-arm64.zip
+        sha256: ARM64_HASH 
