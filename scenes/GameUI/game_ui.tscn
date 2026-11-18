@@ -95,6 +95,14 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="CarUI5" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+visible = false
+layout_mode = 2
+
+[node name="CarUI6" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+visible = false
+layout_mode = 2
+
 [node name="ClassificationCountdown" type="Control" parent="." unique_id=7164351]
 visible = false
 anchors_preset = 0

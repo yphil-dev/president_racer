@@ -18,8 +18,7 @@ signal race_finished(standings: Array)
 @onready var traffic_light: RaceTrafficLight = get_node(traffic_light_path)
 @onready var game_ui: GameUI = get_node("../UI/GameUI")
 @onready var track_path: Path3D = get_node("../PATH/TrackPath")
-@onready var player_spawn: Marker3D = get_node("../START_GRID/GridSlot2")
-@onready var race_track = get_parent()
+@onready var race_track: Node3D = get_parent() as Node3D
 
 var cars: Node3D
 var standings: Array[CarRaceState] = []
@@ -103,13 +102,7 @@ func _ready() -> void:
 
 	await get_tree().process_frame
 	cars = RaceGridSpawner.spawn(race_track, RaceSelection.selected_driver_id)
-	var camera_target := cars.get_node_or_null("PlayerCar") as Vehicle
-	if camera_target == null:
-		for child in cars.get_children():
-			var vehicle := child as Vehicle
-			if vehicle != null and vehicle.driver_id == RaceSelection.selected_driver_id:
-				camera_target = vehicle
-				break
+	var camera_target: Vehicle = _find_camera_target()
 	get_node("../View").set("target", camera_target)
 	_create_player_markers()
 
@@ -129,6 +122,22 @@ func _ready() -> void:
 	_setup_race_audio()
 
 	await _play_countdown_tones()
+
+func _find_camera_target() -> Vehicle:
+	var preferred_driver_id: String = RaceSelection.get_driver_for_player_slot(0)
+	if preferred_driver_id.is_empty():
+		preferred_driver_id = RaceSelection.selected_driver_id
+
+	var fallback: Vehicle
+	for child in cars.get_children():
+		var vehicle := child as Vehicle
+		if vehicle == null:
+			continue
+		if fallback == null:
+			fallback = vehicle
+		if vehicle.driver_id == preferred_driver_id:
+			return vehicle
+	return fallback
 
 func _process(delta: float) -> void:
 	_update_player_markers(delta)
@@ -159,7 +168,7 @@ func _create_player_markers() -> void:
 		if (
 			target == null
 			or target.vehicle_body == null
-			or RaceSelection.get_control_scheme(target.driver_id) == RaceSelection.CONTROL_CPU
+			or not RaceSelection.is_driver_human(target.driver_id)
 		):
 			continue
 
@@ -259,9 +268,10 @@ func _setup_race_states() -> void:
 			standings.append(state)
 
 	_path_length = track_path.curve.get_baked_length()
-	_start_offset = track_path.curve.get_closest_offset(
-		track_path.to_local(player_spawn.global_position)
-	)
+	if not standings.is_empty():
+		_start_offset = track_path.curve.get_closest_offset(
+			track_path.to_local(standings[0].car.global_position)
+		)
 	_update_standings(true)
 
 func _start_race() -> void:
@@ -394,7 +404,7 @@ func _setup_race_audio() -> void:
 	_finish_audio = AudioStreamPlayer.new()
 	_finish_audio.name = "FinishAudio"
 	_finish_audio.stream = _high_tone
-	_finish_audio.max_polyphony = 4
+	_finish_audio.max_polyphony = DriverRoster.DRIVER_IDS.size()
 	_countdown_audio.volume_db = BEEPS_VOLUME
 	_finish_audio.volume_db = BEEPS_VOLUME
 

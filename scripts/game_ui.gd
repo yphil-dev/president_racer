@@ -15,12 +15,14 @@ class_name GameUI
 @onready var pause_restart_button: Button = $PauseOverlay/Panel/Restart
 @onready var pause_resume_button: Button = $PauseOverlay/Panel/Resume
 
+const CAR_UI_SCENE: PackedScene = preload("res://scenes/CarUI/car_ui.tscn")
 const RESULT_TWEEN_DURATION: float = 1.1
 const BACKGROUND_FADE_DURATION: float = 0.8
 const REORDER_DURATION: float = 0.22
 const COUNTDOWN_CARD_GAP: float = 8.0
 
 var _cards_by_vehicle: Dictionary = {}
+var _active_cards: Array[CarUI] = []
 var _pending_standings: Array = []
 var _reorder_running: bool = false
 var _results_active: bool = false
@@ -48,15 +50,18 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 	_classification_countdown_active = false
 	classification_countdown.hide()
 
-	var card_nodes := list.get_children()
+	_active_cards.clear()
+	_ensure_card_count(initial_standings.size())
+	var card_nodes: Array[Node] = list.get_children()
+	for card_node in card_nodes:
+		(card_node as CarUI).hide()
 	for index in initial_standings.size():
-		if index >= card_nodes.size():
-			break
-
-		var state := initial_standings[index]
+		var state: CarRaceState = initial_standings[index]
 		var card := card_nodes[index] as CarUI
 		card.setup(state)
+		_active_cards.append(card)
 		_cards_by_vehicle[state.vehicle] = card
+		list.move_child(card, index)
 
 	if not controller.standings_updated.is_connected(_on_standings_updated):
 		controller.standings_updated.connect(_on_standings_updated)
@@ -67,6 +72,13 @@ func setup(controller: RaceController, initial_standings: Array[CarRaceState]) -
 	if not race_again.pressed.is_connected(_restart_race):
 		race_again.pressed.connect(_restart_race)
 	_apply_initial_standings(initial_standings)
+
+func _ensure_card_count(required_count: int) -> void:
+	while list.get_child_count() < required_count:
+		var card := CAR_UI_SCENE.instantiate() as CarUI
+		card.name = "CarUI%d" % (list.get_child_count() + 1)
+		card.hide()
+		list.add_child(card)
 
 func is_results_active() -> bool:
 	return _results_active
@@ -199,8 +211,8 @@ func _animate_reorder(current_standings: Array) -> void:
 	_reorder_running = true
 	var old_positions: Dictionary = {}
 
-	for child in list.get_children():
-		old_positions[child] = (child as Control).global_position
+	for card in _active_cards:
+		old_positions[card] = card.global_position
 
 	for index in current_standings.size():
 		var state := current_standings[index] as CarRaceState
@@ -219,8 +231,7 @@ func _animate_reorder(current_standings: Array) -> void:
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 
-	for child in list.get_children():
-		var card := child as CarUI
+	for card in _active_cards:
 		var target_position := card.global_position
 		card.global_position = old_positions[card]
 		tween.tween_property(card, "global_position", target_position, REORDER_DURATION)
@@ -241,7 +252,10 @@ func _on_race_finished(final_standings: Array) -> void:
 			state.vehicle.fade_engine_sound()
 	_classification_countdown_active = false
 	classification_countdown.hide()
-	var result_rects := QuadrantLayout.get_rects(size)
+	var result_rects: Array[Rect2] = QuadrantLayout.get_result_rects(
+		size,
+		final_standings.size()
+	)
 	result_background.show()
 	result_shade.show()
 	SceneTransition.show_potato_rock()
@@ -317,7 +331,7 @@ func _did_player_win(final_standings: Array) -> bool:
 	var has_human_driver := false
 	for state_value in final_standings:
 		var state := state_value as CarRaceState
-		if RaceSelection.get_control_scheme(state.vehicle.driver_id) == RaceSelection.CONTROL_CPU:
+		if not RaceSelection.is_driver_human(state.vehicle.driver_id):
 			continue
 		has_human_driver = true
 		return state.winner

@@ -3,121 +3,151 @@ extends RefCounted
 
 const PLAYER_CAR_SCENE: PackedScene = preload("res://scenes/player_car.tscn")
 const CPU_CAR_SCENE: PackedScene = preload("res://scenes/cpu_car.tscn")
+const PRIMARY_GRID_INDEX: int = 1
 
-const PLAYER_SLOT := "GridSlot2"
-const CPU_SLOTS: Array[String] = ["GridSlot1", "GridSlot3", "GridSlot4"]
-
-static func spawn(track: Node3D, selected_driver_id: String) -> Node3D:
-	if not DriverRoster.has_driver(selected_driver_id):
-		push_error("Unknown selected driver %s; using Soral." % selected_driver_id)
-		selected_driver_id = "soral"
-
+static func spawn(track: Node3D, preferred_driver_id: String) -> Node3D:
 	var existing_cars := track.get_node_or_null("CARS") as Node3D
 	if existing_cars != null:
 		push_error("%s already contains a CARS node." % track.name)
 		return existing_cars
+
+	var active_driver_ids: Array[String] = RaceSelection.get_active_driver_ids()
+	if active_driver_ids.is_empty():
+		push_error("Cannot spawn a race without an active pilot.")
+		return Node3D.new()
 
 	var grid := track.get_node("START_GRID") as Node3D
 	var cars := Node3D.new()
 	cars.name = "CARS"
 	track.add_child(cars)
 
-	var human_driver_ids: Array[String] = []
-	var cpu_driver_ids: Array[String] = []
-	for driver_id in DriverRoster.DRIVER_IDS:
-		if RaceSelection.get_control_scheme(driver_id) == RaceSelection.CONTROL_CPU:
-			cpu_driver_ids.append(driver_id)
+	var ordered_driver_ids: Array[String] = _ordered_driver_ids(
+		active_driver_ids,
+		preferred_driver_id
+	)
+	var spawn_transforms: Array[Transform3D] = _get_spawn_transforms(
+		track,
+		grid,
+		ordered_driver_ids.size()
+	)
+	var grid_order: Array[int] = _get_grid_order(ordered_driver_ids.size())
+	var cpu_index: int = 0
+
+	for car_index in ordered_driver_ids.size():
+		var driver_id: String = ordered_driver_ids[car_index]
+		var spawn_transform: Transform3D = spawn_transforms[grid_order[car_index]]
+		if RaceSelection.is_driver_human(driver_id):
+			_spawn_player(cars, driver_id, spawn_transform, car_index)
 		else:
-			human_driver_ids.append(driver_id)
-
-	if _all_drivers_cpu():
-		_spawn_cpu(cars, track, grid, selected_driver_id, PLAYER_SLOT, 1, 0)
-		for index in CPU_SLOTS.size():
-			_spawn_cpu(
-				cars,
-				track,
-				grid,
-				cpu_driver_ids[index],
-				CPU_SLOTS[index],
-				index + 2,
-				index
-			)
-	else:
-		var primary_human_id := selected_driver_id
-		if RaceSelection.get_control_scheme(primary_human_id) == RaceSelection.CONTROL_CPU:
-			primary_human_id = human_driver_ids[0]
-		_spawn_player(cars, track, grid, primary_human_id, PLAYER_SLOT, 1, true)
-
-		var remaining_slot_index := 0
-		var next_car_number := 2
-		for driver_id in human_driver_ids:
-			if driver_id == primary_human_id:
-				continue
-			_spawn_player(
-				cars,
-				track,
-				grid,
-				driver_id,
-				CPU_SLOTS[remaining_slot_index],
-				next_car_number,
-				false
-			)
-			remaining_slot_index += 1
-			next_car_number += 1
-
-		for index in cpu_driver_ids.size():
-			_spawn_cpu(
-				cars,
-				track,
-				grid,
-				cpu_driver_ids[index],
-				CPU_SLOTS[remaining_slot_index],
-				next_car_number,
-				index
-			)
-			remaining_slot_index += 1
-			next_car_number += 1
+			_spawn_cpu(cars, driver_id, spawn_transform, car_index, cpu_index)
+			cpu_index += 1
 
 	return cars
 
-static func _all_drivers_cpu() -> bool:
-	for driver_id in DriverRoster.DRIVER_IDS:
-		if RaceSelection.get_control_scheme(driver_id) != RaceSelection.CONTROL_CPU:
-			return false
-	return true
+static func _ordered_driver_ids(
+	active_driver_ids: Array[String],
+	preferred_driver_id: String
+) -> Array[String]:
+	var result: Array[String] = []
+	var primary_driver_id: String = preferred_driver_id
+	var p1_driver_id: String = RaceSelection.get_driver_for_player_slot(0)
+	if not p1_driver_id.is_empty() and p1_driver_id in active_driver_ids:
+		primary_driver_id = p1_driver_id
+	elif primary_driver_id not in active_driver_ids:
+		var human_driver_ids: Array[String] = RaceSelection.get_human_driver_ids()
+		primary_driver_id = (
+			human_driver_ids[0]
+			if not human_driver_ids.is_empty()
+			else active_driver_ids[0]
+		)
+
+	result.append(primary_driver_id)
+	for driver_id in active_driver_ids:
+		if driver_id != primary_driver_id:
+			result.append(driver_id)
+	return result
+
+static func _get_grid_order(car_count: int) -> Array[int]:
+	var result: Array[int] = []
+	if car_count <= 0:
+		return result
+	if car_count == 1:
+		result.append(PRIMARY_GRID_INDEX)
+		return result
+
+	result.append(PRIMARY_GRID_INDEX)
+	result.append(0)
+	for grid_index in range(2, car_count):
+		result.append(grid_index)
+	return result
+
+static func _get_spawn_transforms(
+	track: Node3D,
+	grid: Node3D,
+	required_count: int
+) -> Array[Transform3D]:
+	var marker_transforms: Array[Transform3D] = []
+	var marker_index: int = 1
+	while true:
+		var marker := grid.get_node_or_null("GridSlot%d" % marker_index) as Marker3D
+		if marker == null:
+			break
+		marker_transforms.append(marker.transform)
+		marker_index += 1
+
+	if marker_transforms.is_empty():
+		push_error("%s has no START_GRID markers." % track.name)
+		marker_transforms.append(Transform3D.IDENTITY)
+
+	var spacing := Vector3(-1.25, 0.0, 0.0)
+	if marker_transforms.size() >= 2:
+		spacing = (
+			marker_transforms[marker_transforms.size() - 1].origin
+			- marker_transforms[marker_transforms.size() - 2].origin
+		)
+
+	while marker_transforms.size() < required_count:
+		var generated := marker_transforms[marker_transforms.size() - 1]
+		generated.origin += spacing
+		marker_transforms.append(generated)
+
+	var result: Array[Transform3D] = []
+	var track_from_grid: Transform3D = track.global_transform.affine_inverse() * grid.global_transform
+	for local_transform in marker_transforms:
+		result.append(track_from_grid * local_transform)
+	return result
 
 static func _spawn_player(
 	cars: Node3D,
-	track: Node3D,
-	grid: Node3D,
 	driver_id: String,
-	slot_name: String,
-	car_number: int,
-	primary: bool
+	spawn_transform: Transform3D,
+	car_index: int
 ) -> void:
 	var player := PLAYER_CAR_SCENE.instantiate() as PlayerCar
-	player.name = "PlayerCar" if primary else "PlayerCar%d" % car_number
+	var player_slot: int = RaceSelection.get_player_slot_for_driver(driver_id)
+	player.name = "PlayerCar" if player_slot == 0 else "PlayerCar%d" % (player_slot + 1)
 	player.driver_id = driver_id
-	player.control_scheme = RaceSelection.get_control_scheme(driver_id)
-	player.transform = _spawn_transform(track, grid.get_node(slot_name) as Marker3D)
+	player.player_slot = player_slot
+	player.input_source = RaceSelection.get_input_source(player_slot)
+	player.transform = spawn_transform
+	player.set_meta(&"race_grid_index", car_index)
 	cars.add_child(player)
 
 static func _spawn_cpu(
 	cars: Node3D,
-	track: Node3D,
-	grid: Node3D,
 	driver_id: String,
-	slot_name: String,
-	car_number: int,
+	spawn_transform: Transform3D,
+	car_index: int,
 	behavior_index: int
 ) -> void:
 	var cpu := CPU_CAR_SCENE.instantiate() as CpuCar
-	cpu.name = "CpuCar%d" % car_number
+	cpu.name = "CpuCar%d" % (car_index + 1)
 	cpu.driver_id = driver_id
 	cpu.waypoint_generator_path = NodePath("../../PATH/WaypointGenerator")
-	cpu.configure_behavior(CpuBehaviorRoster.BEHAVIOR_IDS[behavior_index])
-	cpu.transform = _spawn_transform(track, grid.get_node(slot_name) as Marker3D)
+	var behavior_count: int = CpuBehaviorRoster.BEHAVIOR_IDS.size()
+	if behavior_count > 0:
+		var behavior_id: String = CpuBehaviorRoster.BEHAVIOR_IDS[behavior_index % behavior_count]
+		cpu.configure_behavior(behavior_id)
+	cpu.transform = spawn_transform
+	cpu.set_meta(&"race_grid_index", car_index)
 	cars.add_child(cpu)
-
-static func _spawn_transform(track: Node3D, marker: Marker3D) -> Transform3D:
-	return track.global_transform.affine_inverse() * marker.global_transform

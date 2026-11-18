@@ -108,10 +108,7 @@ func _is_player_effect_mesh(node: Node) -> bool:
 			return true
 		if current.is_in_group("race_vehicles"):
 			var driver_id := str(current.get("driver_id"))
-			return (
-				not driver_id.is_empty()
-				and RaceSelection.get_control_scheme(driver_id) != RaceSelection.CONTROL_CPU
-			)
+			return not driver_id.is_empty() and RaceSelection.is_driver_human(driver_id)
 		current = current.get_parent()
 	return false
 

@@ -153,10 +153,7 @@ func _initialize_selection() -> void:
 	_unlock_startup_hover.call_deferred()
 
 func _all_drivers_cpu() -> bool:
-	for driver_id in DriverRoster.DRIVER_IDS:
-		if RaceSelection.get_control_scheme(driver_id) != RaceSelection.CONTROL_CPU:
-			return false
-	return true
+	return not RaceSelection.has_human_driver()
 
 func _layout_menu() -> void:
 	if not is_node_ready():

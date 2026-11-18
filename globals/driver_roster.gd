@@ -1,7 +1,14 @@
 class_name DriverRoster
 extends RefCounted
 
-const DRIVER_IDS: Array[String] = ["soral", "lepen", "melenchon", "macron"]
+const DRIVER_IDS: Array[String] = [
+	"soral",
+	"lepen",
+	"melenchon",
+	"macron",
+	"riner",
+	"rima",
+]
 
 const PROFILES: Dictionary = {
 	"soral": {
@@ -28,7 +35,19 @@ const PROFILES: Dictionary = {
 		"car_number": 2,
 		"portrait": preload("res://sprites/Macron.jpg"),
 		"car_color": Color(1.0, 0.0, 0.498, 1.0), # Classic Rose
-	}
+	},
+	"riner": {
+		"display_name": "Teddy Riner",
+		"car_number": 4,
+		"portrait": preload("res://sprites/riner.jpg"),
+		"car_color": Color(0.95, 0.95, 0.95, 1.0),
+	},
+	"rima": {
+		"display_name": "Rima Hassan",
+		"car_number": 5,
+		"portrait": preload("res://sprites/rima.jpg"),
+		"car_color": Color(0.18, 0.72, 0.32, 1.0),
+	},
 }
 
 
