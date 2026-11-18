@@ -6,7 +6,6 @@ const GAME_CONTROLLER_ICON: Texture2D = preload("res://sprites/game-controller.s
 const CPU_ICON: Texture2D = preload("res://sprites/cpu.svg")
 const FLOPPY_ICON: Texture2D = preload("res://sprites/floppy.svg")
 const FLOPPY_SAVING_ICON: Texture2D = preload("res://sprites/floppy-saving.svg")
-const ERROR_SOUND: AudioStream = preload("res://audio/impact.ogg")
 const SELECTED_COLOR := Color(1.0, 0.84, 0.28, 1.0)
 const NORMAL_BORDER_COLOR := Color(0.30, 0.36, 0.46, 0.95)
 const OFF_MODULATE := Color(0.42, 0.42, 0.42, 0.72)
@@ -19,8 +18,6 @@ const SLOT_DEFAULT_INPUTS: Array[int] = [
 	RaceSelection.InputSource.PAD_2,
 ]
 
-@onready var pilot_grid: GridContainer = $Content/PilotGrid
-@onready var player_bar: HBoxContainer = $Content/PlayerBar
 @onready var content: VBoxContainer = $Content
 @onready var day_button: Button = $Content/SettingsBar/Time/Day
 @onready var night_button: Button = $Content/SettingsBar/Time/Night
@@ -33,34 +30,59 @@ const SLOT_DEFAULT_INPUTS: Array[int] = [
 @onready var random_button: Button = $Content/SettingsBar/Random
 @onready var save_button: Button = $Content/SettingsBar/Save
 @onready var race_button: Button = $Content/SettingsBar/Race
+@onready var _pilot_buttons: Array[Button] = [
+	$Content/PilotGrid/Soral,
+	$Content/PilotGrid/LePen,
+	$Content/PilotGrid/Melenchon,
+	$Content/PilotGrid/Macron,
+	$Content/PilotGrid/Riner,
+	$Content/PilotGrid/Rima,
+]
+@onready var _slot_panels: Array[PanelContainer] = [
+	$Content/PlayerBar/PlayerSlot1,
+	$Content/PlayerBar/PlayerSlot2,
+	$Content/PlayerBar/PlayerSlot3,
+	$Content/PlayerBar/PlayerSlot4,
+]
+@onready var _slot_badges: Array[Button] = [
+	$Content/PlayerBar/PlayerSlot1/Margin/Row/Badge,
+	$Content/PlayerBar/PlayerSlot2/Margin/Row/Badge,
+	$Content/PlayerBar/PlayerSlot3/Margin/Row/Badge,
+	$Content/PlayerBar/PlayerSlot4/Margin/Row/Badge,
+]
+@onready var _slot_pilot_buttons: Array[Button] = [
+	$Content/PlayerBar/PlayerSlot1/Margin/Row/Pilot,
+	$Content/PlayerBar/PlayerSlot2/Margin/Row/Pilot,
+	$Content/PlayerBar/PlayerSlot3/Margin/Row/Pilot,
+	$Content/PlayerBar/PlayerSlot4/Margin/Row/Pilot,
+]
+@onready var _slot_toggle_buttons: Array[Button] = [
+	$Content/PlayerBar/PlayerSlot1/Margin/Row/Toggle,
+	$Content/PlayerBar/PlayerSlot2/Margin/Row/Toggle,
+	$Content/PlayerBar/PlayerSlot3/Margin/Row/Toggle,
+	$Content/PlayerBar/PlayerSlot4/Margin/Row/Toggle,
+]
+@onready var _slot_input_buttons: Array[Button] = [
+	$Content/PlayerBar/PlayerSlot1/Margin/Row/Input,
+	$Content/PlayerBar/PlayerSlot2/Margin/Row/Input,
+	$Content/PlayerBar/PlayerSlot3/Margin/Row/Input,
+	$Content/PlayerBar/PlayerSlot4/Margin/Row/Input,
+]
+@onready var _error_player: AudioStreamPlayer = $ErrorPlayer
 
-var _pilot_buttons: Array[Button] = []
 var _pilot_buttons_by_id: Dictionary = {}
-var _slot_panels: Array[PanelContainer] = []
-var _slot_badges: Array[Button] = []
-var _slot_pilot_buttons: Array[Button] = []
-var _slot_toggle_buttons: Array[Button] = []
-var _slot_input_buttons: Array[Button] = []
 var _slot_preview_driver_ids: Array[String] = ["", "", "", ""]
-var _settings_buttons: Array[Button] = []
 var _returning: bool = false
 var _save_feedback_tween: Tween
-var _error_player: AudioStreamPlayer
 
 func _ready() -> void:
-	_create_pilot_cards()
-	_create_player_slots()
+	_bind_pilot_cards()
+	_bind_player_slots()
 	_connect_global_settings()
 	if RaceSelection.random_mode:
 		RaceSelection.prepare_next_race()
 	_rebuild_slot_previews(true)
-	_configure_focus_navigation()
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
-	_error_player = AudioStreamPlayer.new()
-	_error_player.stream = ERROR_SOUND
-	_error_player.volume_db = -16.0
-	_error_player.pitch_scale = 1.45
-	add_child(_error_player)
 	_refresh_all()
 	content.modulate.a = 0.0
 	create_tween().tween_property(content, "modulate:a", 1.0, 0.22)
@@ -92,158 +114,31 @@ func _unhandled_input(event: InputEvent) -> void:
 			if pad_index >= 0 and pad_index < 4:
 				_try_auto_join(RaceSelection.InputSource.PAD_1 + pad_index)
 
-func _create_pilot_cards() -> void:
-	for driver_id in DriverRoster.DRIVER_IDS:
+func _bind_pilot_cards() -> void:
+	for index in DriverRoster.DRIVER_IDS.size():
+		var driver_id: String = DriverRoster.DRIVER_IDS[index]
 		var profile: Dictionary = DriverRoster.get_profile(driver_id)
-		var button := Button.new()
-		button.name = driver_id.to_pascal_case()
-		button.custom_minimum_size = Vector2(0.0, 142.0)
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		button.clip_contents = true
-		button.focus_mode = Control.FOCUS_ALL
-		button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		var button: Button = _pilot_buttons[index]
+		(button.get_node("Portrait") as TextureRect).texture = profile["portrait"]
+		(button.get_node("Accent") as ColorRect).color = profile["car_color"]
+		(button.get_node("Name") as Label).text = profile["display_name"]
 		button.tooltip_text = "%s — Enter/Space/A: assign, X/Y/right-click: mode" % profile["display_name"]
-		pilot_grid.add_child(button)
-
-		var portrait := TextureRect.new()
-		portrait.name = "Portrait"
-		portrait.texture = profile["portrait"]
-		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		button.add_child(portrait)
-		portrait.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-
-		var shade := ColorRect.new()
-		shade.name = "Shade"
-		shade.color = Color(0.0, 0.0, 0.0, 0.22)
-		shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		button.add_child(shade)
-		shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-
-		var accent := ColorRect.new()
-		accent.name = "Accent"
-		accent.color = profile["car_color"]
-		accent.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		button.add_child(accent)
-		accent.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
-		accent.offset_right = 8.0
-
-		var name_label := Label.new()
-		name_label.name = "Name"
-		name_label.text = profile["display_name"]
-		name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		name_label.add_theme_font_size_override("font_size", 24)
-		name_label.add_theme_color_override("font_color", Color.WHITE)
-		name_label.add_theme_color_override("font_outline_color", Color.BLACK)
-		name_label.add_theme_constant_override("outline_size", 6)
-		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		button.add_child(name_label)
-		name_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-		name_label.offset_top = -38.0
-
-		var status_panel := PanelContainer.new()
-		status_panel.name = "Status"
-		status_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		status_panel.add_theme_stylebox_override(
-			"panel",
-			_make_style(Color(0.02, 0.03, 0.05, 0.92), Color.TRANSPARENT, 0)
-		)
-		button.add_child(status_panel)
-		status_panel.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-		status_panel.position = Vector2(-68.0, 6.0)
-		status_panel.size = Vector2(62.0, 28.0)
-
-		var status_label := Label.new()
-		status_label.name = "Label"
-		status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		status_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		status_label.add_theme_font_size_override("font_size", 16)
-		status_label.add_theme_color_override("font_color", SELECTED_COLOR)
-		status_label.add_theme_color_override("font_outline_color", Color.BLACK)
-		status_label.add_theme_constant_override("outline_size", 3)
-		status_panel.add_child(status_label)
-
-		var status_icon := TextureRect.new()
-		status_icon.name = "Icon"
-		status_icon.texture = CPU_ICON
-		status_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		status_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		status_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		status_icon.hide()
-		status_panel.add_child(status_icon)
-
 		button.pressed.connect(_on_pilot_pressed.bind(driver_id))
 		button.gui_input.connect(_on_pilot_gui_input.bind(driver_id, button))
-		_pilot_buttons.append(button)
 		_pilot_buttons_by_id[driver_id] = button
 
-func _create_player_slots() -> void:
+func _bind_player_slots() -> void:
 	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
-		var panel := PanelContainer.new()
-		panel.name = "PlayerSlot%d" % (slot_index + 1)
-		panel.custom_minimum_size = Vector2(0.0, 86.0)
-		panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		player_bar.add_child(panel)
-
-		var margin := MarginContainer.new()
-		margin.add_theme_constant_override("margin_left", 5)
-		margin.add_theme_constant_override("margin_top", 5)
-		margin.add_theme_constant_override("margin_right", 5)
-		margin.add_theme_constant_override("margin_bottom", 5)
-		panel.add_child(margin)
-
-		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 4)
-		margin.add_child(row)
-
-		var badge := Button.new()
-		badge.name = "Badge"
-		badge.custom_minimum_size = Vector2(34.0, 0.0)
-		badge.text = "P%d" % (slot_index + 1)
-		badge.focus_mode = Control.FOCUS_ALL
-		badge.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		var badge: Button = _slot_badges[slot_index]
+		var pilot_button: Button = _slot_pilot_buttons[slot_index]
+		var toggle_button: Button = _slot_toggle_buttons[slot_index]
+		var input_button: Button = _slot_input_buttons[slot_index]
 		badge.tooltip_text = "Select player slot P%d" % (slot_index + 1)
-		badge.pressed.connect(_on_slot_selected.bind(slot_index))
-		row.add_child(badge)
-
-		var pilot_button := Button.new()
-		pilot_button.name = "Pilot"
-		pilot_button.custom_minimum_size = Vector2(46.0, 0.0)
-		pilot_button.focus_mode = Control.FOCUS_ALL
-		pilot_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		pilot_button.expand_icon = true
 		pilot_button.tooltip_text = "Select player slot P%d" % (slot_index + 1)
+		badge.pressed.connect(_on_slot_selected.bind(slot_index))
 		pilot_button.pressed.connect(_on_slot_selected.bind(slot_index))
-		row.add_child(pilot_button)
-
-		var toggle_button := Button.new()
-		toggle_button.name = "Toggle"
-		toggle_button.custom_minimum_size = Vector2(42.0, 0.0)
-		toggle_button.focus_mode = Control.FOCUS_ALL
-		toggle_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		toggle_button.expand_icon = true
-		toggle_button.icon = CPU_ICON
 		toggle_button.pressed.connect(_on_slot_pilot_toggled.bind(slot_index))
-		row.add_child(toggle_button)
-
-		var input_button := Button.new()
-		input_button.name = "Input"
-		input_button.custom_minimum_size = Vector2(76.0, 0.0)
-		input_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		input_button.focus_mode = Control.FOCUS_ALL
-		input_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		input_button.expand_icon = true
 		input_button.pressed.connect(_on_slot_input_pressed.bind(slot_index))
-		row.add_child(input_button)
-
-		_slot_panels.append(panel)
-		_slot_badges.append(badge)
-		_slot_pilot_buttons.append(pilot_button)
-		_slot_toggle_buttons.append(toggle_button)
-		_slot_input_buttons.append(input_button)
 
 func _connect_global_settings() -> void:
 	day_button.tooltip_text = "Daytime"
@@ -269,20 +164,6 @@ func _connect_global_settings() -> void:
 	random_button.pressed.connect(_select_random)
 	save_button.pressed.connect(_save_options)
 	race_button.pressed.connect(_return_to_menu)
-
-	_settings_buttons = [
-		day_button,
-		night_button,
-		fair_button,
-		rain_button,
-		snow_button,
-		one_lap_button,
-		two_lap_button,
-		three_lap_button,
-		random_button,
-		save_button,
-		race_button,
-	]
 
 func _on_pilot_pressed(driver_id: String) -> void:
 	RaceSelection.assign_pilot_to_slot(driver_id, RaceSelection.selected_local_slot)
@@ -605,68 +486,6 @@ func _make_style(background: Color, border: Color, border_width: int) -> StyleBo
 	style.set_border_width_all(border_width)
 	style.set_corner_radius_all(7)
 	return style
-
-func _configure_focus_navigation() -> void:
-	for index in _pilot_buttons.size():
-		var column: int = index % 3
-		var row: int = int(index / 3)
-		var left_index: int = row * 3 + posmod(column - 1, 3)
-		var right_index: int = row * 3 + posmod(column + 1, 3)
-		var vertical_index: int = posmod(row + 1, 2) * 3 + column
-		_set_focus_neighbor(_pilot_buttons[index], "left", _pilot_buttons[left_index])
-		_set_focus_neighbor(_pilot_buttons[index], "right", _pilot_buttons[right_index])
-		if row == 0:
-			_set_focus_neighbor(_pilot_buttons[index], "top", _settings_buttons[column * 3])
-			_set_focus_neighbor(_pilot_buttons[index], "bottom", _pilot_buttons[vertical_index])
-		else:
-			_set_focus_neighbor(_pilot_buttons[index], "top", _pilot_buttons[vertical_index])
-			_set_focus_neighbor(_pilot_buttons[index], "bottom", _slot_badges[mini(column, 3)])
-
-	var slot_controls: Array[Button] = []
-	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
-		slot_controls.append(_slot_badges[slot_index])
-		slot_controls.append(_slot_pilot_buttons[slot_index])
-		slot_controls.append(_slot_toggle_buttons[slot_index])
-		slot_controls.append(_slot_input_buttons[slot_index])
-	for index in slot_controls.size():
-		var slot_index: int = int(index / 4)
-		var pilot_column: int = mini(slot_index, 2)
-		_set_focus_neighbor(slot_controls[index], "left", slot_controls[posmod(index - 1, slot_controls.size())])
-		_set_focus_neighbor(slot_controls[index], "right", slot_controls[posmod(index + 1, slot_controls.size())])
-		_set_focus_neighbor(slot_controls[index], "top", _pilot_buttons[3 + pilot_column])
-		_set_focus_neighbor(
-			slot_controls[index],
-			"bottom",
-			_settings_buttons[mini(slot_index * 3, _settings_buttons.size() - 1)]
-		)
-
-	for index in _settings_buttons.size():
-		var slot_index: int = mini(int(float(index) / float(_settings_buttons.size()) * 4.0), 3)
-		var pilot_column: int = mini(int(float(index) / float(_settings_buttons.size()) * 3.0), 2)
-		_set_focus_neighbor(
-			_settings_buttons[index],
-			"left",
-			_settings_buttons[posmod(index - 1, _settings_buttons.size())]
-		)
-		_set_focus_neighbor(
-			_settings_buttons[index],
-			"right",
-			_settings_buttons[posmod(index + 1, _settings_buttons.size())]
-		)
-		_set_focus_neighbor(_settings_buttons[index], "top", _slot_badges[slot_index])
-		_set_focus_neighbor(_settings_buttons[index], "bottom", _pilot_buttons[pilot_column])
-
-func _set_focus_neighbor(source: Control, direction: String, target: Control) -> void:
-	var path: NodePath = source.get_path_to(target)
-	match direction:
-		"left":
-			source.focus_neighbor_left = path
-		"right":
-			source.focus_neighbor_right = path
-		"top":
-			source.focus_neighbor_top = path
-		"bottom":
-			source.focus_neighbor_bottom = path
 
 func _grab_initial_focus() -> void:
 	var driver_id: String = RaceSelection.get_driver_for_player_slot(
