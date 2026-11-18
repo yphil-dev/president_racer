@@ -72,15 +72,16 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="SettingsBar" type="HBoxContainer" parent="Content" unique_id=827695469]
-custom_maximum_size = Vector2(-1, 52)
-propagate_maximum_size = false
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 8
 theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Time" type="HBoxContainer" parent="Content/SettingsBar" unique_id=506801721]
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_constants/separation = 0
 
 [node name="Day" type="Button" parent="Content/SettingsBar/Time" unique_id=356853550]
@@ -101,6 +102,7 @@ icon_alignment = 1
 
 [node name="Weather" type="HBoxContainer" parent="Content/SettingsBar" unique_id=296145829]
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_constants/separation = 0
 
 [node name="Fair" type="Button" parent="Content/SettingsBar/Weather" unique_id=274454112]
@@ -129,6 +131,7 @@ icon_alignment = 1
 
 [node name="Laps" type="HBoxContainer" parent="Content/SettingsBar" unique_id=2088688932]
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_constants/separation = 0
 
 [node name="One" type="Button" parent="Content/SettingsBar/Laps" unique_id=1298925699]
@@ -156,6 +159,7 @@ icon = ExtResource("13_lap_three")
 icon_alignment = 1
 
 [node name="Spacer" type="Control" parent="Content/SettingsBar" unique_id=1235338835]
+custom_maximum_size = Vector2(52, -1)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
