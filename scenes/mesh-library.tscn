@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://dffh13ujx0tmi" path="res://models/decoration-empty.glb" id="1_8k04h"]
 [ext_resource type="PackedScene" uid="uid://dnonb1wl5fs0h" path="res://models/decoration-forest.glb" id="2_dlvak"]
 [ext_resource type="PackedScene" uid="uid://ch83y7b822ibm" path="res://models/decoration-tents.glb" id="3_6wkmy"]
-[ext_resource type="ArrayMesh" path="res://models/Library/track-straight.mesh" id="5_oxy43"]
+[ext_resource type="ArrayMesh" uid="uid://erho17lna40s" path="res://models/Library/track-straight.mesh" id="5_oxy43"]
 [ext_resource type="Texture2D" uid="uid://cn1tfklahvwc0" path="res://models/Textures/colormap.png" id="5_qst2b"]
-[ext_resource type="Texture2D" uid="uid://cq5eqs4i53y3u" path="res://models/Textures/colormap_sand.png" id="6_dsn08"]
+[ext_resource type="Texture2D" uid="uid://kpapdfxfn0ec" path="res://models/Textures/colormap_2x2_sand.png" id="6_dsn08"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqi4y"]
 resource_name = "colormap"
