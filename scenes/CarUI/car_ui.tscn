@@ -24,7 +24,9 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [node name="CarUI" type="PanelContainer" unique_id=130035257]
-custom_minimum_size = Vector2(140, 88)
+custom_minimum_size = Vector2(140, 80)
+offset_right = 140.0
+offset_bottom = 80.0
 mouse_filter = 2
 theme = ExtResource("1_m6128")
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
@@ -48,8 +50,9 @@ mouse_filter = 2
 color = Color(1, 0, 0, 1)
 
 [node name="Portrait" type="TextureRect" parent="Margin/HBox" unique_id=916920201]
-custom_minimum_size = Vector2(42, 72)
+custom_minimum_size = Vector2(42, 66)
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 6
@@ -86,12 +89,13 @@ layout_mode = 2
 theme_override_constants/separation = 3
 
 [node name="StatusBadge" type="Panel" parent="Margin/HBox/Info/StatusRow" unique_id=193858276]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(23, 23)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_live_badge")
 
 [node name="StatusIcon" type="TextureRect" parent="Margin/HBox/Info/StatusRow/StatusBadge" unique_id=257971466]
+custom_maximum_size = Vector2(24, 24)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

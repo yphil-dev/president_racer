@@ -5,7 +5,10 @@ class_name CarUI
 const WINNER_ICON: Texture2D = preload("res://sprites/results-trophy.png")
 const FINISHED_ICON: Texture2D = preload("res://sprites/results-finish-flag.svg")
 const DNF_ICON: Texture2D = preload("res://sprites/results-dnf.png")
-const RACING_ICON: Texture2D = preload("res://sprites/steering-wheel.png")
+const ARROW_KEYS_ICON: Texture2D = preload("res://sprites/arrow-keys.svg")
+const WASD_KEYS_ICON: Texture2D = preload("res://sprites/wasd-keys.svg")
+const GAME_CONTROLLER_ICON: Texture2D = preload("res://sprites/game-controller.svg")
+const CPU_ICON: Texture2D = preload("res://sprites/cpu.svg")
 
 @onready var margin: MarginContainer = $Margin
 @onready var hbox: HBoxContainer = $Margin/HBox
@@ -55,7 +58,7 @@ func update_state(state: CarRaceState) -> void:
 		status_label.text = ""
 	else:
 		time_label.text = format_time(state.current_time)
-		status_icon.texture = RACING_ICON
+		status_icon.texture = _control_icon_for_driver(state.vehicle.driver_id)
 		status_label.text = "%d / %d" % [state.laps_completed, state.target_laps]
 
 	best_label.text = (
@@ -63,6 +66,17 @@ func update_state(state: CarRaceState) -> void:
 		if state.best_lap_time >= 0.0
 		else ""
 	)
+
+func _control_icon_for_driver(driver_id: String) -> Texture2D:
+	if not RaceSelection.is_driver_human(driver_id):
+		return CPU_ICON
+	var input_source: int = RaceSelection.get_input_source_for_driver(driver_id)
+	match input_source:
+		RaceSelection.InputSource.ARROWS:
+			return ARROW_KEYS_ICON
+		RaceSelection.InputSource.WASD:
+			return WASD_KEYS_ICON
+	return GAME_CONTROLLER_ICON
 
 func prepare_final_layout() -> void:
 	rank_label.hide()
