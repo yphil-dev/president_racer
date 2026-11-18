@@ -95,21 +95,25 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="CarUI5" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+[node name="CarUI5" parent="MarginContainer/VBoxContainer" unique_id=1425678715 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
 
-[node name="CarUI6" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_card")]
+[node name="CarUI6" parent="MarginContainer/VBoxContainer" unique_id=31987395 instance=ExtResource("1_card")]
 visible = false
 layout_mode = 2
 
 [node name="ClassificationCountdown" type="Control" parent="." unique_id=7164351]
 visible = false
-anchors_preset = 0
-offset_left = 4.0
-offset_top = 396.0
-offset_right = 157.0
-offset_bottom = 462.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -157.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 70.0
+grow_horizontal = 0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="ClassificationCountdown" unique_id=1193679202]
@@ -258,17 +262,16 @@ stretch_mode = 5
 
 [node name="RaceAgain" type="Button" parent="." unique_id=1358150464]
 visible = false
-clip_contents = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -96.0
-offset_right = -32.0
-offset_bottom = -28.0
+offset_left = -77.0
+offset_top = -75.0
+offset_right = -25.0
+offset_bottom = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(34, 34)
@@ -276,29 +279,27 @@ theme_type_variation = &"ResultAction"
 
 [node name="Shade" type="ColorRect" parent="RaceAgain" unique_id=661387778]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = -2.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="Icon" type="TextureRect" parent="RaceAgain" unique_id=1246725102]
+[node name="Icon" type="TextureRect" parent="RaceAgain/Shade" unique_id=1246725102]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -30.0
-offset_right = 30.0
-offset_bottom = 30.0
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

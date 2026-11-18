@@ -154,16 +154,16 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.344608, 0, 5)
 
 [node name="GridSlot1" type="Marker3D" parent="START_GRID" unique_id=1827936175]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7683592, 0, -1.318572)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7683592, 0, -0.36762762)
 
 [node name="GridSlot2" type="Marker3D" parent="START_GRID" unique_id=1622328316]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5183592, 0, -1.318572)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5183592, 0, -0.36762762)
 
 [node name="GridSlot3" type="Marker3D" parent="START_GRID" unique_id=48391389]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26835918, 0, -1.318572)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26835918, 0, -0.36762762)
 
 [node name="GridSlot4" type="Marker3D" parent="START_GRID" unique_id=761714149]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9816408, 0, -1.318572)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9816408, 0, -0.36762762)
 
 [node name="GridSlot5" type="Marker3D" parent="START_GRID" unique_id=1456152342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2604198, 0, -2.9540305)

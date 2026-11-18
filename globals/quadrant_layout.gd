@@ -36,9 +36,12 @@ static func get_result_rects(viewport_size: Vector2, card_count: int) -> Array[R
 	if safe_count > 4:
 		columns = 3
 	var rows: int = ceili(float(safe_count) / float(columns))
-	var horizontal_gap: float = 20.0 if columns >= 3 else HORIZONTAL_GAP
+	var horizontal_gap: float = HORIZONTAL_GAP
 	var vertical_gap: float = 16.0 if rows >= 2 else VERTICAL_GAP
-	var available_size := Vector2(viewport_size.x * 0.92, viewport_size.y * 0.82)
+	var available_size := Vector2(
+		maxf(0.0, viewport_size.x - 8.0),
+		viewport_size.y * 0.82
+	)
 	var maximum_card_width: float = (
 		available_size.x - horizontal_gap * float(columns - 1)
 	) / float(columns)
@@ -51,6 +54,7 @@ static func get_result_rects(viewport_size: Vector2, card_count: int) -> Array[R
 		authored_card_width
 	)
 	var card_height: float = card_width / CARD_ASPECT_RATIO
+	card_width = maxf(0.0, card_width - 12.0)
 	var card_size := Vector2(card_width, card_height)
 	var grid_size := Vector2(
 		card_size.x * float(columns) + horizontal_gap * float(columns - 1),

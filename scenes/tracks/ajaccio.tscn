@@ -88,7 +88,7 @@ point_count = 12
 [sub_resource type="BoxShape3D" id="BoxShape3D_ramp_walls_left_paris"]
 size = Vector3(4.875244, 4.329834, 0.31445313)
 
-[node name="TRACK2" type="Node3D" unique_id=1145999287]
+[node name="TRACK" type="Node3D" unique_id=1145999287]
 script = ExtResource("1_eb6dy")
 
 [node name="RaceController" parent="." unique_id=1837278698 instance=ExtResource("2_trceg")]
@@ -159,10 +159,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2286377, 0, 0)
 [node name="GridSlot4" type="Marker3D" parent="START_GRID" unique_id=761714149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0213623, 0, 0)
 
-[node name="GridSlot5" type="Marker3D" parent="START_GRID"]
+[node name="GridSlot5" type="Marker3D" parent="START_GRID" unique_id=549428455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2713623, 0, 0)
 
-[node name="GridSlot6" type="Marker3D" parent="START_GRID"]
+[node name="GridSlot6" type="Marker3D" parent="START_GRID" unique_id=1401754127]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5213623, 0, 0)
 
 [node name="Finish" type="Area3D" parent="START_GRID" unique_id=989885447]
@@ -686,6 +686,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3734646, 1.6333923, -0.2106
 shape = SubResource("BoxShape3D_ramp_walls_left_paris")
 debug_color = Color(0.89411765, 0, 0, 0.41960785)
 
-[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_finish_body_entered"]
+[connection signal="body_entered" from="START_GRID/Finish" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="START_GRID/Verif" to="." method="_on_verif_body_entered"]

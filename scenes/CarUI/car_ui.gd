@@ -81,26 +81,28 @@ func _control_icon_for_driver(driver_id: String) -> Texture2D:
 func prepare_final_layout() -> void:
 	rank_label.hide()
 	status_row.hide()
+	var profile: Dictionary = DriverRoster.get_profile(race_state.vehicle.driver_id)
+	name_label.text = str(profile.get("last_name", race_state.vehicle.driver_name))
 	best_icon.show()
 	custom_minimum_size = Vector2.ZERO
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
 
-	margin.add_theme_constant_override("margin_left", 16)
-	margin.add_theme_constant_override("margin_top", 16)
-	margin.add_theme_constant_override("margin_right", 16)
-	margin.add_theme_constant_override("margin_bottom", 16)
+	margin.add_theme_constant_override("margin_left", 4)
+	margin.add_theme_constant_override("margin_top", 4)
+	margin.add_theme_constant_override("margin_right", 4)
+	margin.add_theme_constant_override("margin_bottom", 4)
 	hbox.add_theme_constant_override("separation", 12)
 	accent.custom_minimum_size = Vector2(10, 0)
-	portrait.custom_minimum_size = Vector2(160, 0)
+	portrait.custom_minimum_size = Vector2(120, 0)
 	portrait.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	info.alignment = BoxContainer.ALIGNMENT_CENTER
 	info.add_theme_constant_override("separation", 5)
 	header.add_theme_constant_override("separation", 5)
 
 	rank_label.add_theme_font_size_override("font_size", 22)
-	name_label.add_theme_font_size_override("font_size", 26)
-	time_label.add_theme_font_size_override("font_size", 30)
+	name_label.add_theme_font_size_override("font_size", 22)
+	time_label.add_theme_font_size_override("font_size", 24)
 	status_label.add_theme_font_size_override("font_size", 18)
 	best_label.add_theme_font_size_override("font_size", 16)
 

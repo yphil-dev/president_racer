@@ -19,7 +19,6 @@ const CAR_UI_SCENE: PackedScene = preload("res://scenes/CarUI/car_ui.tscn")
 const RESULT_TWEEN_DURATION: float = 1.1
 const BACKGROUND_FADE_DURATION: float = 0.8
 const REORDER_DURATION: float = 0.22
-const COUNTDOWN_CARD_GAP: float = 8.0
 
 var _cards_by_vehicle: Dictionary = {}
 var _active_cards: Array[CarUI] = []
@@ -147,7 +146,6 @@ func _process(_delta: float) -> void:
 	if not _classification_countdown_active or _controller == null:
 		return
 
-	_position_classification_countdown()
 	var remaining := maxf(0.0, _controller.classification_time_remaining)
 	var progress := 0.0
 	if _classification_duration > 0.0:
@@ -160,15 +158,7 @@ func _on_classification_started(duration: float) -> void:
 	_classification_countdown_active = true
 	classification_timer.value = 100.0
 	classification_label.text = str(ceili(duration))
-	_position_classification_countdown()
 	classification_countdown.show()
-
-func _position_classification_countdown() -> void:
-	var bottom := list.global_position.y
-	for child in list.get_children():
-		if child is Control and child.visible:
-			bottom = maxf(bottom, child.global_position.y + child.size.y)
-	classification_countdown.position.y = bottom - global_position.y + COUNTDOWN_CARD_GAP
 
 func _apply_initial_standings(current_standings: Array) -> void:
 	for index in current_standings.size():
