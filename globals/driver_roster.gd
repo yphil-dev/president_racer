@@ -40,13 +40,13 @@ const PROFILES: Dictionary = {
 		"display_name": "Teddy Riner",
 		"car_number": 4,
 		"portrait": preload("res://sprites/riner.jpg"),
-		"car_color": Color(0.95, 0.95, 0.95, 1.0),
+		"car_color": Color(0.65, 0.65, 0.65, 1.0),
 	},
 	"rima": {
 		"display_name": "Rima Hassan",
 		"car_number": 5,
 		"portrait": preload("res://sprites/rima.jpg"),
-		"car_color": Color(0.18, 0.72, 0.32, 1.0),
+		"car_color": Color(0.09, 0.40, 0.20, 1.0),
 	},
 }
 

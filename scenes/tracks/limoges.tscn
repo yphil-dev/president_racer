@@ -202,11 +202,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30746555, 0, 0)
 [node name="GridSlot4" type="Marker3D" parent="START_GRID" unique_id=761714149]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94253445, 0, 0)
 
-[node name="GridSlot5" type="Marker3D" parent="START_GRID"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1925344, 0, 0)
+[node name="GridSlot5" type="Marker3D" parent="START_GRID" unique_id=829765758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42206192, 0, -2.9170089)
 
-[node name="GridSlot6" type="Marker3D" parent="START_GRID"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4425344, 0, 0)
+[node name="GridSlot6" type="Marker3D" parent="START_GRID" unique_id=755176904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.280342, 0, -2.9450502)
 
 [node name="Finish" type="Area3D" parent="START_GRID" unique_id=989885447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4941492, 0, -1.6709871)
