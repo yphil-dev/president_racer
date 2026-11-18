@@ -140,6 +140,7 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_oxy43")
 
 [node name="track-straight" type="MeshInstance3D" parent="." unique_id=1305332622]
+visible = false
 mesh = ExtResource("5_oxy43")
 skeleton = NodePath("")
 
