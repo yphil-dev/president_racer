@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://xqrsn52l8lvl"]
+[gd_scene format=3 uid="uid://xqrsn52l8lvl"]
 
 [ext_resource type="Script" uid="uid://dvaqw8rt4ilqt" path="res://scripts/options_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://byqqbebrbr4l2" path="res://splash-screen.png" id="2_background"]
@@ -13,32 +13,18 @@
 [ext_resource type="Texture2D" uid="uid://yb7expqoqxvb" path="res://sprites/laps-one.svg" id="11_lap_one"]
 [ext_resource type="Texture2D" uid="uid://dlmoa1on0tsn" path="res://sprites/laps-two.svg" id="12_lap_two"]
 [ext_resource type="Texture2D" uid="uid://cqkoyikce2m8l" path="res://sprites/laps-three.svg" id="13_lap_three"]
-[ext_resource type="Texture2D" path="res://sprites/Soral.jpg" id="14_soral"]
-[ext_resource type="Texture2D" path="res://sprites/Lepen.jpg" id="15_lepen"]
-[ext_resource type="Texture2D" path="res://sprites/Melenchon.jpg" id="16_melenchon"]
-[ext_resource type="Texture2D" path="res://sprites/Macron.jpg" id="17_macron"]
-[ext_resource type="Texture2D" path="res://sprites/riner.jpg" id="18_riner"]
-[ext_resource type="Texture2D" path="res://sprites/rima.jpg" id="19_rima"]
-[ext_resource type="Texture2D" path="res://sprites/arrow-keys.svg" id="20_arrows"]
-[ext_resource type="Texture2D" path="res://sprites/wasd-keys.svg" id="21_wasd"]
-[ext_resource type="Texture2D" path="res://sprites/game-controller.svg" id="22_controller"]
-[ext_resource type="Texture2D" path="res://sprites/cpu.svg" id="23_cpu"]
-[ext_resource type="AudioStream" path="res://audio/impact.ogg" id="24_error"]
+[ext_resource type="Texture2D" uid="uid://bfaf8a51m4duh" path="res://sprites/Soral.jpg" id="14_soral"]
+[ext_resource type="Texture2D" uid="uid://cht6vw8k22pyd" path="res://sprites/Lepen.jpg" id="15_lepen"]
+[ext_resource type="Texture2D" uid="uid://bfxgr53wjcmlx" path="res://sprites/Melenchon.jpg" id="16_melenchon"]
+[ext_resource type="Texture2D" uid="uid://16gpa6qdcqni" path="res://sprites/Macron.jpg" id="17_macron"]
+[ext_resource type="Texture2D" uid="uid://devpiaoy3asyw" path="res://sprites/riner.jpg" id="18_riner"]
+[ext_resource type="Texture2D" uid="uid://dvebmurlrr4rf" path="res://sprites/rima.jpg" id="19_rima"]
+[ext_resource type="Texture2D" uid="uid://bjyw5rayba4jb" path="res://sprites/arrow-keys.svg" id="20_arrows"]
+[ext_resource type="Texture2D" uid="uid://bmpjybdc5hicv" path="res://sprites/cpu.svg" id="23_cpu"]
+[ext_resource type="AudioStream" uid="uid://io4pmr3lo1dy" path="res://audio/impact.ogg" id="24_error"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_status"]
 bg_color = Color(0.02, 0.03, 0.05, 0.92)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_slot"]
-bg_color = Color(0.035, 0.05, 0.075, 0.92)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3, 0.36, 0.46, 0.95)
 corner_radius_top_left = 7
 corner_radius_top_right = 7
 corner_radius_bottom_right = 7
@@ -96,7 +82,7 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 3
 
-[node name="Soral" type="Button" parent="Content/PilotGrid"]
+[node name="Soral" type="Button" parent="Content/PilotGrid" unique_id=1651373233]
 custom_minimum_size = Vector2(0, 142)
 clip_contents = true
 layout_mode = 2
@@ -108,7 +94,7 @@ focus_neighbor_right = NodePath("../LePen")
 focus_neighbor_bottom = NodePath("../Macron")
 mouse_default_cursor_shape = 2
 
-[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Soral"]
+[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Soral" unique_id=237987907]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,7 +106,7 @@ texture = ExtResource("14_soral")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Soral"]
+[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Soral" unique_id=958255321]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,7 +116,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.22)
 
-[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Soral"]
+[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Soral" unique_id=2077266322]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -139,7 +125,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.05, 0.06, 0.1, 1)
 
-[node name="Name" type="Label" parent="Content/PilotGrid/Soral"]
+[node name="Name" type="Label" parent="Content/PilotGrid/Soral" unique_id=1658380667]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -148,7 +134,6 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -157,7 +142,7 @@ text = "A. Soral"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Soral"]
+[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Soral" unique_id=435015316]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -170,10 +155,9 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_status")
 
-[node name="Label" type="Label" parent="Content/PilotGrid/Soral/Status"]
+[node name="Label" type="Label" parent="Content/PilotGrid/Soral/Status" unique_id=1058123551]
 visible = false
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.28, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -181,14 +165,14 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Soral/Status"]
+[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Soral/Status" unique_id=1973265273]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LePen" type="Button" parent="Content/PilotGrid"]
+[node name="LePen" type="Button" parent="Content/PilotGrid" unique_id=1121375342]
 custom_minimum_size = Vector2(0, 142)
 clip_contents = true
 layout_mode = 2
@@ -200,7 +184,7 @@ focus_neighbor_right = NodePath("../Melenchon")
 focus_neighbor_bottom = NodePath("../Riner")
 mouse_default_cursor_shape = 2
 
-[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/LePen"]
+[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/LePen" unique_id=1773626197]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -212,7 +196,7 @@ texture = ExtResource("15_lepen")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Shade" type="ColorRect" parent="Content/PilotGrid/LePen"]
+[node name="Shade" type="ColorRect" parent="Content/PilotGrid/LePen" unique_id=1873737523]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -222,7 +206,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.22)
 
-[node name="Accent" type="ColorRect" parent="Content/PilotGrid/LePen"]
+[node name="Accent" type="ColorRect" parent="Content/PilotGrid/LePen" unique_id=535529218]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -231,7 +215,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.082, 0.212, 0.761, 1)
 
-[node name="Name" type="Label" parent="Content/PilotGrid/LePen"]
+[node name="Name" type="Label" parent="Content/PilotGrid/LePen" unique_id=992000708]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -240,7 +224,6 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -249,7 +232,7 @@ text = "M. Le Pen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Status" type="PanelContainer" parent="Content/PilotGrid/LePen"]
+[node name="Status" type="PanelContainer" parent="Content/PilotGrid/LePen" unique_id=1278033032]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -262,10 +245,9 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_status")
 
-[node name="Label" type="Label" parent="Content/PilotGrid/LePen/Status"]
+[node name="Label" type="Label" parent="Content/PilotGrid/LePen/Status" unique_id=1967512998]
 visible = false
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.28, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -273,14 +255,14 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Content/PilotGrid/LePen/Status"]
+[node name="Icon" type="TextureRect" parent="Content/PilotGrid/LePen/Status" unique_id=16252070]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Melenchon" type="Button" parent="Content/PilotGrid"]
+[node name="Melenchon" type="Button" parent="Content/PilotGrid" unique_id=1127361640]
 custom_minimum_size = Vector2(0, 142)
 clip_contents = true
 layout_mode = 2
@@ -292,7 +274,7 @@ focus_neighbor_right = NodePath("../Soral")
 focus_neighbor_bottom = NodePath("../Rima")
 mouse_default_cursor_shape = 2
 
-[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Melenchon"]
+[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Melenchon" unique_id=2133576233]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -304,7 +286,7 @@ texture = ExtResource("16_melenchon")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Melenchon"]
+[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Melenchon" unique_id=1648185660]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,7 +296,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.22)
 
-[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Melenchon"]
+[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Melenchon" unique_id=226075289]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -323,7 +305,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.85, 0.08, 0.08, 1)
 
-[node name="Name" type="Label" parent="Content/PilotGrid/Melenchon"]
+[node name="Name" type="Label" parent="Content/PilotGrid/Melenchon" unique_id=180474836]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -332,7 +314,6 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -341,7 +322,7 @@ text = "JL. Mélenchon"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Melenchon"]
+[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Melenchon" unique_id=113984820]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -354,10 +335,9 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_status")
 
-[node name="Label" type="Label" parent="Content/PilotGrid/Melenchon/Status"]
+[node name="Label" type="Label" parent="Content/PilotGrid/Melenchon/Status" unique_id=990646435]
 visible = false
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.28, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -365,14 +345,14 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Melenchon/Status"]
+[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Melenchon/Status" unique_id=505088485]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Macron" type="Button" parent="Content/PilotGrid"]
+[node name="Macron" type="Button" parent="Content/PilotGrid" unique_id=225604844]
 custom_minimum_size = Vector2(0, 142)
 clip_contents = true
 layout_mode = 2
@@ -381,10 +361,10 @@ size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Rima")
 focus_neighbor_top = NodePath("../Soral")
 focus_neighbor_right = NodePath("../Riner")
-focus_neighbor_bottom = NodePath("../../PlayerBar/PlayerSlot1/Margin/Row/Badge")
+focus_neighbor_bottom = NodePath("../../PlayerBar/PlayerSlot1")
 mouse_default_cursor_shape = 2
 
-[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Macron"]
+[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Macron" unique_id=2144953095]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -396,7 +376,7 @@ texture = ExtResource("17_macron")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Macron"]
+[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Macron" unique_id=815954465]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -406,7 +386,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.22)
 
-[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Macron"]
+[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Macron" unique_id=495951999]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -415,7 +395,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0.498, 1)
 
-[node name="Name" type="Label" parent="Content/PilotGrid/Macron"]
+[node name="Name" type="Label" parent="Content/PilotGrid/Macron" unique_id=389027794]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -424,7 +404,6 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -433,7 +412,7 @@ text = "B. Macron"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Macron"]
+[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Macron" unique_id=2025429807]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -446,10 +425,9 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_status")
 
-[node name="Label" type="Label" parent="Content/PilotGrid/Macron/Status"]
+[node name="Label" type="Label" parent="Content/PilotGrid/Macron/Status" unique_id=2139942205]
 visible = false
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.28, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -457,14 +435,14 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Macron/Status"]
+[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Macron/Status" unique_id=613026403]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Riner" type="Button" parent="Content/PilotGrid"]
+[node name="Riner" type="Button" parent="Content/PilotGrid" unique_id=1457807671]
 custom_minimum_size = Vector2(0, 142)
 clip_contents = true
 layout_mode = 2
@@ -473,10 +451,10 @@ size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Macron")
 focus_neighbor_top = NodePath("../LePen")
 focus_neighbor_right = NodePath("../Rima")
-focus_neighbor_bottom = NodePath("../../PlayerBar/PlayerSlot2/Margin/Row/Badge")
+focus_neighbor_bottom = NodePath("../../PlayerBar/PlayerSlot2")
 mouse_default_cursor_shape = 2
 
-[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Riner"]
+[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Riner" unique_id=1183992419]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -488,7 +466,7 @@ texture = ExtResource("18_riner")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Riner"]
+[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Riner" unique_id=1031469859]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -498,7 +476,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.22)
 
-[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Riner"]
+[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Riner" unique_id=7778827]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -507,7 +485,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.95, 0.95, 0.95, 1)
 
-[node name="Name" type="Label" parent="Content/PilotGrid/Riner"]
+[node name="Name" type="Label" parent="Content/PilotGrid/Riner" unique_id=1409235844]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -516,7 +494,6 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -525,7 +502,7 @@ text = "Teddy Riner"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Riner"]
+[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Riner" unique_id=1438605792]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -538,10 +515,9 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_status")
 
-[node name="Label" type="Label" parent="Content/PilotGrid/Riner/Status"]
+[node name="Label" type="Label" parent="Content/PilotGrid/Riner/Status" unique_id=15337570]
 visible = false
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.28, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -549,14 +525,14 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Riner/Status"]
+[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Riner/Status" unique_id=1983327670]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Rima" type="Button" parent="Content/PilotGrid"]
+[node name="Rima" type="Button" parent="Content/PilotGrid" unique_id=760501267]
 custom_minimum_size = Vector2(0, 142)
 clip_contents = true
 layout_mode = 2
@@ -565,10 +541,10 @@ size_flags_vertical = 3
 focus_neighbor_left = NodePath("../Riner")
 focus_neighbor_top = NodePath("../Melenchon")
 focus_neighbor_right = NodePath("../Macron")
-focus_neighbor_bottom = NodePath("../../PlayerBar/PlayerSlot3/Margin/Row/Badge")
+focus_neighbor_bottom = NodePath("../../PlayerBar/PlayerSlot3")
 mouse_default_cursor_shape = 2
 
-[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Rima"]
+[node name="Portrait" type="TextureRect" parent="Content/PilotGrid/Rima" unique_id=260823299]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -580,7 +556,7 @@ texture = ExtResource("19_rima")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Rima"]
+[node name="Shade" type="ColorRect" parent="Content/PilotGrid/Rima" unique_id=1175201380]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -590,7 +566,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.22)
 
-[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Rima"]
+[node name="Accent" type="ColorRect" parent="Content/PilotGrid/Rima" unique_id=361688593]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -599,7 +575,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.18, 0.72, 0.32, 1)
 
-[node name="Name" type="Label" parent="Content/PilotGrid/Rima"]
+[node name="Name" type="Label" parent="Content/PilotGrid/Rima" unique_id=907823514]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -608,7 +584,6 @@ anchor_bottom = 1.0
 offset_top = -38.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -617,7 +592,7 @@ text = "Rima Hassan"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Rima"]
+[node name="Status" type="PanelContainer" parent="Content/PilotGrid/Rima" unique_id=1668348266]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -630,10 +605,9 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_status")
 
-[node name="Label" type="Label" parent="Content/PilotGrid/Rima/Status"]
+[node name="Label" type="Label" parent="Content/PilotGrid/Rima/Status" unique_id=2042524930]
 visible = false
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.28, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -641,7 +615,7 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Rima/Status"]
+[node name="Icon" type="TextureRect" parent="Content/PilotGrid/Rima/Status" unique_id=33375905]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("23_cpu")
@@ -653,251 +627,285 @@ custom_minimum_size = Vector2(0, 86)
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="PlayerSlot1" type="PanelContainer" parent="Content/PlayerBar"]
+[node name="PlayerSlot1" type="Button" parent="Content/PlayerBar" unique_id=383788116]
 custom_minimum_size = Vector2(0, 86)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBox_slot")
-
-[node name="Margin" type="MarginContainer" parent="Content/PlayerBar/PlayerSlot1"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot1/Margin"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Badge" type="Button" parent="Content/PlayerBar/PlayerSlot1/Margin/Row"]
-custom_minimum_size = Vector2(34, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../../../../PlayerSlot4/Margin/Row/Input")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Macron")
-focus_neighbor_right = NodePath("../Pilot")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Time/Day")
+focus_neighbor_left = NodePath("../PlayerSlot4")
+focus_neighbor_top = NodePath("../../PilotGrid/Macron")
+focus_neighbor_right = NodePath("../PlayerSlot2")
+focus_neighbor_bottom = NodePath("../../SettingsBar/Race")
 mouse_default_cursor_shape = 2
-text = "P1"
 
-[node name="Pilot" type="Button" parent="Content/PlayerBar/PlayerSlot1/Margin/Row"]
-custom_minimum_size = Vector2(46, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Badge")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Macron")
-focus_neighbor_right = NodePath("../Toggle")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Time/Day")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
+[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot1" unique_id=1825276565]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
 
-[node name="Toggle" type="Button" parent="Content/PlayerBar/PlayerSlot1/Margin/Row"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Pilot")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Macron")
-focus_neighbor_right = NodePath("../Input")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Time/Day")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
-
-[node name="Input" type="Button" parent="Content/PlayerBar/PlayerSlot1/Margin/Row"]
-custom_minimum_size = Vector2(76, 0)
+[node name="Portrait" type="TextureRect" parent="Content/PlayerBar/PlayerSlot1/Row" unique_id=1132062807]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../Toggle")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Macron")
-focus_neighbor_right = NodePath("../../../../PlayerSlot2/Margin/Row/Badge")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Time/Day")
-mouse_default_cursor_shape = 2
-icon = ExtResource("20_arrows")
-expand_icon = true
+mouse_filter = 2
+texture = ExtResource("14_soral")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="PlayerSlot2" type="PanelContainer" parent="Content/PlayerBar"]
+[node name="Scheme" type="Control" parent="Content/PlayerBar/PlayerSlot1/Row" unique_id=1690417636]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Content/PlayerBar/PlayerSlot1/Row/Scheme" unique_id=1214554178]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("20_arrows")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Number" type="Label" parent="Content/PlayerBar/PlayerSlot1/Row/Scheme" unique_id=1206728463]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="PlayerSlot2" type="Button" parent="Content/PlayerBar" unique_id=978805163]
 custom_minimum_size = Vector2(0, 86)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBox_slot")
-
-[node name="Margin" type="MarginContainer" parent="Content/PlayerBar/PlayerSlot2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot2/Margin"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Badge" type="Button" parent="Content/PlayerBar/PlayerSlot2/Margin/Row"]
-custom_minimum_size = Vector2(34, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../../../../PlayerSlot1/Margin/Row/Input")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Riner")
-focus_neighbor_right = NodePath("../Pilot")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Weather/Rain")
+focus_neighbor_left = NodePath("../PlayerSlot1")
+focus_neighbor_top = NodePath("../../PilotGrid/Riner")
+focus_neighbor_right = NodePath("../PlayerSlot3")
+focus_neighbor_bottom = NodePath("../../SettingsBar/Race")
 mouse_default_cursor_shape = 2
-text = "P2"
 
-[node name="Pilot" type="Button" parent="Content/PlayerBar/PlayerSlot2/Margin/Row"]
-custom_minimum_size = Vector2(46, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Badge")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Riner")
-focus_neighbor_right = NodePath("../Toggle")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Weather/Rain")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
+[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot2" unique_id=853206343]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
 
-[node name="Toggle" type="Button" parent="Content/PlayerBar/PlayerSlot2/Margin/Row"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Pilot")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Riner")
-focus_neighbor_right = NodePath("../Input")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Weather/Rain")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
-
-[node name="Input" type="Button" parent="Content/PlayerBar/PlayerSlot2/Margin/Row"]
-custom_minimum_size = Vector2(76, 0)
+[node name="Portrait" type="TextureRect" parent="Content/PlayerBar/PlayerSlot2/Row" unique_id=1592846156]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../Toggle")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Riner")
-focus_neighbor_right = NodePath("../../../../PlayerSlot3/Margin/Row/Badge")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Weather/Rain")
-mouse_default_cursor_shape = 2
-icon = ExtResource("21_wasd")
-expand_icon = true
+mouse_filter = 2
+texture = ExtResource("15_lepen")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="PlayerSlot3" type="PanelContainer" parent="Content/PlayerBar"]
+[node name="Scheme" type="Control" parent="Content/PlayerBar/PlayerSlot2/Row" unique_id=328560134]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Content/PlayerBar/PlayerSlot2/Row/Scheme" unique_id=1171512553]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("23_cpu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Number" type="Label" parent="Content/PlayerBar/PlayerSlot2/Row/Scheme" unique_id=922955256]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="PlayerSlot3" type="Button" parent="Content/PlayerBar" unique_id=813539838]
 custom_minimum_size = Vector2(0, 86)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBox_slot")
-
-[node name="Margin" type="MarginContainer" parent="Content/PlayerBar/PlayerSlot3"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot3/Margin"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Badge" type="Button" parent="Content/PlayerBar/PlayerSlot3/Margin/Row"]
-custom_minimum_size = Vector2(34, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../../../../PlayerSlot2/Margin/Row/Input")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../Pilot")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Laps/Two")
+focus_neighbor_left = NodePath("../PlayerSlot2")
+focus_neighbor_top = NodePath("../../PilotGrid/Rima")
+focus_neighbor_right = NodePath("../PlayerSlot4")
+focus_neighbor_bottom = NodePath("../../SettingsBar/Race")
 mouse_default_cursor_shape = 2
-text = "P3"
 
-[node name="Pilot" type="Button" parent="Content/PlayerBar/PlayerSlot3/Margin/Row"]
-custom_minimum_size = Vector2(46, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Badge")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../Toggle")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Laps/Two")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
+[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot3" unique_id=904119451]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
 
-[node name="Toggle" type="Button" parent="Content/PlayerBar/PlayerSlot3/Margin/Row"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Pilot")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../Input")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Laps/Two")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
-
-[node name="Input" type="Button" parent="Content/PlayerBar/PlayerSlot3/Margin/Row"]
-custom_minimum_size = Vector2(76, 0)
+[node name="Portrait" type="TextureRect" parent="Content/PlayerBar/PlayerSlot3/Row" unique_id=2048558762]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../Toggle")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../../../../PlayerSlot4/Margin/Row/Badge")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Laps/Two")
-mouse_default_cursor_shape = 2
-text = "1"
-icon = ExtResource("22_controller")
-expand_icon = true
+mouse_filter = 2
+texture = ExtResource("16_melenchon")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="PlayerSlot4" type="PanelContainer" parent="Content/PlayerBar"]
+[node name="Scheme" type="Control" parent="Content/PlayerBar/PlayerSlot3/Row" unique_id=333607430]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Content/PlayerBar/PlayerSlot3/Row/Scheme" unique_id=629373336]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("23_cpu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Number" type="Label" parent="Content/PlayerBar/PlayerSlot3/Row/Scheme" unique_id=30970943]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="PlayerSlot4" type="Button" parent="Content/PlayerBar" unique_id=1996752832]
 custom_minimum_size = Vector2(0, 86)
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBox_slot")
-
-[node name="Margin" type="MarginContainer" parent="Content/PlayerBar/PlayerSlot4"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot4/Margin"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Badge" type="Button" parent="Content/PlayerBar/PlayerSlot4/Margin/Row"]
-custom_minimum_size = Vector2(34, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../../../../PlayerSlot3/Margin/Row/Input")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../Pilot")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Save")
+focus_neighbor_left = NodePath("../PlayerSlot3")
+focus_neighbor_top = NodePath("../../PilotGrid/Rima")
+focus_neighbor_right = NodePath("../PlayerSlot1")
+focus_neighbor_bottom = NodePath("../../SettingsBar/Race")
 mouse_default_cursor_shape = 2
-text = "P4"
 
-[node name="Pilot" type="Button" parent="Content/PlayerBar/PlayerSlot4/Margin/Row"]
-custom_minimum_size = Vector2(46, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Badge")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../Toggle")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Save")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
+[node name="Row" type="HBoxContainer" parent="Content/PlayerBar/PlayerSlot4" unique_id=1445771340]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
 
-[node name="Toggle" type="Button" parent="Content/PlayerBar/PlayerSlot4/Margin/Row"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../Pilot")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../Input")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Save")
-mouse_default_cursor_shape = 2
-icon = ExtResource("23_cpu")
-expand_icon = true
-
-[node name="Input" type="Button" parent="Content/PlayerBar/PlayerSlot4/Margin/Row"]
-custom_minimum_size = Vector2(76, 0)
+[node name="Portrait" type="TextureRect" parent="Content/PlayerBar/PlayerSlot4/Row" unique_id=40489488]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../Toggle")
-focus_neighbor_top = NodePath("../../../../../PilotGrid/Rima")
-focus_neighbor_right = NodePath("../../../../PlayerSlot1/Margin/Row/Badge")
-focus_neighbor_bottom = NodePath("../../../../../SettingsBar/Save")
-mouse_default_cursor_shape = 2
-text = "2"
-icon = ExtResource("22_controller")
-expand_icon = true
+mouse_filter = 2
+texture = ExtResource("17_macron")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Scheme" type="Control" parent="Content/PlayerBar/PlayerSlot4/Row" unique_id=49357535]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Content/PlayerBar/PlayerSlot4/Row/Scheme" unique_id=1024499833]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("23_cpu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Number" type="Label" parent="Content/PlayerBar/PlayerSlot4/Row/Scheme" unique_id=1202209904]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="SettingsBar" type="HBoxContainer" parent="Content" unique_id=827695469]
 custom_minimum_size = Vector2(0, 52)
@@ -916,7 +924,7 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../Race")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1")
 focus_neighbor_right = NodePath("../Night")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
 mouse_default_cursor_shape = 2
@@ -928,7 +936,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Day")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1")
 focus_neighbor_right = NodePath("../../Weather/Fair")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
 mouse_default_cursor_shape = 2
@@ -945,7 +953,7 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../Time/Night")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1")
 focus_neighbor_right = NodePath("../Rain")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
 mouse_default_cursor_shape = 2
@@ -957,7 +965,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Fair")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2")
 focus_neighbor_right = NodePath("../Snow")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
 mouse_default_cursor_shape = 2
@@ -969,7 +977,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Rain")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2")
 focus_neighbor_right = NodePath("../../Laps/One")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/LePen")
 mouse_default_cursor_shape = 2
@@ -986,7 +994,7 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../Weather/Snow")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2")
 focus_neighbor_right = NodePath("../Two")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/LePen")
 mouse_default_cursor_shape = 2
@@ -998,7 +1006,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../One")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot3/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot3")
 focus_neighbor_right = NodePath("../Three")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/LePen")
 mouse_default_cursor_shape = 2
@@ -1010,7 +1018,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Two")
-focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot3/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot3")
 focus_neighbor_right = NodePath("../../Random")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/LePen")
 mouse_default_cursor_shape = 2
@@ -1028,7 +1036,7 @@ mouse_filter = 2
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Laps/Three")
-focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot3/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot3")
 focus_neighbor_right = NodePath("../Save")
 focus_neighbor_bottom = NodePath("../../PilotGrid/Melenchon")
 mouse_default_cursor_shape = 2
@@ -1040,7 +1048,7 @@ icon_alignment = 1
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Random")
-focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot4/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot4")
 focus_neighbor_right = NodePath("../Race")
 focus_neighbor_bottom = NodePath("../../PilotGrid/Melenchon")
 mouse_default_cursor_shape = 2
@@ -1053,7 +1061,7 @@ custom_minimum_size = Vector2(52, 52)
 custom_maximum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Save")
-focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot4/Margin/Row/Badge")
+focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot4")
 focus_neighbor_right = NodePath("../Time/Day")
 focus_neighbor_bottom = NodePath("../../PilotGrid/Melenchon")
 mouse_default_cursor_shape = 2
@@ -1062,7 +1070,7 @@ icon = ExtResource("3_race")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ErrorPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ErrorPlayer" type="AudioStreamPlayer" parent="." unique_id=1885618268]
 stream = ExtResource("24_error")
 volume_db = -16.0
 pitch_scale = 1.45

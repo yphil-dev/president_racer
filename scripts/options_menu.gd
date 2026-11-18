@@ -11,12 +11,6 @@ const NORMAL_BORDER_COLOR := Color(0.30, 0.36, 0.46, 0.95)
 const OFF_MODULATE := Color(0.42, 0.42, 0.42, 0.72)
 const AVAILABLE_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 const UNAVAILABLE_COLOR := Color(0.95, 0.25, 0.25, 1.0)
-const SLOT_DEFAULT_INPUTS: Array[int] = [
-	RaceSelection.InputSource.ARROWS,
-	RaceSelection.InputSource.WASD,
-	RaceSelection.InputSource.PAD_1,
-	RaceSelection.InputSource.PAD_2,
-]
 
 @onready var content: VBoxContainer = $Content
 @onready var day_button: Button = $Content/SettingsBar/Time/Day
@@ -38,35 +32,29 @@ const SLOT_DEFAULT_INPUTS: Array[int] = [
 	$Content/PilotGrid/Riner,
 	$Content/PilotGrid/Rima,
 ]
-@onready var _slot_panels: Array[PanelContainer] = [
+@onready var _slot_buttons: Array[Button] = [
 	$Content/PlayerBar/PlayerSlot1,
 	$Content/PlayerBar/PlayerSlot2,
 	$Content/PlayerBar/PlayerSlot3,
 	$Content/PlayerBar/PlayerSlot4,
 ]
-@onready var _slot_badges: Array[Button] = [
-	$Content/PlayerBar/PlayerSlot1/Margin/Row/Badge,
-	$Content/PlayerBar/PlayerSlot2/Margin/Row/Badge,
-	$Content/PlayerBar/PlayerSlot3/Margin/Row/Badge,
-	$Content/PlayerBar/PlayerSlot4/Margin/Row/Badge,
+@onready var _slot_portraits: Array[TextureRect] = [
+	$Content/PlayerBar/PlayerSlot1/Row/Portrait,
+	$Content/PlayerBar/PlayerSlot2/Row/Portrait,
+	$Content/PlayerBar/PlayerSlot3/Row/Portrait,
+	$Content/PlayerBar/PlayerSlot4/Row/Portrait,
 ]
-@onready var _slot_pilot_buttons: Array[Button] = [
-	$Content/PlayerBar/PlayerSlot1/Margin/Row/Pilot,
-	$Content/PlayerBar/PlayerSlot2/Margin/Row/Pilot,
-	$Content/PlayerBar/PlayerSlot3/Margin/Row/Pilot,
-	$Content/PlayerBar/PlayerSlot4/Margin/Row/Pilot,
+@onready var _slot_scheme_icons: Array[TextureRect] = [
+	$Content/PlayerBar/PlayerSlot1/Row/Scheme/Icon,
+	$Content/PlayerBar/PlayerSlot2/Row/Scheme/Icon,
+	$Content/PlayerBar/PlayerSlot3/Row/Scheme/Icon,
+	$Content/PlayerBar/PlayerSlot4/Row/Scheme/Icon,
 ]
-@onready var _slot_toggle_buttons: Array[Button] = [
-	$Content/PlayerBar/PlayerSlot1/Margin/Row/Toggle,
-	$Content/PlayerBar/PlayerSlot2/Margin/Row/Toggle,
-	$Content/PlayerBar/PlayerSlot3/Margin/Row/Toggle,
-	$Content/PlayerBar/PlayerSlot4/Margin/Row/Toggle,
-]
-@onready var _slot_input_buttons: Array[Button] = [
-	$Content/PlayerBar/PlayerSlot1/Margin/Row/Input,
-	$Content/PlayerBar/PlayerSlot2/Margin/Row/Input,
-	$Content/PlayerBar/PlayerSlot3/Margin/Row/Input,
-	$Content/PlayerBar/PlayerSlot4/Margin/Row/Input,
+@onready var _slot_scheme_numbers: Array[Label] = [
+	$Content/PlayerBar/PlayerSlot1/Row/Scheme/Number,
+	$Content/PlayerBar/PlayerSlot2/Row/Scheme/Number,
+	$Content/PlayerBar/PlayerSlot3/Row/Scheme/Number,
+	$Content/PlayerBar/PlayerSlot4/Row/Scheme/Number,
 ]
 @onready var _error_player: AudioStreamPlayer = $ErrorPlayer
 
@@ -129,16 +117,9 @@ func _bind_pilot_cards() -> void:
 
 func _bind_player_slots() -> void:
 	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
-		var badge: Button = _slot_badges[slot_index]
-		var pilot_button: Button = _slot_pilot_buttons[slot_index]
-		var toggle_button: Button = _slot_toggle_buttons[slot_index]
-		var input_button: Button = _slot_input_buttons[slot_index]
-		badge.tooltip_text = "Select player slot P%d" % (slot_index + 1)
-		pilot_button.tooltip_text = "Select player slot P%d" % (slot_index + 1)
-		badge.pressed.connect(_on_slot_selected.bind(slot_index))
-		pilot_button.pressed.connect(_on_slot_selected.bind(slot_index))
-		toggle_button.pressed.connect(_on_slot_pilot_toggled.bind(slot_index))
-		input_button.pressed.connect(_on_slot_input_pressed.bind(slot_index))
+		var slot_button: Button = _slot_buttons[slot_index]
+		slot_button.tooltip_text = "Cycle control for this driver"
+		slot_button.pressed.connect(_on_slot_pressed.bind(slot_index))
 
 func _connect_global_settings() -> void:
 	day_button.tooltip_text = "Daytime"
@@ -166,7 +147,24 @@ func _connect_global_settings() -> void:
 	race_button.pressed.connect(_return_to_menu)
 
 func _on_pilot_pressed(driver_id: String) -> void:
-	RaceSelection.assign_pilot_to_slot(driver_id, RaceSelection.selected_local_slot)
+	var target_slot: int = RaceSelection.selected_local_slot
+	if not RaceSelection.is_player_slot_active(target_slot):
+		var source_slot: int = RaceSelection.get_player_slot_for_driver(driver_id)
+		var desired_source: int = RaceSelection.InputSource.REMOTE_PEER
+		if source_slot >= 0:
+			desired_source = RaceSelection.get_input_source(source_slot)
+		else:
+			var available_sources: Array[int] = _available_input_sources(target_slot)
+			if available_sources.is_empty():
+				_play_error()
+				return
+			desired_source = available_sources[0]
+		if not RaceSelection.assign_pilot_to_slot(driver_id, target_slot):
+			_play_error()
+			return
+		RaceSelection.set_input_source(target_slot, desired_source)
+	else:
+		RaceSelection.assign_pilot_to_slot(driver_id, target_slot)
 	_rebuild_slot_previews(false)
 	_mark_changed()
 
@@ -205,33 +203,31 @@ func _secondary_pilot_action(driver_id: String) -> void:
 	_rebuild_slot_previews(false)
 	_mark_changed()
 
-func _on_slot_selected(slot_index: int) -> void:
+func _on_slot_pressed(slot_index: int) -> void:
 	RaceSelection.selected_local_slot = slot_index
-	_refresh_all()
-
-func _on_slot_pilot_toggled(slot_index: int) -> void:
-	RaceSelection.selected_local_slot = slot_index
-	var changed: bool
-	if RaceSelection.is_player_slot_active(slot_index):
-		var driver_id: String = RaceSelection.get_driver_for_player_slot(slot_index)
-		changed = RaceSelection.deactivate_local_slot(slot_index)
-		if changed:
-			_slot_preview_driver_ids[slot_index] = driver_id
+	var available_sources: Array[int] = _available_input_sources(slot_index)
+	if not RaceSelection.is_player_slot_active(slot_index):
+		if available_sources.is_empty() or not _activate_slot_with_preview(slot_index):
+			_play_error()
+			_refresh_all()
+			return
+		RaceSelection.set_input_source(slot_index, available_sources[0])
 	else:
-		changed = _activate_slot_with_preview(slot_index)
-		if changed:
-			RaceSelection.set_input_source(slot_index, SLOT_DEFAULT_INPUTS[slot_index])
-	if not changed:
-		_play_error()
-		return
+		var current_source: int = RaceSelection.get_input_source(slot_index)
+		var current_index: int = available_sources.find(current_source)
+		if current_index >= 0 and current_index + 1 < available_sources.size():
+			RaceSelection.set_input_source(slot_index, available_sources[current_index + 1])
+		elif current_index < 0 and not available_sources.is_empty():
+			RaceSelection.set_input_source(slot_index, available_sources[0])
+		else:
+			var driver_id: String = RaceSelection.get_driver_for_player_slot(slot_index)
+			if not RaceSelection.deactivate_local_slot(slot_index):
+				_play_error()
+				return
+			_slot_preview_driver_ids[slot_index] = driver_id
 	_rebuild_slot_previews(false)
 	_mark_changed()
-	_slot_toggle_buttons[slot_index].grab_focus()
-
-func _on_slot_input_pressed(slot_index: int) -> void:
-	RaceSelection.selected_local_slot = slot_index
-	RaceSelection.cycle_local_input_source(slot_index)
-	_mark_changed()
+	_slot_buttons[slot_index].grab_focus()
 
 func _activate_slot_with_preview(slot_index: int) -> bool:
 	var preview_driver_id: String = _slot_preview_driver_ids[slot_index]
@@ -241,6 +237,21 @@ func _activate_slot_with_preview(slot_index: int) -> bool:
 	):
 		return RaceSelection.assign_pilot_to_slot(preview_driver_id, slot_index)
 	return RaceSelection.activate_local_slot(slot_index)
+
+func _available_input_sources(slot_index: int) -> Array[int]:
+	var candidates: Array[int] = [
+		RaceSelection.InputSource.ARROWS,
+		RaceSelection.InputSource.WASD,
+	]
+	var connected_pad_count: int = mini(Input.get_connected_joypads().size(), 4)
+	for pad_index in connected_pad_count:
+		candidates.append(RaceSelection.InputSource.PAD_1 + pad_index)
+
+	var result: Array[int] = []
+	for candidate in candidates:
+		if not _is_input_claimed(candidate, slot_index):
+			result.append(candidate)
+	return result
 
 func _rebuild_slot_previews(randomize: bool) -> void:
 	var used_driver_ids: Array[String] = []
@@ -293,8 +304,10 @@ func _try_auto_join(input_source: int) -> void:
 		_mark_changed()
 		return
 
-func _is_input_claimed(input_source: int) -> bool:
+func _is_input_claimed(input_source: int, ignored_slot: int = -1) -> bool:
 	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
+		if slot_index == ignored_slot:
+			continue
 		if (
 			RaceSelection.is_player_slot_active(slot_index)
 			and RaceSelection.get_input_source(slot_index) == input_source
@@ -378,60 +391,35 @@ func _refresh_player_slots() -> void:
 	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
 		var active: bool = RaceSelection.is_player_slot_active(slot_index)
 		var driver_id: String = RaceSelection.get_driver_for_player_slot(slot_index)
-		var pilot_button: Button = _slot_pilot_buttons[slot_index]
-		var toggle_button: Button = _slot_toggle_buttons[slot_index]
-		var input_button: Button = _slot_input_buttons[slot_index]
-		if active and DriverRoster.has_driver(driver_id):
-			var profile: Dictionary = DriverRoster.get_profile(driver_id)
-			pilot_button.icon = profile["portrait"]
-			pilot_button.text = ""
-			pilot_button.tooltip_text = "%s — select P%d" % [
-				profile["display_name"],
-				slot_index + 1,
+		if not active:
+			driver_id = _slot_preview_driver_ids[slot_index]
+		var profile: Dictionary = DriverRoster.get_profile(driver_id)
+		_slot_portraits[slot_index].texture = profile.get("portrait") as Texture2D
+
+		var scheme_icon: TextureRect = _slot_scheme_icons[slot_index]
+		var scheme_number: Label = _slot_scheme_numbers[slot_index]
+		if active:
+			var source: int = RaceSelection.get_input_source(slot_index)
+			var pad_number: int = RaceSelection.get_gamepad_number(source)
+			scheme_icon.texture = _input_source_icon(source)
+			scheme_icon.modulate = (
+				AVAILABLE_COLOR if _input_source_available(source) else UNAVAILABLE_COLOR
+			)
+			scheme_number.text = str(pad_number) if pad_number > 0 else ""
+			_slot_buttons[slot_index].tooltip_text = "%s — %s" % [
+				profile.get("display_name", driver_id),
+				RaceSelection.get_input_source_label(source),
 			]
 		else:
-			var preview_driver_id: String = _slot_preview_driver_ids[slot_index]
-			if DriverRoster.has_driver(preview_driver_id):
-				var preview_profile: Dictionary = DriverRoster.get_profile(preview_driver_id)
-				pilot_button.icon = preview_profile["portrait"]
-				pilot_button.tooltip_text = "%s — CPU in P%d" % [
-					preview_profile["display_name"],
-					slot_index + 1,
-				]
-			else:
-				pilot_button.icon = CPU_ICON
-				pilot_button.tooltip_text = "CPU in P%d" % (slot_index + 1)
-			pilot_button.text = ""
-
-		toggle_button.text = ""
-		toggle_button.icon = GAME_CONTROLLER_ICON if active else CPU_ICON
-		toggle_button.tooltip_text = "%s P%d" % [
-			"Turn OFF" if active else "Turn ON",
-			slot_index + 1,
-		]
-		toggle_button.modulate = SELECTED_COLOR if active else Color.WHITE
-
-		var source: int = RaceSelection.get_input_source(slot_index)
-		var pad_number: int = RaceSelection.get_gamepad_number(source)
-		input_button.text = str(pad_number) if pad_number > 0 else ""
-		input_button.icon = _input_source_icon(source)
-		input_button.tooltip_text = "Cycle P%d input: %s" % [
-			slot_index + 1,
-			RaceSelection.get_input_source_label(source),
-		]
-		input_button.modulate = (
-			AVAILABLE_COLOR if _input_source_available(source) else UNAVAILABLE_COLOR
-		)
-		var selected: bool = slot_index == RaceSelection.selected_local_slot
-		_slot_panels[slot_index].add_theme_stylebox_override(
-			"panel",
-			_make_style(
-				Color(0.035, 0.05, 0.075, 0.92),
-				SELECTED_COLOR if selected else NORMAL_BORDER_COLOR,
-				3 if selected else 2
+			scheme_icon.texture = CPU_ICON
+			scheme_icon.modulate = Color.WHITE
+			scheme_number.text = ""
+			_slot_buttons[slot_index].tooltip_text = "%s — CPU" % profile.get(
+				"display_name",
+				driver_id
 			)
-		)
-		_slot_badges[slot_index].modulate = SELECTED_COLOR if selected else Color.WHITE
+
+		_apply_slot_styles(_slot_buttons[slot_index])
 
 func _refresh_global_settings() -> void:
 	_style_setting_button(day_button, not RaceSelection.night_enabled)
@@ -479,6 +467,24 @@ func _apply_card_styles(button: Button, border_color: Color) -> void:
 		_make_style(Color(0.08, 0.095, 0.13, 0.98), SELECTED_COLOR, 4)
 	)
 
+func _apply_slot_styles(button: Button) -> void:
+	button.add_theme_stylebox_override(
+		"normal",
+		_make_style(Color(0.035, 0.05, 0.075, 0.92), NORMAL_BORDER_COLOR, 2)
+	)
+	button.add_theme_stylebox_override(
+		"hover",
+		_make_style(Color(0.06, 0.075, 0.11, 0.96), SELECTED_COLOR, 3)
+	)
+	button.add_theme_stylebox_override(
+		"focus",
+		_make_style(Color(0.06, 0.075, 0.11, 0.96), SELECTED_COLOR, 4)
+	)
+	button.add_theme_stylebox_override(
+		"pressed",
+		_make_style(Color(0.08, 0.095, 0.13, 0.98), SELECTED_COLOR, 4)
+	)
+
 func _make_style(background: Color, border: Color, border_width: int) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = background
@@ -488,15 +494,7 @@ func _make_style(background: Color, border: Color, border_width: int) -> StyleBo
 	return style
 
 func _grab_initial_focus() -> void:
-	var driver_id: String = RaceSelection.get_driver_for_player_slot(
-		RaceSelection.selected_local_slot
-	)
-	if driver_id.is_empty():
-		driver_id = RaceSelection.selected_driver_id
-	var button := _pilot_buttons_by_id.get(driver_id) as Button
-	if button == null:
-		button = _pilot_buttons[0]
-	button.grab_focus()
+	_slot_buttons[0].grab_focus()
 
 func _show_save_feedback() -> void:
 	save_button.icon = FLOPPY_SAVING_ICON
