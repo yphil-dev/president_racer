@@ -110,9 +110,12 @@ func _bind_pilot_cards() -> void:
 		(button.get_node("Portrait") as TextureRect).texture = profile["portrait"]
 		(button.get_node("Accent") as ColorRect).color = profile["car_color"]
 		(button.get_node("Name") as Label).text = profile["display_name"]
+		var focus_frame := button.get_node("FocusFrame") as Panel
 		button.tooltip_text = "%s — Enter/Space/A: assign, X/Y/right-click: mode" % profile["display_name"]
 		button.pressed.connect(_on_pilot_pressed.bind(driver_id))
 		button.gui_input.connect(_on_pilot_gui_input.bind(driver_id, button))
+		button.focus_entered.connect(focus_frame.show)
+		button.focus_exited.connect(focus_frame.hide)
 		_pilot_buttons_by_id[driver_id] = button
 
 func _bind_player_slots() -> void:
@@ -460,7 +463,7 @@ func _apply_card_styles(button: Button, border_color: Color) -> void:
 	)
 	button.add_theme_stylebox_override(
 		"focus",
-		_make_style(Color(0.06, 0.075, 0.11, 0.96), SELECTED_COLOR, 4)
+		_make_style(Color(0, 0, 0, 0), Color(0, 0, 0, 0), 0)
 	)
 	button.add_theme_stylebox_override(
 		"pressed",
