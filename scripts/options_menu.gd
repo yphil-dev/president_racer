@@ -41,6 +41,7 @@ var _slot_badges: Array[Button] = []
 var _slot_pilot_buttons: Array[Button] = []
 var _slot_toggle_buttons: Array[Button] = []
 var _slot_input_buttons: Array[Button] = []
+var _slot_preview_driver_ids: Array[String] = ["", "", "", ""]
 var _settings_buttons: Array[Button] = []
 var _returning: bool = false
 var _save_feedback_tween: Tween
@@ -50,6 +51,9 @@ func _ready() -> void:
 	_create_pilot_cards()
 	_create_player_slots()
 	_connect_global_settings()
+	if RaceSelection.random_mode:
+		RaceSelection.prepare_next_race()
+	_rebuild_slot_previews(true)
 	_configure_focus_navigation()
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	_error_player = AudioStreamPlayer.new()
@@ -282,6 +286,7 @@ func _connect_global_settings() -> void:
 
 func _on_pilot_pressed(driver_id: String) -> void:
 	RaceSelection.assign_pilot_to_slot(driver_id, RaceSelection.selected_local_slot)
+	_rebuild_slot_previews(false)
 	_mark_changed()
 
 func _on_pilot_gui_input(event: InputEvent, driver_id: String, button: Button) -> void:
@@ -306,13 +311,17 @@ func _on_pilot_gui_input(event: InputEvent, driver_id: String, button: Button) -
 
 func _secondary_pilot_action(driver_id: String) -> void:
 	var changed: bool
+	var released_slot: int = RaceSelection.get_player_slot_for_driver(driver_id)
 	if RaceSelection.is_driver_human(driver_id):
 		changed = RaceSelection.release_human_pilot(driver_id)
+		if changed and released_slot >= 0 and released_slot < RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
+			_slot_preview_driver_ids[released_slot] = driver_id
 	else:
 		changed = RaceSelection.toggle_cpu_off(driver_id)
 	if not changed:
 		_play_error()
 		return
+	_rebuild_slot_previews(false)
 	_mark_changed()
 
 func _on_slot_selected(slot_index: int) -> void:
@@ -323,14 +332,18 @@ func _on_slot_pilot_toggled(slot_index: int) -> void:
 	RaceSelection.selected_local_slot = slot_index
 	var changed: bool
 	if RaceSelection.is_player_slot_active(slot_index):
+		var driver_id: String = RaceSelection.get_driver_for_player_slot(slot_index)
 		changed = RaceSelection.deactivate_local_slot(slot_index)
+		if changed:
+			_slot_preview_driver_ids[slot_index] = driver_id
 	else:
-		changed = RaceSelection.activate_local_slot(slot_index)
+		changed = _activate_slot_with_preview(slot_index)
 		if changed:
 			RaceSelection.set_input_source(slot_index, SLOT_DEFAULT_INPUTS[slot_index])
 	if not changed:
 		_play_error()
 		return
+	_rebuild_slot_previews(false)
 	_mark_changed()
 	_slot_toggle_buttons[slot_index].grab_focus()
 
@@ -339,17 +352,63 @@ func _on_slot_input_pressed(slot_index: int) -> void:
 	RaceSelection.cycle_local_input_source(slot_index)
 	_mark_changed()
 
+func _activate_slot_with_preview(slot_index: int) -> bool:
+	var preview_driver_id: String = _slot_preview_driver_ids[slot_index]
+	if (
+		DriverRoster.has_driver(preview_driver_id)
+		and not RaceSelection.is_driver_human(preview_driver_id)
+	):
+		return RaceSelection.assign_pilot_to_slot(preview_driver_id, slot_index)
+	return RaceSelection.activate_local_slot(slot_index)
+
+func _rebuild_slot_previews(randomize: bool) -> void:
+	var used_driver_ids: Array[String] = []
+	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
+		if not RaceSelection.is_player_slot_active(slot_index):
+			continue
+		var driver_id: String = RaceSelection.get_driver_for_player_slot(slot_index)
+		_slot_preview_driver_ids[slot_index] = driver_id
+		used_driver_ids.append(driver_id)
+
+	var candidates: Array[String] = []
+	for driver_id in DriverRoster.DRIVER_IDS:
+		if not RaceSelection.is_driver_human(driver_id):
+			candidates.append(driver_id)
+	if randomize:
+		candidates.shuffle()
+
+	for slot_index in RaceSelection.LOCAL_PLAYER_SLOT_COUNT:
+		if RaceSelection.is_player_slot_active(slot_index):
+			continue
+		var preview_driver_id: String = _slot_preview_driver_ids[slot_index]
+		if (
+			not randomize
+			and DriverRoster.has_driver(preview_driver_id)
+			and not RaceSelection.is_driver_human(preview_driver_id)
+			and preview_driver_id not in used_driver_ids
+		):
+			used_driver_ids.append(preview_driver_id)
+			continue
+		_slot_preview_driver_ids[slot_index] = ""
+		for candidate_id in candidates:
+			if candidate_id in used_driver_ids:
+				continue
+			_slot_preview_driver_ids[slot_index] = candidate_id
+			used_driver_ids.append(candidate_id)
+			break
+
 func _try_auto_join(input_source: int) -> void:
 	if _is_input_claimed(input_source):
 		return
 	for slot_index in range(1, RaceSelection.LOCAL_PLAYER_SLOT_COUNT):
 		if RaceSelection.is_player_slot_active(slot_index):
 			continue
-		if not RaceSelection.activate_local_slot(slot_index):
+		if not _activate_slot_with_preview(slot_index):
 			return
 		RaceSelection.set_input_source(slot_index, input_source)
 		RaceSelection.selected_local_slot = slot_index
 		get_viewport().set_input_as_handled()
+		_rebuild_slot_previews(false)
 		_mark_changed()
 		return
 
@@ -377,6 +436,7 @@ func _select_laps(laps: int) -> void:
 func _select_random() -> void:
 	if not RaceSelection.set_random_mode():
 		_play_error()
+	_rebuild_slot_previews(true)
 	_refresh_all()
 	_show_save_feedback()
 
@@ -449,9 +509,18 @@ func _refresh_player_slots() -> void:
 				slot_index + 1,
 			]
 		else:
-			pilot_button.icon = null
+			var preview_driver_id: String = _slot_preview_driver_ids[slot_index]
+			if DriverRoster.has_driver(preview_driver_id):
+				var preview_profile: Dictionary = DriverRoster.get_profile(preview_driver_id)
+				pilot_button.icon = preview_profile["portrait"]
+				pilot_button.tooltip_text = "%s — CPU in P%d" % [
+					preview_profile["display_name"],
+					slot_index + 1,
+				]
+			else:
+				pilot_button.icon = CPU_ICON
+				pilot_button.tooltip_text = "CPU in P%d" % (slot_index + 1)
 			pilot_button.text = ""
-			pilot_button.tooltip_text = "Select P%d" % (slot_index + 1)
 
 		toggle_button.text = ""
 		toggle_button.icon = GAME_CONTROLLER_ICON if active else CPU_ICON
