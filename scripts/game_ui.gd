@@ -16,10 +16,9 @@ class_name GameUI
 @onready var pause_resume_button: Button = $PauseOverlay/Panel/Resume
 
 const CAR_UI_SCENE: PackedScene = preload("res://scenes/CarUI/car_ui.tscn")
-const RESULT_TWEEN_DURATION: float = 1.1
-const BACKGROUND_FADE_DURATION: float = 0.8
-const REORDER_DURATION: float = 0.22
-const OVERTAKE_SWING_X: float = 24.0
+const RESULT_TWEEN_DURATION: float = 1.18
+const BACKGROUND_FADE_DURATION: float = 1.12
+const REORDER_DURATION: float = 1.22
 
 var _cards_by_vehicle: Dictionary = {}
 var _active_cards: Array[CarUI] = []
@@ -185,7 +184,14 @@ func _order_changed(current_standings: Array) -> bool:
 			return true
 	return false
 
+var _reorder_queued_standings: Array = []
+
 func _animate_reorder(current_standings: Array) -> void:
+	# If a 1.22s glide is already running, queue the latest order so it never stutters mid-glide
+	if _reorder_tween != null and _reorder_tween.is_valid():
+		_reorder_queued_standings = current_standings.duplicate()
+		return
+
 	_reorder_generation += 1
 	var generation: int = _reorder_generation
 	var current_positions: Dictionary = {}
@@ -195,10 +201,6 @@ func _animate_reorder(current_standings: Array) -> void:
 		if child is CarUI:
 			previous_indices[child] = i
 			current_positions[child] = (child as CarUI).global_position
-
-	if _reorder_tween != null and _reorder_tween.is_valid():
-		_reorder_tween.kill()
-	_reorder_tween = null
 
 	for index in current_standings.size():
 		var state := current_standings[index] as CarRaceState
@@ -223,65 +225,39 @@ func _animate_reorder(current_standings: Array) -> void:
 		var target_position: Vector2 = card.global_position
 		var start_position: Vector2 = current_positions[card]
 		card.global_position = start_position
-		card.pivot_offset = card.size * 0.5
+		card.modulate.a = 1.0
+		card.z_index = 10 if new_index < old_index else 0
 
-		if new_index < old_index:
-			# Overtaking card: bring to front, swing out to pass, and pop slightly
-			card.z_index = 10
-			_reorder_tween.tween_property(
-				card,
-				"global_position:y",
-				target_position.y,
-				REORDER_DURATION
-			).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		_reorder_tween.tween_property(
+			card,
+			"global_position:y",
+			target_position.y,
+			REORDER_DURATION
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
-			var pass_tween := card.create_tween()
-			pass_tween.set_parallel(true)
-			pass_tween.tween_property(
-				card,
-				"global_position:x",
-				target_position.x + OVERTAKE_SWING_X,
-				REORDER_DURATION * 0.48
-			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-			pass_tween.tween_property(
-				card,
-				"scale",
-				Vector2(1.08, 1.08),
-				REORDER_DURATION * 0.45
-			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_reorder_tween.chain().tween_callback(func() -> void:
+		_reset_reorder_card_visuals()
+		_reorder_tween = null
+		if not _reorder_queued_standings.is_empty() and not _results_active:
+			var next_order: Array = _reorder_queued_standings
+			_reorder_queued_standings = []
+			_animate_reorder(next_order)
+	)
 
-			pass_tween.chain().set_parallel(true)
-			pass_tween.tween_property(
-				card,
-				"global_position:x",
-				target_position.x,
-				REORDER_DURATION * 0.52
-			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-			pass_tween.tween_property(
-				card,
-				"scale",
-				Vector2.ONE,
-				REORDER_DURATION * 0.55
-			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-			pass_tween.chain().tween_callback(func() -> void: card.z_index = 0)
-		else:
-			# Overtaken or stationary card: stay underneath and slide smoothly
-			card.z_index = 0
-			card.scale = Vector2.ONE
-			_reorder_tween.tween_property(
-				card,
-				"global_position",
-				target_position,
-				REORDER_DURATION
-			).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-
+func _reset_reorder_card_visuals() -> void:
+	for card in _active_cards:
+		card.modulate.a = 1.0
+		card.scale = Vector2.ONE
+		card.z_index = 0
 
 func _on_race_finished(final_standings: Array) -> void:
 	_results_active = true
 	_reorder_generation += 1
 	if _reorder_tween != null and _reorder_tween.is_valid():
+		_reorder_queued_standings.clear()
 		_reorder_tween.kill()
 	_reorder_tween = null
+	_reset_reorder_card_visuals()
 	for state_value in final_standings:
 		var state := state_value as CarRaceState
 		if state.vehicle != null:
