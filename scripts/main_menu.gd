@@ -32,7 +32,6 @@ const NORMAL_LABEL_COLOR := UIColors.NORMAL_LABEL_COLOR
 const INTRO_DURATION: float = 0.8
 const INTRO_STAGGER: float = 0.14
 
-@onready var track_grid: GridContainer = $TrackGrid
 @onready var options_button: Button = $Options
 @onready var quit_button: Button = $Quit
 @onready var quit_icon: TextureRect = $Quit/Icon
@@ -113,9 +112,7 @@ func _ready() -> void:
 		selectable_buttons[index].focus_entered.connect(_select_button.bind(index))
 		if index < track_buttons.size():
 			selectable_buttons[index].mouse_entered.connect(_hover_button.bind(index))
-		selectable_buttons[index].resized.connect(_update_button_pivot.bind(index))
 
-	resized.connect(_layout_menu)
 	_initialize_selection.call_deferred()
 	_generate_previews.call_deferred()
 
@@ -123,10 +120,8 @@ func _ready() -> void:
 func _initialize_selection() -> void:
 	await get_tree().process_frame
 	RaceSelection.prepare_next_race()
-	_layout_menu()
 	for index in selectable_buttons.size():
 		selectable_buttons[index].modulate = Color(1, 1, 1, 0)
-		_update_button_pivot(index)
 
 	if _all_drivers_cpu():
 		selected_driver_portrait.texture = CPU_ICON
@@ -154,20 +149,6 @@ func _initialize_selection() -> void:
 
 func _all_drivers_cpu() -> bool:
 	return not RaceSelection.has_human_driver()
-
-func _layout_menu() -> void:
-	if not is_node_ready():
-		return
-
-	var card_size := QuadrantLayout.get_card_size(size)
-	var grid_size := QuadrantLayout.get_grid_size(size)
-	track_grid.position = (size - grid_size) * 0.5
-	track_grid.size = grid_size
-	track_grid.custom_minimum_size = grid_size
-
-	for button in track_buttons:
-		button.custom_minimum_size = card_size
-
 
 func _play_intro() -> void:
 	for index in selectable_buttons.size():
@@ -251,9 +232,6 @@ func _style_title_label(label: Label, selected: bool) -> void:
 		if selected
 		else UIColors.NORMAL_LABEL_OUTLINE_SIZE
 	)
-
-func _update_button_pivot(index: int) -> void:
-	selectable_buttons[index].pivot_offset = selectable_buttons[index].size * 0.5
 
 func _generate_previews() -> void:
 	await get_tree().process_frame

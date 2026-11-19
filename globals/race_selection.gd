@@ -204,7 +204,6 @@ func assign_pilot_to_slot(driver_id: String, slot_index: int) -> bool:
 
 	_assign_human_state(driver_id, slot_index)
 	_ensure_unique_local_input(slot_index)
-	_ensure_primary_local_slot()
 	selected_driver_id = driver_id
 	return true
 
@@ -234,7 +233,6 @@ func deactivate_local_slot(slot_index: int) -> bool:
 
 	_set_pilot_state(driver_id, PilotMode.CPU, NO_PLAYER_SLOT)
 	_clear_player_slot(slot_index)
-	_ensure_primary_local_slot(driver_id)
 	_sync_selected_driver()
 	return true
 
@@ -244,7 +242,6 @@ func release_human_pilot(driver_id: String) -> bool:
 		return false
 	_set_pilot_state(driver_id, PilotMode.CPU, NO_PLAYER_SLOT)
 	_clear_player_slot(slot_index)
-	_ensure_primary_local_slot(driver_id)
 	_sync_selected_driver()
 	return true
 
@@ -316,11 +313,10 @@ func get_gamepad_number(input_source: int) -> int:
 	return 0
 
 func should_use_solo_input_fallback(driver_id: String) -> bool:
-	if get_player_slot_for_driver(driver_id) != 0:
+	var slot_index: int = get_player_slot_for_driver(driver_id)
+	if slot_index < 0 or get_human_driver_ids().size() != 1:
 		return false
-	if get_human_driver_ids().size() != 1:
-		return false
-	var source: int = get_input_source(0)
+	var source: int = get_input_source(slot_index)
 	return source == InputSource.ARROWS or source == InputSource.PAD_1
 
 func reset_roster() -> void:
@@ -538,34 +534,6 @@ func _ensure_unique_local_input(slot_index: int) -> void:
 			player_slots[slot_index]["input_source"] = candidate
 			return
 
-func _ensure_primary_local_slot(excluded_driver_id: String = "") -> void:
-	if is_player_slot_active(0):
-		return
-	var has_other_local_human: bool = false
-	for slot_index in range(1, LOCAL_PLAYER_SLOT_COUNT):
-		if is_player_slot_active(slot_index):
-			has_other_local_human = true
-			break
-	if not has_other_local_human:
-		return
-
-	var candidate_id: String = _first_unclaimed_driver_except(
-		PilotMode.CPU,
-		excluded_driver_id
-	)
-	if candidate_id.is_empty():
-		candidate_id = _first_unclaimed_driver_except(PilotMode.OFF, excluded_driver_id)
-	if candidate_id.is_empty():
-		return
-	_assign_human_state(candidate_id, 0)
-	_ensure_unique_local_input(0)
-
-func _first_unclaimed_driver_except(mode: int, excluded_driver_id: String) -> String:
-	for driver_id in DriverRoster.DRIVER_IDS:
-		if driver_id != excluded_driver_id and get_pilot_mode(driver_id) == mode:
-			return driver_id
-	return ""
-
 func _enforce_roster_invariants() -> void:
 	while pilot_states.size() < PILOT_COUNT:
 		pilot_states.append({"mode": PilotMode.CPU, "player_slot": NO_PLAYER_SLOT})
@@ -583,7 +551,6 @@ func _enforce_roster_invariants() -> void:
 	if get_active_driver_ids().is_empty():
 		_set_pilot_state(DriverRoster.DRIVER_IDS[0], PilotMode.CPU, NO_PLAYER_SLOT)
 	_rebuild_slots_from_pilot_states()
-	_ensure_primary_local_slot()
 	_resolve_duplicate_local_inputs()
 	_sync_selected_driver()
 
