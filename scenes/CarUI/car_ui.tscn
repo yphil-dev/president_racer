@@ -24,9 +24,9 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [node name="CarUI" type="PanelContainer" unique_id=130035257]
-custom_minimum_size = Vector2(140, 80)
+custom_minimum_size = Vector2(140, 84.2)
 offset_right = 140.0
-offset_bottom = 80.0
+offset_bottom = 84.2
 mouse_filter = 2
 theme = ExtResource("1_m6128")
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")

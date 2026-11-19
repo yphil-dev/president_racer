@@ -48,21 +48,32 @@ static func _ordered_driver_ids(
 	active_driver_ids: Array[String],
 	preferred_driver_id: String
 ) -> Array[String]:
-	var result: Array[String] = []
-	var primary_driver_id: String = preferred_driver_id
-	var p1_driver_id: String = RaceSelection.get_driver_for_player_slot(0)
-	if not p1_driver_id.is_empty() and p1_driver_id in active_driver_ids:
-		primary_driver_id = p1_driver_id
-	elif primary_driver_id not in active_driver_ids:
-		var human_driver_ids: Array[String] = RaceSelection.get_human_driver_ids()
-		primary_driver_id = (
-			human_driver_ids[0]
-			if not human_driver_ids.is_empty()
-			else active_driver_ids[0]
-		)
-
-	result.append(primary_driver_id)
+	var human_driver_ids: Array[String] = []
+	var cpu_driver_ids: Array[String] = []
 	for driver_id in active_driver_ids:
+		if RaceSelection.is_driver_human(driver_id):
+			human_driver_ids.append(driver_id)
+		else:
+			cpu_driver_ids.append(driver_id)
+
+	var primary_driver_id: String
+	var p1_driver_id: String = RaceSelection.get_driver_for_player_slot(0)
+	if p1_driver_id in human_driver_ids:
+		primary_driver_id = p1_driver_id
+	elif preferred_driver_id in human_driver_ids:
+		primary_driver_id = preferred_driver_id
+	elif not human_driver_ids.is_empty():
+		primary_driver_id = human_driver_ids[0]
+	elif preferred_driver_id in cpu_driver_ids:
+		primary_driver_id = preferred_driver_id
+	else:
+		primary_driver_id = cpu_driver_ids[0]
+
+	var result: Array[String] = [primary_driver_id]
+	for driver_id in human_driver_ids:
+		if driver_id != primary_driver_id:
+			result.append(driver_id)
+	for driver_id in cpu_driver_ids:
 		if driver_id != primary_driver_id:
 			result.append(driver_id)
 	return result
