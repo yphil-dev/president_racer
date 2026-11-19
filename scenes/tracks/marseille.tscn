@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" path="res://scenes/weather_layer.tscn" id="2_weather"]
 [ext_resource type="Script" uid="uid://8sg1ayu44brh" path="res://scripts/ai_waypoint_generator.gd" id="3_waypoints"]
 [ext_resource type="Script" uid="uid://b24bstassw26s" path="res://scripts/view.gd" id="5_0lrhn"]
-[ext_resource type="PackedScene" uid="uid://cp7x7vw3kj2ny" path="res://models/city/building_H.gltf" id="6_tbvl8"]
 [ext_resource type="MeshLibrary" uid="uid://b6myd2b7l2o2j" path="res://models/Library/mesh-library.tres" id="8_eg7gk"]
 [ext_resource type="PackedScene" uid="uid://cawjsdr1dhpuh" path="res://models/city/road_straight_crossing.gltf" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://0my40c2l2y42" path="res://scenes/block_01.tscn" id="10_choun"]
@@ -136,9 +135,6 @@ mesh = SubResource("BoxMesh_e85i1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane" unique_id=815872636]
 transform = Transform3D(50.127007, 0, 0, 0, 1, 0, 0, 0, 50.127007, 0, -0.652518, 0)
 shape = SubResource("ConcavePolygonShape3D_85g3d")
-
-[node name="building_H2" parent="Plane" unique_id=1250644965 instance=ExtResource("6_tbvl8")]
-transform = Transform3D(2.3929944, 0, -0.0017235279, 0, 2.3929946, 0, 0.0017235279, 0, 2.3929944, -0.008872986, -0.15251899, -8.925438)
 
 [node name="GridMap" type="GridMap" parent="." unique_id=746223562]
 transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.5, 0)

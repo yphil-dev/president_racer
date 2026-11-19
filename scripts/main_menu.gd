@@ -170,7 +170,10 @@ func _unlock_startup_hover() -> void:
 func _hover_button(index: int) -> void:
 	if _launching or _startup_hover_locked:
 		return
-	selectable_buttons[index].grab_focus()
+	var button := selectable_buttons[index]
+	button.set_meta(&"suppress_focus_sound", true)
+	button.grab_focus()
+	button.remove_meta(&"suppress_focus_sound")
 
 func _select_button(index: int) -> void:
 	if _launching:

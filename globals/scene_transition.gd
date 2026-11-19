@@ -25,7 +25,6 @@ var _action_sound: AudioStreamPlayer
 var _error_sound: AudioStreamPlayer
 var _active: bool = false
 var _ui_feedback_armed: bool = false
-var _hover_sound_button: BaseButton
 var _main_menu_focus_target: StringName = &"default"
 
 func _ready() -> void:
@@ -89,28 +88,16 @@ func _on_ui_node_added(node: Node) -> void:
 		return
 	var button := node as BaseButton
 	var focus_callback := _play_button_focus.bind(button)
-	var hover_callback := _play_button_hover.bind(button)
 	var press_callback := _play_button_press.bind(button)
 	if not button.focus_entered.is_connected(focus_callback):
 		button.focus_entered.connect(focus_callback)
-	if not button.mouse_entered.is_connected(hover_callback):
-		button.mouse_entered.connect(hover_callback)
 	if not button.pressed.is_connected(press_callback):
 		button.pressed.connect(press_callback)
 
 func _play_button_focus(button: BaseButton) -> void:
-	if _hover_sound_button == button:
+	if button.get_meta(&"suppress_focus_sound", false):
 		return
 	play_selection_beep()
-
-func _play_button_hover(button: BaseButton) -> void:
-	_hover_sound_button = button
-	play_selection_beep(true)
-	_clear_hover_sound_button.call_deferred(button)
-
-func _clear_hover_sound_button(button: BaseButton) -> void:
-	if _hover_sound_button == button:
-		_hover_sound_button = null
 
 func _play_button_press(button: BaseButton) -> void:
 	if button.get_meta(&"honk_on_press", false):

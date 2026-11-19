@@ -45,7 +45,8 @@ const PROFILES: Dictionary = {
 		"last_name": "Riner",
 		"car_number": 4,
 		"portrait": preload("res://sprites/riner.jpg"),
-		"car_color": Color(0.65, 0.65, 0.65, 1.0),
+		"car_color": Color(0.45, 0.08, 0.62, 1.0), # Vivid Violet
+
 	},
 	"rima": {
 		"display_name": "R. Hassan",
