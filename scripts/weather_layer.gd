@@ -73,6 +73,7 @@ func _on_race_started() -> void:
 		)
 		_start_snow_cover()
 		_start_plane_snow_cover()
+		_start_jump_ramp_snow_cover()
 		_start_building_snow_cover()
 		_start_crossing_snow_cover()
 		_start_city_snow_cover()
@@ -191,6 +192,47 @@ func _start_plane_snow_cover() -> void:
 		"albedo_color",
 		SNOW_COLOR,
 		RaceSelection.WEATHER_TRANSITION_DURATION
+	)
+
+func _start_jump_ramp_snow_cover() -> void:
+	var jump_ramp := get_parent().get_node_or_null("GlassPlane/JumpRamp") as Node3D
+	if jump_ramp == null:
+		return
+
+	var snow_materials: Array[StandardMaterial3D] = []
+	for mesh_node in jump_ramp.find_children("*", "MeshInstance3D", true, false):
+		var mesh_instance := mesh_node as MeshInstance3D
+		if mesh_instance == null or mesh_instance.mesh == null:
+			continue
+		var source_material := mesh_instance.get_active_material(0) as StandardMaterial3D
+		if source_material == null:
+			continue
+		var snow_material := source_material.duplicate() as StandardMaterial3D
+		snow_material.albedo_texture = null
+		mesh_instance.material_override = snow_material
+		snow_materials.append(snow_material)
+
+	if snow_materials.is_empty():
+		return
+
+	var tween := create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	for snow_material in snow_materials:
+		tween.tween_property(
+			snow_material,
+			"albedo_color",
+			SNOW_COLOR,
+			RaceSelection.WEATHER_TRANSITION_DURATION
+		)
+		tween.tween_property(
+			snow_material,
+			"roughness",
+			1.0,
+			RaceSelection.WEATHER_TRANSITION_DURATION
+		)
+	tween.chain().tween_callback(func() -> void:
+		for snow_material in snow_materials:
+			snow_material.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
 	)
 
 func _start_building_snow_cover() -> void:
