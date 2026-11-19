@@ -59,7 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		and not SceneTransition.is_active()
 	):
 		get_viewport().set_input_as_handled()
-		if OS.has_feature("web") or game_ui.is_results_active():
+		if game_ui.is_results_active():
 			return_to_menu()
 		else:
 			game_ui.toggle_pause()
