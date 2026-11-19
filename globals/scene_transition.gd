@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal fullscreen_changed(fullscreen: bool)
+
 const MAIN_MENU_SCENE := "res://scenes/main_menu.tscn"
 const DISPLAY_SETTINGS_PATH := "user://display_settings.cfg"
 const DISPLAY_SETTINGS_SECTION := "display"
@@ -231,18 +233,23 @@ func _initialize_potato_rock() -> void:
 	show_potato_rock()
 
 func _toggle_fullscreen() -> void:
-	var current_mode := DisplayServer.window_get_mode()
-	var is_fullscreen := current_mode in [
+	set_fullscreen_enabled(not is_fullscreen_enabled())
+
+func is_fullscreen_enabled() -> bool:
+	return DisplayServer.window_get_mode() in [
 		DisplayServer.WINDOW_MODE_FULLSCREEN,
 		DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,
 	]
-	var fullscreen := not is_fullscreen
+
+func set_fullscreen_enabled(fullscreen: bool, save_preference: bool = true) -> void:
 	DisplayServer.window_set_mode(
 		DisplayServer.WINDOW_MODE_FULLSCREEN
 		if fullscreen
 		else DisplayServer.WINDOW_MODE_WINDOWED
 	)
-	_save_fullscreen_preference(fullscreen)
+	if save_preference:
+		_save_fullscreen_preference(fullscreen)
+	fullscreen_changed.emit(fullscreen)
 
 func _apply_fullscreen_preference() -> void:
 	var config := ConfigFile.new()
@@ -252,11 +259,7 @@ func _apply_fullscreen_preference() -> void:
 		return
 
 	var fullscreen := bool(config.get_value(DISPLAY_SETTINGS_SECTION, "fullscreen"))
-	DisplayServer.window_set_mode(
-		DisplayServer.WINDOW_MODE_FULLSCREEN
-		if fullscreen
-		else DisplayServer.WINDOW_MODE_WINDOWED
-	)
+	set_fullscreen_enabled(fullscreen, false)
 
 func _save_fullscreen_preference(fullscreen: bool) -> void:
 	var config := ConfigFile.new()

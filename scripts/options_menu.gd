@@ -21,6 +21,7 @@ const UNAVAILABLE_COLOR := Color(0.95, 0.25, 0.25, 1.0)
 @onready var one_lap_button: Button = $Content/SettingsBar/Laps/One
 @onready var two_lap_button: Button = $Content/SettingsBar/Laps/Two
 @onready var three_lap_button: Button = $Content/SettingsBar/Laps/Three
+@onready var fullscreen_button: Button = $Content/SettingsBar/Fullscreen
 @onready var random_button: Button = $Content/SettingsBar/Random
 @onready var save_button: Button = $Content/SettingsBar/Save
 @onready var race_button: Button = $Content/SettingsBar/Race
@@ -133,6 +134,7 @@ func _connect_global_settings() -> void:
 	one_lap_button.tooltip_text = "One lap"
 	two_lap_button.tooltip_text = "Two laps"
 	three_lap_button.tooltip_text = "Three laps"
+	fullscreen_button.tooltip_text = "Toggle fullscreen"
 	random_button.tooltip_text = "Random race options"
 	save_button.tooltip_text = "Save options"
 	race_button.tooltip_text = "Return to track selection"
@@ -145,9 +147,12 @@ func _connect_global_settings() -> void:
 	one_lap_button.pressed.connect(_select_laps.bind(1))
 	two_lap_button.pressed.connect(_select_laps.bind(2))
 	three_lap_button.pressed.connect(_select_laps.bind(3))
+	fullscreen_button.pressed.connect(_toggle_fullscreen)
 	random_button.pressed.connect(_select_random)
 	save_button.pressed.connect(_save_options)
 	race_button.pressed.connect(_return_to_menu)
+	SceneTransition.fullscreen_changed.connect(_on_fullscreen_changed)
+	_on_fullscreen_changed(SceneTransition.is_fullscreen_enabled())
 
 func _on_pilot_pressed(driver_id: String) -> void:
 	var target_slot: int = RaceSelection.selected_local_slot
@@ -330,6 +335,12 @@ func _select_laps(laps: int) -> void:
 	RaceSelection.selected_laps = laps
 	_mark_changed()
 
+func _toggle_fullscreen() -> void:
+	SceneTransition.set_fullscreen_enabled(not SceneTransition.is_fullscreen_enabled())
+
+func _on_fullscreen_changed(fullscreen: bool) -> void:
+	_style_setting_button(fullscreen_button, fullscreen)
+
 func _select_random() -> void:
 	if not RaceSelection.set_random_mode():
 		_play_error()
@@ -433,6 +444,7 @@ func _refresh_global_settings() -> void:
 	_style_setting_button(one_lap_button, RaceSelection.selected_laps == 1)
 	_style_setting_button(two_lap_button, RaceSelection.selected_laps == 2)
 	_style_setting_button(three_lap_button, RaceSelection.selected_laps == 3)
+	_style_setting_button(fullscreen_button, SceneTransition.is_fullscreen_enabled())
 	_style_setting_button(random_button, RaceSelection.random_mode)
 
 func _style_setting_button(button: Button, selected: bool) -> void:

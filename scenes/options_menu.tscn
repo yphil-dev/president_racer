@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bjyw5rayba4jb" path="res://sprites/arrow-keys.svg" id="20_arrows"]
 [ext_resource type="Texture2D" uid="uid://bmpjybdc5hicv" path="res://sprites/cpu.svg" id="23_cpu"]
 [ext_resource type="AudioStream" uid="uid://io4pmr3lo1dy" path="res://audio/impact.ogg" id="24_error"]
+[ext_resource type="Texture2D" uid="uid://buovvwfvgu53j" path="res://sprites/fullscreen.svg" id="25_fullscreen"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_status"]
 bg_color = Color(0.02, 0.03, 0.05, 0.92)
@@ -1010,7 +1011,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../Race")
 focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1")
 focus_neighbor_right = NodePath("../Night")
-focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
+focus_neighbor_bottom = NodePath("../../Race")
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("9_day")
@@ -1022,7 +1023,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../Day")
 focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1")
 focus_neighbor_right = NodePath("../../Weather/Fair")
-focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
+focus_neighbor_bottom = NodePath("../../Race")
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("10_night")
@@ -1039,7 +1040,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../Time/Night")
 focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot1")
 focus_neighbor_right = NodePath("../Rain")
-focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
+focus_neighbor_bottom = NodePath("../../Race")
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("6_fair")
@@ -1051,7 +1052,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../Fair")
 focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2")
 focus_neighbor_right = NodePath("../Snow")
-focus_neighbor_bottom = NodePath("../../../PilotGrid/Soral")
+focus_neighbor_bottom = NodePath("../../Race")
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("7_rain")
@@ -1063,7 +1064,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../Rain")
 focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot2")
 focus_neighbor_right = NodePath("../../Laps/One")
-focus_neighbor_bottom = NodePath("../../../PilotGrid/LePen")
+focus_neighbor_bottom = NodePath("../../Race")
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("8_snow")
@@ -1103,12 +1104,26 @@ custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Two")
 focus_neighbor_top = NodePath("../../../PlayerBar/PlayerSlot3")
-focus_neighbor_right = NodePath("../../Random")
+focus_neighbor_right = NodePath("../../Fullscreen")
 focus_neighbor_bottom = NodePath("../../../PilotGrid/LePen")
 mouse_default_cursor_shape = 2
 theme_type_variation = &"CompactButton"
 icon = ExtResource("13_lap_three")
 icon_alignment = 1
+
+[node name="Fullscreen" type="Button" parent="Content/SettingsBar" unique_id=2072537600]
+custom_minimum_size = Vector2(52, 52)
+custom_maximum_size = Vector2(52, 52)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Laps/Three")
+focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot3")
+focus_neighbor_right = NodePath("../Random")
+focus_neighbor_bottom = NodePath("../Race")
+mouse_default_cursor_shape = 2
+theme_type_variation = &"CompactButton"
+icon = ExtResource("25_fullscreen")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Spacer" type="Control" parent="Content/SettingsBar" unique_id=1235338835]
 custom_maximum_size = Vector2(52, -1)
@@ -1119,7 +1134,7 @@ mouse_filter = 2
 [node name="Random" type="Button" parent="Content/SettingsBar" unique_id=1807909038]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Laps/Three")
+focus_neighbor_left = NodePath("../Fullscreen")
 focus_neighbor_top = NodePath("../../PlayerBar/PlayerSlot3")
 focus_neighbor_right = NodePath("../Save")
 focus_neighbor_bottom = NodePath("../../PilotGrid/Melenchon")
