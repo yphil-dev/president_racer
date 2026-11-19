@@ -19,6 +19,7 @@ const CAR_UI_SCENE: PackedScene = preload("res://scenes/CarUI/car_ui.tscn")
 const RESULT_TWEEN_DURATION: float = 1.1
 const BACKGROUND_FADE_DURATION: float = 0.8
 const REORDER_DURATION: float = 0.22
+const OVERTAKE_SWING_X: float = 24.0
 
 var _cards_by_vehicle: Dictionary = {}
 var _active_cards: Array[CarUI] = []
@@ -188,8 +189,12 @@ func _animate_reorder(current_standings: Array) -> void:
 	_reorder_generation += 1
 	var generation: int = _reorder_generation
 	var current_positions: Dictionary = {}
-	for card in _active_cards:
-		current_positions[card] = card.global_position
+	var previous_indices: Dictionary = {}
+	for i in list.get_child_count():
+		var child := list.get_child(i)
+		if child is CarUI:
+			previous_indices[child] = i
+			current_positions[child] = (child as CarUI).global_position
 
 	if _reorder_tween != null and _reorder_tween.is_valid():
 		_reorder_tween.kill()
@@ -207,18 +212,69 @@ func _animate_reorder(current_standings: Array) -> void:
 
 	_reorder_tween = create_tween()
 	_reorder_tween.set_parallel(true)
-	_reorder_tween.set_trans(Tween.TRANS_QUART)
-	_reorder_tween.set_ease(Tween.EASE_OUT)
 
-	for card in _active_cards:
-		var target_position := card.global_position
-		card.global_position = current_positions[card]
-		_reorder_tween.tween_property(
-			card,
-			"global_position",
-			target_position,
-			REORDER_DURATION
-		)
+	for new_index in current_standings.size():
+		var state := current_standings[new_index] as CarRaceState
+		var card := _cards_by_vehicle.get(state.vehicle) as CarUI
+		if card == null or not current_positions.has(card):
+			continue
+
+		var old_index: int = int(previous_indices.get(card, new_index))
+		var target_position: Vector2 = card.global_position
+		var start_position: Vector2 = current_positions[card]
+		card.global_position = start_position
+		card.pivot_offset = card.size * 0.5
+
+		if new_index < old_index:
+			# Overtaking card: bring to front, swing out to pass, and pop slightly
+			card.z_index = 10
+			_reorder_tween.tween_property(
+				card,
+				"global_position:y",
+				target_position.y,
+				REORDER_DURATION
+			).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+			var pass_tween := card.create_tween()
+			pass_tween.set_parallel(true)
+			pass_tween.tween_property(
+				card,
+				"global_position:x",
+				target_position.x + OVERTAKE_SWING_X,
+				REORDER_DURATION * 0.48
+			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			pass_tween.tween_property(
+				card,
+				"scale",
+				Vector2(1.08, 1.08),
+				REORDER_DURATION * 0.45
+			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+			pass_tween.chain().set_parallel(true)
+			pass_tween.tween_property(
+				card,
+				"global_position:x",
+				target_position.x,
+				REORDER_DURATION * 0.52
+			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+			pass_tween.tween_property(
+				card,
+				"scale",
+				Vector2.ONE,
+				REORDER_DURATION * 0.55
+			).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+			pass_tween.chain().tween_callback(func() -> void: card.z_index = 0)
+		else:
+			# Overtaken or stationary card: stay underneath and slide smoothly
+			card.z_index = 0
+			card.scale = Vector2.ONE
+			_reorder_tween.tween_property(
+				card,
+				"global_position",
+				target_position,
+				REORDER_DURATION
+			).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+
 
 func _on_race_finished(final_standings: Array) -> void:
 	_results_active = true
