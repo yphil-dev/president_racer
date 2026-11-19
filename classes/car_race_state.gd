@@ -8,6 +8,7 @@ var laps_completed: int = 0
 var target_laps: int = 1
 var track_progress: float = 0.0
 var total_progress: float = 0.0
+var waypoint_segment_index: int = -1
 var current_time: float = 0.0
 var last_lap_time: float = 0.0
 var best_lap_time: float = -1.0

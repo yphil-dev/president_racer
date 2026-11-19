@@ -18,6 +18,7 @@ signal race_finished(standings: Array)
 @onready var traffic_light: RaceTrafficLight = get_node(traffic_light_path)
 @onready var game_ui: GameUI = get_node("../UI/GameUI")
 @onready var track_path: Path3D = get_node("../PATH/TrackPath")
+@onready var waypoint_generator: AIWaypointGenerator = get_node("../PATH/WaypointGenerator")
 @onready var race_track: Node3D = get_parent() as Node3D
 
 var cars: Node3D
@@ -51,6 +52,8 @@ const BEEPS_VOLUME: float = -12.0
 const PLAYER_MARKER_TILT := Vector3(45.0, 0.0, 35.264)
 const PLAYER_MARKER_SPIN_SPEED: float = 2.5
 const PLAYER_MARKER_FADE_DELAY: float = 0.5
+const PROGRESS_SEGMENTS_BEHIND: int = 4
+const PROGRESS_SEGMENTS_AHEAD: int = 12
 const SHEEN_SHADER: Shader = preload("res://shaders/car_sheen_sweep.gdshader")
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -99,6 +102,9 @@ func _ready() -> void:
 
 	race_track.connect("lap_completed", _on_track_lap_completed)
 	race_track.connect("car_finished", _on_track_car_finished)
+
+	if not waypoint_generator.is_ready:
+		await waypoint_generator.waypoints_ready
 
 	await get_tree().process_frame
 	cars = RaceGridSpawner.spawn(race_track, RaceSelection.selected_driver_id)
@@ -260,6 +266,7 @@ func _setup_race_states() -> void:
 	_states_by_car.clear()
 	standings.clear()
 	var target_laps := int(race_track.get("target_laps"))
+	_path_length = track_path.curve.get_baked_length()
 
 	for child in cars.get_children():
 		if child is Vehicle:
@@ -267,11 +274,12 @@ func _setup_race_states() -> void:
 			_states_by_car[state.car] = state
 			standings.append(state)
 
-	_path_length = track_path.curve.get_baked_length()
 	if not standings.is_empty():
 		_start_offset = track_path.curve.get_closest_offset(
 			track_path.to_local(standings[0].car.global_position)
 		)
+		for state in standings:
+			_update_state_progress(state, true)
 	_update_standings(true)
 
 func _start_race() -> void:
@@ -341,12 +349,59 @@ func _on_track_car_finished(car: VehicleSphere, lap_number: int) -> void:
 	if _all_cars_finished():
 		_finalize_race()
 
-func _update_state_progress(state: CarRaceState) -> void:
-	if _path_length <= 0.0:
+func _update_state_progress(state: CarRaceState, full_search: bool = false) -> void:
+	if _path_length <= 0.0 or waypoint_generator.waypoints.is_empty():
 		return
 
-	var local_position := track_path.to_local(state.car.global_position)
-	var curve_offset := track_path.curve.get_closest_offset(local_position)
+	var waypoints := waypoint_generator.waypoints
+	var waypoint_count := waypoints.size()
+	var first_offset := 0
+	var last_offset := waypoint_count - 1
+	if not full_search and state.waypoint_segment_index >= 0:
+		first_offset = -PROGRESS_SEGMENTS_BEHIND
+		last_offset = PROGRESS_SEGMENTS_AHEAD
+
+	var car_position := state.car.global_position
+	var best_segment_index := 0
+	var best_segment_weight := 0.0
+	var best_distance_squared := INF
+
+	for offset in range(first_offset, last_offset + 1):
+		var segment_index := offset
+		if not full_search and state.waypoint_segment_index >= 0:
+			segment_index = posmod(state.waypoint_segment_index + offset, waypoint_count)
+		var next_index := (segment_index + 1) % waypoint_count
+		var segment_start: Vector3 = waypoints[segment_index].center
+		var segment_end: Vector3 = waypoints[next_index].center
+		var segment := segment_end - segment_start
+		var segment_length_squared := segment.length_squared()
+		var segment_weight := 0.0
+		if segment_length_squared > 0.0001:
+			segment_weight = clampf(
+				(car_position - segment_start).dot(segment) / segment_length_squared,
+				0.0,
+				1.0
+			)
+		var closest_position := segment_start + segment * segment_weight
+		var distance_squared := car_position.distance_squared_to(closest_position)
+		if distance_squared < best_distance_squared:
+			best_distance_squared = distance_squared
+			best_segment_index = segment_index
+			best_segment_weight = segment_weight
+
+	state.waypoint_segment_index = best_segment_index
+	var next_index := (best_segment_index + 1) % waypoint_count
+	var segment_start_distance: float = waypoints[best_segment_index].distance
+	var segment_end_distance: float = (
+		_path_length
+		if next_index == 0
+		else waypoints[next_index].distance
+	)
+	var curve_offset := lerpf(
+		segment_start_distance,
+		segment_end_distance,
+		best_segment_weight
+	)
 	state.track_progress = fposmod(curve_offset - _start_offset, _path_length)
 	state.total_progress = state.laps_completed * _path_length + state.track_progress
 

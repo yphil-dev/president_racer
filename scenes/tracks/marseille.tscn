@@ -55,6 +55,15 @@ size = Vector3(0.9194336, 1, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jy1fj"]
 albedo_color = Color(0.2592937, 0.2592937, 0.2592937, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_ewhm1"]
+size = Vector3(0.56848145, 2.3848877, 4.0490417)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jprjk"]
+albedo_color = Color(0.48235294, 0.24705882, 0.22745098, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jprjk"]
+size = Vector3(0.56848145, 2.3848877, 4.0490417)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_6xfsa"]
 size = Vector3(7.05249, 3, 1)
 
@@ -117,8 +126,10 @@ directional_shadow_pancake_size = 2.0
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
 transform = Transform3D(0.76629645, -0.53314245, 0.3585362, 0.47159386, 0.8457329, 0.2496694, -0.43633524, -0.022236692, 0.89950967, 17.02595, 9.034419, 40.114246)
 attributes = SubResource("CameraAttributesPhysical_a8y0u")
+projection = 2
 current = true
 fov = 37.849285
+size = 0.035
 
 [node name="Environment" type="WorldEnvironment" parent="View" unique_id=1097254880]
 environment = ExtResource("1_q4t1r")
@@ -360,6 +371,18 @@ transform = Transform3D(22.925879, 0, 0.8002181, 0, 2.885514, 0, -0.8002181, 0, 
 mesh = SubResource("BoxMesh_6xfsa")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_jy1fj")
+
+[node name="WALLS" type="Node3D" parent="CITY" unique_id=1064511514]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CITY/WALLS" unique_id=1155772782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.881226, 0.69244385, -9.193924)
+mesh = SubResource("BoxMesh_ewhm1")
+surface_material_override/0 = SubResource("StandardMaterial3D_jprjk")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="CITY/WALLS/MeshInstance3D" unique_id=1336177862]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CITY/WALLS/MeshInstance3D/StaticBody3D2" unique_id=894729751]
+shape = SubResource("BoxShape3D_jprjk")
 
 [node name="Finish" type="Area3D" parent="." unique_id=989885447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.850459, 0, 6.3784456)
