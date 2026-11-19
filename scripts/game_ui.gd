@@ -30,7 +30,6 @@ var _controller: RaceController
 var _classification_duration: float = 0.0
 var _classification_countdown_active: bool = false
 var _paused: bool = false
-var _pause_audio_master_was_muted: bool = false
 
 func _ready() -> void:
 	pause_overlay.hide()
@@ -126,15 +125,9 @@ func _restart_from_pause() -> void:
 
 
 func _set_pause_audio(paused: bool) -> void:
-	var master_bus := AudioServer.get_bus_index("Master")
-	if master_bus >= 0:
-		if paused:
-			_pause_audio_master_was_muted = AudioServer.is_bus_mute(master_bus)
-			AudioServer.set_bus_mute(master_bus, true)
-		else:
-			AudioServer.set_bus_mute(master_bus, _pause_audio_master_was_muted)
-
-	for node in get_tree().root.find_children("*", "AudioStreamPlayer", true, false):
+	for node in get_tree().root.find_children("*", "", true, false):
+		if node.get_meta(&"ui_interaction_audio", false):
+			continue
 		if node is AudioStreamPlayer:
 			(node as AudioStreamPlayer).stream_paused = paused
 		elif node is AudioStreamPlayer2D:
@@ -340,7 +333,6 @@ func _restart_race() -> void:
 		return
 
 	_restarting = true
-	SceneTransition.play_selection_beep()
 	race_again.disabled = true
 	await NavButtonAnimation.play(race_again)
 	SceneTransition.transition_to_menu()

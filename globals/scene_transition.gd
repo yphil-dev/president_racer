@@ -5,6 +5,7 @@ const DISPLAY_SETTINGS_PATH := "user://display_settings.cfg"
 const DISPLAY_SETTINGS_SECTION := "display"
 const POTATO_ROCK_OVERLAY: PackedScene = preload("res://scenes/potato_rock_overlay.tscn")
 const SPLASH_TEXTURE: Texture2D = preload("res://splash-screen.png")
+const UI_SOUND_VOLUME_DB: float = -15.0
 
 const EXPAND_DURATION: float = 0.7
 const REVEAL_DURATION: float = 0.6
@@ -18,12 +19,19 @@ var _potato_rock_overlay
 var _preview: TextureRect
 var _black: ColorRect
 var _confirmation_sound: AudioStreamPlayer
+var _action_sound: AudioStreamPlayer
 var _error_sound: AudioStreamPlayer
 var _active: bool = false
 var _ui_feedback_armed: bool = false
+var _hover_sound_button: BaseButton
 var _main_menu_focus_target: StringName = &"default"
 
 func _ready() -> void:
+	if not get_tree().node_added.is_connected(_on_ui_node_added):
+		get_tree().node_added.connect(_on_ui_node_added)
+	for node in get_tree().root.find_children("*", "", true, false):
+		_on_ui_node_added(node)
+
 	if OS.has_feature("arm64") or OS.has_feature("arm32"):
 		if not get_tree().node_added.is_connected(_on_arm_node_added):
 			get_tree().node_added.connect(_on_arm_node_added)
@@ -54,17 +62,59 @@ func _ready() -> void:
 
 	_confirmation_sound = AudioStreamPlayer.new()
 	_confirmation_sound.stream = _create_confirmation_beep()
-	_confirmation_sound.volume_db = -10.0
+	_confirmation_sound.volume_db = UI_SOUND_VOLUME_DB
+	_confirmation_sound.set_meta(&"ui_interaction_audio", true)
 	add_child(_confirmation_sound)
+
+	_action_sound = AudioStreamPlayer.new()
+	_action_sound.stream = _create_action_beep()
+	_action_sound.volume_db = UI_SOUND_VOLUME_DB
+	_action_sound.set_meta(&"ui_interaction_audio", true)
+	add_child(_action_sound)
 
 	_error_sound = AudioStreamPlayer.new()
 	_error_sound.stream = _create_error_beep()
-	_error_sound.volume_db = -10.0
+	_error_sound.volume_db = UI_SOUND_VOLUME_DB
+	_error_sound.set_meta(&"ui_interaction_audio", true)
 	add_child(_error_sound)
 
 	_potato_rock_overlay = POTATO_ROCK_OVERLAY.instantiate()
 	add_child(_potato_rock_overlay)
 	_initialize_potato_rock.call_deferred()
+
+func _on_ui_node_added(node: Node) -> void:
+	if not node is BaseButton:
+		return
+	var button := node as BaseButton
+	var focus_callback := _play_button_focus.bind(button)
+	var hover_callback := _play_button_hover.bind(button)
+	var press_callback := _play_button_press.bind(button)
+	if not button.focus_entered.is_connected(focus_callback):
+		button.focus_entered.connect(focus_callback)
+	if not button.mouse_entered.is_connected(hover_callback):
+		button.mouse_entered.connect(hover_callback)
+	if not button.pressed.is_connected(press_callback):
+		button.pressed.connect(press_callback)
+
+func _play_button_focus(button: BaseButton) -> void:
+	if _hover_sound_button == button:
+		return
+	play_selection_beep()
+
+func _play_button_hover(button: BaseButton) -> void:
+	_hover_sound_button = button
+	play_selection_beep(true)
+	_clear_hover_sound_button.call_deferred(button)
+
+func _clear_hover_sound_button(button: BaseButton) -> void:
+	if _hover_sound_button == button:
+		_hover_sound_button = null
+
+func _play_button_press(button: BaseButton) -> void:
+	if button.get_meta(&"honk_on_press", false):
+		AudioPlayer.play_honk()
+	else:
+		play_action_beep()
 
 func _on_arm_node_added(node: Node) -> void:
 	if node is Light3D:
@@ -151,6 +201,8 @@ func _input(event: InputEvent) -> void:
 	if _ui_feedback_armed:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
+		_ui_feedback_armed = true
+	elif event is InputEventMouseButton and event.pressed:
 		_ui_feedback_armed = true
 	elif event is InputEventJoypadButton and event.pressed:
 		_ui_feedback_armed = true
@@ -349,11 +401,15 @@ func quit_game() -> void:
 	await tween.finished
 	get_tree().quit()
 
-func play_selection_beep() -> void:
-	if not _ui_feedback_armed:
+func play_selection_beep(force: bool = false) -> void:
+	if not force and not _ui_feedback_armed:
 		return
 	_confirmation_sound.stop()
 	_confirmation_sound.play()
+
+func play_action_beep() -> void:
+	_action_sound.stop()
+	_action_sound.play()
 
 func play_error_beep() -> void:
 	if not _ui_feedback_armed:
@@ -363,11 +419,38 @@ func play_error_beep() -> void:
 
 func _create_confirmation_beep() -> AudioStreamWAV:
 	const SAMPLE_RATE: int = 22050
-	const DURATION: float = 0.12
-	const FREQUENCY: float = 420.0
-	const AMPLITUDE: float = 0.22
+	const DURATION: float = 0.16
+	const FREQUENCY: float = 120.0
+	const AMPLITUDE: float = 0.28
 	const ATTACK: float = 0.01
 	const RELEASE: float = 0.07
+
+	var sample_count := int(SAMPLE_RATE * DURATION)
+	var data := PackedByteArray()
+	data.resize(sample_count * 2)
+
+	for sample_index in sample_count:
+		var time := float(sample_index) / SAMPLE_RATE
+		var envelope := minf(time / ATTACK, 1.0)
+		if time > DURATION - RELEASE:
+			envelope *= (DURATION - time) / RELEASE
+		var wave := sin(TAU * FREQUENCY * time) * AMPLITUDE * envelope
+		data.encode_s16(sample_index * 2, int(wave * 32767.0))
+
+	var stream := AudioStreamWAV.new()
+	stream.format = AudioStreamWAV.FORMAT_16_BITS
+	stream.mix_rate = SAMPLE_RATE
+	stream.stereo = false
+	stream.data = data
+	return stream
+
+func _create_action_beep() -> AudioStreamWAV:
+	const SAMPLE_RATE: int = 22050
+	const DURATION: float = 0.09
+	const FREQUENCY: float = 240.0
+	const AMPLITUDE: float = 0.22
+	const ATTACK: float = 0.005
+	const RELEASE: float = 0.05
 
 	var sample_count := int(SAMPLE_RATE * DURATION)
 	var data := PackedByteArray()
@@ -419,6 +502,7 @@ func _create_error_beep() -> AudioStreamWAV:
 
 func _reset() -> void:
 	_confirmation_sound.stop()
+	_action_sound.stop()
 	_error_sound.stop()
 	_preview.texture = null
 	_preview.modulate = Color.WHITE

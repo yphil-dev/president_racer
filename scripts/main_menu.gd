@@ -100,6 +100,7 @@ func _ready() -> void:
 		vp.scaling_3d_scale = 1.0
 
 	for index in track_buttons.size():
+		track_buttons[index].set_meta(&"honk_on_press", true)
 		track_buttons[index].pressed.connect(_launch_track.bind(index))
 
 	options_button.pressed.connect(_open_options)
@@ -175,8 +176,6 @@ func _select_button(index: int) -> void:
 	if _launching:
 		return
 
-	if index != _selected_index:
-		SceneTransition.play_selection_beep()
 	_selected_index = index
 	for button_index in selectable_buttons.size():
 		_animate_button(button_index, button_index == _selected_index)
@@ -311,7 +310,6 @@ func _open_options() -> void:
 		return
 
 	_launching = true
-	SceneTransition.play_selection_beep()
 	for button in selectable_buttons:
 		button.disabled = true
 
@@ -328,7 +326,6 @@ func _quit_game() -> void:
 		return
 
 	_launching = true
-	SceneTransition.play_selection_beep()
 	for button in selectable_buttons:
 		button.disabled = true
 

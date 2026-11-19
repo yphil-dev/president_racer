@@ -184,7 +184,7 @@ texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Soral"]
+[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Soral" unique_id=2017007618]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -286,7 +286,7 @@ texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/LePen"]
+[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/LePen" unique_id=85120423]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -388,7 +388,7 @@ texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Melenchon"]
+[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Melenchon" unique_id=1262457516]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -490,7 +490,7 @@ texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Macron"]
+[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Macron" unique_id=555764763]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -558,7 +558,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 24
-text = "Teddy Riner"
+text = "T. Riner"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -592,7 +592,7 @@ texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Riner"]
+[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Riner" unique_id=59244245]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -660,7 +660,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 24
-text = "Rima Hassan"
+text = "R. Hassan"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -694,7 +694,7 @@ texture = ExtResource("23_cpu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Rima"]
+[node name="FocusFrame" type="Panel" parent="Content/PilotGrid/Rima" unique_id=874422069]
 visible = false
 z_index = 10
 layout_mode = 1

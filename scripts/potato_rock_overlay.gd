@@ -25,7 +25,7 @@ func _ready() -> void:
 	roll.stream = ROLL_SOUND
 	roll.volume_db = -18.0
 	sprout.stream = SPROUT_SOUND
-	sprout.volume_db = -18.0
+	# sprout.volume_db = -24.0
 	potato_rock_label.modulate = Color(1, 1, 1, 0)
 	studio_label.modulate = Color(1, 1, 1, 0)
 	potato_rock_button.mouse_entered.connect(_show_studio_label)

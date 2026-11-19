@@ -21,11 +21,14 @@ func fade_in(duration: float = 2.4) -> void:
 	_fade_tween.tween_property(bar, "volume_db", TARGET_DB, duration)
 
 func fade_out_and_stop(duration: float = 1.0) -> void:
-	honk.play()
 	_kill_fade()
 	_fade_tween = create_tween()
 	_fade_tween.tween_property(bar, "volume_db", SILENT_DB, duration)
 	_fade_tween.tween_callback(bar.stop)
+
+func play_honk() -> void:
+	honk.stop()
+	honk.play()
 
 func play_result(player_won: bool) -> void:
 	victory.stop()
