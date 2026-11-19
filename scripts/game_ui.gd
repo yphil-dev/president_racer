@@ -208,7 +208,7 @@ func _animate_reorder(current_standings: Array) -> void:
 		if card != null:
 			list.move_child(card, index)
 
-	await get_tree().process_frame
+	await list.sort_children
 	if _results_active or generation != _reorder_generation:
 		return
 
