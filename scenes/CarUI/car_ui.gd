@@ -30,6 +30,13 @@ const CPU_ICON: Texture2D = preload("res://sprites/cpu.svg")
 var race_state: CarRaceState
 
 func _ready() -> void:
+	var name_settings := LabelSettings.new()
+	name_settings.font = name_label.get_theme_font("font")
+	name_settings.font_size = name_label.get_theme_font_size("font_size")
+	name_settings.font_color = name_label.get_theme_color("font_color")
+	name_settings.shadow_color = Color.BLACK
+	name_settings.shadow_offset = Vector2(0.8, 0.8)
+	name_label.label_settings = name_settings
 	resized.connect(_position_result_badge)
 
 func setup(state: CarRaceState) -> void:
@@ -101,7 +108,7 @@ func prepare_final_layout() -> void:
 	header.add_theme_constant_override("separation", 5)
 
 	rank_label.add_theme_font_size_override("font_size", 22)
-	name_label.add_theme_font_size_override("font_size", 22)
+	name_label.label_settings.font_size = 22
 	time_label.add_theme_font_size_override("font_size", 24)
 	status_label.add_theme_font_size_override("font_size", 18)
 	best_label.add_theme_font_size_override("font_size", 16)

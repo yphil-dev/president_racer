@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://hrrr76pejbwi" path="res://sprites/laps-loop.svg" id="2_laps"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.025, 0.03, 0.045, 0.7)
+bg_color = Color(0.023529412, 0.03137255, 0.043137256, 0.29411766)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1

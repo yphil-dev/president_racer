@@ -100,7 +100,7 @@ transform = Transform3D(0.707107, -0.40558, 0.579228, 0, 0.819152, 0.573576, -0.
 script = ExtResource("5_0lrhn")
 
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
-transform = Transform3D(0.95059645, -0.29441774, 0.09840706, 0.27148122, 0.94218934, 0.19641025, -0.15054464, -0.15999068, 0.9755715, 7.5279984, 9.74764, 38.4388)
+transform = Transform3D(0.9045203, -0.3899743, 0.17251827, 0.3472681, 0.90842575, 0.23273881, -0.24748212, -0.15060638, 0.9571159, 9.718477, 11.192758, 38.634773)
 attributes = SubResource("CameraAttributesPhysical_a8y0u")
 current = true
 fov = 37.849285

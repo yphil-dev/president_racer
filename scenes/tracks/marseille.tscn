@@ -116,7 +116,7 @@ directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 2.0
 
 [node name="Camera" type="Camera3D" parent="View" unique_id=1079798936]
-transform = Transform3D(0.76629645, -0.53314245, 0.35853618, 0.47159383, 0.8457329, 0.24966943, -0.43633524, -0.022236768, 0.8995096, 21.287733, 11.478874, 36.6232)
+transform = Transform3D(0.76629645, -0.53314245, 0.3585362, 0.47159386, 0.8457329, 0.2496694, -0.43633524, -0.022236692, 0.89950967, 17.02595, 9.034419, 40.114246)
 attributes = SubResource("CameraAttributesPhysical_a8y0u")
 current = true
 fov = 37.849285
