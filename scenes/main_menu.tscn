@@ -39,9 +39,10 @@ color = Color(0, 0, 0, 0.3)
 [node name="TrackGrid" type="GridContainer" parent="." unique_id=1645744087]
 layout_mode = 0
 offset_left = 139.0
-offset_top = 84.0
+offset_top = 69.0
 offset_right = 823.80005
-offset_bottom = 475.2
+offset_bottom = 460.2
+scale = Vector2(1.0417299, 1.0417299)
 theme_override_constants/h_separation = 32
 theme_override_constants/v_separation = 24
 columns = 2
@@ -318,17 +319,17 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -208.59998
+offset_left = -263.0
 offset_top = -54.399994
-offset_right = -6.5999756
+offset_right = -61.0
 offset_bottom = -6.4000244
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(101, 24)
 focus_neighbor_left = NodePath("../TrackGrid/Lyon")
 focus_neighbor_top = NodePath("../Quit")
-focus_neighbor_right = NodePath("../TrackGrid/Limoges")
-focus_neighbor_bottom = NodePath("../TrackGrid/Marseille")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Quit")
 theme_type_variation = &"CompactButton"
 
 [node name="Shade" type="ColorRect" parent="Options" unique_id=1233481440]
@@ -400,16 +401,16 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -55.599976
-offset_top = -110.399994
+offset_top = -55.0
 offset_right = -7.5999756
-offset_bottom = -62.399994
+offset_bottom = -7.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(24, 24)
-focus_neighbor_left = NodePath("../TrackGrid/Lyon")
+focus_neighbor_left = NodePath("../Options")
 focus_neighbor_top = NodePath("../TrackGrid/Lyon")
 focus_neighbor_right = NodePath("../Options")
-focus_neighbor_bottom = NodePath("../Options")
+focus_neighbor_bottom = NodePath("../TrackGrid/Marseille")
 theme_type_variation = &"CompactButton"
 
 [node name="Icon" type="TextureRect" parent="Quit" unique_id=2016133169]
