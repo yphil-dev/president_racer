@@ -22,8 +22,8 @@ const REORDER_DURATION: float = 0.22
 
 var _cards_by_vehicle: Dictionary = {}
 var _active_cards: Array[CarUI] = []
-var _pending_standings: Array = []
-var _reorder_running: bool = false
+var _reorder_tween: Tween
+var _reorder_generation: int = 0
 var _results_active: bool = false
 var _restarting: bool = false
 var _controller: RaceController
@@ -180,14 +180,8 @@ func _on_standings_updated(current_standings: Array) -> void:
 		if card != null:
 			card.update_state(state)
 
-	if not _order_changed(current_standings):
-		return
-
-	if _reorder_running:
-		_pending_standings = current_standings.duplicate()
-		return
-
-	_animate_reorder(current_standings.duplicate())
+	if _order_changed(current_standings):
+		_animate_reorder(current_standings.duplicate())
 
 func _order_changed(current_standings: Array) -> bool:
 	for index in current_standings.size():
@@ -198,11 +192,15 @@ func _order_changed(current_standings: Array) -> bool:
 	return false
 
 func _animate_reorder(current_standings: Array) -> void:
-	_reorder_running = true
-	var old_positions: Dictionary = {}
-
+	_reorder_generation += 1
+	var generation: int = _reorder_generation
+	var current_positions: Dictionary = {}
 	for card in _active_cards:
-		old_positions[card] = card.global_position
+		current_positions[card] = card.global_position
+
+	if _reorder_tween != null and _reorder_tween.is_valid():
+		_reorder_tween.kill()
+	_reorder_tween = null
 
 	for index in current_standings.size():
 		var state := current_standings[index] as CarRaceState
@@ -211,31 +209,30 @@ func _animate_reorder(current_standings: Array) -> void:
 			list.move_child(card, index)
 
 	await get_tree().process_frame
-	if _results_active:
-		_reorder_running = false
-		_pending_standings.clear()
+	if _results_active or generation != _reorder_generation:
 		return
 
-	var tween := create_tween()
-	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_QUART)
-	tween.set_ease(Tween.EASE_OUT)
+	_reorder_tween = create_tween()
+	_reorder_tween.set_parallel(true)
+	_reorder_tween.set_trans(Tween.TRANS_QUART)
+	_reorder_tween.set_ease(Tween.EASE_OUT)
 
 	for card in _active_cards:
 		var target_position := card.global_position
-		card.global_position = old_positions[card]
-		tween.tween_property(card, "global_position", target_position, REORDER_DURATION)
-
-	await tween.finished
-	_reorder_running = false
-
-	if not _pending_standings.is_empty():
-		var pending := _pending_standings.duplicate()
-		_pending_standings.clear()
-		_on_standings_updated(pending)
+		card.global_position = current_positions[card]
+		_reorder_tween.tween_property(
+			card,
+			"global_position",
+			target_position,
+			REORDER_DURATION
+		)
 
 func _on_race_finished(final_standings: Array) -> void:
 	_results_active = true
+	_reorder_generation += 1
+	if _reorder_tween != null and _reorder_tween.is_valid():
+		_reorder_tween.kill()
+	_reorder_tween = null
 	for state_value in final_standings:
 		var state := state_value as CarRaceState
 		if state.vehicle != null:

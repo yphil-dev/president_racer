@@ -118,7 +118,7 @@ func _input(event: InputEvent) -> void:
 		and event.pressed
 		and not event.echo
 		and event.ctrl_pressed
-		and event.physical_keycode == KEY_Q
+		and event.keycode == KEY_Q
 	):
 		get_viewport().set_input_as_handled()
 		quit_game()
